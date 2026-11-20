@@ -1060,7 +1060,36 @@ class LongcatFlashNgramForCausalLMConfig(VerifyAndUpdateConfig):
             compilation_config.cudagraph_mode = CUDAGraphMode.FULL
 
 
+class Raon1MiniForCausalLMConfig(VerifyAndUpdateConfig):
+    @staticmethod
+    def verify_and_update_model_config(model_config):
+        from vllm.platforms import current_platform
+
+        if not current_platform.is_rocm():
+            raise RuntimeError("This Raon profile is ROCm-only")
+        hf = model_config.hf_config
+        quant = getattr(hf, "quantization_config", None)
+        if quant is not None:
+            if quant.get("quant_method") != "mxfp8" or quant.get(
+                "weight_block_size"
+            ) != [1, 32]:
+                raise ValueError("Preserve the released expert-only MXFP8 format")
+            hf.raon_expert_quantization = dict(quant)
+            del hf.quantization_config
+            model_config.model_arch_config.quantization_config = None
+
+    @staticmethod
+    def verify_and_update_config(vllm_config):
+        from vllm.models.raon1_mini.mxfp8_loader import validate_compact_loading
+
+        validate_compact_loading()
+        vllm_config.kernel_config.moe_backend = "triton"
+        if vllm_config.speculative_config is not None:
+            vllm_config.speculative_config.draft_sample_method = "probabilistic"
+
+
 MODELS_CONFIG_MAP: dict[str, type[VerifyAndUpdateConfig]] = {
+    "Raon1MiniForCausalLM": Raon1MiniForCausalLMConfig,
     "ColBERTJinaRobertaModel": JinaRobertaModelConfig,
     "ColQwen3_5": ColQwen3_5Config,
     "DeepseekV4ForCausalLM": DeepseekV4ForCausalLMConfig,

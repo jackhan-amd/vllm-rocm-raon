@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+# Source this profile before starting Python when installing the fork manually.
+export VLLM_ROCM_USE_AITER=1
+export VLLM_USE_DEEP_GEMM=0
+export VLLM_MOE_SKIP_PADDING=0
+export RAON_KDA_DECODE_GRAPH=0
+export RAON_KDA_PREFILL=fused
+export RAON_KDA_DECODE=fused
+export RAON_MHC_PHI_GEMM_DIRECT=0
+export RAON_MOE_OUTER_GRAPH=0
+export RAON_MOE_SHARED_SIDE_STREAM=0
+export RAON_MOE_EXPERT_MXFP8_REALIZED=1
+export RAON_MOE_TRAINER_REALIZED=1
+export RAON_MOE_MXFP8_W8A8_TRITON=1
+export RAON_MOE_MXFP8_W8A8_GEMM_MODE=0
+export RAON_MOE_MXFP8_W8A8_FINALIZE=0
+export RAON_MOE_MXFP8_SHADOW=0
+export RAON_MXFP8_MIN_M=0
+export RAON_PREFILL_ALIGNED=0
+export RAON_MXFP8_COMPACT_LOAD=1
+export RAON_MLA_MXFP8_REALIZED=0
+export RAON_MOE_SHARED_MXFP8_REALIZED=0
+export RAON_MOE_FP32_COMBINE=0

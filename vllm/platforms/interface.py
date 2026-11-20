@@ -785,6 +785,12 @@ class Platform:
         pre_block_size = cache_config.block_size
         if model_config.is_hybrid:
             cls._align_hybrid_block_size(vllm_config, backend_classes[0])
+            if model_config.hf_config.model_type == "raon1_mini":
+                from vllm.models.raon1_mini.dflash_cache_alignment import (
+                    align_draft_pages,
+                )
+
+                align_draft_pages(cls, vllm_config, backend_classes[0])
 
         # Phase 3: Align block/page sizes when multiple KV dtypes share the
         # block pool (e.g. nvfp4 primary + unquantized skip layers).

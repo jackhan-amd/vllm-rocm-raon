@@ -1,0 +1,31 @@
+{
+  "scope": "Experimental source snapshot, not an upstream-ready PR",
+  "runtime_base_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+  "runtime_functional_ast_parity": {
+    "files": 63,
+    "status": "PASS",
+    "normalization": "Ignore docstrings and formatting; preserve imports and executable AST"
+  },
+  "model_smoke": {
+    "source": "Original immutable evaluation runtime",
+    "sd_off": "4/4 natural EOS with correct task content",
+    "sd_on": "4/4 natural EOS with correct task content",
+    "generation_budget": "262144 minus actual input token count",
+    "ignore_eos": false,
+    "min_tokens": 0
+  },
+  "mmlu_pro": {
+    "status": "IN_PROGRESS",
+    "total_questions_per_profile": 12032,
+    "full_quality_acceptance": "NOT_ESTABLISHED"
+  },
+  "docker_helpers_ruff": "PASS",
+  "dockerfile_syntax": "PASS",
+  "new_image_gpu_validation": "NOT_RUN",
+  "full_upstream_precommit": "NOT_PASSING",
+  "remaining_checks": [
+    "Imported preview-model Ruff and API-policy findings",
+    "Windows Node/npm certificate failure during full hook bootstrap",
+    "Full model quality evaluation is incomplete"
+  ]
+}

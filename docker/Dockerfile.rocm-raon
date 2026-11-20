@@ -1,0 +1,34 @@
+# Latest published ROCm vLLM image, resolved 2026-11-21; no mutable latest tag.
+ARG BASE_IMAGE=docker.io/rocm/vllm@sha256:380efeed0d5fa65fc044253adc1ce53a04907d1202b30fb36e175370ee39a003
+FROM ${BASE_IMAGE} AS raon
+
+ARG VCS_REF=unknown
+LABEL org.opencontainers.image.source="https://github.com/jackhan-amd/vllm-rocm-raon" \
+  org.opencontainers.image.revision="${VCS_REF}" \
+  ai.raon.rocm.sdk="10.2.0" \
+  ai.raon.aiter.ref="cfd296392661bee433a83e444faf9a52b8173153" \
+  ai.raon.flydsl.version="0.5.0"
+
+RUN uv venv --system-site-packages --seed /opt/raon/.venv
+ENV VIRTUAL_ENV=/opt/raon/.venv \
+  PATH="/opt/raon/.venv/bin:${PATH}" \
+  GPU_ARCHS=gfx950 \
+  MAX_JOBS=4 \
+  AITER_USE_SYSTEM_TRITON=1 \
+  AITER_JIT_DIR=/var/cache/aiter \
+  TRITON_CACHE_DIR=/var/cache/triton \
+  VLLM_CACHE_ROOT=/var/cache/vllm
+
+COPY docker/raon/pins.json docker/raon/apply_upgrade.py docker/raon/capture_runtime.py /opt/raon-library-patch/
+RUN /opt/raon/.venv/bin/python /opt/raon-library-patch/apply_upgrade.py
+
+COPY vllm /tmp/raon-source/vllm
+COPY docker/raon/overlay-files.json /tmp/raon-source/docker/raon/overlay-files.json
+COPY docker/raon/install_overlay.py docker/raon/runtime-env.sh docker/raon/entrypoint.sh /opt/raon/
+COPY examples/offline_inference/raon_rocm_smoke.py /opt/raon/smoke.py
+RUN /opt/raon/.venv/bin/python /opt/raon/install_overlay.py /tmp/raon-source \
+  && chmod +x /opt/raon/entrypoint.sh \
+  && mkdir -p /var/cache/aiter /var/cache/triton /var/cache/vllm
+
+ENTRYPOINT ["/opt/raon/entrypoint.sh"]
+CMD ["--help"]

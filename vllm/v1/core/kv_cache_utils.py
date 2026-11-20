@@ -2794,3 +2794,25 @@ def resolve_block_hashes(
         return block_hashes
     assert block_size % hash_block_size == 0
     return BlockHashListWithBlockSize(block_hashes, hash_block_size, block_size)
+
+
+_raon_original_unify_kv_cache_spec_page_size = unify_kv_cache_spec_page_size
+
+
+def unify_kv_cache_spec_page_size(kv_cache_spec):
+    import dataclasses as _dc
+    import json as _json
+    from pathlib import Path as _Path
+
+    if _Path("/evidence").is_dir():
+        _values = {}
+        for _name, _spec in kv_cache_spec.items():
+            _data = _dc.asdict(_spec) if _dc.is_dataclass(_spec) else {}
+            _data.update(
+                type=type(_spec).__name__, page_size_bytes=_spec.page_size_bytes
+            )
+            _values[_name] = _data
+        _Path("/evidence/kv-cache-specs.json").write_text(
+            _json.dumps(_values, indent=2, default=str)
+        )
+    return _raon_original_unify_kv_cache_spec_page_size(kv_cache_spec)

@@ -635,6 +635,16 @@ class Attention(nn.Module, AttentionLayerBase):
             # cannot run the primary block start from their smallest block and
             # ``unify`` scales it up by an integer ratio.
             shared_page = vllm_config.cache_config.skip_page_size_padded
+            raon_page = None
+            if (
+                vllm_config.model_config.hf_config.model_type == "raon1_mini"
+                and vllm_config.speculative_config is not None
+                and vllm_config.speculative_config.method == "dflash"
+            ):
+                raon_page = vllm_config.cache_config.mamba_page_size_padded
+                if raon_page is not None:
+                    shared_page = raon_page
+
             # The backend owns its packing
             kv_cache_spec = self.attn_backend.customize_spec(
                 SlidingWindowSpec(
@@ -664,7 +674,12 @@ class Attention(nn.Module, AttentionLayerBase):
                 dtype=self.kv_cache_torch_dtype,
                 kv_quant_mode=quant_mode,
                 sliding_window=self.sliding_window,
-                page_size_padded=shared_page,
+                page_size_padded=(
+                    None
+                    if raon_page is not None
+                    and sw_per_token * sw_block_size == raon_page
+                    else shared_page
+                ),
             )
         else:
             return FullAttentionSpec(

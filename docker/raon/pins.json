@@ -1,0 +1,58 @@
+{
+    "checked_utc":  "2026-11-20T23:10:00Z",
+    "base_image":  "rocm/vllm:rocm10.2.0_ubuntu24.04_py3.14-pytorch_2.14.0_vllm-0.32.0",
+    "base_digest":  "sha256:380efeed0d5fa65fc044253adc1ce53a04907d1202b30fb36e175370ee39a003",
+    "aiter_release":  "v0.1.29.post1",
+    "aiter_commit":  "cfd296392661bee433a83e444faf9a52b8173153",
+    "aiter_wheels_cp314_rocm102":  [
+
+                                   ],
+    "flydsl_version":  "0.5.0",
+    "flydsl_cp314_wheels":  [
+                                {
+                                    "filename":  "flydsl-0.5.0-cp314-cp314-manylinux_2_27_x86_64.whl",
+                                    "url":  "https://files.pythonhosted.org/packages/e9/97/44f972c047a68f842a5a815592896787bb0c2812a7c5d80c4cda4f7e4e53/flydsl-0.5.0-cp314-cp314-manylinux_2_27_x86_64.whl",
+                                    "sha256":  "3654ba56aa36d9e2168ff5184ec9ffd8681afea0ee90d1ebbf87c4603529486a",
+                                    "size":  77331999
+                                }
+                            ],
+    "sources":  [
+                    {
+                        "path":  "setup.py",
+                        "url":  "https://raw.githubusercontent.com/ROCm/aiter/cfd296392661bee433a83e444faf9a52b8173153/setup.py",
+                        "local":  "aiter__setup.py",
+                        "sha256":  "ed8269ef4b91a482bea0531c254125906c16b01ae71c1df03cb242e5a4ae4308"
+                    },
+                    {
+                        "path":  "pyproject.toml",
+                        "url":  "https://raw.githubusercontent.com/ROCm/aiter/cfd296392661bee433a83e444faf9a52b8173153/pyproject.toml",
+                        "local":  "aiter__pyproject.toml",
+                        "sha256":  "6c2c964868884b37d5daa334a8188052c397417f0b1fee9ce329af35259207c2"
+                    },
+                    {
+                        "path":  "requirements.txt",
+                        "url":  "https://raw.githubusercontent.com/ROCm/aiter/cfd296392661bee433a83e444faf9a52b8173153/requirements.txt",
+                        "local":  "aiter__requirements.txt",
+                        "sha256":  "5699b9b19110e8e758a9daf1cd94324d9a47d1a5a94bedd04a0452ec01f603b8"
+                    },
+                    {
+                        "path":  "aiter/jit/core.py",
+                        "url":  "https://raw.githubusercontent.com/ROCm/aiter/cfd296392661bee433a83e444faf9a52b8173153/aiter/jit/core.py",
+                        "local":  "aiter__aiter__jit__core.py",
+                        "sha256":  "2dbcd1500a74103f21b92d171dff0a62567123477289bfa41989178ce4f5eda3"
+                    },
+                    {
+                        "path":  "README.md",
+                        "url":  "https://raw.githubusercontent.com/ROCm/aiter/cfd296392661bee433a83e444faf9a52b8173153/README.md",
+                        "local":  "aiter__README.md",
+                        "sha256":  "4e05eef82b196607932a2febe5d125f37f8d1f233a09958ccff273aa5e2c754a"
+                    }
+                ],
+    "kimi_recipe":  "https://www.amd.com/en/developer/resources/technical-articles/2026/kimi-k3-1-pro-on-amd-instinct-gpus.html",
+    "status":  "LATEST_RELEASES_RESOLVED_BUILD_PENDING",
+    "build_packages":  {
+                           "setuptools-scm":  "10.3.4",
+                           "vcs-versioning":  "2.6.0",
+                           "wheel":  "0.48.0"
+                       }
+}

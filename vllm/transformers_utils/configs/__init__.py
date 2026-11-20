@@ -168,3 +168,6 @@ def __getattr__(name: str):
 
 def __dir__():
     return sorted(list(__all__))
+
+
+from .raon1_mini import Raon1MiniConfig

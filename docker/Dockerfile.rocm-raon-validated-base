@@ -1,0 +1,26 @@
+# Reuse the immutable AITER/FlyDSL stack used by the MI355X evaluation.
+ARG BASE_IMAGE=docker.io/hanjack/vllm-rocm@sha256:5a8538fae062972149a2b278b45f6bf02549989a848e0f6f90fff02ceec92bf7
+FROM ${BASE_IMAGE} AS raon
+
+ARG VCS_REF=unknown
+LABEL org.opencontainers.image.source="https://github.com/jackhan-amd/vllm-rocm-raon" \
+  org.opencontainers.image.revision="${VCS_REF}" \
+  ai.raon.stack="mi355x-evaluation-base"
+
+RUN uv venv --system-site-packages --seed /opt/raon/.venv
+ENV VIRTUAL_ENV=/opt/raon/.venv \
+  PATH="/opt/raon/.venv/bin:${PATH}" \
+  AITER_JIT_DIR=/var/cache/aiter \
+  TRITON_CACHE_DIR=/var/cache/triton \
+  VLLM_CACHE_ROOT=/var/cache/vllm
+
+COPY vllm /tmp/raon-source/vllm
+COPY docker/raon/overlay-files.json /tmp/raon-source/docker/raon/overlay-files.json
+COPY docker/raon/install_overlay.py docker/raon/runtime-env.sh docker/raon/entrypoint.sh /opt/raon/
+COPY examples/offline_inference/raon_rocm_smoke.py /opt/raon/smoke.py
+RUN /opt/raon/.venv/bin/python /opt/raon/install_overlay.py /tmp/raon-source \
+  && chmod +x /opt/raon/entrypoint.sh \
+  && mkdir -p /var/cache/aiter /var/cache/triton /var/cache/vllm
+
+ENTRYPOINT ["/opt/raon/entrypoint.sh"]
+CMD ["--help"]

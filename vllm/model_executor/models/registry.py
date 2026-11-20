@@ -70,6 +70,7 @@ from .interfaces_base import (
 logger = init_logger(__name__)
 
 _TEXT_GENERATION_MODELS = {
+    "Raon1MiniForCausalLM": ("vllm.models.raon1_mini.model", "Raon1MiniForCausalLM"),
     # [Decoder-only]
     "AfmoeForCausalLM": ("afmoe", "AfmoeForCausalLM"),
     "ApertusForCausalLM": ("apertus", "ApertusForCausalLM"),
