@@ -9,7 +9,7 @@ LABEL org.opencontainers.image.source="https://github.com/jackhan-amd/vllm-rocm-
   ai.raon.aiter.ref="cfd296392661bee433a83e444faf9a52b8173153" \
   ai.raon.flydsl.version="0.5.0"
 
-RUN uv venv --system-site-packages --seed /opt/raon/.venv
+RUN uv venv --system-site-packages /opt/raon/.venv
 ENV VIRTUAL_ENV=/opt/raon/.venv \
   PATH="/opt/raon/.venv/bin:${PATH}" \
   GPU_ARCHS=gfx950 \

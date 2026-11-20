@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.source="https://github.com/jackhan-amd/vllm-rocm-
   org.opencontainers.image.revision="${VCS_REF}" \
   ai.raon.stack="mi355x-evaluation-base"
 
-RUN uv venv --system-site-packages --seed /opt/raon/.venv
+RUN uv venv --system-site-packages /opt/raon/.venv
 ENV VIRTUAL_ENV=/opt/raon/.venv \
   PATH="/opt/raon/.venv/bin:${PATH}" \
   AITER_JIT_DIR=/var/cache/aiter \
