@@ -15,17 +15,37 @@
     "min_tokens": 0
   },
   "mmlu_pro": {
-    "status": "IN_PROGRESS",
+    "status": "SD_OFF_IN_PROGRESS_SD_ON_INVALID",
+    "observed_utc": "2026-11-21T00:41:56Z",
     "total_questions_per_profile": 12032,
+    "sd_off": {
+      "completed": 493,
+      "correct": 423,
+      "partial_accuracy_percent": 85.80121703853956,
+      "natural_eos": 493,
+      "unparsed": 0,
+      "status": "CONTINUING_FROM_CHECKPOINTS"
+    },
+    "sd_on": {
+      "completed_before_stop": 117,
+      "correct_before_stop": 102,
+      "status": "INVALID_REPETITION_STOPPED",
+      "failure": "All 16 active questions repeated token ID 0 for tens of thousands of tokens",
+      "cause": "NOT_ESTABLISHED",
+      "automatic_continuation": false,
+      "full_quality_acceptance": "FAILED_TO_ESTABLISH"
+    },
     "full_quality_acceptance": "NOT_ESTABLISHED"
   },
   "docker_helpers_ruff": "PASS",
   "dockerfile_syntax": "PASS",
-  "new_image_gpu_validation": "NOT_RUN",
+  "new_image_gpu_validation": "Both published images passed 4-task GPU smoke in SD-off and SD-on modes; no full MMLU-Pro evaluation",
+  "published_images": "docker/raon/published-images.json",
   "full_upstream_precommit": "NOT_PASSING",
   "remaining_checks": [
     "Imported preview-model Ruff and API-policy findings",
     "Windows Node/npm certificate failure during full hook bootstrap",
+    "DFlash2 long-generation repeated-token failure remains unresolved",
     "Full model quality evaluation is incomplete"
   ]
 }

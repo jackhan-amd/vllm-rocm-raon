@@ -52,6 +52,18 @@ Build evidence is retained under `/opt/raon/build-evidence` and
 `/opt/raon-library-patch/build-evidence` when dependencies are rebuilt.
 Image construction alone does not validate GPU execution or model quality.
 
+Two built images are retained on Docker Hub. Both completed the four-task
+GPU smoke check with SD off and DFlash2; this is not a full quality pass.
+The long-generation DFlash2 failure described below remains unresolved.
+
+| Stack | Image tag in `docker.io/hanjack/vllm-rocm` | Source commit |
+| --- | --- | --- |
+| Latest pinned dependencies | `rocm10.2-raon-680cfcee1-lateststack-20261121` | `680cfcee1` |
+| Evaluation dependency stack | `rocm10.2-raon-a7653665e-evalbase-20261121` | `a7653665e` |
+
+Immutable image digests and the scope of validation are recorded in
+[`docker/raon/published-images.json`](docker/raon/published-images.json).
+
 ## Serve
 
 ```bash
@@ -77,7 +89,8 @@ For rootless Podman, add `--group-add=keep-groups` and use its supported
 device-access policy. Authenticate with Hugging Face first if model access
 requires it. Keep access tokens outside the image and Git repository.
 
-For DFlash2, add:
+For experimental DFlash2 diagnostics, add the following. Long MMLU-Pro
+generations have failed with repeated output; DFlash2 is not quality-validated.
 
 ```bash
 --speculative-config '{"method":"dflash","model":"KRAFTON/Raon-1-mini-preview-dflash2","revision":"164b3dda020f145a4650b3c050841e15250c2f77","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}'
@@ -100,7 +113,21 @@ The same four tasks are available in
 Pass `--draft KRAFTON/Raon-1-mini-preview-dflash2` for DFlash2.
 This checks natural termination; inspect the printed answers for correctness.
 
-MMLU-Pro evaluation is in progress for both modes. It uses five-shot CoT,
+At 2026-11-21 00:41 UTC, SD off had completed 493 of 12,032 MMLU-Pro questions:
+423 correct (85.80% on the completed subset), all with natural EOS and no
+unparsed answers. This partial score is not the full benchmark result.
+SD off continues across two-hour allocations with its original runtime.
+
+DFlash2 evaluation was stopped after all 16 active questions began emitting
+token ID 0 continuously for tens of thousands of tokens. Its 117 completed
+questions (102 correct) do not establish a valid quality result. The saved
+outputs are retained for diagnosis and are excluded from automatic continuation.
+The cause has not been established; the short smoke checks did not catch it.
+The failure was observed in the original immutable evaluation image, not a
+full MMLU-Pro run of either newly built image. The published integration has
+equivalent executable Python source, and neither image has a full quality pass.
+
+The evaluation uses five-shot CoT,
 thinking enabled, temperature 1, top-p 0.95, top-k 20 and presence penalty 1.5.
 Each request can use the remaining portion of the 262,144-token context,
 with `ignore_eos=False` and `min_tokens=0`. Completed questions are preserved

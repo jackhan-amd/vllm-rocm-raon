@@ -1,0 +1,47 @@
+{
+  "published_utc_date": "2026-11-21",
+  "registry_repository": "docker.io/hanjack/vllm-rocm",
+  "gpu": "AMD Instinct MI355X (gfx950)",
+  "tensor_parallel_size": 1,
+  "data_parallel_size": 1,
+  "images": [
+    {
+      "flavor": "lateststack",
+      "tag": "rocm10.2-raon-680cfcee1-lateststack-20261121",
+      "digest": "sha256:271af5dfa3c6df4739f95e0a76b29f77cef625444d02956a2ae535b3ce4b37a1",
+      "source_commit": "680cfcee1fd538a3eaf857e73a083d2ed5615406",
+      "dockerfile": "docker/Dockerfile.rocm-raon",
+      "base_digest": "sha256:380efeed0d5fa65fc044253adc1ce53a04907d1202b30fb36e175370ee39a003",
+      "aiter_version": "0.1.29.post1",
+      "aiter_commit": "cfd296392661bee433a83e444faf9a52b8173153",
+      "flydsl_version": "0.5.0",
+      "registry_push": "PASS",
+      "cli_help": "PASS",
+      "gpu_smoke_sd_off": "4/4 natural EOS with correct task content",
+      "gpu_smoke_sd_on": "4/4 natural EOS with correct task content",
+      "full_mmlu_pro": "NOT_RUN"
+    },
+    {
+      "flavor": "evalbase",
+      "tag": "rocm10.2-raon-a7653665e-evalbase-20261121",
+      "digest": "sha256:72397a7076380bcb31386046696072dc1f5d3f8abe5fa2870c27c3c78bae7b47",
+      "source_commit": "a7653665e7e959df7c4206e19e28869ecda4949d",
+      "dockerfile": "docker/Dockerfile.rocm-raon-validated-base",
+      "base_digest": "sha256:5a8538fae062972149a2b278b45f6bf02549989a848e0f6f90fff02ceec92bf7",
+      "aiter_version": "0.1.29.post1",
+      "aiter_commit": "cfd296392661bee433a83e444faf9a52b8173153",
+      "flydsl_version": "0.5.0",
+      "registry_push": "PASS",
+      "cli_help": "PASS",
+      "gpu_smoke_sd_off": "4/4 natural EOS with correct task content",
+      "gpu_smoke_sd_on": "4/4 natural EOS with correct task content",
+      "full_mmlu_pro": "NOT_RUN"
+    }
+  ],
+  "quality_limitations": [
+    "Four short smoke tasks do not establish long-generation or benchmark quality",
+    "The original evaluation runtime produced repeated token ID 0 in all 16 active DFlash2 requests; SD-on evaluation was stopped",
+    "The published runtime files preserve executable AST equivalence with that evaluation runtime",
+    "The SD-on failure cause is not established and neither image has a full quality pass"
+  ]
+}
