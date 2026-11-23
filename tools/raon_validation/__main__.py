@@ -20,6 +20,7 @@ def main():
             "rollback",
             "stress",
             "sampler",
+            "sampler-gold",
             "model",
             "mla",
             "teacher",
@@ -96,6 +97,8 @@ def main():
             from .rda import run
         elif args.command == "sampler":
             from .sampler import run
+        elif args.command == "sampler-gold":
+            from .sampler_gold import run
         elif args.command == "mla":
             from .mla import run
         elif args.command == "replay":

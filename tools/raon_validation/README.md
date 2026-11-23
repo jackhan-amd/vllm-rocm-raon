@@ -13,6 +13,7 @@ Torch/vLLM/native extensions available; no model download is performed.
 | `stress` | Repeat the rollback checks for 1,024 rounds per draft length by default |
 | `mla` | FP8 MLA query lengths 1/2/4/8, shuffled KV indices and causal masks against dense FP32 attention of the same dequantized inputs |
 | `sampler` | Legacy and actual V2 rejection samplers, including standard/block verification; every greedy rejection position and bonus token; IID two-token joint distributions including equal/disjoint supports and zero probabilities |
+| `sampler-gold` | V2 accept/reject length and emitted tokens versus independent Torch probability-space math with identical supplied random draws |
 | `model` | Real eager inference with finite-value checks on live RDA inputs/output, decoder output, target/draft logits and rejection-sampler inputs; optional greedy prefix comparison |
 | `teacher` | Fixed accepted prefix, full vocabulary raw logits and per-layer hidden vectors versus AR; optional forced rejection/all-acceptance positions |
 | `replay` | Captured finite Q/KV and semantic CSR inputs versus dense FP32 attention, repeat stability, and H48/H64 dispatch without model loading |
@@ -26,6 +27,7 @@ From the repository root in an installed development environment:
 .venv/bin/python -m tools.raon_validation stress --rounds 1024 --output evidence/stress.json
 .venv/bin/python -m tools.raon_validation mla --output evidence/mla.json
 .venv/bin/python -m tools.raon_validation sampler --samples 65536 --output evidence/sampler.json
+.venv/bin/python -m tools.raon_validation sampler-gold --output evidence/sampler-gold.json
 ```
 
 Numerical gates are declared before execution: BF16 RDA/convolution use
@@ -186,6 +188,63 @@ recurrent kernel for AR and fixes recurrent launch settings for both paths.
 Neither is a recommended serving change. `--torch-gold` requires the production
 RDA and AITER MLA paths. Those trials did not improve raw-logit agreement.
 
+## SD verifier and resampler gold
+
+```bash
+.venv/bin/python -m tools.raon_validation sampler-gold \
+  --output evidence/sampler-gold.json
+```
+
+`sampler-gold` directly checks accepted lengths and every emitted token,
+including rejection recovery and the bonus token, against independent Torch
+FP64 probability-space equations. It covers standard and block verification,
+draft lengths 1/3/7, temperatures 0/0.7/1.3, both native Gumbel precision modes,
+full and one-hot proposal distributions, equal distributions, every forced
+rejection position, placeholders, ragged draft lengths including zero, and
+shuffled persistent request-state indices with unused slots poisoned by NaNs.
+An additional sparse 16-candidate proposal matches DFlash2's sparse cache shape.
+Vocabulary sizes 33/8,209/259,840 exercise small, multi-block and real-model
+vocabulary reductions.
+
+The production RNG helpers supply the same uniforms/Gumbel draws to both
+implementations; the oracle does not share the verifier's probability,
+acceptance, residual or token-selection implementation. RNG correctness itself
+is outside this test. No tolerance or mismatch exclusion is applied to accepted
+counts and emitted token IDs. The 2026-11-23 run passed all 648 conditions and
+60,480 requests with zero count or token mismatches. See
+[the full verifier record](results/sampler-gold-20261123.json).
+Draft-model generation, scheduler/cache history, watermarking and upstream
+logit processing remain separate checks.
+
+## Bounded SD configuration timings
+
+`python -m tools.raon_validation.benchmark --help` exposes a separate offline
+engine timing tool. It does not install numerical guards or replace outputs.
+It warms each batch shape, records two measured repetitions by default,
+retains accepted output IDs and emission events, and snapshots native SD
+proposal/acceptance counters before and after each point. Its default points
+are concurrency 1/16 with a 512-token cap; EOS is honored. Prompt identity,
+observed output lengths and stop reasons must accompany comparisons.
+
+These are offline queue-to-output timings, not HTTP latency or quality scores.
+Natural EOS can produce different output lengths even with the same inputs;
+report the lengths and repetition spread alongside throughput/TTFT/TPOT.
+Benchmark results do not establish semantic quality or a universally optimal
+SD configuration. Existing AR evaluation is kept separate.
+
+`--requests 64 --concurrencies 16 32 64` uses the same 64 requests at every
+point, admitting a new request when one finishes. The engine's maximum sequence
+count is the largest requested concurrency. In the measured MI355X run, the
+SD7/probabilistic/standard profile achieved median output rates of
+641/915/1,487 tokens/s at those concurrencies (two repetitions, same GPU).
+Pooled request p50 offline TTFT was 130/295/1,051 ms; p50 TPOT was
+21.7/23.0/23.0 ms. These are throughput/latency tradeoffs on this closed-loop
+workload, not an HTTP SLA. On the separate 16-request timing workload, SD1/3,
+greedy drafting and block verification did not improve throughput robustly
+over SD7/probabilistic/standard. Natural EOS changed observed output lengths;
+the raw lengths and repetition spread are retained in
+[the measurement record](results/sd-performance-20261123.json).
+
 ## Experimental MLA workaround
 
 On the tested gfx950 AITER build, real H40 padded to H48 at query length two
@@ -200,7 +259,8 @@ export VLLM_ROCM_AITER_MLA_PAD_H40_TO_64=1
 Set it before starting the engine. It changes decode metadata and query
 padding together; FP8 prefill keeps its separate H48 path. It uses existing
 AITER kernels and requires no hipify or compiler change. It is disabled by
-default. `model/teacher --mla-heads 64` enables this actual vLLM option and
+default in generic vLLM; this fork's dedicated Raon runtime profile enables it.
+`model/teacher --mla-heads 64` enables this actual vLLM option and
 refuses to run if the patch is missing. Other head counts are unchanged.
 The workaround is not an SD correctness or model-quality acceptance: the
 teacher-forced raw-logit comparison still fails. See

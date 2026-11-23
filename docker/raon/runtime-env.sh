@@ -2,6 +2,8 @@
 # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
 # Source this profile before starting Python when installing the fork manually.
 export VLLM_ROCM_USE_AITER=1
+# Tested H40 decode route: avoid the allocation-sensitive FP8 H48 Q2 path.
+export VLLM_ROCM_AITER_MLA_PAD_H40_TO_64=1
 export VLLM_USE_DEEP_GEMM=0
 export VLLM_MOE_SKIP_PADDING=0
 export RAON_KDA_DECODE_GRAPH=0

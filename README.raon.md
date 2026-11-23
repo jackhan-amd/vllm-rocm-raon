@@ -89,8 +89,8 @@ For rootless Podman, add `--group-add=keep-groups` and use its supported
 device-access policy. Authenticate with Hugging Face first if model access
 requires it. Keep access tokens outside the image and Git repository.
 
-For experimental DFlash2 diagnostics, add the following. Long MMLU-Pro
-generations have failed with repeated output; DFlash2 is not quality-validated.
+For experimental DFlash2, add the following. The patched path passes the
+component and long-generation checks below; full quality evaluation is ongoing.
 
 ```bash
 --speculative-config '{"method":"dflash","model":"KRAFTON/Raon-1-mini-preview-dflash2","revision":"164b3dda020f145a4650b3c050841e15250c2f77","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}'
@@ -109,11 +109,11 @@ quality evaluation and performance measurements.
 
 On 2026-11-23, the MI355X component checks passed 8 RDA arithmetic cases,
 30 rollback cases, 3,072 repeated state-update cases and 36 legacy/V2 sampler
-cases. Full-model SD correctness is **not established**: native FP8 MLA Q2/H48
-produced a NaN, and teacher-forced raw logits exceed the diagnostic tolerance.
-The opt-in `VLLM_ROCM_AITER_MLA_PAD_H40_TO_64=1` avoids the unstable H48
-dispatch in the tested captured-input replay; it does not resolve every SD
-failure. A separate draft layer-25 NaN was traced to expired SWA cache
+cases. Native FP8 MLA Q2/H48 produced a NaN, and teacher-forced AR/SD raw logits
+exceed the diagnostic tolerance after the initially matching position. The
+`VLLM_ROCM_AITER_MLA_PAD_H40_TO_64=1` workaround avoids the unstable H48
+dispatch in the tested captured-input replay and is enabled by the dedicated
+Raon runtime profile. A separate draft layer-25 NaN was traced to expired SWA cache
 values contaminating the ROCm prefix-prefill value reduction. The prefix
 kernel now skips/masks those loads; the actual captured-input replay and
 eight regression cases pass. Post-fix SD 1/3/7 subsequently completed 160/160
@@ -125,6 +125,22 @@ differences, independent full-history correctness and quality evaluation
 remain separate questions. Numerical criteria are recorded with the
 [diagnostic tools](tools/raon_validation/README.md). The Dockerfiles now include
 the tools and this option; existing published image digests predate them.
+
+The SD verifier/resampler also passes independent Torch FP64 gold: all 648
+conditions and 60,480 requests have identical accepted counts and emitted
+tokens. Both implementations receive the same random draws; RNG generation,
+draft-model execution and scheduler history are outside this comparison.
+See the [complete record](tools/raon_validation/results/sampler-gold-20261123.json).
+
+Bounded offline timings retain SD7/probabilistic/standard: shortening to SD1/3,
+greedy drafting and block verification did not improve throughput robustly.
+On a separate closed-loop workload with the same 64 requests at every point,
+concurrency 16/32/64 achieved median 641/915/1,487 output tokens/s, with p50
+first-token times of 130/295/1,051 ms. This is a batching/latency tradeoff,
+measured twice on the same MI355X, with EOS honored and a 512-token timing cap.
+It is not a quality score or HTTP SLA. The
+[measurement record](tools/raon_validation/results/sd-performance-20261123.json)
+retains repetition spread and natural output lengths.
 
 Both SD off and DFlash2 completed the same four basic tasks with natural EOS:
 multiplication, the first eight primes with explanation, Korean translation,
@@ -147,10 +163,20 @@ DFlash2 evaluation was stopped after all 16 active questions began emitting
 token ID 0 continuously for tens of thousands of tokens. Its 117 completed
 questions (102 correct) do not establish a valid quality result. The saved
 outputs are retained for diagnosis and are excluded from automatic continuation.
-The cause has not been established; the short smoke checks did not catch it.
+The subsequent NaN diagnosis and fixes above were not present in that run;
+the short smoke checks did not catch it.
 The failure was observed in the original immutable evaluation image, not a
 full MMLU-Pro run of either newly built image. The published integration has
 equivalent executable Python source, and neither image has a full quality pass.
+
+On 2026-11-23, patched SD7/probabilistic/standard MMLU-Pro restarted from empty
+completion and prefix state on a spare GPU in the existing AR allocations
+(`quality-evaluation-v11`). It uses the same question/tokenizer manifest,
+five-shot protocol, precision, concurrency 16 and natural-EOS context limit.
+Its frozen runtime adds the validated MLA/SWA fixes. A controller checkpoints
+and resumes across the AR series' two-hour allocations without submitting
+additional jobs. The earlier invalid 117 questions are excluded. This new run
+is in progress; partial subsets do not establish the full quality score.
 
 The evaluation uses five-shot CoT,
 thinking enabled, temperature 1, top-p 0.95, top-k 20 and presence penalty 1.5.
@@ -179,4 +205,5 @@ tested fixes.
 
 `docker/raon/runtime-source-provenance.json` records the hashes of the Python
 files captured from the evaluated container before any repository formatting.
-The active evaluation keeps its original immutable image and input sources.
+The AR evaluation keeps its original immutable image and input sources; the
+fresh patched SD evaluation has a separate frozen input manifest and state.

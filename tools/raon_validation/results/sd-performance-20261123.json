@@ -1,0 +1,811 @@
+{
+  "collected_utc": "2026-11-23T08:43:21.476245+00:00",
+  "job": "86455",
+  "node": "TheraC93",
+  "gpu": 3,
+  "image": "docker.io/hanjack/vllm-rocm@sha256:5a8538fae062972149a2b278b45f6bf02549989a848e0f6f90fff02ceec92bf7",
+  "tp": 1,
+  "dp": 1,
+  "precision": {
+    "routed": "MXFP8 W8A8",
+    "other": "BF16",
+    "kv": "FP8 E4M3"
+  },
+  "scope": "Uninstrumented offline-engine timing; EOS honored; 512-token cap; not HTTP latency, model-quality score or formal performance acceptance",
+  "units": [
+    {
+      "unit": "sd-performance-v29",
+      "plan": {
+        "job": "86455",
+        "gpu": 3,
+        "target": "thera/mi355x",
+        "workload": {
+          "concurrencies": [
+            1,
+            16
+          ],
+          "repetitions": 2,
+          "output_cap": 512,
+          "ignore_eos": false,
+          "temperature": 1,
+          "top_p": 0.95,
+          "top_k": 20,
+          "presence_penalty": 1.5
+        },
+        "profiles": [
+          {
+            "id": "k7-prob-standard",
+            "k": 7,
+            "draft": "probabilistic",
+            "verify": "standard"
+          },
+          {
+            "id": "k3-prob-standard",
+            "k": 3,
+            "draft": "probabilistic",
+            "verify": "standard"
+          },
+          {
+            "id": "k1-prob-standard",
+            "k": 1,
+            "draft": "probabilistic",
+            "verify": "standard"
+          },
+          {
+            "id": "k7-greedy-standard",
+            "k": 7,
+            "draft": "greedy",
+            "verify": "standard"
+          },
+          {
+            "id": "k7-prob-block",
+            "k": 7,
+            "draft": "probabilistic",
+            "verify": "block"
+          }
+        ],
+        "objective": "Measure SD throughput/TTFT/TPOT and acceptance on identical GPU, prompt tokens and precision; no formal performance acceptance threshold supplied",
+        "shared_node_workload": "AR MMLU on GPU0 remains running"
+      },
+      "inventory_sha256": "c5463f1cf3280b89bba34392d20dc1cd7ee7d81ed0d5797e3593b12b2fa019d3",
+      "profiles": [
+        {
+          "id": "k1-prob-standard",
+          "status": "MEASURED",
+          "raw_sha256": "f00c504fe78fb37efea9d33cdc5948e9440da35bbd3dcd48c9fe489315047be4",
+          "environment": {
+            "torch": "2.14.0+rocm10.2.0",
+            "hip": "7.17.26434",
+            "gpu": "AMD Instinct MI355X",
+            "architecture": "gfx950:sramecc+:xnack-",
+            "visible_devices": "3",
+            "job": "86455",
+            "python": "/tmp/.venv/bin/python",
+            "pythonpath": "/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+            "platform": "RocmPlatform"
+          },
+          "prompt_sha256": {
+            "0": "3321d7a68417a2efa3c74adfda51ea0c93fcb2e20369dbf7c3f056f34b657d2e",
+            "1": "dee02585ce4ae120ce5a375e2a04e9a5c424dfb3d3d632474d0e7ce1c6dc8d60",
+            "2": "226ffe8f7d62aa9d0df0f6188e5abb542680050576a54a22f7249223e5e86b56",
+            "3": "4787ba862254f56c6986dd00c0a61e1383650b0293e39efe6ae923a8c226c56b",
+            "4": "e7ebbc6c08c0a0f8d47f401306deb8f4b0a8de9fed42c847a3f3238a96e601db",
+            "5": "58b427d294bf89bea7b9b913dc169487e54f7294de34317c1e2820d242750a5b",
+            "6": "0835188df8353649641ffe9f4b70adfd58f861e6b47e482696618c3fbcff2742",
+            "7": "b4723952a548199015c5747af2ea7ee2c837818a3a5ff72dc2740c25c2e8241b",
+            "8": "157a37a25d5add4801d12390685dc66973013fcbf65eec411ad1aca36837cee0",
+            "9": "d0245ed81e4774ceb9a65724cb207b463d5715905a3df7eaa99843db75df2992",
+            "10": "1a2c739564deeffde13bc877cf58a7eb2a1104d5db7eb04c4800477ca1954d81",
+            "11": "8820c5bfffdfd88a27b4bba45aea09bee0f22cbd44c146660233c7704874d30d",
+            "12": "fcb2258f3446b20a6c62e7bf18e816c788ca35511791b4d74f7a086baa385e40",
+            "13": "fd665a40bd0cf1980ddd2cd086db1b794deaac45191b2f224231cd4e74b9315a",
+            "14": "cbc01458535900371f20d9789a381afa44c56ea7239fa6bbebf5807c0a5ce621",
+            "15": "2e4e47a0bada48893e909e229a65026c18765ad89b3ce13b0d67bedef95861f5"
+          },
+          "points": [
+            {
+              "concurrency": 1,
+              "repetitions": 2,
+              "requests_per_repetition": [
+                1,
+                1
+              ],
+              "output_tokens": [
+                203,
+                203
+              ],
+              "output_tps": [
+                35.527880930134366,
+                35.50069815588101
+              ],
+              "median_output_tps": 35.51428954300769,
+              "p50_ttft_ms": 104.83436999493279,
+              "p50_tpot_ms": 27.77785232427788,
+              "accepted_fraction": [
+                0.6776859504132231,
+                0.6776859504132231
+              ],
+              "accepted_per_draft": [
+                0.6776859504132231,
+                0.6776859504132231
+              ],
+              "finish_reasons": {
+                "stop": 2
+              },
+              "zero_token_count": 0,
+              "all_finished": true
+            },
+            {
+              "concurrency": 16,
+              "repetitions": 2,
+              "requests_per_repetition": [
+                16,
+                16
+              ],
+              "output_tokens": [
+                6277,
+                6153
+              ],
+              "output_tps": [
+                350.79179120377046,
+                346.18968738817756
+              ],
+              "median_output_tps": 348.490739295974,
+              "p50_ttft_ms": 386.32614252856,
+              "p50_tpot_ms": 30.772571301373876,
+              "accepted_fraction": [
+                0.7165936473165389,
+                0.7022160664819944
+              ],
+              "accepted_per_draft": [
+                0.7165936473165389,
+                0.7022160664819944
+              ],
+              "finish_reasons": {
+                "stop": 17,
+                "length": 15
+              },
+              "zero_token_count": 0,
+              "all_finished": true
+            }
+          ]
+        },
+        {
+          "id": "k3-prob-standard",
+          "status": "MEASURED",
+          "raw_sha256": "9e66eaa7d399dc093aaa15de0e1e22a176c803a8848e8abd6e45718c1166760c",
+          "environment": {
+            "torch": "2.14.0+rocm10.2.0",
+            "hip": "7.17.26434",
+            "gpu": "AMD Instinct MI355X",
+            "architecture": "gfx950:sramecc+:xnack-",
+            "visible_devices": "3",
+            "job": "86455",
+            "python": "/tmp/.venv/bin/python",
+            "pythonpath": "/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+            "platform": "RocmPlatform"
+          },
+          "prompt_sha256": {
+            "0": "3321d7a68417a2efa3c74adfda51ea0c93fcb2e20369dbf7c3f056f34b657d2e",
+            "1": "dee02585ce4ae120ce5a375e2a04e9a5c424dfb3d3d632474d0e7ce1c6dc8d60",
+            "2": "226ffe8f7d62aa9d0df0f6188e5abb542680050576a54a22f7249223e5e86b56",
+            "3": "4787ba862254f56c6986dd00c0a61e1383650b0293e39efe6ae923a8c226c56b",
+            "4": "e7ebbc6c08c0a0f8d47f401306deb8f4b0a8de9fed42c847a3f3238a96e601db",
+            "5": "58b427d294bf89bea7b9b913dc169487e54f7294de34317c1e2820d242750a5b",
+            "6": "0835188df8353649641ffe9f4b70adfd58f861e6b47e482696618c3fbcff2742",
+            "7": "b4723952a548199015c5747af2ea7ee2c837818a3a5ff72dc2740c25c2e8241b",
+            "8": "157a37a25d5add4801d12390685dc66973013fcbf65eec411ad1aca36837cee0",
+            "9": "d0245ed81e4774ceb9a65724cb207b463d5715905a3df7eaa99843db75df2992",
+            "10": "1a2c739564deeffde13bc877cf58a7eb2a1104d5db7eb04c4800477ca1954d81",
+            "11": "8820c5bfffdfd88a27b4bba45aea09bee0f22cbd44c146660233c7704874d30d",
+            "12": "fcb2258f3446b20a6c62e7bf18e816c788ca35511791b4d74f7a086baa385e40",
+            "13": "fd665a40bd0cf1980ddd2cd086db1b794deaac45191b2f224231cd4e74b9315a",
+            "14": "cbc01458535900371f20d9789a381afa44c56ea7239fa6bbebf5807c0a5ce621",
+            "15": "2e4e47a0bada48893e909e229a65026c18765ad89b3ce13b0d67bedef95861f5"
+          },
+          "points": [
+            {
+              "concurrency": 1,
+              "repetitions": 2,
+              "requests_per_repetition": [
+                1,
+                1
+              ],
+              "output_tokens": [
+                80,
+                80
+              ],
+              "output_tps": [
+                48.15751563405364,
+                48.59496104547011
+              ],
+              "median_output_tps": 48.37623833976187,
+              "p50_ttft_ms": 104.02371999225579,
+              "p50_tpot_ms": 19.616036930436834,
+              "accepted_fraction": [
+                0.4411764705882353,
+                0.4411764705882353
+              ],
+              "accepted_per_draft": [
+                1.3235294117647058,
+                1.3235294117647058
+              ],
+              "finish_reasons": {
+                "stop": 2
+              },
+              "zero_token_count": 0,
+              "all_finished": true
+            },
+            {
+              "concurrency": 16,
+              "repetitions": 2,
+              "requests_per_repetition": [
+                16,
+                16
+              ],
+              "output_tokens": [
+                6253,
+                6226
+              ],
+              "output_tps": [
+                390.9273610305042,
+                421.283874381384
+              ],
+              "median_output_tps": 406.1056177059441,
+              "p50_ttft_ms": 385.45156648615375,
+              "p50_tpot_ms": 22.622955551386823,
+              "accepted_fraction": [
+                0.4614797864225782,
+                0.4580152671755725
+              ],
+              "accepted_per_draft": [
+                1.3844393592677346,
+                1.3740458015267176
+              ],
+              "finish_reasons": {
+                "stop": 15,
+                "length": 17
+              },
+              "zero_token_count": 0,
+              "all_finished": true
+            }
+          ]
+        },
+        {
+          "id": "k7-greedy-standard",
+          "status": "MEASURED",
+          "raw_sha256": "07e73826a7de3861effa0f040fbb897e649451eed838c5e30fffc89f9900780f",
+          "environment": {
+            "torch": "2.14.0+rocm10.2.0",
+            "hip": "7.17.26434",
+            "gpu": "AMD Instinct MI355X",
+            "architecture": "gfx950:sramecc+:xnack-",
+            "visible_devices": "3",
+            "job": "86455",
+            "python": "/tmp/.venv/bin/python",
+            "pythonpath": "/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+            "platform": "RocmPlatform"
+          },
+          "prompt_sha256": {
+            "0": "3321d7a68417a2efa3c74adfda51ea0c93fcb2e20369dbf7c3f056f34b657d2e",
+            "1": "dee02585ce4ae120ce5a375e2a04e9a5c424dfb3d3d632474d0e7ce1c6dc8d60",
+            "2": "226ffe8f7d62aa9d0df0f6188e5abb542680050576a54a22f7249223e5e86b56",
+            "3": "4787ba862254f56c6986dd00c0a61e1383650b0293e39efe6ae923a8c226c56b",
+            "4": "e7ebbc6c08c0a0f8d47f401306deb8f4b0a8de9fed42c847a3f3238a96e601db",
+            "5": "58b427d294bf89bea7b9b913dc169487e54f7294de34317c1e2820d242750a5b",
+            "6": "0835188df8353649641ffe9f4b70adfd58f861e6b47e482696618c3fbcff2742",
+            "7": "b4723952a548199015c5747af2ea7ee2c837818a3a5ff72dc2740c25c2e8241b",
+            "8": "157a37a25d5add4801d12390685dc66973013fcbf65eec411ad1aca36837cee0",
+            "9": "d0245ed81e4774ceb9a65724cb207b463d5715905a3df7eaa99843db75df2992",
+            "10": "1a2c739564deeffde13bc877cf58a7eb2a1104d5db7eb04c4800477ca1954d81",
+            "11": "8820c5bfffdfd88a27b4bba45aea09bee0f22cbd44c146660233c7704874d30d",
+            "12": "fcb2258f3446b20a6c62e7bf18e816c788ca35511791b4d74f7a086baa385e40",
+            "13": "fd665a40bd0cf1980ddd2cd086db1b794deaac45191b2f224231cd4e74b9315a",
+            "14": "cbc01458535900371f20d9789a381afa44c56ea7239fa6bbebf5807c0a5ce621",
+            "15": "2e4e47a0bada48893e909e229a65026c18765ad89b3ce13b0d67bedef95861f5"
+          },
+          "points": [
+            {
+              "concurrency": 1,
+              "repetitions": 2,
+              "requests_per_repetition": [
+                1,
+                1
+              ],
+              "output_tokens": [
+                164,
+                164
+              ],
+              "output_tps": [
+                52.014574255217966,
+                50.34891249896654
+              ],
+              "median_output_tps": 51.18174337709225,
+              "p50_ttft_ms": 115.68254602025263,
+              "p50_tpot_ms": 18.953300748438934,
+              "accepted_fraction": [
+                0.2729591836734694,
+                0.25862068965517243
+              ],
+              "accepted_per_draft": [
+                1.9107142857142858,
+                1.8103448275862069
+              ],
+              "finish_reasons": {
+                "stop": 2
+              },
+              "zero_token_count": 0,
+              "all_finished": true
+            },
+            {
+              "concurrency": 16,
+              "repetitions": 2,
+              "requests_per_repetition": [
+                16,
+                16
+              ],
+              "output_tokens": [
+                6723,
+                6651
+              ],
+              "output_tps": [
+                476.64437655841215,
+                523.802267863927
+              ],
+              "median_output_tps": 500.2233222111696,
+              "p50_ttft_ms": 385.8220420079306,
+              "p50_tpot_ms": 20.061265354166846,
+              "accepted_fraction": [
+                0.24230085450478867,
+                0.25133372851215174
+              ],
+              "accepted_per_draft": [
+                1.6961059815335207,
+                1.7593360995850622
+              ],
+              "finish_reasons": {
+                "stop": 15,
+                "length": 17
+              },
+              "zero_token_count": 0,
+              "all_finished": true
+            }
+          ]
+        },
+        {
+          "id": "k7-prob-block",
+          "status": "MEASURED",
+          "raw_sha256": "cd48175ca139d4e369ba3d5620579250ee6a30cd800abed05215b25adecf1940",
+          "environment": {
+            "torch": "2.14.0+rocm10.2.0",
+            "hip": "7.17.26434",
+            "gpu": "AMD Instinct MI355X",
+            "architecture": "gfx950:sramecc+:xnack-",
+            "visible_devices": "3",
+            "job": "86455",
+            "python": "/tmp/.venv/bin/python",
+            "pythonpath": "/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+            "platform": "RocmPlatform"
+          },
+          "prompt_sha256": {
+            "0": "3321d7a68417a2efa3c74adfda51ea0c93fcb2e20369dbf7c3f056f34b657d2e",
+            "1": "dee02585ce4ae120ce5a375e2a04e9a5c424dfb3d3d632474d0e7ce1c6dc8d60",
+            "2": "226ffe8f7d62aa9d0df0f6188e5abb542680050576a54a22f7249223e5e86b56",
+            "3": "4787ba862254f56c6986dd00c0a61e1383650b0293e39efe6ae923a8c226c56b",
+            "4": "e7ebbc6c08c0a0f8d47f401306deb8f4b0a8de9fed42c847a3f3238a96e601db",
+            "5": "58b427d294bf89bea7b9b913dc169487e54f7294de34317c1e2820d242750a5b",
+            "6": "0835188df8353649641ffe9f4b70adfd58f861e6b47e482696618c3fbcff2742",
+            "7": "b4723952a548199015c5747af2ea7ee2c837818a3a5ff72dc2740c25c2e8241b",
+            "8": "157a37a25d5add4801d12390685dc66973013fcbf65eec411ad1aca36837cee0",
+            "9": "d0245ed81e4774ceb9a65724cb207b463d5715905a3df7eaa99843db75df2992",
+            "10": "1a2c739564deeffde13bc877cf58a7eb2a1104d5db7eb04c4800477ca1954d81",
+            "11": "8820c5bfffdfd88a27b4bba45aea09bee0f22cbd44c146660233c7704874d30d",
+            "12": "fcb2258f3446b20a6c62e7bf18e816c788ca35511791b4d74f7a086baa385e40",
+            "13": "fd665a40bd0cf1980ddd2cd086db1b794deaac45191b2f224231cd4e74b9315a",
+            "14": "cbc01458535900371f20d9789a381afa44c56ea7239fa6bbebf5807c0a5ce621",
+            "15": "2e4e47a0bada48893e909e229a65026c18765ad89b3ce13b0d67bedef95861f5"
+          },
+          "points": [
+            {
+              "concurrency": 1,
+              "repetitions": 2,
+              "requests_per_repetition": [
+                1,
+                1
+              ],
+              "output_tokens": [
+                109,
+                109
+              ],
+              "output_tps": [
+                50.2622727356746,
+                50.53010467464256
+              ],
+              "median_output_tps": 50.39618870515858,
+              "p50_ttft_ms": 115.0877809850499,
+              "p50_tpot_ms": 18.96062463897073,
+              "accepted_fraction": [
+                0.2669172932330827,
+                0.2669172932330827
+              ],
+              "accepted_per_draft": [
+                1.868421052631579,
+                1.868421052631579
+              ],
+              "finish_reasons": {
+                "stop": 2
+              },
+              "zero_token_count": 0,
+              "all_finished": true
+            },
+            {
+              "concurrency": 16,
+              "repetitions": 2,
+              "requests_per_repetition": [
+                16,
+                16
+              ],
+              "output_tokens": [
+                6346,
+                6191
+              ],
+              "output_tps": [
+                460.00874601857726,
+                475.548406761245
+              ],
+              "median_output_tps": 467.7785763899111,
+              "p50_ttft_ms": 384.73822447122075,
+              "p50_tpot_ms": 20.148082681405548,
+              "accepted_fraction": [
+                0.2476804915514593,
+                0.2499365643237757
+              ],
+              "accepted_per_draft": [
+                1.733763440860215,
+                1.7495559502664297
+              ],
+              "finish_reasons": {
+                "stop": 13,
+                "length": 19
+              },
+              "zero_token_count": 0,
+              "all_finished": true
+            }
+          ]
+        },
+        {
+          "id": "k7-prob-standard",
+          "status": "MEASURED",
+          "raw_sha256": "5c74e20a708d5c60bbc8bfb8e67360d847783651231e654a21a4bb6fefe3dc2d",
+          "environment": {
+            "torch": "2.14.0+rocm10.2.0",
+            "hip": "7.17.26434",
+            "gpu": "AMD Instinct MI355X",
+            "architecture": "gfx950:sramecc+:xnack-",
+            "visible_devices": "3",
+            "job": "86455",
+            "python": "/tmp/.venv/bin/python",
+            "pythonpath": "/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+            "platform": "RocmPlatform"
+          },
+          "prompt_sha256": {
+            "0": "3321d7a68417a2efa3c74adfda51ea0c93fcb2e20369dbf7c3f056f34b657d2e",
+            "1": "dee02585ce4ae120ce5a375e2a04e9a5c424dfb3d3d632474d0e7ce1c6dc8d60",
+            "2": "226ffe8f7d62aa9d0df0f6188e5abb542680050576a54a22f7249223e5e86b56",
+            "3": "4787ba862254f56c6986dd00c0a61e1383650b0293e39efe6ae923a8c226c56b",
+            "4": "e7ebbc6c08c0a0f8d47f401306deb8f4b0a8de9fed42c847a3f3238a96e601db",
+            "5": "58b427d294bf89bea7b9b913dc169487e54f7294de34317c1e2820d242750a5b",
+            "6": "0835188df8353649641ffe9f4b70adfd58f861e6b47e482696618c3fbcff2742",
+            "7": "b4723952a548199015c5747af2ea7ee2c837818a3a5ff72dc2740c25c2e8241b",
+            "8": "157a37a25d5add4801d12390685dc66973013fcbf65eec411ad1aca36837cee0",
+            "9": "d0245ed81e4774ceb9a65724cb207b463d5715905a3df7eaa99843db75df2992",
+            "10": "1a2c739564deeffde13bc877cf58a7eb2a1104d5db7eb04c4800477ca1954d81",
+            "11": "8820c5bfffdfd88a27b4bba45aea09bee0f22cbd44c146660233c7704874d30d",
+            "12": "fcb2258f3446b20a6c62e7bf18e816c788ca35511791b4d74f7a086baa385e40",
+            "13": "fd665a40bd0cf1980ddd2cd086db1b794deaac45191b2f224231cd4e74b9315a",
+            "14": "cbc01458535900371f20d9789a381afa44c56ea7239fa6bbebf5807c0a5ce621",
+            "15": "2e4e47a0bada48893e909e229a65026c18765ad89b3ce13b0d67bedef95861f5"
+          },
+          "points": [
+            {
+              "concurrency": 1,
+              "repetitions": 2,
+              "requests_per_repetition": [
+                1,
+                1
+              ],
+              "output_tokens": [
+                139,
+                164
+              ],
+              "output_tps": [
+                47.57847245677856,
+                53.495122066640576
+              ],
+              "median_output_tps": 50.536797261709566,
+              "p50_ttft_ms": 113.36841550655663,
+              "p50_tpot_ms": 19.230125086580653,
+              "accepted_fraction": [
+                0.23180592991913745,
+                0.2729591836734694
+              ],
+              "accepted_per_draft": [
+                1.6226415094339623,
+                1.9107142857142858
+              ],
+              "finish_reasons": {
+                "stop": 2
+              },
+              "zero_token_count": 0,
+              "all_finished": true
+            },
+            {
+              "concurrency": 16,
+              "repetitions": 2,
+              "requests_per_repetition": [
+                16,
+                16
+              ],
+              "output_tokens": [
+                6640,
+                6674
+              ],
+              "output_tps": [
+                483.87307622415926,
+                516.3955040592024
+              ],
+              "median_output_tps": 500.1342901416808,
+              "p50_ttft_ms": 383.40012897970155,
+              "p50_tpot_ms": 19.25083609688182,
+              "accepted_fraction": [
+                0.24698830581183523,
+                0.2476774758983348
+              ],
+              "accepted_per_draft": [
+                1.7289181406828467,
+                1.7337423312883435
+              ],
+              "finish_reasons": {
+                "stop": 15,
+                "length": 17
+              },
+              "zero_token_count": 0,
+              "all_finished": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "unit": "sd-scale-v31",
+      "plan": {
+        "job": "86455",
+        "gpu": 3,
+        "target": "thera/mi355x",
+        "workload": {
+          "concurrencies": [
+            16,
+            32,
+            64
+          ],
+          "repetitions": 2,
+          "output_cap": 512,
+          "ignore_eos": false,
+          "temperature": 1,
+          "top_p": 0.95,
+          "top_k": 20,
+          "presence_penalty": 1.5,
+          "requests": 64
+        },
+        "profiles": [
+          {
+            "id": "k7-prob-standard-scale",
+            "k": 7,
+            "draft": "probabilistic",
+            "verify": "standard"
+          }
+        ],
+        "objective": "Same 64-request set and same GPU at closed-loop concurrency 16/32/64; retain standard probabilistic SD7, since alternatives gave no robust throughput gain",
+        "shared_node_workload": "AR MMLU on GPU0 remains running"
+      },
+      "inventory_sha256": "c5463f1cf3280b89bba34392d20dc1cd7ee7d81ed0d5797e3593b12b2fa019d3",
+      "profiles": [
+        {
+          "id": "k7-prob-standard-scale",
+          "status": "MEASURED",
+          "raw_sha256": "47254083182546b8a1669d5c3fa806b562b9d29a2c6dccd2e89feada9d881fd0",
+          "environment": {
+            "torch": "2.14.0+rocm10.2.0",
+            "hip": "7.17.26434",
+            "gpu": "AMD Instinct MI355X",
+            "architecture": "gfx950:sramecc+:xnack-",
+            "visible_devices": "3",
+            "job": "86455",
+            "python": "/tmp/.venv/bin/python",
+            "pythonpath": "/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+            "platform": "RocmPlatform"
+          },
+          "prompt_sha256": {
+            "0": "3321d7a68417a2efa3c74adfda51ea0c93fcb2e20369dbf7c3f056f34b657d2e",
+            "1": "dee02585ce4ae120ce5a375e2a04e9a5c424dfb3d3d632474d0e7ce1c6dc8d60",
+            "2": "226ffe8f7d62aa9d0df0f6188e5abb542680050576a54a22f7249223e5e86b56",
+            "3": "4787ba862254f56c6986dd00c0a61e1383650b0293e39efe6ae923a8c226c56b",
+            "4": "e7ebbc6c08c0a0f8d47f401306deb8f4b0a8de9fed42c847a3f3238a96e601db",
+            "5": "58b427d294bf89bea7b9b913dc169487e54f7294de34317c1e2820d242750a5b",
+            "6": "0835188df8353649641ffe9f4b70adfd58f861e6b47e482696618c3fbcff2742",
+            "7": "b4723952a548199015c5747af2ea7ee2c837818a3a5ff72dc2740c25c2e8241b",
+            "8": "157a37a25d5add4801d12390685dc66973013fcbf65eec411ad1aca36837cee0",
+            "9": "d0245ed81e4774ceb9a65724cb207b463d5715905a3df7eaa99843db75df2992",
+            "10": "1a2c739564deeffde13bc877cf58a7eb2a1104d5db7eb04c4800477ca1954d81",
+            "11": "8820c5bfffdfd88a27b4bba45aea09bee0f22cbd44c146660233c7704874d30d",
+            "12": "fcb2258f3446b20a6c62e7bf18e816c788ca35511791b4d74f7a086baa385e40",
+            "13": "fd665a40bd0cf1980ddd2cd086db1b794deaac45191b2f224231cd4e74b9315a",
+            "14": "cbc01458535900371f20d9789a381afa44c56ea7239fa6bbebf5807c0a5ce621",
+            "15": "2e4e47a0bada48893e909e229a65026c18765ad89b3ce13b0d67bedef95861f5",
+            "16": "3cd1beb65c97480c1a0d2226c42a18fda1b055d2cd25a406564253671763f46c",
+            "17": "8dc080b6a9c8f8b16bfcfe8ec93d8a90aa665d0d2bde665ce81bf9d77458615e",
+            "18": "5a1fbdf559df788b21dca3494d2d3109e9da7e676bfc15a919d163039300585a",
+            "19": "6c8bc3f4d17066bacc6140e410ab771a16fffe7b66a0dcaac51e789078837f3d",
+            "20": "02d61c06f830fcab341f2df05c3da9818f5140f7506509e3bf1c3324c0cfe3b6",
+            "21": "475c3b94a105ecee7c05689ed3d3c70e01864e813db4085ff81a587b7aa7952a",
+            "22": "f8a756c3f9cc685f27e14125aadd04caf6267f62e73b520c7f49773134128c0f",
+            "23": "89c8028791337b3e21477291d1ad5bfeaf8269034cbf3d13df080cea969cbf7e",
+            "24": "824410cd428716d5b6a0a30c4ee888c8a7527091d158505c7c7feafec8fe05ee",
+            "25": "9de11c9fcf67822afd7669c3f4f1e35fac440f18948372713ae415dcf6664be8",
+            "26": "0d5ced7e482b5ffb012935a41ca54ad92ce4d259c9e13b9ac6510acd1a146179",
+            "27": "85f92f0c7ed7664049e8c64ebf867fb73a10a54214a1e53507251f67653089d7",
+            "28": "01eb6582d8bca96ef1124b226b15d6ccf8a1e21d322a2295fa1d1f9dfd38d260",
+            "29": "718b7b5aba476bb9d986197f42897e1aeca0ba357d2d936a56a9a23b52063ad8",
+            "30": "b53b93373beb0538d9917149b132637172eaf258cbbdb386f15acee337698d2b",
+            "31": "3e640e12b1c63f749db89128d9d010241de383d7434bb5d716ad6e350597698a",
+            "32": "76a8e47d595191ce6ef8cac9e8c2df40813175f53dfe7df0d8c0972760ad1d50",
+            "33": "e8279af4b28cb226a29d4b9f764f84f22f5dc3dce4d9a39ef3d1c90bb902e8a2",
+            "34": "2786977964d619b02fec68263eca24d0342f5e834e707c99fa6cc80cef221477",
+            "35": "1aef69bfddd483d5fa7235941fe00015d5ce8e3fcba0eeeb070c7a67f26055ed",
+            "36": "c811df828577aae6b2e8a9b01879beceb675d0cc7a193bf3d892be78f97c5d79",
+            "37": "8f68854f1e5cff7b5593e3a03b0688e81d7bc2686acb3f696f88a0bed0f7cc22",
+            "38": "99c3b62e7b39bf66ba61446e4c31902f8975835050cdf7b6009b040b0fe147f0",
+            "39": "1058152d3d4359b84b7cf7532ffe60a3315ca414b948d167cae75483afb36c5b",
+            "40": "da38792528a373d570a704158564b8b0812edb53bed9d2ae7786bccfb16709c7",
+            "41": "dac9e13405247b9ae072826d96781fdf94cabac751ed59e7b1e62420939c94b9",
+            "42": "ec62d71a517bcc184e70d8b38e207986af197f945175acef6ed2d31ab3feec51",
+            "43": "0e3211dfeb125ed3d8a640bc80699ccdd61cb1515109abec45dfadfc62fe93e7",
+            "44": "22f27e27ef953c3c4022c9adc4e0b76c582051776e3152e04717ba7cd24459b1",
+            "45": "a01ddcab6774c8c5651912ddb5f14376b5f13139a34f107278f40f8e3571f352",
+            "46": "58b5b63add867a3b7be1507e76675d7d030a61e85c8c333c8b0d6b20e9cf6c62",
+            "47": "2c0b9363257e0fee83aa87adbbd7d6890f96b3af764eb34df7e85615938df57b",
+            "48": "8cc039b646ed8360223db77eb45c55251bbaa91e1f3e851aa9667b8b6feff851",
+            "49": "cd0ff912d123e534dc83aa81770591429c67fd645dd2d07baa01cb1fc703f955",
+            "50": "477ccbf809786a805d5e8721ca276432453bd1352804ae8471d46e28f485bb1f",
+            "51": "d27b8e2c76362a2695bf5d3049659e23660648ba016d492467ce4b77d50f61fe",
+            "52": "ffbaeeeec2d0218649bdb5ddc1b303f38e90630d9e619dbfdda9ea51a052f9e4",
+            "53": "f5a9ad094349b9025ac531d331aba54f1a0d0296e243a40ac6b626c433ecc270",
+            "54": "d68d2a9babe10a97c1d415ee606a75a3ac4894d94442eea6115e4225ff1be820",
+            "55": "d6c5fd957e326c93a6c569f4aa1f3715d86d135365e6c66b68e022bdbbf9f853",
+            "56": "ec88dec7fb3c0ef95c7a6035771696e958483321cf0e364c14bf1a0086e8e0bb",
+            "57": "5b0de29745bcd8ef48d77db79ece54d632060c1fb5ed40778e59c23e9fc67baf",
+            "58": "16d62c8ca0ccf27d982bf0d25a0a2b1c7de4dd92e53a9b57e0291d72c3ec4af3",
+            "59": "222b5a8d11af7659150ef2096d4009eaaf39bc3bc970ceef1adf6139a67967fd",
+            "60": "4ca78001da55842ecad7996a4301db871e0aa0588349543f60d6c9d2913d5db5",
+            "61": "bc94fa34a10c36d68eb018f778659dad2b734491ad42bdeb7d79edc1829b09c5",
+            "62": "013fe89ef31a385f45d679335994cd9baa4ddda286f471dff35163da697596b2",
+            "63": "1b761e674bb8b942cdf8a39bc10a12419b8a4a1f03d1a5acd35a1e7530af1a08"
+          },
+          "points": [
+            {
+              "concurrency": 16,
+              "repetitions": 2,
+              "requests_per_repetition": [
+                64,
+                64
+              ],
+              "output_tokens": [
+                23175,
+                24546
+              ],
+              "output_tps": [
+                647.8242271179208,
+                633.7239559689045
+              ],
+              "median_output_tps": 640.7740915434126,
+              "p50_ttft_ms": 130.1867894944735,
+              "p50_tpot_ms": 21.66078933843448,
+              "accepted_fraction": [
+                0.24429673669795252,
+                0.23730072744157252
+              ],
+              "accepted_per_draft": [
+                1.7100771568856674,
+                1.6611050920910075
+              ],
+              "finish_reasons": {
+                "stop": 66,
+                "length": 62
+              },
+              "zero_token_count": 0,
+              "all_finished": true
+            },
+            {
+              "concurrency": 32,
+              "repetitions": 2,
+              "requests_per_repetition": [
+                64,
+                64
+              ],
+              "output_tokens": [
+                23920,
+                22474
+              ],
+              "output_tps": [
+                914.7142050879296,
+                915.2800826659416
+              ],
+              "median_output_tps": 914.9971438769355,
+              "p50_ttft_ms": 294.51186052756384,
+              "p50_tpot_ms": 22.99723500792331,
+              "accepted_fraction": [
+                0.2389827806122449,
+                0.23964396337519997
+              ],
+              "accepted_per_draft": [
+                1.6728794642857143,
+                1.6775077436263999
+              ],
+              "finish_reasons": {
+                "stop": 66,
+                "length": 62
+              },
+              "zero_token_count": 0,
+              "all_finished": true
+            },
+            {
+              "concurrency": 64,
+              "repetitions": 2,
+              "requests_per_repetition": [
+                64,
+                64
+              ],
+              "output_tokens": [
+                23793,
+                23778
+              ],
+              "output_tps": [
+                1463.5796639631878,
+                1510.5990852249315
+              ],
+              "median_output_tps": 1487.0893745940598,
+              "p50_ttft_ms": 1050.7670684892219,
+              "p50_tpot_ms": 22.959499852482647,
+              "accepted_fraction": [
+                0.2434710582732411,
+                0.2422804004795386
+              ],
+              "accepted_per_draft": [
+                1.7042974079126876,
+                1.6959628033567702
+              ],
+              "finish_reasons": {
+                "stop": 68,
+                "length": 60
+              },
+              "zero_token_count": 0,
+              "all_finished": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "initial_output_check": {
+    "single_request_replicates": 10,
+    "first_token_equal": true,
+    "first_12_tokens_equal": false,
+    "scope": "Emitted-token comparison only; earlier teacher tests separately recorded zero first-position raw-logit difference"
+  },
+  "cleanup": {
+    "owned_performance_containers_removed": true,
+    "AR_unchanged": true,
+    "image_and_model_caches_retained": true
+  },
+  "performance_acceptance": "NOT_DECIDED; no user-specified gain/latency gates. Results are scoped measurements with two repetitions."
+}
