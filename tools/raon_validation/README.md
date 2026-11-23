@@ -328,6 +328,37 @@ separately. Native compilation metadata confirms eight-wave baseline launches
 and additional four-wave launches with the candidate. Existing full-context
 quality evaluations use their unchanged frozen sources and baseline settings.
 
+### FP4 MoE intermediate-precision diagnostic
+
+On one idle gfx950 GPU, with the MXFP4 runtime profile sourced, run:
+
+```bash
+.venv/bin/python -m tools.raon_validation.moe_gold \
+  --model /models/raon-quark-mxfp4 --output evidence/moe-gold.json \
+  --tokens 128 16384
+```
+
+This diagnostic uses the installed AITER tuner's synthetic layer inputs and
+records its source hash. It compares the existing W4A4 operator and the tuner's
+experimental fused port against three Torch references: BF16 intermediate,
+BF16 then FP4, and FP32 then FP4. The FP4 intermediate reference uses Torch
+E8M0 group-32 scaling and E2M1 packing. Input and weight quantization share the
+vendor fixture; this is a conditional arithmetic comparison, not an independent
+validation of every quantizer or the complete model. The fixed shapes represent
+Raon's 128 experts, top-6 routing, hidden size 2560, intermediate size 1152 and
+SiTUv2 beta=4 / linear_beta=25.
+
+The [2026-11-23 diagnostic](results/moe-gold-20261123.json) measured existing
+operator NRMSE of 0.395%/0.398% against BF16-then-FP4 Torch, and fused-port NRMSE
+of 0.267%/0.267% against FP32-then-FP4 Torch at M=128/16384. Comparing either
+W4A4 path against a BF16-only intermediate instead gives about 14.8% NRMSE.
+The existing and fused paths differ by 3.57%/3.71% NRMSE, largely explained by
+intermediate rounding. These two seeded synthetic cases do not establish model
+quality or authorize deploying the port. `MEASURED` means finite measurements
+were collected; the tool imposes no numerical acceptance threshold and installs
+no tuning CSV. Its `cosine_diff` field follows the vendor-style formula
+`1 - 2*dot(x,y)/(sum(x*x)+sum(y*y))`; it is not ordinary cosine distance.
+
 ### Excluding compilation from SD timing
 
 Use the separate compiler-guarded timing tool after sourcing the appropriate

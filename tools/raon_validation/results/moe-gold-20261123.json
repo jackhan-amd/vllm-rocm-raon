@@ -1,0 +1,160 @@
+{
+  "provenance": {
+    "job": "86666",
+    "node": "TheraC93",
+    "image": "docker.io/hanjack/vllm-rocm@sha256:5a8538fae062972149a2b278b45f6bf02549989a848e0f6f90fff02ceec92bf7",
+    "remote_root": "/home/jackhan/bench-results/raon-mi355x-20261120/local-moe-gold-and-sweep-v1",
+    "tp": 1,
+    "dp": 1,
+    "acceptance": "diagnostic only; no configuration deployed"
+  },
+  "gold": {
+    "status": "MEASURED",
+    "scope": "Compare existing Raon FP4 MoE and a port using matched Torch intermediates.\n\nUses synthetic layer inputs from the pinned installed AITER tuner. Reports both\nBF16-intermediate and FP4-intermediate references; no threshold is changed and\nno tuned configuration is installed. This is not an all-input or quality proof.\n",
+    "environment": {
+      "torch": "2.14.0+rocm10.2.0",
+      "hip": "7.17.26434",
+      "gpu": "AMD Instinct MI355X",
+      "architecture": "gfx950:sramecc+:xnack-",
+      "visible_devices": "4",
+      "job": "86666",
+      "python": "/tmp/.venv/bin/python",
+      "pythonpath": "/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+      "platform": "RocmPlatform"
+    },
+    "seed": 20261123,
+    "cases": [
+      {
+        "tokens": 128,
+        "baseline_vs_torch": {
+          "bf16_intermediate": {
+            "cosine_diff": 0.011030080520229468,
+            "normalized_rmse": 0.14859879042875082,
+            "max_abs": 1.5859375,
+            "finite": true
+          },
+          "bf16_then_fp4": {
+            "cosine_diff": 7.791128803003033e-06,
+            "normalized_rmse": 0.003947436441623316,
+            "max_abs": 0.0625,
+            "finite": true
+          },
+          "fp32_then_fp4": {
+            "cosine_diff": 0.0006357546810472625,
+            "normalized_rmse": 0.03564792131854063,
+            "max_abs": 0.5703125,
+            "finite": true
+          }
+        },
+        "port_vs_torch": {
+          "bf16_intermediate": {
+            "cosine_diff": 0.011045528607428579,
+            "normalized_rmse": 0.14874495214401454,
+            "max_abs": 1.5625,
+            "finite": true
+          },
+          "bf16_then_fp4": {
+            "cosine_diff": 0.0006320150409858671,
+            "normalized_rmse": 0.03556326226926972,
+            "max_abs": 0.5703125,
+            "finite": true
+          },
+          "fp32_then_fp4": {
+            "cosine_diff": 3.567947877924915e-06,
+            "normalized_rmse": 0.002671293076613589,
+            "max_abs": 0.0625,
+            "finite": true
+          }
+        },
+        "port_vs_existing_fp4": {
+          "cosine_diff": 0.0006371351865256392,
+          "normalized_rmse": 0.0357070296811455,
+          "max_abs": 0.5703125,
+          "finite": true
+        }
+      },
+      {
+        "tokens": 16384,
+        "baseline_vs_torch": {
+          "bf16_intermediate": {
+            "cosine_diff": 0.01091754033450032,
+            "normalized_rmse": 0.1477878077901507,
+            "max_abs": 2.23046875,
+            "finite": true
+          },
+          "bf16_then_fp4": {
+            "cosine_diff": 7.901929060860624e-06,
+            "normalized_rmse": 0.003975384851423221,
+            "max_abs": 0.158203125,
+            "finite": true
+          },
+          "fp32_then_fp4": {
+            "cosine_diff": 0.000685367719288732,
+            "normalized_rmse": 0.03700836052149113,
+            "max_abs": 1.2578125,
+            "finite": true
+          }
+        },
+        "port_vs_torch": {
+          "bf16_intermediate": {
+            "cosine_diff": 0.010936727351064546,
+            "normalized_rmse": 0.1479778519427738,
+            "max_abs": 2.212890625,
+            "finite": true
+          },
+          "bf16_then_fp4": {
+            "cosine_diff": 0.0006816443142795281,
+            "normalized_rmse": 0.03693756761967474,
+            "max_abs": 1.265625,
+            "finite": true
+          },
+          "fp32_then_fp4": {
+            "cosine_diff": 3.562318400152087e-06,
+            "normalized_rmse": 0.0026691993979289248,
+            "max_abs": 0.125,
+            "finite": true
+          }
+        },
+        "port_vs_existing_fp4": {
+          "cosine_diff": 0.0006866802527132343,
+          "normalized_rmse": 0.03707396611937921,
+          "max_abs": 1.2578125,
+          "finite": true
+        }
+      }
+    ],
+    "legacy_operator_support": false,
+    "vendor_sha256": "acb0a5f636c43c0b0bc30d6378acf591a4df49a3a162ce626ef2e5432b3557a9",
+    "fp4_torch_helper_sha256": "5a2c7623aa51813dbf94dce0f4030ab2a0ff05324438ecb9b09f784755664fea",
+    "tool_sha256": "8cd5cc37f86d0e10628ca37e8a8b253769e255f94bd46453839c75dc66838484"
+  },
+  "execution": {
+    "status": "RUNNING",
+    "job": "86666",
+    "node": "TheraC93",
+    "controller": "Local Codex session",
+    "tp": 1,
+    "dp": 1,
+    "tasks": {
+      "moe-gold": {
+        "status": "FINISHED",
+        "gpu": 4,
+        "module": "moe_gold",
+        "flag": "0",
+        "container": "raon-gold-sweep-86666-moe-gold",
+        "exit_code": 0,
+        "container_removed": true
+      },
+      "generic-g4-t8": {
+        "status": "RUNNING",
+        "gpu": 4,
+        "module": "vendor_moe_tune",
+        "flag": "0",
+        "container": "raon-gold-sweep-86666-generic-g4-t8"
+      }
+    },
+    "deadline_utc": "2026-11-23T15:20:11.465094+00:00",
+    "heartbeat_utc": "2026-11-23T14:27:23.829636+00:00"
+  },
+  "run_tail": "ctivationType.Situv2: 3>, 'torch.bfloat16', 'torch.float4_e2m1fn_x2', 'torch.float4_e2m1fn_x2', 'QuantType.per_1x32', True, False), using heuristic FlyDSL fallback (kn1='flydsl_moe1_afp4_wfp4_bf16_t32x128x256_w2', kn2='flydsl_moe2_afp4_wfp4_bf16_t32x128x128_atomic_bnt2')\n[aiter] import [module_quant] under /evidence/aiter-jit/module_quant.so\n[aiter] LoadKernel: _ZN5aiter25topksoftmax_12x128x6_bf16E hsaco: /usr/local/lib/python3.14/dist-packages/aiter_meta/hsa//gfx950/topksoftmax/topksoftmax_12x128x6_bf16.co\n[aiter] run_1stage = False, xbf16 = False, ksplit = 0 q_type = QuantType.per_1x32 block_m = 128 use_nt = False, estimated_m_per_expert = 768\n[aiter] [fused_moe] using 2stage default for ('gfx950', 256, 16384, 2560, 1152, 128, 6, <ActivationType.Situv2: 3>, 'torch.bfloat16', 'torch.float4_e2m1fn_x2', 'torch.float4_e2m1fn_x2', 'QuantType.per_1x32', True, False) \n[aiter] [fused_moe] no tuned FlyDSL config for ('gfx950', 256, 16384, 2560, 1152, 128, 6, <ActivationType.Situv2: 3>, 'torch.bfloat16', 'torch.float4_e2m1fn_x2', 'torch.float4_e2m1fn_x2', 'QuantType.per_1x32', True, False), using heuristic FlyDSL fallback (kn1='flydsl_moe1_afp4_wfp4_bf16_t64x128x256_w4_bnt0', kn2='flydsl_moe2_afp4_wfp4_bf16_t64x128x128_atomic')\n[aiter] run_1stage = False, xbf16 = False, ksplit = 0 q_type = QuantType.per_1x32 block_m = 128 use_nt = False, estimated_m_per_expert = 768\n[aiter] [fused_moe] using 2stage default for ('gfx950', 256, 16384, 2560, 1152, 128, 6, <ActivationType.Situv2: 3>, 'torch.bfloat16', 'torch.float4_e2m1fn_x2', 'torch.float4_e2m1fn_x2', 'QuantType.per_1x32', True, False) \n[aiter] [fused_moe] no tuned FlyDSL config for ('gfx950', 256, 16384, 2560, 1152, 128, 6, <ActivationType.Situv2: 3>, 'torch.bfloat16', 'torch.float4_e2m1fn_x2', 'torch.float4_e2m1fn_x2', 'QuantType.per_1x32', True, False), using heuristic FlyDSL fallback (kn1='flydsl_moe1_afp4_wfp4_bf16_t64x128x256_w4_bnt0', kn2='flydsl_moe2_afp4_wfp4_bf16_t64x128x128_atomic')\nMEASURED /evidence/moe-gold.json\n"
+}
