@@ -63,6 +63,9 @@
                   "vllm/transformers_utils/configs/__init__.py",
                   "vllm/transformers_utils/configs/raon1_mini.py",
                   "vllm/transformers_utils/model_arch_config_convertor.py",
-                  "vllm/v1/core/kv_cache_utils.py"
+                  "vllm/v1/core/kv_cache_utils.py",
+                  "vllm/envs.py",
+                  "vllm/v1/attention/backends/mla/rocm_aiter_mla.py",
+                  "vllm/v1/attention/ops/prefix_prefill.py"
               ]
 }

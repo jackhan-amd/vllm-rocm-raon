@@ -18,6 +18,7 @@ COPY vllm /tmp/raon-source/vllm
 COPY docker/raon/overlay-files.json /tmp/raon-source/docker/raon/overlay-files.json
 COPY docker/raon/install_overlay.py docker/raon/runtime-env.sh docker/raon/entrypoint.sh /opt/raon/
 COPY examples/offline_inference/raon_rocm_smoke.py /opt/raon/smoke.py
+COPY tools/raon_validation /opt/raon/tools/raon_validation
 RUN /opt/raon/.venv/bin/python /opt/raon/install_overlay.py /tmp/raon-source \
   && chmod +x /opt/raon/entrypoint.sh \
   && mkdir -p /var/cache/aiter /var/cache/triton /var/cache/vllm

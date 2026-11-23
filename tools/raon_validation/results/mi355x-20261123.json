@@ -1,0 +1,2359 @@
+{
+  "schema": 1,
+  "collected_utc": "2026-11-23T03:24:56.221148+00:00",
+  "node": "TheraC81",
+  "allocation": "86292",
+  "hardware": "AMD Instinct MI355X (gfx950)",
+  "tp": 1,
+  "dp": 1,
+  "image": "docker.io/hanjack/vllm-rocm@sha256:5a8538fae062972149a2b278b45f6bf02549989a848e0f6f90fff02ceec92bf7",
+  "rocm_image_sdk": "10.2.0",
+  "torch": "2.14.0+rocm10.2.0",
+  "python": "3.14.10",
+  "aiter_commit": "cfd296392661bee433a83e444faf9a52b8173153",
+  "flydsl": "0.5.0",
+  "target_revision": "1b4f494d71dff50318288309f64c72aa8c11340e",
+  "draft_revision": "164b3dda020f145a4650b3c050841e15250c2f77",
+  "precision": {
+    "routed_experts": "MXFP8 W8A8",
+    "other_weights": "BF16",
+    "kv_cache": "FP8 E4M3 except explicitly marked BF16 diagnostic"
+  },
+  "criteria": {
+    "rda_full_logits": "RMS <= 1e-5 + .01*reference_RMS; peak <= 1e-5 + .02*reference_peak",
+    "mla": "RMS <= 1e-5 + .02*reference_RMS; peak <= 1e-5 + .05*reference_peak",
+    "stability": "absolute error <= 1e-6",
+    "nonfinite": "always fails",
+    "sampler": "65536 trials, per bin 6 binomial standard errors + 2/N"
+  },
+  "quality_acceptance": false,
+  "scope": "Diagnostic cases only; no full MMLU score, performance conclusion, or formal all-input correctness proof. Private prompts, outputs, model tensors and device-address metadata are not published.",
+  "excluded_preparations": {
+    "v1": "Image PYTHONPATH was overwritten; ROCm platform detection invalid. Fixed by preserving it and using workdir.",
+    "v7": "Legacy-only teacher hook did not observe the actual V2 runner; excluded.",
+    "v13": "Diagnostic metadata-name lookup failed; excluded.",
+    "replay-v16": "Harness incorrectly reused captured opaque device-address metadata in another process; memory fault excluded from kernel findings. Final replay rebuilds metadata."
+  },
+  "records": [
+    {
+      "artifact": "correctness-tools-v19/core/result.json",
+      "sha256": "91a7ca0426da7263237fae78091c2dbb5bd0b915acbadb88d0b8f72ca18f00a0",
+      "status": "PASS",
+      "command": "core",
+      "case_count": 8,
+      "checks_passed": 16,
+      "checks_total": 16,
+      "seconds": 19.004677601973526,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 7,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": false,
+        "max_tokens": 262144
+      },
+      "tool_sha256": {
+        "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+        "__main__.py": "02ae2d3585299362dbff1dca07a5d0107d9d6e0b6bb48026dd84f47ed48a7885",
+        "common.py": "6fdc3bed17a36a96f9e58ba6fba99de7c57a3bac21d8bffacae52b23b442e9b2",
+        "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+        "model.py": "e7c02e503ee668b71772a1270226be6b567aaad1e15cd99b595c939e3edaa8ae",
+        "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+        "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+        "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+        "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+        "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+      },
+      "metrics": {
+        "output": {
+          "max_relative_rms": 0.004796114733322663,
+          "failed": 0,
+          "count": 8
+        },
+        "state": {
+          "max_relative_rms": 0.0032948345762186418,
+          "failed": 0,
+          "count": 8
+        }
+      }
+    },
+    {
+      "artifact": "correctness-tools-v19/mla/result.json",
+      "sha256": "8ffe945daf17346d90fff3226aaf6b8c91eebeb9736b99ea7eedf808f1fd2d20",
+      "status": "FAIL",
+      "command": "mla",
+      "case_count": 12,
+      "checks_passed": 11,
+      "checks_total": 24,
+      "seconds": 5.731045373016968,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": true,
+        "kv_padding": "zero",
+        "mla_heads": 48,
+        "draft_tokens": 7,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": false,
+        "max_tokens": 262144
+      },
+      "tool_sha256": {
+        "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+        "__main__.py": "02ae2d3585299362dbff1dca07a5d0107d9d6e0b6bb48026dd84f47ed48a7885",
+        "common.py": "6fdc3bed17a36a96f9e58ba6fba99de7c57a3bac21d8bffacae52b23b442e9b2",
+        "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+        "model.py": "e7c02e503ee668b71772a1270226be6b567aaad1e15cd99b595c939e3edaa8ae",
+        "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+        "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+        "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+        "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+        "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+      },
+      "metrics": {
+        "output": {
+          "max_relative_rms": 0.0571143887391704,
+          "failed": 10,
+          "count": 12
+        }
+      },
+      "scratch_independence": [
+        {
+          "kv_length": 17,
+          "query_length": 1,
+          "pass": true
+        },
+        {
+          "kv_length": 17,
+          "query_length": 2,
+          "pass": false
+        },
+        {
+          "kv_length": 17,
+          "query_length": 4,
+          "pass": true
+        },
+        {
+          "kv_length": 17,
+          "query_length": 8,
+          "pass": true
+        },
+        {
+          "kv_length": 65,
+          "query_length": 1,
+          "pass": true
+        },
+        {
+          "kv_length": 65,
+          "query_length": 2,
+          "pass": false
+        },
+        {
+          "kv_length": 65,
+          "query_length": 4,
+          "pass": true
+        },
+        {
+          "kv_length": 65,
+          "query_length": 8,
+          "pass": true
+        },
+        {
+          "kv_length": 257,
+          "query_length": 1,
+          "pass": true
+        },
+        {
+          "kv_length": 257,
+          "query_length": 2,
+          "pass": false
+        },
+        {
+          "kv_length": 257,
+          "query_length": 4,
+          "pass": true
+        },
+        {
+          "kv_length": 257,
+          "query_length": 8,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "artifact": "correctness-tools-v19/mla64/result.json",
+      "sha256": "8984d98333cacbd52525c9520883678932e3b6e337e4ce5a5f85ec11956afe8a",
+      "status": "FAIL",
+      "command": "mla",
+      "case_count": 12,
+      "checks_passed": 14,
+      "checks_total": 24,
+      "seconds": 6.158033990999684,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": true,
+        "kv_padding": "zero",
+        "mla_heads": 64,
+        "draft_tokens": 7,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": false,
+        "max_tokens": 262144
+      },
+      "tool_sha256": {
+        "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+        "__main__.py": "02ae2d3585299362dbff1dca07a5d0107d9d6e0b6bb48026dd84f47ed48a7885",
+        "common.py": "6fdc3bed17a36a96f9e58ba6fba99de7c57a3bac21d8bffacae52b23b442e9b2",
+        "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+        "model.py": "e7c02e503ee668b71772a1270226be6b567aaad1e15cd99b595c939e3edaa8ae",
+        "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+        "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+        "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+        "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+        "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+      },
+      "metrics": {
+        "output": {
+          "max_relative_rms": 0.021624160971863312,
+          "failed": 10,
+          "count": 12
+        }
+      },
+      "scratch_independence": [
+        {
+          "kv_length": 17,
+          "query_length": 1,
+          "pass": true
+        },
+        {
+          "kv_length": 17,
+          "query_length": 2,
+          "pass": true
+        },
+        {
+          "kv_length": 17,
+          "query_length": 4,
+          "pass": true
+        },
+        {
+          "kv_length": 17,
+          "query_length": 8,
+          "pass": true
+        },
+        {
+          "kv_length": 65,
+          "query_length": 1,
+          "pass": true
+        },
+        {
+          "kv_length": 65,
+          "query_length": 2,
+          "pass": true
+        },
+        {
+          "kv_length": 65,
+          "query_length": 4,
+          "pass": true
+        },
+        {
+          "kv_length": 65,
+          "query_length": 8,
+          "pass": true
+        },
+        {
+          "kv_length": 257,
+          "query_length": 1,
+          "pass": true
+        },
+        {
+          "kv_length": 257,
+          "query_length": 2,
+          "pass": true
+        },
+        {
+          "kv_length": 257,
+          "query_length": 4,
+          "pass": true
+        },
+        {
+          "kv_length": 257,
+          "query_length": 8,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "artifact": "correctness-tools-v19/model-gpu3-k1/result.json",
+      "sha256": "ef7ae8df315b72b4a0be995a41e0346677da52940efcd5ff5f3453e3396073c4",
+      "status": "PASS",
+      "command": "model",
+      "case_count": 1,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 494.7806301090168,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 64,
+        "draft_tokens": 1,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": false,
+        "max_tokens": 2048
+      },
+      "tool_sha256": {
+        "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+        "__main__.py": "02ae2d3585299362dbff1dca07a5d0107d9d6e0b6bb48026dd84f47ed48a7885",
+        "common.py": "6fdc3bed17a36a96f9e58ba6fba99de7c57a3bac21d8bffacae52b23b442e9b2",
+        "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+        "model.py": "e7c02e503ee668b71772a1270226be6b567aaad1e15cd99b595c939e3edaa8ae",
+        "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+        "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+        "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+        "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+        "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+      },
+      "metrics": {},
+      "prompts": 160,
+      "finished": 160,
+      "generated_tokens": 105517,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "2": 43984,
+        "1": 17821
+      }
+    },
+    {
+      "artifact": "correctness-tools-v19/model-gpu5-k7/result.json",
+      "sha256": "0e7932c446e53bd95aa7f79f71b396eac744ba56664752b755b260f84ddabccf",
+      "status": "ERROR",
+      "command": "model",
+      "case_count": 0,
+      "checks_passed": 0,
+      "checks_total": 0,
+      "seconds": 925.6642025429755,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 7,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 1.0,
+        "light": true,
+        "max_tokens": 262144
+      },
+      "tool_sha256": {
+        "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+        "__main__.py": "02ae2d3585299362dbff1dca07a5d0107d9d6e0b6bb48026dd84f47ed48a7885",
+        "common.py": "6fdc3bed17a36a96f9e58ba6fba99de7c57a3bac21d8bffacae52b23b442e9b2",
+        "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+        "model.py": "e7c02e503ee668b71772a1270226be6b567aaad1e15cd99b595c939e3edaa8ae",
+        "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+        "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+        "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+        "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+        "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+      },
+      "failure": "RuntimeError: First nonfinite value at dflash2.hidden_before_candidates",
+      "metrics": {},
+      "prompts": 160,
+      "finished": 62,
+      "generated_tokens": 110908,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "3": 6749,
+        "6": 1282,
+        "7": 740,
+        "4": 3611,
+        "5": 1996,
+        "1": 17016,
+        "2": 11787,
+        "8": 1619
+      },
+      "private_failure_dump": {
+        "name": "result.json.failure.pt",
+        "bytes": 15476509,
+        "sha256": "90a688310b1a1d30a7e0e8a900e77626af2c32b215b72317685cd1221769afdd"
+      }
+    },
+    {
+      "artifact": "correctness-tools-v19/model-gpu6-k7/result.json",
+      "sha256": "ac916d7e9d403e209c869241cb828cbfd387ce6742d488dc5b4e415341aad8da",
+      "status": "ERROR",
+      "command": "model",
+      "case_count": 0,
+      "checks_passed": 0,
+      "checks_total": 0,
+      "seconds": 261.2390207549324,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 64,
+        "draft_tokens": 7,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 1.0,
+        "light": true,
+        "max_tokens": 262144
+      },
+      "tool_sha256": {
+        "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+        "__main__.py": "02ae2d3585299362dbff1dca07a5d0107d9d6e0b6bb48026dd84f47ed48a7885",
+        "common.py": "6fdc3bed17a36a96f9e58ba6fba99de7c57a3bac21d8bffacae52b23b442e9b2",
+        "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+        "model.py": "e7c02e503ee668b71772a1270226be6b567aaad1e15cd99b595c939e3edaa8ae",
+        "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+        "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+        "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+        "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+        "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+      },
+      "failure": "RuntimeError: First nonfinite value at dflash2.hidden_before_candidates",
+      "metrics": {},
+      "prompts": 160,
+      "finished": 47,
+      "generated_tokens": 69476,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "3": 4001,
+        "6": 886,
+        "7": 526,
+        "4": 2292,
+        "5": 1358,
+        "1": 10016,
+        "2": 6991,
+        "8": 1082
+      },
+      "private_failure_dump": {
+        "name": "result.json.failure.pt",
+        "bytes": 10136669,
+        "sha256": "3653b3982837228dbbaef0c46be40c0f30f77a456dd913551b66315382e3a2d3"
+      }
+    },
+    {
+      "artifact": "correctness-tools-v19/replay/result.json",
+      "sha256": "36b764b71fd65c4530da1aebf301b0bae0d4a1f6af43738e5716e465e925a053",
+      "status": "FAIL",
+      "command": "replay",
+      "case_count": 6,
+      "checks_passed": 7,
+      "checks_total": 12,
+      "seconds": 5.69944643904455,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 7,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": false,
+        "max_tokens": 262144
+      },
+      "tool_sha256": {
+        "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+        "__main__.py": "02ae2d3585299362dbff1dca07a5d0107d9d6e0b6bb48026dd84f47ed48a7885",
+        "common.py": "6fdc3bed17a36a96f9e58ba6fba99de7c57a3bac21d8bffacae52b23b442e9b2",
+        "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+        "model.py": "e7c02e503ee668b71772a1270226be6b567aaad1e15cd99b595c939e3edaa8ae",
+        "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+        "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+        "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+        "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+        "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+      },
+      "metrics": {
+        "output": {
+          "max_relative_rms": 0.011828855669188558,
+          "failed": 3,
+          "count": 6
+        }
+      },
+      "cases": [
+        {
+          "heads": 64,
+          "rebuild_metadata": true,
+          "repeat": 0,
+          "output": {
+            "pass": true,
+            "finite": true,
+            "rms_error": 0.008901683613657951,
+            "reference_rms": 1.2658694982528687,
+            "relative_rms": 0.007032070545932185,
+            "max_abs": 0.10504484176635742,
+            "reference_peak": 7.747175693511963,
+            "limits": {
+              "relative_rms": 0.02,
+              "relative_peak": 0.05,
+              "atol": 1e-05
+            }
+          },
+          "repeat_stability": {
+            "pass": true,
+            "finite": true,
+            "rms_error": 0.0,
+            "reference_rms": 1.26553475856781,
+            "relative_rms": 0.0,
+            "max_abs": 0.0,
+            "reference_peak": 7.75,
+            "limits": {
+              "relative_rms": 0.0,
+              "relative_peak": 0.0,
+              "atol": 1e-06
+            }
+          }
+        },
+        {
+          "heads": 64,
+          "rebuild_metadata": true,
+          "repeat": 1,
+          "output": {
+            "pass": true,
+            "finite": true,
+            "rms_error": 0.008901683613657951,
+            "reference_rms": 1.2658694982528687,
+            "relative_rms": 0.007032070545932185,
+            "max_abs": 0.10504484176635742,
+            "reference_peak": 7.747175693511963,
+            "limits": {
+              "relative_rms": 0.02,
+              "relative_peak": 0.05,
+              "atol": 1e-05
+            }
+          },
+          "repeat_stability": {
+            "pass": true,
+            "finite": true,
+            "rms_error": 0.0,
+            "reference_rms": 1.26553475856781,
+            "relative_rms": 0.0,
+            "max_abs": 0.0,
+            "reference_peak": 7.75,
+            "limits": {
+              "relative_rms": 0.0,
+              "relative_peak": 0.0,
+              "atol": 1e-06
+            }
+          }
+        },
+        {
+          "heads": 64,
+          "rebuild_metadata": true,
+          "repeat": 2,
+          "output": {
+            "pass": true,
+            "finite": true,
+            "rms_error": 0.008901683613657951,
+            "reference_rms": 1.2658694982528687,
+            "relative_rms": 0.007032070545932185,
+            "max_abs": 0.10504484176635742,
+            "reference_peak": 7.747175693511963,
+            "limits": {
+              "relative_rms": 0.02,
+              "relative_peak": 0.05,
+              "atol": 1e-05
+            }
+          },
+          "repeat_stability": {
+            "pass": true,
+            "finite": true,
+            "rms_error": 0.0,
+            "reference_rms": 1.26553475856781,
+            "relative_rms": 0.0,
+            "max_abs": 0.0,
+            "reference_peak": 7.75,
+            "limits": {
+              "relative_rms": 0.0,
+              "relative_peak": 0.0,
+              "atol": 1e-06
+            }
+          }
+        },
+        {
+          "heads": 48,
+          "rebuild_metadata": true,
+          "repeat": 0,
+          "output": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.013777581974864006,
+            "reference_rms": 1.2658694982528687,
+            "relative_rms": 0.01088388810527435,
+            "max_abs": 0.9783411026000977,
+            "reference_peak": 7.747175693511963,
+            "limits": {
+              "relative_rms": 0.02,
+              "relative_peak": 0.05,
+              "atol": 1e-05
+            }
+          },
+          "repeat_stability": {
+            "pass": true,
+            "finite": true,
+            "rms_error": 0.0,
+            "reference_rms": 1.2633817195892334,
+            "relative_rms": 0.0,
+            "max_abs": 0.0,
+            "reference_peak": 7.75,
+            "limits": {
+              "relative_rms": 0.0,
+              "relative_peak": 0.0,
+              "atol": 1e-06
+            }
+          }
+        },
+        {
+          "heads": 48,
+          "rebuild_metadata": true,
+          "repeat": 1,
+          "output": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.011674517765641212,
+            "reference_rms": 1.2658694982528687,
+            "relative_rms": 0.009222528690164492,
+            "max_abs": 0.6108152866363525,
+            "reference_peak": 7.747175693511963,
+            "limits": {
+              "relative_rms": 0.02,
+              "relative_peak": 0.05,
+              "atol": 1e-05
+            }
+          },
+          "repeat_stability": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.01123405247926712,
+            "reference_rms": 1.2633817195892334,
+            "relative_rms": 0.008892049255643557,
+            "max_abs": 0.984375,
+            "reference_peak": 7.75,
+            "limits": {
+              "relative_rms": 0.0,
+              "relative_peak": 0.0,
+              "atol": 1e-06
+            }
+          }
+        },
+        {
+          "heads": 48,
+          "rebuild_metadata": true,
+          "repeat": 2,
+          "output": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.01497378759086132,
+            "reference_rms": 1.2658694982528687,
+            "relative_rms": 0.011828855669188558,
+            "max_abs": 1.003438949584961,
+            "reference_peak": 7.747175693511963,
+            "limits": {
+              "relative_rms": 0.02,
+              "relative_peak": 0.05,
+              "atol": 1e-05
+            }
+          },
+          "repeat_stability": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.014584820717573166,
+            "reference_rms": 1.2633817195892334,
+            "relative_rms": 0.01154427081809856,
+            "max_abs": 1.0078125,
+            "reference_peak": 7.75,
+            "limits": {
+              "relative_rms": 0.0,
+              "relative_peak": 0.0,
+              "atol": 1e-06
+            }
+          }
+        }
+      ],
+      "inputs_finite": {
+        "q": true,
+        "kv": true
+      },
+      "q_shape": [
+        32,
+        48,
+        576
+      ],
+      "query_lengths": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "artifact": "correctness-tools-v19/rollback/result.json",
+      "sha256": "6a698ef232e988d2b649f2e70f1ec881a5fa4c39cca04cbb1feb46dad871fa0b",
+      "status": "PASS",
+      "command": "rollback",
+      "case_count": 30,
+      "checks_passed": 120,
+      "checks_total": 120,
+      "seconds": 19.643692953977734,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 7,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": false,
+        "max_tokens": 262144
+      },
+      "tool_sha256": {
+        "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+        "__main__.py": "02ae2d3585299362dbff1dca07a5d0107d9d6e0b6bb48026dd84f47ed48a7885",
+        "common.py": "6fdc3bed17a36a96f9e58ba6fba99de7c57a3bac21d8bffacae52b23b442e9b2",
+        "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+        "model.py": "e7c02e503ee668b71772a1270226be6b567aaad1e15cd99b595c939e3edaa8ae",
+        "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+        "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+        "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+        "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+        "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+      },
+      "metrics": {
+        "output": {
+          "max_relative_rms": 0.005763401595244483,
+          "failed": 0,
+          "count": 30
+        },
+        "state": {
+          "max_relative_rms": 0.004240596719082112,
+          "failed": 0,
+          "count": 30
+        },
+        "conv": {
+          "max_relative_rms": 0.002784806623477706,
+          "failed": 0,
+          "count": 30
+        }
+      }
+    },
+    {
+      "artifact": "correctness-tools-v19/sampler/result.json",
+      "sha256": "99cf795cda4f78b2f9ea3e96fbd8e9e05d72fdec32ccb9d485f8d5c125f6ba1d",
+      "status": "PASS",
+      "command": "sampler",
+      "case_count": 36,
+      "checks_passed": 36,
+      "checks_total": 36,
+      "seconds": 19.735714618931524,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 7,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": false,
+        "max_tokens": 262144
+      },
+      "tool_sha256": {
+        "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+        "__main__.py": "02ae2d3585299362dbff1dca07a5d0107d9d6e0b6bb48026dd84f47ed48a7885",
+        "common.py": "6fdc3bed17a36a96f9e58ba6fba99de7c57a3bac21d8bffacae52b23b442e9b2",
+        "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+        "model.py": "e7c02e503ee668b71772a1270226be6b567aaad1e15cd99b595c939e3edaa8ae",
+        "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+        "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+        "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+        "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+        "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+      },
+      "metrics": {}
+    },
+    {
+      "artifact": "correctness-tools-v19/stress/result.json",
+      "sha256": "f99b844acc7ab06065843c76991e25410edef35ac265863388e184a5f4d25efe",
+      "status": "PASS",
+      "command": "stress",
+      "case_count": 3072,
+      "checks_passed": 12288,
+      "checks_total": 12288,
+      "seconds": 91.10394328599796,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 7,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": false,
+        "max_tokens": 262144
+      },
+      "tool_sha256": {
+        "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+        "__main__.py": "02ae2d3585299362dbff1dca07a5d0107d9d6e0b6bb48026dd84f47ed48a7885",
+        "common.py": "6fdc3bed17a36a96f9e58ba6fba99de7c57a3bac21d8bffacae52b23b442e9b2",
+        "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+        "model.py": "e7c02e503ee668b71772a1270226be6b567aaad1e15cd99b595c939e3edaa8ae",
+        "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+        "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+        "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+        "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+        "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+      },
+      "metrics": {
+        "output": {
+          "max_relative_rms": 0.006596040223127816,
+          "failed": 0,
+          "count": 3072
+        },
+        "state": {
+          "max_relative_rms": 0.004296660187995126,
+          "failed": 0,
+          "count": 3072
+        },
+        "conv": {
+          "max_relative_rms": 0.0027886268330986593,
+          "failed": 0,
+          "count": 3072
+        }
+      }
+    },
+    {
+      "artifact": "correctness-tools-v20/model-gpu6-k7/result.json",
+      "sha256": "b1d620554300558d0fbde6631ca34c3bee6cb3c17e9d16c2e275e4f90dcd6a55",
+      "status": "ERROR",
+      "command": "model",
+      "case_count": 0,
+      "checks_passed": 0,
+      "checks_total": 0,
+      "seconds": 258.8972610869678,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 64,
+        "draft_tokens": 7,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 1.0,
+        "light": true,
+        "max_tokens": 262144
+      },
+      "tool_sha256": {
+        "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+        "__main__.py": "02ae2d3585299362dbff1dca07a5d0107d9d6e0b6bb48026dd84f47ed48a7885",
+        "common.py": "6fdc3bed17a36a96f9e58ba6fba99de7c57a3bac21d8bffacae52b23b442e9b2",
+        "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+        "model.py": "afecf5546acf0970493220dbcc0dc133d2f028f15dd007ed63cc75c6e309da34",
+        "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+        "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+        "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+        "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+        "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+      },
+      "failure": "RuntimeError: First nonfinite value at model.layers.25.self_attn.attention_output",
+      "metrics": {},
+      "prompts": 160,
+      "finished": 47,
+      "generated_tokens": 69476,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "3": 4001,
+        "6": 886,
+        "7": 526,
+        "4": 2292,
+        "5": 1358,
+        "1": 10016,
+        "2": 6991,
+        "8": 1082
+      },
+      "private_failure_dump": {
+        "name": "result.json.failure.pt",
+        "bytes": 20061316,
+        "sha256": "77ec3412dffe5f546fd01338f0c5a88c9ab86ca00cd1bc42f41caa243d1da93f"
+      }
+    },
+    {
+      "artifact": "correctness-tools-v20/teacher-k0/result.json",
+      "sha256": "7521d276363fadae9940cfff86d33ef0cee51e87fc4c0703ed3d72fb6f56e65a",
+      "status": "PASS",
+      "command": "teacher",
+      "case_count": 1,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 108.39737714407966,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 64,
+        "draft_tokens": 0,
+        "force_token": 171038,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "tool_sha256": {
+        "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+        "__main__.py": "02ae2d3585299362dbff1dca07a5d0107d9d6e0b6bb48026dd84f47ed48a7885",
+        "common.py": "6fdc3bed17a36a96f9e58ba6fba99de7c57a3bac21d8bffacae52b23b442e9b2",
+        "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+        "model.py": "afecf5546acf0970493220dbcc0dc133d2f028f15dd007ed63cc75c6e309da34",
+        "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+        "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+        "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+        "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+        "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+      },
+      "metrics": {},
+      "prompts": 1,
+      "finished": 1,
+      "generated_tokens": 512,
+      "longest_zero_run": 0
+    },
+    {
+      "artifact": "correctness-tools-v20/teacher-k7-a7/result.json",
+      "sha256": "852848012d8652439eed7afbd872ca4303d692082bb9137705aa399301ae664d",
+      "status": "FAIL",
+      "command": "teacher",
+      "case_count": 1532,
+      "checks_passed": 215,
+      "checks_total": 1534,
+      "seconds": 106.00828961492516,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 64,
+        "draft_tokens": 7,
+        "force_token": 171038,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": 7,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "tool_sha256": {
+        "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+        "__main__.py": "02ae2d3585299362dbff1dca07a5d0107d9d6e0b6bb48026dd84f47ed48a7885",
+        "common.py": "6fdc3bed17a36a96f9e58ba6fba99de7c57a3bac21d8bffacae52b23b442e9b2",
+        "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+        "model.py": "afecf5546acf0970493220dbcc0dc133d2f028f15dd007ed63cc75c6e309da34",
+        "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+        "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+        "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+        "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+        "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+      },
+      "metrics": {
+        "raw_logits": {
+          "max_relative_rms": 0.13599979985919528,
+          "failed": 16,
+          "count": 17
+        },
+        "hidden": {
+          "max_relative_rms": 0.6842131099477191,
+          "failed": 1303,
+          "count": 1513
+        }
+      },
+      "prompts": 1,
+      "finished": 1,
+      "generated_tokens": 512,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "8": 65
+      },
+      "first_recorded_hidden_threshold_exceedances": [
+        {
+          "hidden_key": "model.layers.2.mlp.input@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.005425121169537306,
+            "reference_rms": 0.44194310903549194,
+            "relative_rms": 0.01227560982085959,
+            "max_abs": 0.01953125,
+            "reference_peak": 1.7578125,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.2.mlp@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.0021392449270933867,
+            "reference_rms": 0.16903334856033325,
+            "relative_rms": 0.01265575666170882,
+            "max_abs": 0.03125,
+            "reference_peak": 4.09375,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.3.hidden@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.01025513093918562,
+            "reference_rms": 0.6227285861968994,
+            "relative_rms": 0.01646805874420396,
+            "max_abs": 0.25,
+            "reference_peak": 36.25,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        }
+      ]
+    },
+    {
+      "artifact": "correctness-tools-v15/model-gpu3-k1/result.json",
+      "sha256": "e8c16ec3271da7c1a2847f21bfb8b03ccc855db0e704419561eb527b6dba0263",
+      "status": "PASS",
+      "command": "model",
+      "case_count": 1,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 547.1950186269823,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 64,
+        "draft_tokens": 1,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": false,
+        "max_tokens": 2048
+      },
+      "metrics": {},
+      "prompts": 160,
+      "finished": 160,
+      "generated_tokens": 107893,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "2": 44833,
+        "1": 18498
+      }
+    },
+    {
+      "artifact": "correctness-tools-v15/model-gpu4-k0/result.json",
+      "sha256": "84f531699314845738a7765617ee065cad5ae6a68a76bbcf774ba910296b064a",
+      "status": "PASS",
+      "command": "model",
+      "case_count": 1,
+      "checks_passed": 2,
+      "checks_total": 2,
+      "seconds": 905.9431570089655,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "draft_tokens": 0,
+        "temperature": 0.0,
+        "max_tokens": 2048
+      },
+      "metrics": {},
+      "prompts": 16,
+      "finished": 16,
+      "generated_tokens": 25923,
+      "longest_zero_run": 0
+    },
+    {
+      "artifact": "correctness-tools-v15/model-gpu4-k1/result.json",
+      "sha256": "28da7a2c9c8cfc9a0df2780c5fb012971cb301d5b783edc48b5afe0d8c7182e5",
+      "status": "ERROR",
+      "command": "model",
+      "case_count": 0,
+      "checks_passed": 0,
+      "checks_total": 0,
+      "seconds": 121.11387231491972,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 1,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": false,
+        "max_tokens": 2048
+      },
+      "failure": "RuntimeError: First nonfinite value at model.layers.15.mla.native_output",
+      "metrics": {},
+      "prompts": 16,
+      "finished": 0,
+      "generated_tokens": 187,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "2": 91,
+        "1": 21
+      },
+      "private_failure_dump": {
+        "name": "result.json.failure.pt",
+        "bytes": 120371028,
+        "sha256": "882051eb41f9e6eea198060873a6ca72b6072a35c00e901e54b2b382e0fcc561"
+      }
+    },
+    {
+      "artifact": "correctness-tools-v15/model-gpu6-k7/result.json",
+      "sha256": "ba1f96ba0fee14ecc379a3a7b33ce4020fc3fb021c0d6603594c753e0df45cea",
+      "status": "ERROR",
+      "command": "model",
+      "case_count": 0,
+      "checks_passed": 0,
+      "checks_total": 0,
+      "seconds": 322.6452752479818,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 7,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 1.0,
+        "light": true,
+        "max_tokens": 262144
+      },
+      "failure": "RuntimeError: First nonfinite value at v2.rejection.draft_logits",
+      "metrics": {},
+      "prompts": 160,
+      "finished": 59,
+      "generated_tokens": 84441,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "3": 5110,
+        "6": 985,
+        "7": 557,
+        "4": 2803,
+        "5": 1494,
+        "1": 12541,
+        "2": 8761,
+        "8": 1333
+      },
+      "private_failure_dump": {
+        "name": "result.json.failure.pt",
+        "bytes": 18071805,
+        "sha256": "adef18662a5770defee6377245d55d89bc895b3d4e5ff17de7e2553e1dd88394"
+      }
+    },
+    {
+      "artifact": "correctness-tools-v15/teacher-k0/result.json",
+      "sha256": "81b0d804cc146909cbe766beac6981a62e1102b45f688d846945bc4ddd98a15d",
+      "status": "PASS",
+      "command": "teacher",
+      "case_count": 1,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 118.36400537099689,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 0,
+        "force_token": 171038,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "metrics": {},
+      "prompts": 1,
+      "finished": 1,
+      "generated_tokens": 512,
+      "longest_zero_run": 0
+    },
+    {
+      "artifact": "correctness-tools-v15/teacher-k1-a1/result.json",
+      "sha256": "eb7a5e5d6c18a7f3d1cb70ae1b5c051fdb60c54aabdc084205a6b0e78beef81c",
+      "status": "FAIL",
+      "command": "teacher",
+      "case_count": 988,
+      "checks_passed": 155,
+      "checks_total": 990,
+      "seconds": 114.82305074995384,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 1,
+        "force_token": 171038,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": 1,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "metrics": {
+        "raw_logits": {
+          "max_relative_rms": 0.12586009020890357,
+          "failed": 16,
+          "count": 17
+        },
+        "hidden": {
+          "max_relative_rms": 1.172517455025908,
+          "failed": 819,
+          "count": 969
+        }
+      },
+      "prompts": 1,
+      "finished": 1,
+      "generated_tokens": 512,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "2": 256
+      },
+      "first_recorded_hidden_threshold_exceedances": [
+        {
+          "hidden_key": "model.layers.3.mla@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.07227682322263718,
+            "reference_rms": 3.557307481765747,
+            "relative_rms": 0.02031784533474205,
+            "max_abs": 0.25,
+            "reference_peak": 96.0,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.4.hidden@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.030797069892287254,
+            "reference_rms": 0.9939232468605042,
+            "relative_rms": 0.03098536027763277,
+            "max_abs": 0.25,
+            "reference_peak": 45.5,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.5.hidden@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.03153557330369949,
+            "reference_rms": 1.0263227224349976,
+            "relative_rms": 0.03072676129480979,
+            "max_abs": 0.25,
+            "reference_peak": 45.75,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        }
+      ]
+    },
+    {
+      "artifact": "correctness-tools-v15/teacher-k3-a3/result.json",
+      "sha256": "f48540d8a9e790bdfa6611bc62eb811fcc1ff59177d82a44cb9a983a2ec146c9",
+      "status": "FAIL",
+      "command": "teacher",
+      "case_count": 988,
+      "checks_passed": 166,
+      "checks_total": 990,
+      "seconds": 108.83773414301686,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 3,
+        "force_token": 171038,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": 3,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "metrics": {
+        "raw_logits": {
+          "max_relative_rms": 0.10096281064784667,
+          "failed": 16,
+          "count": 17
+        },
+        "hidden": {
+          "max_relative_rms": 0.7078903397627355,
+          "failed": 808,
+          "count": 969
+        }
+      },
+      "prompts": 1,
+      "finished": 1,
+      "generated_tokens": 512,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "4": 129
+      },
+      "first_recorded_hidden_threshold_exceedances": [
+        {
+          "hidden_key": "model.layers.6.hidden@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.010890522040426731,
+            "reference_rms": 1.0379493236541748,
+            "relative_rms": 0.010492344657141708,
+            "max_abs": 0.0625,
+            "reference_peak": 45.75,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.6.mlp@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.0011453888146206737,
+            "reference_rms": 0.09862399846315384,
+            "relative_rms": 0.011613692736748994,
+            "max_abs": 0.015625,
+            "reference_peak": 2.046875,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.7.hidden@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.01997319981455803,
+            "reference_rms": 1.057070016860962,
+            "relative_rms": 0.01889486930475026,
+            "max_abs": 0.1328125,
+            "reference_peak": 46.75,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        }
+      ]
+    },
+    {
+      "artifact": "correctness-tools-v15/teacher-k7-a0/result.json",
+      "sha256": "66ff2fc61e93476b689bcf985cb8bb65e5bb398f8351574b485fe44160da7765",
+      "status": "FAIL",
+      "command": "teacher",
+      "case_count": 988,
+      "checks_passed": 145,
+      "checks_total": 990,
+      "seconds": 172.73415083205327,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 7,
+        "force_token": 171038,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": 0,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "metrics": {
+        "raw_logits": {
+          "max_relative_rms": 0.18872383169542215,
+          "failed": 16,
+          "count": 17
+        },
+        "hidden": {
+          "max_relative_rms": 0.6860091556870376,
+          "failed": 829,
+          "count": 969
+        }
+      },
+      "prompts": 1,
+      "finished": 1,
+      "generated_tokens": 512,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "1": 511
+      },
+      "first_recorded_hidden_threshold_exceedances": [
+        {
+          "hidden_key": "model.layers.2.mlp@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.0021392449270933867,
+            "reference_rms": 0.16903334856033325,
+            "relative_rms": 0.01265575666170882,
+            "max_abs": 0.03125,
+            "reference_peak": 4.09375,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.3.hidden@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.010388636961579323,
+            "reference_rms": 0.622734010219574,
+            "relative_rms": 0.01668230222068058,
+            "max_abs": 0.25,
+            "reference_peak": 36.25,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.3.mla@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.20497162640094757,
+            "reference_rms": 3.557307481765747,
+            "relative_rms": 0.0576198789257333,
+            "max_abs": 0.6875,
+            "reference_peak": 96.0,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        }
+      ]
+    },
+    {
+      "artifact": "correctness-tools-v15/teacher-k7-a3/result.json",
+      "sha256": "9878c2a7453bf3f541c0aad1b9ef87fa4664ecd0273fa219370f6a2300050dfe",
+      "status": "FAIL",
+      "command": "teacher",
+      "case_count": 988,
+      "checks_passed": 145,
+      "checks_total": 990,
+      "seconds": 118.53215031593572,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 7,
+        "force_token": 171038,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": 3,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "metrics": {
+        "raw_logits": {
+          "max_relative_rms": 0.18872383169542215,
+          "failed": 16,
+          "count": 17
+        },
+        "hidden": {
+          "max_relative_rms": 0.7215415548720218,
+          "failed": 829,
+          "count": 969
+        }
+      },
+      "prompts": 1,
+      "finished": 1,
+      "generated_tokens": 512,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "4": 129
+      },
+      "first_recorded_hidden_threshold_exceedances": [
+        {
+          "hidden_key": "model.layers.2.mlp@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.0021392449270933867,
+            "reference_rms": 0.16903334856033325,
+            "relative_rms": 0.01265575666170882,
+            "max_abs": 0.03125,
+            "reference_peak": 4.09375,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.3.hidden@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.010388636961579323,
+            "reference_rms": 0.622734010219574,
+            "relative_rms": 0.01668230222068058,
+            "max_abs": 0.25,
+            "reference_peak": 36.25,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.3.mla@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.20497162640094757,
+            "reference_rms": 3.557307481765747,
+            "relative_rms": 0.0576198789257333,
+            "max_abs": 0.6875,
+            "reference_peak": 96.0,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        }
+      ]
+    },
+    {
+      "artifact": "correctness-tools-v15/teacher-k7-a7/result.json",
+      "sha256": "0cae0fcc13768382ec7bd6b11ccff197defb13c55392873c07cce7bae78773c6",
+      "status": "FAIL",
+      "command": "teacher",
+      "case_count": 988,
+      "checks_passed": 145,
+      "checks_total": 990,
+      "seconds": 110.13056259904988,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 7,
+        "force_token": 171038,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": 7,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "metrics": {
+        "raw_logits": {
+          "max_relative_rms": 0.18872383169542215,
+          "failed": 16,
+          "count": 17
+        },
+        "hidden": {
+          "max_relative_rms": 0.6888410043913956,
+          "failed": 829,
+          "count": 969
+        }
+      },
+      "prompts": 1,
+      "finished": 1,
+      "generated_tokens": 512,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "8": 65
+      },
+      "first_recorded_hidden_threshold_exceedances": [
+        {
+          "hidden_key": "model.layers.2.mlp@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.0021392449270933867,
+            "reference_rms": 0.16903334856033325,
+            "relative_rms": 0.01265575666170882,
+            "max_abs": 0.03125,
+            "reference_peak": 4.09375,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.3.hidden@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.010388636961579323,
+            "reference_rms": 0.622734010219574,
+            "relative_rms": 0.01668230222068058,
+            "max_abs": 0.25,
+            "reference_peak": 36.25,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.3.mla@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.20497162640094757,
+            "reference_rms": 3.557307481765747,
+            "relative_rms": 0.0576198789257333,
+            "max_abs": 0.6875,
+            "reference_peak": 96.0,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        }
+      ]
+    },
+    {
+      "artifact": "correctness-teacher-h64-v15/teacher-k0/result.json",
+      "sha256": "69b689a4db2fbf0f320fdb38eaa661fb324c60bb2d3e160a96c94253930d3875",
+      "status": "PASS",
+      "command": "teacher",
+      "case_count": 1,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 143.3320618600119,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 64,
+        "draft_tokens": 0,
+        "force_token": 171038,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "metrics": {},
+      "prompts": 1,
+      "finished": 1,
+      "generated_tokens": 512,
+      "longest_zero_run": 0
+    },
+    {
+      "artifact": "correctness-teacher-h64-v15/teacher-k1-a1/result.json",
+      "sha256": "7639ac682e574313adf94b214839f00abc675833e8a73ba68de52d51cc243f52",
+      "status": "FAIL",
+      "command": "teacher",
+      "case_count": 988,
+      "checks_passed": 166,
+      "checks_total": 990,
+      "seconds": 130.46843297895975,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 64,
+        "draft_tokens": 1,
+        "force_token": 171038,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": 1,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "metrics": {
+        "raw_logits": {
+          "max_relative_rms": 0.10262858011457439,
+          "failed": 16,
+          "count": 17
+        },
+        "hidden": {
+          "max_relative_rms": 0.8441453738430461,
+          "failed": 808,
+          "count": 969
+        }
+      },
+      "prompts": 1,
+      "finished": 1,
+      "generated_tokens": 512,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "2": 256
+      },
+      "first_recorded_hidden_threshold_exceedances": [
+        {
+          "hidden_key": "model.layers.7.hidden@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.01602587103843689,
+            "reference_rms": 1.0596518516540527,
+            "relative_rms": 0.015123713522909879,
+            "max_abs": 0.1015625,
+            "reference_peak": 46.75,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.7.mla@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.13275474309921265,
+            "reference_rms": 2.139216661453247,
+            "relative_rms": 0.06205764263682743,
+            "max_abs": 0.484375,
+            "reference_peak": 36.5,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.7.mlp@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.002642505569383502,
+            "reference_rms": 0.09962250292301178,
+            "relative_rms": 0.026525187501318142,
+            "max_abs": 0.008544921875,
+            "reference_peak": 0.45703125,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        }
+      ]
+    },
+    {
+      "artifact": "correctness-teacher-h64-v15/teacher-k7-a7/result.json",
+      "sha256": "543e18e2d7e87dc1f20773e404b4fdbe0cbeb388844ea100db596851d93d983a",
+      "status": "FAIL",
+      "command": "teacher",
+      "case_count": 988,
+      "checks_passed": 145,
+      "checks_total": 990,
+      "seconds": 127.02228623593692,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 64,
+        "draft_tokens": 7,
+        "force_token": 171038,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": 7,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "metrics": {
+        "raw_logits": {
+          "max_relative_rms": 0.13599979985919528,
+          "failed": 16,
+          "count": 17
+        },
+        "hidden": {
+          "max_relative_rms": 0.6842131099477191,
+          "failed": 829,
+          "count": 969
+        }
+      },
+      "prompts": 1,
+      "finished": 1,
+      "generated_tokens": 512,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "8": 65
+      },
+      "first_recorded_hidden_threshold_exceedances": [
+        {
+          "hidden_key": "model.layers.2.mlp@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.0021392449270933867,
+            "reference_rms": 0.16903334856033325,
+            "relative_rms": 0.01265575666170882,
+            "max_abs": 0.03125,
+            "reference_peak": 4.09375,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.3.hidden@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.01025513093918562,
+            "reference_rms": 0.6227285861968994,
+            "relative_rms": 0.01646805874420396,
+            "max_abs": 0.25,
+            "reference_peak": 36.25,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        },
+        {
+          "hidden_key": "model.layers.3.mla@1",
+          "hidden": {
+            "pass": false,
+            "finite": true,
+            "rms_error": 0.2001982480287552,
+            "reference_rms": 3.5572478771209717,
+            "relative_rms": 0.05627897041315657,
+            "max_abs": 0.6875,
+            "reference_peak": 96.0,
+            "limits": {
+              "relative_rms": 0.01,
+              "relative_peak": 0.02,
+              "atol": 1e-05
+            }
+          }
+        }
+      ]
+    },
+    {
+      "artifact": "correctness-teacher-bf16-v15/teacher-k0/result.json",
+      "sha256": "0fd8105b001b06d834514e29d075271809488004e85aa24e7f4e5821ec4d783b",
+      "status": "PASS",
+      "command": "teacher",
+      "case_count": 1,
+      "checks_passed": 3,
+      "checks_total": 3,
+      "seconds": 140.85414640197996,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 0,
+        "force_token": 171038,
+        "kv_cache_dtype": "bfloat16",
+        "accepted_drafts": null,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "metrics": {},
+      "prompts": 1,
+      "finished": 1,
+      "generated_tokens": 512,
+      "longest_zero_run": 0
+    },
+    {
+      "artifact": "correctness-teacher-bf16-v15/teacher-k1-a1/result.json",
+      "sha256": "83925b660b38ae70e8979348f9ece091b628bb5b55d924262fb79fcd34208fe0",
+      "status": "ERROR",
+      "command": "teacher",
+      "case_count": 0,
+      "checks_passed": 0,
+      "checks_total": 0,
+      "seconds": 96.61156634707004,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 1,
+        "force_token": 171038,
+        "kv_cache_dtype": "bfloat16",
+        "accepted_drafts": 1,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "failure": "ValueError: Raon draft-page alignment requires FP8 KV, automatic block sizing and mamba cache mode none with APC OFF or align with APC ON",
+      "metrics": {}
+    },
+    {
+      "artifact": "correctness-teacher-bf16-v15/teacher-k7-a7/result.json",
+      "sha256": "e5fa49f3931e0b85f98024041afe8bf976956e271271338ec46c8d1a7724f3ac",
+      "status": "ERROR",
+      "command": "teacher",
+      "case_count": 0,
+      "checks_passed": 0,
+      "checks_total": 0,
+      "seconds": 103.63042954099365,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 7,
+        "force_token": 171038,
+        "kv_cache_dtype": "bfloat16",
+        "accepted_drafts": 7,
+        "temperature": 0.0,
+        "light": true,
+        "max_tokens": 512
+      },
+      "failure": "ValueError: Raon draft-page alignment requires FP8 KV, automatic block sizing and mamba cache mode none with APC OFF or align with APC ON",
+      "metrics": {}
+    },
+    {
+      "artifact": "correctness-tools-v5/model-gpu6-k7/result.json",
+      "sha256": "5bb0ffa2e50663eb1343af003cfbc8ebe352ea57dfc0d543f3b8b81113fe6182",
+      "status": "ERROR",
+      "command": "model",
+      "case_count": 0,
+      "checks_passed": 0,
+      "checks_total": 0,
+      "seconds": 1003.816256436985,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "draft_tokens": 7,
+        "temperature": 1.0,
+        "light": true,
+        "max_tokens": 262144
+      },
+      "failure": "RuntimeError: 256 consecutive token0 outputs",
+      "metrics": {},
+      "prompts": 160,
+      "finished": 60,
+      "generated_tokens": 100486,
+      "longest_zero_run": 261
+    },
+    {
+      "artifact": "correctness-tools-v17/model-gpu6-k7/result.json",
+      "sha256": "fe4f9e0c0ff8546244036ef497ebeb3a6bfb30b390165cb1efc888be30533c63",
+      "status": "ERROR",
+      "command": "model",
+      "case_count": 0,
+      "checks_passed": 0,
+      "checks_total": 0,
+      "seconds": 291.67543647496495,
+      "arguments": {
+        "rounds": 1024,
+        "samples": 65536,
+        "scratch_poison": false,
+        "kv_padding": "exact",
+        "mla_heads": 48,
+        "draft_tokens": 7,
+        "force_token": null,
+        "kv_cache_dtype": "fp8_e4m3",
+        "accepted_drafts": null,
+        "temperature": 1.0,
+        "light": true,
+        "max_tokens": 262144
+      },
+      "failure": "RuntimeError: First nonfinite value at v2.rejection.draft_logits",
+      "metrics": {},
+      "prompts": 160,
+      "finished": 59,
+      "generated_tokens": 96973,
+      "longest_zero_run": 0,
+      "acceptance_histogram": {
+        "3": 5854,
+        "6": 1110,
+        "7": 664,
+        "4": 3202,
+        "5": 1748,
+        "1": 14637,
+        "2": 10216,
+        "8": 1449
+      },
+      "private_failure_dump": {
+        "name": "result.json.failure.pt",
+        "bytes": 19670141,
+        "sha256": "771ef1ed5356b4068e1fc8727dbce36f42f768c1f6a586ea2da5b527d554a781"
+      }
+    }
+  ],
+  "draft_nan_fix": {
+    "cause": "Expired SWA cache NaNs were loaded before score masking and contaminated P @ V. Skip expired tiles and mask boundary K/V loads.",
+    "analysis": {
+      "stage": "model.layers.25.self_attn.attention_output",
+      "qkv_shapes": [
+        [
+          128,
+          2560
+        ],
+        [
+          128,
+          640
+        ],
+        [
+          128,
+          640
+        ]
+      ],
+      "qkv_finite": [
+        true,
+        true,
+        true
+      ],
+      "cache_shape": [
+        14023,
+        2,
+        2304,
+        640
+      ],
+      "cache_dtype": "torch.uint8",
+      "captured_blocks": 3,
+      "nonfinite_cache_elements": 14691,
+      "bad_rows": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "metadata_causal": false,
+      "sliding_window": 2048,
+      "requests": [
+        {
+          "row": 0,
+          "request_index": 0,
+          "seq_len": 5622,
+          "absolute_query_position": 5614,
+          "query_length": 8,
+          "nonfinite_kv_token_count": 2301,
+          "first_bad_kv_positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ],
+          "bad_in_window": 0,
+          "bad_outside_window": 2301
+        },
+        {
+          "row": 1,
+          "request_index": 0,
+          "seq_len": 5622,
+          "absolute_query_position": 5615,
+          "query_length": 8,
+          "nonfinite_kv_token_count": 2301,
+          "first_bad_kv_positions": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ],
+          "bad_in_window": 0,
+          "bad_outside_window": 2301
+        }
+      ]
+    },
+    "replay": {
+      "baseline": {
+        "artifact": "correctness-tools-v22/draft-replay/baseline.json",
+        "sha256": "f8f4bc2067353da49a9fbaa1a6aefa95fc9c25ccd0116aa866d4ddd3351eafe3",
+        "status": "FAIL",
+        "cases": [
+          {
+            "output": {
+              "pass": false,
+              "finite": false
+            }
+          }
+        ],
+        "source": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/v1/attention/ops/prefix_prefill.py",
+          "sha256": "b08ad92db715fc03c11699de3de463d55e411f42f77548e06b41049a61de692f"
+        },
+        "tool_sha256": {
+          "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+          "__main__.py": "71bb7538d614a2ce8febe4704cb69448d7920c6d36b1b3050ac8c18914f923ac",
+          "common.py": "7aa2f6fbc4ced5aba47c194f4342e7f7ff31de037852bf559e15ed2ee3d289e8",
+          "draft_replay.py": "87fb7695a4b6c42d1852fe43466cb0a361ef24c67681c53e598d02acd5aad8c4",
+          "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+          "model.py": "afecf5546acf0970493220dbcc0dc133d2f028f15dd007ed63cc75c6e309da34",
+          "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+          "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+          "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+          "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+          "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+        }
+      },
+      "patched": {
+        "artifact": "correctness-tools-v22/draft-replay/patched.json",
+        "sha256": "4ee0feb8f000f2b93e71ab9c88f6908b6249a69414ae5d477e601956402da267",
+        "status": "PASS",
+        "cases": [
+          {
+            "output": {
+              "pass": true,
+              "finite": true,
+              "rms_error": 0.0021452337969094515,
+              "reference_rms": 1.2767555713653564,
+              "relative_rms": 0.0016802227811039418,
+              "max_abs": 0.016005992889404297,
+              "reference_peak": 6.651803016662598,
+              "limits": {
+                "relative_rms": 0.01,
+                "relative_peak": 0.02,
+                "atol": 1e-05
+              }
+            }
+          }
+        ],
+        "source": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/v1/attention/ops/prefix_prefill.py",
+          "sha256": "2f37f0bfb7782bc846f03bfeecb8a4279a33b539b714e752a80d6a6340ad7c2b"
+        },
+        "tool_sha256": {
+          "__init__.py": "54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+          "__main__.py": "71bb7538d614a2ce8febe4704cb69448d7920c6d36b1b3050ac8c18914f923ac",
+          "common.py": "7aa2f6fbc4ced5aba47c194f4342e7f7ff31de037852bf559e15ed2ee3d289e8",
+          "draft_replay.py": "87fb7695a4b6c42d1852fe43466cb0a361ef24c67681c53e598d02acd5aad8c4",
+          "mla.py": "4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+          "model.py": "afecf5546acf0970493220dbcc0dc133d2f028f15dd007ed63cc75c6e309da34",
+          "prompts.py": "25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+          "rda.py": "d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+          "reference.py": "d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+          "replay.py": "feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+          "sampler.py": "16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0"
+        }
+      }
+    },
+    "regression": [
+      {
+        "stage": "baseline",
+        "exit_code": 2
+      },
+      {
+        "stage": "patched",
+        "exit_code": 0
+      },
+      {
+        "stage": "regression",
+        "exit_code": 0
+      }
+    ],
+    "full_model_postfix": "PENDING_NEW_AR_ALLOCATION"
+  },
+  "provenance_note": "Early decorated-function source records can point to torch contextlib wrappers. Final tools unwrap decorators; final draft replay source hashes identify prefix_prefill.py. Original evidence hashes and tool bundle hashes remain unchanged.",
+  "h40_workaround_unit_tests": {
+    "passed": 2,
+    "artifact": "correctness-tools-v19/pytest/run.log",
+    "sha256": "41bd22f0f5c50e2827f37f7c0a6f7843e24ad3bc6c64751bf0294bf27b2c545d"
+  },
+  "cleanup": {
+    "utc": "2026-11-23T03:23:38.595477+00:00",
+    "drivers_stopped": [],
+    "owned_containers_removed": [],
+    "ar_containers_untouched": true
+  },
+  "postfix_followup": {
+    "status": "WAITING_FOR_NEXT_AR_ALLOCATION",
+    "additional_allocation_submitted": false,
+    "draft_counts": [
+      1,
+      3,
+      7
+    ],
+    "gpu_mapping": {
+      "3": 1,
+      "4": 3,
+      "6": 7
+    },
+    "generation_seconds": 3600,
+    "max_context": 262144,
+    "ignore_eos": false,
+    "scope": "Instrumented 160-prompt diagnostic, separate from MMLU scores",
+    "controller": "correctness-postfix-series-v1/execution.json"
+  },
+  "published_patch_sha256": {
+    "vllm/envs.py": "5e1ec0de807b76235fc905dda87467461a0018e00eed26fe1e0e39c17ed6144c",
+    "vllm/v1/attention/backends/mla/rocm_aiter_mla.py": "2fe00d5345f5987b8a1fbfd2f99cd7e3948c01641584ea3945d1f168811f7554",
+    "vllm/v1/attention/ops/prefix_prefill.py": "2f37f0bfb7782bc846f03bfeecb8a4279a33b539b714e752a80d6a6340ad7c2b"
+  },
+  "executed_bundles": {
+    "19": "987c3caace1d34739e0bead042b119ff4ff4e51601a13b5232f8e012df245691",
+    "20": "06171a5c830973600725c9ea801c60506c7bde2c991c7743f6b017e93fef1cef",
+    "21": "1e715bf8df4fd27aceaee856e9a35428b3b4dff6d29a73cefb334e178631425d",
+    "22": "e11ec011bc79d5df8f51e3b1c2f0cdac24518f55021ca7d215fe39368eb4bdeb"
+  }
+}

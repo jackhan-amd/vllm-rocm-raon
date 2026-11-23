@@ -33,6 +33,73 @@ KV_CACHE_DTYPES = ["auto", "fp8", "fp8_e5m2"]
 OPS = [chunked_prefill_paged_decode, context_attention_fwd]
 
 
+@pytest.mark.parametrize("query_len", [2, 8])
+@pytest.mark.parametrize("causal", [True, False])
+@pytest.mark.parametrize("cache_dtype", ["auto", "fp8_e4m3"])
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="GPU required")
+def test_sliding_window_ignores_nan_expired_cache(query_len, causal, cache_dtype):
+    """Recycled pages and the masked part of a boundary tile must not leak NaNs."""
+    device, dim, seq_len, window = "cuda", 32, 96, 32
+    dtype = torch.bfloat16
+    storage_dtype = dtype if cache_dtype == "auto" else current_platform.fp8_dtype()
+    q = torch.randn(query_len, 2, dim, device=device, dtype=dtype) * 0.2
+    k, v = [
+        torch.randn(query_len, 1, dim, device=device, dtype=dtype) * 0.2
+        for _ in range(2)
+    ]
+    kc = (torch.randn(3, 1, dim // 8, 32, 8, device=device) * 0.2).to(storage_dtype)
+    vc = (torch.randn(3, 1, dim, 32, device=device) * 0.2).to(storage_dtype)
+    dense_k = kc.permute(0, 3, 1, 2, 4).reshape(seq_len, 1, dim)
+    dense_v = vc.permute(0, 3, 1, 2).reshape(seq_len, 1, dim)
+    context = seq_len - query_len
+    first = context - window + 1
+    expected_k = torch.cat([dense_k[first:context].float(), k.float()])
+    expected_v = torch.cat([dense_v[first:context].float(), v.float()])
+    # Poison full old pages and part of the first still-readable tile.
+    positions = torch.arange(seq_len, device=device).reshape(3, 32)
+    kc = (
+        kc.float()
+        .masked_fill((positions < first)[:, None, None, :, None], float("nan"))
+        .to(storage_dtype)
+    )
+    vc = (
+        vc.float()
+        .masked_fill((positions < first)[:, None, None, :], float("nan"))
+        .to(storage_dtype)
+    )
+    expected_k = expected_k.repeat_interleave(2, dim=1)
+    expected_v = expected_v.repeat_interleave(2, dim=1)
+    scores = torch.einsum("qhd,khd->qhk", q.float(), expected_k) * dim**-0.5
+    qp = context + torch.arange(query_len, device=device)
+    kp = first + torch.arange(expected_k.shape[0], device=device)
+    valid = kp[None, :] >= qp[:, None] - window + 1
+    if causal:
+        valid &= kp[None, :] <= qp[:, None]
+    scores.masked_fill_(~valid[:, None, :], -torch.inf)
+    expected = torch.einsum("qhk,khd->qhd", scores.softmax(-1), expected_v)
+    out = torch.empty_like(q)
+    scale = torch.ones(1, device=device)
+    context_attention_fwd(
+        q=q,
+        k=k,
+        v=v,
+        o=out,
+        kv_cache_dtype=cache_dtype,
+        k_cache=kc,
+        v_cache=vc,
+        b_loc=torch.tensor([[0, 1, 2]], device=device, dtype=torch.int32),
+        b_start_loc=torch.tensor([0, query_len], device=device, dtype=torch.int32),
+        b_seq_len=torch.tensor([seq_len], device=device, dtype=torch.int32),
+        max_seq_len=seq_len,
+        max_input_len=query_len,
+        k_scale=scale,
+        v_scale=scale,
+        sliding_window=window,
+        causal=causal,
+    )
+    torch.testing.assert_close(out.float(), expected, rtol=0.02, atol=0.002)
+
+
 def create_causal_attention_mask_for_sdpa(
     query_lens: list[int],
     seq_lens: list[int],

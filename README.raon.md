@@ -101,6 +101,26 @@ disabled, and this fork's initial target is the released MXFP8 checkpoint.
 
 ## Evaluation status
 
+Reproducible RDA, accepted-state rollback, long-update, FP8 MLA, rejection
+sampler and instrumented model diagnostics are registered under
+[`tools/raon_validation`](tools/raon_validation/README.md). They retain
+individual numerical errors and first-failure evidence separately from
+quality evaluation and performance measurements.
+
+On 2026-11-23, the MI355X component checks passed 8 RDA arithmetic cases,
+30 rollback cases, 3,072 repeated state-update cases and 36 legacy/V2 sampler
+cases. Full-model SD correctness is **not established**: native FP8 MLA Q2/H48
+produced a NaN, and teacher-forced raw logits exceed the diagnostic tolerance.
+The opt-in `VLLM_ROCM_AITER_MLA_PAD_H40_TO_64=1` avoids the unstable H48
+dispatch in the tested captured-input replay; it does not resolve every SD
+failure. A separate draft layer-25 NaN was traced to expired SWA cache
+values contaminating the ROCm prefix-prefill value reduction. The prefix
+kernel now skips/masks those loads; the actual captured-input replay and
+eight regression cases pass. Long full-model validation after this fix and
+the raw-logit discrepancy remain open. Numerical criteria are recorded with the
+[diagnostic tools](tools/raon_validation/README.md). The Dockerfiles now include
+the tools and this option; existing published image digests predate them.
+
 Both SD off and DFlash2 completed the same four basic tasks with natural EOS:
 multiplication, the first eight primes with explanation, Korean translation,
 and continuation of a square-number sequence. The answers were correct.
@@ -145,9 +165,12 @@ The imported preview implementation still has upstream lint findings,
 including optional-path imports, legacy API policy checks and unreachable
 FlashKDA references in the ROCm adapter. Full upstream pre-commit is not
 passing; Windows Node/npm bootstrap also encountered a certificate error.
-The Docker helpers pass Ruff, both Dockerfiles parse, and all 63 published
-runtime Python files have been checked for functional AST equivalence with
-the evaluated container after formatting and attribution comments.
+The original Docker helpers pass Ruff and both Dockerfiles parse. Before the
+2026-11-23 diagnostic changes, all 63 imported runtime Python files were
+checked for functional AST equivalence with the evaluated container after
+formatting and attribution comments. The current overlay also includes
+`vllm/envs.py`, the MLA backend and the prefix-prefill kernel for the separately
+tested fixes.
 
 `docker/raon/runtime-source-provenance.json` records the hashes of the Python
 files captured from the evaluated container before any repository formatting.

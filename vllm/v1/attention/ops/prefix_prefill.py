@@ -227,9 +227,21 @@ def _fwd_kernel(
 
     acc = tl.zeros([BLOCK_M, BLOCK_DMODEL_PADDED], dtype=tl.float32)  # [M,D]
 
+    # Expired SWA pages may have been recycled and contain NaNs. Masking scores
+    # alone cannot protect P @ V: zero times NaN is still NaN. Skip expired
+    # tiles and mask the boundary tile's K/V loads for every query in this tile.
+    first_context = 0
+    if SLIDING_WINDOW > 0:
+        first_context = tl.maximum(
+            cur_batch_ctx_len + block_start_loc - SLIDING_WINDOW + 1, 0
+        )
+    context_tile_start = first_context // BLOCK_SIZE * BLOCK_SIZE
     # compute query against context (no causal mask here)
     for start_n in tl.range(
-        0, cur_batch_ctx_len, BLOCK_SIZE, loop_unroll_factor=num_unroll_cache
+        context_tile_start,
+        cur_batch_ctx_len,
+        BLOCK_SIZE,
+        loop_unroll_factor=num_unroll_cache,
     ):
         # Under a block size of 544 (Qwen/Qwen3-Next-80B-A3B-Thinking),
         # replace one physical block every 17 32-Tile blocks
@@ -266,13 +278,15 @@ def _fwd_kernel(
         )
 
         if (
-            start_n + BLOCK_SIZE > cur_batch_ctx_len
+            SLIDING_WINDOW > 0
+            or start_n + BLOCK_SIZE > cur_batch_ctx_len
             or BLOCK_DMODEL != BLOCK_DMODEL_PADDED
         ):
             k_load = tl.load(
                 K_cache + off_k,
                 mask=dim_mask[:, None]
-                & ((start_n + offs_bs_n[None, :]) < cur_batch_ctx_len),
+                & ((start_n + offs_bs_n[None, :]) < cur_batch_ctx_len)
+                & ((start_n + offs_bs_n[None, :]) >= first_context),
                 other=0.0,
             )  # [D,N]
         else:
@@ -319,13 +333,15 @@ def _fwd_kernel(
 
         # update acc
         if (
-            start_n + BLOCK_SIZE > cur_batch_ctx_len
+            SLIDING_WINDOW > 0
+            or start_n + BLOCK_SIZE > cur_batch_ctx_len
             or BLOCK_DMODEL != BLOCK_DMODEL_PADDED
         ):
             v_load = tl.load(
                 V_cache + off_v,
                 mask=dim_mask[None, :]
-                & ((start_n + offs_bs_n[:, None]) < cur_batch_ctx_len),
+                & ((start_n + offs_bs_n[:, None]) < cur_batch_ctx_len)
+                & ((start_n + offs_bs_n[:, None]) >= first_context),
                 other=0.0,
             )  # [N,D]
         else:

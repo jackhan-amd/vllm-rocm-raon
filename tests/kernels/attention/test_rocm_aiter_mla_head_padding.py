@@ -109,6 +109,19 @@ def test_h12_query_is_tile_padded_to_h16():
     torch.testing.assert_close(padded_q[:, 12:], q[:, :4])
 
 
+@pytest.mark.parametrize("enabled,width", [(False, 48), (True, 64)])
+def test_h40_decode_workaround_preserves_live_heads(monkeypatch, enabled, width):
+    monkeypatch.setenv("VLLM_ROCM_AITER_MLA_PAD_H40_TO_64", str(int(enabled)))
+    q = torch.arange(2 * 40 * 4, dtype=torch.bfloat16).view(2, 40, 4)
+    padded = AiterMLAHelper.get_mla_padded_q(40, q)
+    # Metadata sizing, dispatch and the physical query width must agree.
+    assert AiterMLAHelper.get_actual_mla_num_heads(40) == padded.shape[1] == width
+    torch.testing.assert_close(padded[:, :40], q)
+    torch.testing.assert_close(AiterMLAHelper.get_mla_unpadded_o(40, padded), q)
+    assert AiterMLAHelper.get_fp8_prefill_num_heads(40) == 48
+    assert AiterMLAHelper.get_actual_mla_num_heads(32) == 32
+
+
 def test_h6_tp16_query_is_padded_to_h16():
     # TP16 puts 6 heads/rank. The old append-only padding produced cat(6, 6) =
     # 12 heads and broke the asm kernel; tile-and-slice must reach exactly 16.

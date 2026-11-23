@@ -1730,6 +1730,8 @@ class AiterMLAHelper:
 
     @staticmethod
     def get_actual_mla_num_heads(num_heads: int) -> int:
+        if num_heads == 40 and envs.VLLM_ROCM_AITER_MLA_PAD_H40_TO_64:
+            return 64
         if num_heads == 24 and _aiter_mla_native_h24_supported():
             return num_heads
         m = AiterMLAHelper._AITER_MIN_MLA_HEADS
