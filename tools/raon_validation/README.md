@@ -277,6 +277,50 @@ reported allocation while a new allocation is still initializing.
 
 ## Experimental Quark MXFP4 conversion
 
+### Excluding compilation from SD timing
+
+Use the separate compiler-guarded timing tool after sourcing the appropriate
+Raon runtime profile. Give each engine its own cache directories, set before
+starting Python. Run the profiles sequentially on the same idle GPU:
+
+```bash
+export VLLM_ENABLE_V1_MULTIPROCESSING=0
+export TRITON_CACHE_DIR="$PWD/evidence/triton"
+export AITER_JIT_DIR="$PWD/evidence/aiter"
+export FLYDSL_RUNTIME_CACHE_DIR="$PWD/evidence/flydsl"
+export TORCH_EXTENSIONS_DIR="$PWD/evidence/torch-extensions"
+.venv/bin/python -m tools.raon_validation.compile_clean \
+  --precision mxfp4 --audit-dir evidence --warmup-tokens 512 \
+  --priming-repetitions 2 --repetitions 5 \
+  --model /models/raon-quark-mxfp4 --draft-model /models/raon-draft \
+  --prompts-json prompts.json --output evidence/timing.json \
+  --concurrencies 16 --output-tokens 512 --draft-tokens 7
+```
+
+For MXFP8, source its runtime profile and change the precision/model paths.
+The initial full-cap warmup and two priming batches are excluded. During
+official repetitions, a Triton JIT cache miss or AITER build raises an error,
+and FlyDSL runs with `FLYDSL_RUNTIME_RUN_ONLY=1`. Code-cache snapshots occur
+outside the timer. The portable tool hashes artifacts and rejects additions,
+modifications and deletions. This covers those APIs and cache roots, not every
+possible compiler invocation. A blocked build invalidates the measurement;
+do not promote a partial result. Use `official_compile_free` to select points;
+the underlying benchmark also retains warmup/priming points in its JSON.
+
+The [2026-11-23 GPU4 comparison](results/compile-clean-sd-20261123.json) used
+a frozen experimental wrapper with these compiler guards and size/mtime cache
+snapshots. Both profiles passed all three official repetitions without cache
+changes or blocked attempts. Median output throughput was 466.07 tokens/s for
+MXFP8 SD7 and 397.33 for MXFP4 SD7 (-14.75%). Both honored EOS, so output
+lengths differed. These are short C16, 512-token-cap, offline engine timings
+including prefill, with four unchanged evaluation engines on other GPUs.
+They do not replace full-length evaluation or establish a universal slowdown.
+The initial warmup measured 213.75/173.55 tokens/s; that difference combines
+compilation, lazy initialization and other warmup effects. Its duration is not
+a measurement of compilation alone. The portable tool is a later refactor;
+its CPU cache-audit tests passed, but this recorded GPU run used the frozen
+wrapper whose hash is included in the result.
+
 The pinned `haanjack/quanto` revision is
 `30e613245063db738570212307e799b3f0a63ffa`. Use its source with the image's
 AMD Quark 0.12.post1, Torch 2.14.0+rocm10.2.0 and Python 3.14.10. Quanto's

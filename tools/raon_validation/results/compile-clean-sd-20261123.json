@@ -1,0 +1,489 @@
+{
+  "plan": {
+    "job": "86624",
+    "gpu": 4,
+    "target": "thera/mi355x",
+    "inventory_sha256": "c5463f1cf3280b89bba34392d20dc1cd7ee7d81ed0d5797e3593b12b2fa019d3",
+    "source_commit": "5abf8cf45482a3be3c999afd286432dec09e96f7",
+    "input_tar_sha256": "6a7a86f94d9b9e03665c2d88ed0b66c791848ab5d8212582bfd73f1c198e7e04",
+    "profiles": [
+      "mxfp8-sd7",
+      "mxfp4-sd7"
+    ],
+    "same_physical_gpu": true,
+    "concurrency": 16,
+    "requests_per_batch": 16,
+    "warmup_batches": 3,
+    "official_repetitions": 3,
+    "output_cap": 512,
+    "ignore_eos": false,
+    "sampling": {
+      "temperature": 1,
+      "top_p": 0.95,
+      "top_k": 20,
+      "presence_penalty": 1.5
+    },
+    "compilation_policy": "One full-cap warmup + two full-cap priming batches; block compile/cache misses and reject changed cache artifacts in three official batches",
+    "background": "Unchanged four quality engines on GPUs0-3",
+    "criterion": "Scoped measurement; no formal performance acceptance threshold"
+  },
+  "execution": {
+    "status": "FINISHED",
+    "job": "86624",
+    "node": "TheraC91",
+    "gpu": 4,
+    "profiles": {
+      "mxfp8": {
+        "status": "MEASURED",
+        "exit_code": 0
+      },
+      "mxfp4": {
+        "status": "MEASURED",
+        "exit_code": 0
+      }
+    },
+    "active_profile": "mxfp4",
+    "owned_containers_removed": true
+  },
+  "profiles": {
+    "mxfp8": {
+      "status": "MEASURED",
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "architecture": "gfx950:sramecc+:xnack-",
+        "visible_devices": "4",
+        "job": "86624",
+        "python": "/tmp/.venv/bin/python",
+        "pythonpath": "/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+        "platform": "RocmPlatform"
+      },
+      "arguments": {
+        "model": "/model-cache/target/1b4f494d71dff50318288309f64c72aa8c11340e",
+        "draft_model": "/model-cache/draft/164b3dda020f145a4650b3c050841e15250c2f77",
+        "prompts_json": "/input/prompts.json",
+        "output": "/evidence/result.json",
+        "draft_tokens": 7,
+        "draft_method": "probabilistic",
+        "verify_method": "standard",
+        "concurrencies": [
+          16
+        ],
+        "repetitions": 5,
+        "output_tokens": 512,
+        "requests": null
+      },
+      "compile_audit": {
+        "status": "PASS",
+        "scope": "First two timed repetitions are prespecified priming only; official repetitions 2/3/4 forbid Triton cache misses, AITER builds and FlyDSL compilation, and verify code-cache artifacts unchanged.",
+        "events": [
+          {
+            "repetition": -1,
+            "warmup": true,
+            "official": false,
+            "cache_artifacts_before": 34,
+            "cache_artifacts_after": 119,
+            "compile_attempts": 0,
+            "output_tps": 213.74651005066363,
+            "output_tokens": 6605,
+            "new_or_changed_artifact_count": 85
+          },
+          {
+            "repetition": 0,
+            "warmup": false,
+            "official": false,
+            "cache_artifacts_before": 119,
+            "cache_artifacts_after": 121,
+            "compile_attempts": 0,
+            "output_tps": 448.65962753828387,
+            "output_tokens": 6683,
+            "new_or_changed_artifact_count": 2
+          },
+          {
+            "repetition": 1,
+            "warmup": false,
+            "official": false,
+            "cache_artifacts_before": 121,
+            "cache_artifacts_after": 121,
+            "compile_attempts": 0,
+            "output_tps": 421.76520940895773,
+            "output_tokens": 6603,
+            "new_or_changed_artifact_count": 0
+          },
+          {
+            "repetition": 2,
+            "warmup": false,
+            "official": true,
+            "cache_artifacts_before": 121,
+            "cache_artifacts_after": 121,
+            "compile_attempts": 0,
+            "output_tps": 466.0677537310274,
+            "output_tokens": 6717,
+            "new_or_changed_artifact_count": 0
+          },
+          {
+            "repetition": 3,
+            "warmup": false,
+            "official": true,
+            "cache_artifacts_before": 121,
+            "cache_artifacts_after": 121,
+            "compile_attempts": 0,
+            "output_tps": 464.23159762881534,
+            "output_tokens": 6648,
+            "new_or_changed_artifact_count": 0
+          },
+          {
+            "repetition": 4,
+            "warmup": false,
+            "official": true,
+            "cache_artifacts_before": 121,
+            "cache_artifacts_after": 121,
+            "compile_attempts": 0,
+            "output_tps": 481.8888388392217,
+            "output_tokens": 6724,
+            "new_or_changed_artifact_count": 0
+          }
+        ],
+        "blocked_attempts": []
+      },
+      "official": [
+        {
+          "concurrency": 16,
+          "requests": 16,
+          "repetition": 2,
+          "warmup": false,
+          "wall_seconds": 14.412067658035085,
+          "output_tokens": 6717,
+          "output_tokens_per_second": 466.0677537310274,
+          "spec_metrics": {
+            "vllm:spec_decode_num_drafts": 2451,
+            "vllm:spec_decode_num_draft_tokens": 17157,
+            "vllm:spec_decode_num_accepted_tokens": 4264,
+            "vllm:spec_decode_num_accepted_tokens_per_pos": [
+              1592,
+              992,
+              635,
+              419,
+              298,
+              193,
+              135
+            ]
+          },
+          "accepted_fraction": 0.2485282974879058,
+          "accepted_per_draft": 1.7396980824153407,
+          "official_compile_free": true,
+          "compile_cache_changes": [],
+          "finish_reasons": {
+            "stop": 8,
+            "length": 8
+          },
+          "length_range": [
+            113,
+            512
+          ]
+        },
+        {
+          "concurrency": 16,
+          "requests": 16,
+          "repetition": 3,
+          "warmup": false,
+          "wall_seconds": 14.320438406080939,
+          "output_tokens": 6648,
+          "output_tokens_per_second": 464.23159762881534,
+          "spec_metrics": {
+            "vllm:spec_decode_num_drafts": 2427,
+            "vllm:spec_decode_num_draft_tokens": 16989,
+            "vllm:spec_decode_num_accepted_tokens": 4231,
+            "vllm:spec_decode_num_accepted_tokens_per_pos": [
+              1587,
+              974,
+              619,
+              418,
+              296,
+              196,
+              141
+            ]
+          },
+          "accepted_fraction": 0.24904349873447526,
+          "accepted_per_draft": 1.7433044911413267,
+          "official_compile_free": true,
+          "compile_cache_changes": [],
+          "finish_reasons": {
+            "stop": 7,
+            "length": 9
+          },
+          "length_range": [
+            113,
+            512
+          ]
+        },
+        {
+          "concurrency": 16,
+          "requests": 16,
+          "repetition": 4,
+          "warmup": false,
+          "wall_seconds": 13.95342547504697,
+          "output_tokens": 6724,
+          "output_tokens_per_second": 481.8888388392217,
+          "spec_metrics": {
+            "vllm:spec_decode_num_drafts": 2444,
+            "vllm:spec_decode_num_draft_tokens": 17108,
+            "vllm:spec_decode_num_accepted_tokens": 4279,
+            "vllm:spec_decode_num_accepted_tokens_per_pos": [
+              1612,
+              987,
+              633,
+              417,
+              305,
+              192,
+              133
+            ]
+          },
+          "accepted_fraction": 0.2501169043722235,
+          "accepted_per_draft": 1.7508183306055647,
+          "official_compile_free": true,
+          "compile_cache_changes": [],
+          "finish_reasons": {
+            "stop": 7,
+            "length": 9
+          },
+          "length_range": [
+            113,
+            512
+          ]
+        }
+      ],
+      "median_output_tps": 466.0677537310274,
+      "result_sha256": "81da195e3973f948164cea8255dba398298dc4a803b8988fbb40722fb0fdef0b"
+    },
+    "mxfp4": {
+      "status": "MEASURED",
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "architecture": "gfx950:sramecc+:xnack-",
+        "visible_devices": "4",
+        "job": "86624",
+        "python": "/tmp/.venv/bin/python",
+        "pythonpath": "/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+        "platform": "RocmPlatform"
+      },
+      "arguments": {
+        "model": "/quantized",
+        "draft_model": "/model-cache/draft/164b3dda020f145a4650b3c050841e15250c2f77",
+        "prompts_json": "/input/prompts.json",
+        "output": "/evidence/result.json",
+        "draft_tokens": 7,
+        "draft_method": "probabilistic",
+        "verify_method": "standard",
+        "concurrencies": [
+          16
+        ],
+        "repetitions": 5,
+        "output_tokens": 512,
+        "requests": null
+      },
+      "compile_audit": {
+        "status": "PASS",
+        "scope": "First two timed repetitions are prespecified priming only; official repetitions 2/3/4 forbid Triton cache misses, AITER builds and FlyDSL compilation, and verify code-cache artifacts unchanged.",
+        "events": [
+          {
+            "repetition": -1,
+            "warmup": true,
+            "official": false,
+            "cache_artifacts_before": 32,
+            "cache_artifacts_after": 121,
+            "compile_attempts": 0,
+            "output_tps": 173.5476212355786,
+            "output_tokens": 5897,
+            "new_or_changed_artifact_count": 89
+          },
+          {
+            "repetition": 0,
+            "warmup": false,
+            "official": false,
+            "cache_artifacts_before": 121,
+            "cache_artifacts_after": 121,
+            "compile_attempts": 0,
+            "output_tps": 367.83198314585013,
+            "output_tokens": 5797,
+            "new_or_changed_artifact_count": 0
+          },
+          {
+            "repetition": 1,
+            "warmup": false,
+            "official": false,
+            "cache_artifacts_before": 121,
+            "cache_artifacts_after": 121,
+            "compile_attempts": 0,
+            "output_tps": 371.58518514310106,
+            "output_tokens": 5981,
+            "new_or_changed_artifact_count": 0
+          },
+          {
+            "repetition": 2,
+            "warmup": false,
+            "official": true,
+            "cache_artifacts_before": 121,
+            "cache_artifacts_after": 121,
+            "compile_attempts": 0,
+            "output_tps": 385.18967213416516,
+            "output_tokens": 6274,
+            "new_or_changed_artifact_count": 0
+          },
+          {
+            "repetition": 3,
+            "warmup": false,
+            "official": true,
+            "cache_artifacts_before": 121,
+            "cache_artifacts_after": 121,
+            "compile_attempts": 0,
+            "output_tps": 397.33298267058296,
+            "output_tokens": 6415,
+            "new_or_changed_artifact_count": 0
+          },
+          {
+            "repetition": 4,
+            "warmup": false,
+            "official": true,
+            "cache_artifacts_before": 121,
+            "cache_artifacts_after": 121,
+            "compile_attempts": 0,
+            "output_tps": 425.48747147796246,
+            "output_tokens": 6221,
+            "new_or_changed_artifact_count": 0
+          }
+        ],
+        "blocked_attempts": []
+      },
+      "official": [
+        {
+          "concurrency": 16,
+          "requests": 16,
+          "repetition": 2,
+          "warmup": false,
+          "wall_seconds": 16.288079494028352,
+          "output_tokens": 6274,
+          "output_tokens_per_second": 385.18967213416516,
+          "spec_metrics": {
+            "vllm:spec_decode_num_drafts": 2291,
+            "vllm:spec_decode_num_draft_tokens": 16037,
+            "vllm:spec_decode_num_accepted_tokens": 3998,
+            "vllm:spec_decode_num_accepted_tokens_per_pos": [
+              1482,
+              951,
+              582,
+              399,
+              263,
+              183,
+              138
+            ]
+          },
+          "accepted_fraction": 0.2492984972251668,
+          "accepted_per_draft": 1.7450894805761676,
+          "official_compile_free": true,
+          "compile_cache_changes": [],
+          "finish_reasons": {
+            "stop": 7,
+            "length": 9
+          },
+          "length_range": [
+            111,
+            512
+          ]
+        },
+        {
+          "concurrency": 16,
+          "requests": 16,
+          "repetition": 3,
+          "warmup": false,
+          "wall_seconds": 16.145148476934992,
+          "output_tokens": 6415,
+          "output_tokens_per_second": 397.33298267058296,
+          "spec_metrics": {
+            "vllm:spec_decode_num_drafts": 2390,
+            "vllm:spec_decode_num_draft_tokens": 16730,
+            "vllm:spec_decode_num_accepted_tokens": 4032,
+            "vllm:spec_decode_num_accepted_tokens_per_pos": [
+              1561,
+              944,
+              592,
+              380,
+              269,
+              168,
+              118
+            ]
+          },
+          "accepted_fraction": 0.2410041841004184,
+          "accepted_per_draft": 1.6870292887029288,
+          "official_compile_free": true,
+          "compile_cache_changes": [],
+          "finish_reasons": {
+            "stop": 8,
+            "length": 8
+          },
+          "length_range": [
+            106,
+            512
+          ]
+        },
+        {
+          "concurrency": 16,
+          "requests": 16,
+          "repetition": 4,
+          "warmup": false,
+          "wall_seconds": 14.620877034030855,
+          "output_tokens": 6221,
+          "output_tokens_per_second": 425.48747147796246,
+          "spec_metrics": {
+            "vllm:spec_decode_num_drafts": 2267,
+            "vllm:spec_decode_num_draft_tokens": 15869,
+            "vllm:spec_decode_num_accepted_tokens": 3951,
+            "vllm:spec_decode_num_accepted_tokens_per_pos": [
+              1465,
+              925,
+              586,
+              394,
+              266,
+              187,
+              128
+            ]
+          },
+          "accepted_fraction": 0.24897599092570422,
+          "accepted_per_draft": 1.7428319364799294,
+          "official_compile_free": true,
+          "compile_cache_changes": [],
+          "finish_reasons": {
+            "stop": 10,
+            "length": 6
+          },
+          "length_range": [
+            141,
+            512
+          ]
+        }
+      ],
+      "median_output_tps": 397.33298267058296,
+      "result_sha256": "68e9ebe9b97bb974422b7c43bdb9cbf0721eacf1e7077c9d3ffc04db5471a01b"
+    }
+  },
+  "executed_wrapper_sha256": "c09f2f1499022c265a74ec2bdfea792214ac3660de8b2562b6c44394ff8cd5dd",
+  "mxfp4_vs_mxfp8_median_percent": -14.747806624723491,
+  "scope": "Short offline SD-on comparison including prefill, same GPU and input prompts, EOS honored; not a quality or universal performance acceptance.",
+  "measurement_time_utc": "2026-11-23T12:46:00/2026-11-23T12:54:00",
+  "image": "docker.io/hanjack/vllm-rocm@sha256:5a8538fae062972149a2b278b45f6bf02549989a848e0f6f90fff02ceec92bf7",
+  "raw_evidence": "/home/jackhan/bench-results/raon-mi355x-20261120/compile-clean-sd-v2",
+  "guard_implementation": "Frozen experimental wrapper; compiler guards plus code-cache size/mtime snapshots. Portable compile_clean.py is a later refactor using content hashes and detecting deletions; CPU tested only for this record.",
+  "limitations": [
+    "Only SD-on was retested; no new SD-off/on speedup claim.",
+    "Same physical GPU but sequential order MXFP8 then MXFP4, not randomized.",
+    "Four unchanged quality engines share the node; clocks and CPU contention not fixed.",
+    "EOS honored; actual output lengths and active-batch tails differ.",
+    "Three short official batches per model; MXFP4 increased from 385 to 425 tokens/s.",
+    "512 new-token cap is a timing-only limit; quality evaluation keeps full context limit.",
+    "No universal guarantee against uninstrumented compiler APIs.",
+    "Prior live 26% gap is not a controlled performance estimate; this run cannot attribute its change to compilation."
+  ]
+}
