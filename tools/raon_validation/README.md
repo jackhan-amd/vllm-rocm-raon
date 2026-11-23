@@ -277,6 +277,57 @@ reported allocation while a new allocation is still initializing.
 
 ## Experimental Quark MXFP4 conversion
 
+### Profiling and the first GEMM tuning screen
+
+After sourcing the corresponding runtime profile and configuring isolated
+caches as below, collect warmed traces on one idle GPU:
+
+```bash
+.venv/bin/python -m tools.raon_validation.profile_model \
+  --precision mxfp4 --audit-dir evidence --output evidence/profile-result.json \
+  --model /models/raon-quark-mxfp4 --draft-model /models/raon-draft \
+  --prompts-json prompts.json --concurrencies 16 --draft-tokens 7
+.venv/bin/python -m tools.raon_validation.gemm_tune \
+  --output evidence/gemm-gold.json
+```
+
+`profile_model` runs three full-cap warmup batches, then records separate
+one-token and 64-token-cap traces. The former includes prefill and first-token
+sampling; the latter includes prefill and short decoding. Both honor EOS.
+Triton cache misses and AITER builds are forbidden during capture, and FlyDSL
+uses run-only mode. These traces are instrumented and cannot establish serving
+throughput. Per-step CPU ranges and input shapes help attribute GPU launches.
+Add `--python-only` for separate cProfile captures (`.pstats` plus cumulative
+and self-time tables), without the GPU trace recorder. Those durations are also
+instrumented; normalize by actual engine steps before comparing paths.
+
+`gemm_tune` screens the existing `RAON_KDA_PROJ_GEMM_TUNE=1` setting, which
+changes the BF16 small-M launch tile and wave count while retaining the K-loop.
+It compares native baseline/candidate outputs bitwise, checks per-row batch
+invariance, records errors against Torch FP64 products of identical BF16 inputs,
+and times warmed API calls with GPU events and a Triton cache-miss guard.
+This gfx950 screen uses deterministic random inputs, transposed linear-weight
+layouts, seven projection shapes, BF16/FP32 stores and the requested M values.
+It is not an all-input GEMM proof, an attention/SD gold test, or model quality
+acceptance. A passing screen permits separate end-to-end trials; no runtime
+default is changed by these tools.
+
+The [2026-11-23 initial optimization record](results/local-optimization-20261123.json)
+retains the completed C1 profile summary and 84-case screens on each of two
+GPUs (168 checks). Every candidate output matched the native baseline bitwise;
+both baseline and candidate passed the tested batch-invariance checks. Full
+model performance is measured separately with same-GPU ABBA trials. Both C16
+GPU traces and Python profiles were subsequently captured in allocation 86666.
+The earlier C16 attempt that exceeded its lease remains an incomplete attempt.
+The first short ABBA comparison measured pooled medians of 34.25/37.84 output
+tokens/s (flag 0/1) at C1 and 402.17/357.79 at C16. Each flag has two engine
+starts and three official repetitions per start, with EOS honored. The C1 point
+has only one request per repetition. These descriptive +10.47%/-11.04% changes
+are not a universal tuning recommendation; longer queued-request trials run
+separately. Native compilation metadata confirms eight-wave baseline launches
+and additional four-wave launches with the candidate. Existing full-context
+quality evaluations use their unchanged frozen sources and baseline settings.
+
 ### Excluding compilation from SD timing
 
 Use the separate compiler-guarded timing tool after sourcing the appropriate
