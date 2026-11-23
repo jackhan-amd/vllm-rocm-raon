@@ -116,8 +116,13 @@ dispatch in the tested captured-input replay; it does not resolve every SD
 failure. A separate draft layer-25 NaN was traced to expired SWA cache
 values contaminating the ROCm prefix-prefill value reduction. The prefix
 kernel now skips/masks those loads; the actual captured-input replay and
-eight regression cases pass. Long full-model validation after this fix and
-the raw-logit discrepancy remain open. Numerical criteria are recorded with the
+eight regression cases pass. Post-fix SD 1/3/7 subsequently completed 160/160
+long-generation diagnostic requests each. The actual-input Torch FP32 gold
+checks also pass: 360 RDA cases (maximum output RMS error 0.258%) and 140 MLA
+cases (0.694%) across AR and SD 1/3/7. These operation-level decode checks
+support retaining the current optimized kernels. Teacher-forced AR/SD
+differences, independent full-history correctness and quality evaluation
+remain separate questions. Numerical criteria are recorded with the
 [diagnostic tools](tools/raon_validation/README.md). The Dockerfiles now include
 the tools and this option; existing published image digests predate them.
 

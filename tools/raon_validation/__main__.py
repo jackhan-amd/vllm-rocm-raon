@@ -30,6 +30,7 @@ def main():
     p.add_argument("--output", required=True)
     p.add_argument("--dump")
     p.add_argument("--window", type=int, default=2048)
+    p.add_argument("--torch-gold", action="store_true")
     p.add_argument("--heads", type=int, default=40)
     p.add_argument("--dim", type=int, default=128)
     p.add_argument("--seed", type=int, default=1509)
@@ -41,6 +42,16 @@ def main():
         "--kv-padding", choices=["exact", "zero", "finite", "nan"], default="exact"
     )
     p.add_argument("--mla-heads", type=int, default=48)
+    p.add_argument(
+        "--mla-backend",
+        choices=["ROCM_AITER_MLA", "TRITON_MLA"],
+        default="ROCM_AITER_MLA",
+    )
+    p.add_argument(
+        "--common-rda",
+        action="store_true",
+        help="Diagnostic: same recurrent implementation and launch shape for AR/SD",
+    )
     p.add_argument("--model")
     p.add_argument("--draft-model")
     p.add_argument("--draft-tokens", type=int, default=7)

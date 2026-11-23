@@ -3,6 +3,7 @@
 """Instrument real eager inference and retain the first numerical failure."""
 
 import functools
+import importlib
 import inspect
 import json
 import os
@@ -37,6 +38,7 @@ class Guard:
         self.sampler_calls = 0
         self.acceptance_histogram = {}
         self.hidden_trace = {}
+        self.gold = None
 
     def capture_hidden(self, tensor, stage):
         if self.args.force_token is None or not self.active:
@@ -115,6 +117,51 @@ class Guard:
         from vllm.models.raon1_mini import kda
         from vllm.models.raon1_mini.model import Raon1MiniForCausalLM, RaonDecoderLayer
 
+        if self.args.torch_gold:
+            from .torch_gold import TorchGold
+
+            self.gold = TorchGold(self)
+            self.gold.install(kda)
+
+        if self.args.common_rda:
+            recurrent = importlib.import_module(
+                "vllm.models.kimi_k3.amd.ops.third_party.kda.fused_recurrent"
+            )
+            recurrent._select_kda_launch_config = lambda *a, **kw: (32, 4, 2)
+
+            def common_decode(
+                mixed_qkv,
+                raw_g,
+                raw_beta,
+                A_log,
+                dt_bias,
+                lower_bound,
+                initial_state,
+                state_indices,
+                scale=None,
+            ):
+                n, h, d = mixed_qkv.shape[0], raw_g.shape[2], raw_g.shape[3]
+                q, k, v = [
+                    x.reshape(1, n, h, d).contiguous()
+                    for x in mixed_qkv.split(h * d, -1)
+                ]
+                return recurrent.fused_recurrent_kda(
+                    q,
+                    k,
+                    v,
+                    raw_g,
+                    raw_beta,
+                    A_log,
+                    dt_bias,
+                    lower_bound,
+                    initial_state,
+                    torch.arange(n + 1, device=mixed_qkv.device, dtype=torch.int32),
+                    state_indices[:, None].contiguous(),
+                    torch.ones(n, device=mixed_qkv.device, dtype=torch.int32),
+                )
+
+            kda.fused_recurrent_kda_packed_decode = common_decode
+
         original = kda.RaonKDAAttention._forward
         guard = self
         original_model_forward = Raon1MiniForCausalLM.forward
@@ -129,8 +176,30 @@ class Guard:
 
         @functools.wraps(original)
         def forward(layer, **kwargs):
-            if not guard.active or guard.args.light:
+            if not guard.active:
                 return original(layer, **kwargs)
+            if guard.gold is not None:
+                guard.gold.layer = layer
+                guard.gold.raw_value = None
+            n = guard.live_tokens
+            if guard.args.force_token is not None:
+                for name, value in kwargs.items():
+                    if name != "core_attn_out":
+                        live = (
+                            value[0, :n]
+                            if name in ("g1", "beta", "ratio")
+                            else value[:n]
+                        )
+                        guard.capture_hidden(
+                            live.reshape(n, -1), layer.prefix + ".rda.input." + name
+                        )
+            if guard.args.light:
+                out = original(layer, **kwargs)
+                guard.capture_hidden(
+                    kwargs["core_attn_out"][0, :n].reshape(n, -1),
+                    layer.prefix + ".rda.output",
+                )
+                return out
             guard.calls += 1
             context = get_forward_context()
             if context.attn_metadata is None:
@@ -292,6 +361,8 @@ class Guard:
             bound = mla_signature.bind(*args, **kwargs).arguments
             guard.check(bound["q"].float(), guard.current_layer + ".mla.quantized_q")
             out = original_mla(*args, **kwargs)
+            if guard.gold is not None:
+                guard.gold.mla(bound)
             value = bound["o"][:, :40]
             if not bool(torch.isfinite(value).all()):
                 indices = bound["kv_indices"][: int(bound["kv_indptr"][-1])].long()
@@ -580,7 +651,7 @@ def run(args, result):
         mamba_cache_mode="none",
         seed=42,
         attention_config={
-            "backend_per_kind": {"mla_attention": "ROCM_AITER_MLA"},
+            "backend_per_kind": {"mla_attention": args.mla_backend},
             "mla_prefill_backend": "ROCM_AITER_FA",
         },
         additional_config={"kda_prefill_backend": "fused"},
@@ -677,6 +748,16 @@ def run(args, result):
         result["logits_calls"] = guard.logits_calls
         result["sampler_calls"] = guard.sampler_calls
         result["acceptance_histogram"] = guard.acceptance_histogram
+        if guard.gold is not None:
+            result["torch_gold"] = guard.gold.summary()
+            result["cases"].extend(guard.gold.cases)
+            result["cases"].append(
+                {
+                    "torch_gold_coverage": {
+                        "pass": {c["part"] for c in guard.gold.cases} == {"rda", "mla"}
+                    }
+                }
+            )
         if args.force_token is not None:
             torch.save(guard.logits_trace, args.output + ".logits.pt")
             torch.save(guard.hidden_trace, args.output + ".hidden.pt")

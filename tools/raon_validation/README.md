@@ -75,6 +75,10 @@ measurements and must not be merged into MMLU-Pro scores.
 
 ## Teacher forcing and MLA failure replay
 
+The teacher comparison is **SD versus AR**, not native kernels versus Torch
+gold. An end-to-end raw-logit difference is not by itself a local kernel
+accuracy failure. Use the operation-level gold checks below for that question.
+
 Use one prompt, temperature zero, an ordinary non-EOS token, and the same
 `--max-tokens` for both runs. Choose the token from the model's tokenizer.
 For example, if token 1000 is non-EOS in the pinned tokenizer:
@@ -133,8 +137,54 @@ context loop loaded those expired values before masking scores, allowing
 and masks boundary K/V loads. The original captured-input replay failed;
 the patched replay passed with 0.168% relative RMS error. Eight regression
 cases cover query lengths 2/8, causal/non-causal attention, BF16/FP8 cache,
-whole expired pages and the masked part of a boundary tile. A long full-model
-post-fix run is still required; this result does not establish SD quality.
+whole expired pages and the masked part of a boundary tile. A subsequent
+post-fix diagnostic passed all 160 requests at each of SD 1/3/7, with natural
+stop and no detected NaN or token-zero repetition. This establishes the
+measured stability scope, not SD quality or distributional equivalence.
+
+## Actual-input PyTorch FP32 gold
+
+```bash
+.venv/bin/python -m tools.raon_validation model \
+  --model /models/target --draft-model /models/draft \
+  --prompts-json one-prompt.json --draft-tokens 7 --max-tokens 128 \
+  --mla-heads 64 --light --torch-gold --output evidence/gold-k7.json
+```
+
+Repeat with draft counts 0/1/3/7. Use one request per process. The opt-in
+instrumentation observes actual production decode calls without replacing
+their outputs. Both RDA and MLA checks must execute for coverage to pass.
+Comparisons are recorded in `OUTPUT.gold.json` and the main result. The first
+failing part saves private tensors in `OUTPUT.gold-rda.pt` or
+`OUTPUT.gold-mla.pt`.
+
+* RDA: check the post-convolution recurrent operation, before gated RMSNorm
+  and output projection, from the exact live initial state. One FP32 Torch
+  reference computes original erase/write equations on V before value folding;
+  a second uses native stored BF16 folded V to isolate kernel arithmetic from
+  transform rounding. Check both outputs and candidate states.
+* MLA: check latent attention before output projection with explicit FP32
+  Torch QK, causal masking, softmax and PV, using the same stored/dequantized
+  Q and KV as the native call. Gold does not round probabilities to FP8.
+
+The 2026-11-23 actual-input run checked all 18 RDA and seven MLA target layers,
+sampling calls 1/2/4/8/16 per layer in bounded 128-token generation probes.
+All 360 RDA cases and 140 MLA cases passed the unchanged numerical screens.
+Maximum output relative RMS errors were 0.258% and 0.694%, respectively.
+See [the complete operation-level record](results/torch-gold-20261123.json).
+The current optimized production paths are retained on this evidence.
+
+Each check starts from its operation's current native state. It does not
+independently rebuild prefill, convolution, all projection/GEMM operations,
+or the full request's history, and does not establish lossless SD or a quality
+score. Earlier synthetic MLA edge-case failures and end-to-end AR/SD
+differences remain preserved as separate evidence.
+
+`--mla-backend TRITON_MLA` and `--common-rda` are diagnostic controls for the
+earlier failed path-alignment experiment. The latter uses the generic
+recurrent kernel for AR and fixes recurrent launch settings for both paths.
+Neither is a recommended serving change. `--torch-gold` requires the production
+RDA and AITER MLA paths. Those trials did not improve raw-logit agreement.
 
 ## Experimental MLA workaround
 
