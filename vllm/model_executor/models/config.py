@@ -1070,6 +1070,25 @@ class Raon1MiniForCausalLMConfig(VerifyAndUpdateConfig):
         hf = model_config.hf_config
         quant = getattr(hf, "quantization_config", None)
         if quant is not None:
+            if quant.get("quant_method") == "quark":
+                import os
+
+                legacy = (
+                    "RAON_MXFP8_COMPACT_LOAD",
+                    "RAON_MOE_TRAINER_REALIZED",
+                    "RAON_MOE_EXPERT_MXFP8_REALIZED",
+                    "RAON_MOE_MXFP8_W8A8_TRITON",
+                )
+                if any(os.environ.get(k, "0") != "0" for k in legacy):
+                    raise ValueError(
+                        "Quark MXFP4 requires disabling Raon MXFP8 overrides; "
+                        "source docker/raon/runtime-mxfp4-env.sh"
+                    )
+                weight = quant.get("global_quant_config", {}).get("weight", {})
+                if weight.get("dtype") != "fp4" or weight.get("group_size") != 32:
+                    raise ValueError("Raon Quark route requires MXFP4 group size 32")
+                # Preserve Quark metadata for native quant-method selection.
+                return
             if quant.get("quant_method") != "mxfp8" or quant.get(
                 "weight_block_size"
             ) != [1, 32]:
@@ -1083,7 +1102,9 @@ class Raon1MiniForCausalLMConfig(VerifyAndUpdateConfig):
         from vllm.models.raon1_mini.mxfp8_loader import validate_compact_loading
 
         validate_compact_loading()
-        vllm_config.kernel_config.moe_backend = "triton"
+        quant = getattr(vllm_config.model_config.hf_config, "quantization_config", {})
+        if not quant or quant.get("quant_method") != "quark":
+            vllm_config.kernel_config.moe_backend = "triton"
         if vllm_config.speculative_config is not None:
             vllm_config.speculative_config.draft_sample_method = "probabilistic"
 

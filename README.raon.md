@@ -132,8 +132,10 @@ tokens. Both implementations receive the same random draws; RNG generation,
 draft-model execution and scheduler history are outside this comparison.
 See the [complete record](tools/raon_validation/results/sampler-gold-20261123.json).
 
-Bounded offline timings retain SD7/probabilistic/standard: shortening to SD1/3,
-greedy drafting and block verification did not improve throughput robustly.
+Bounded offline timings retain SD7/probabilistic/standard: shortening to SD1/3
+and block verification did not improve throughput robustly. The requested
+greedy profile was overridden to probabilistic by the model config; it is not
+a valid greedy comparison. The timing tool now rejects such mismatches.
 On a separate closed-loop workload with the same 64 requests at every point,
 concurrency 16/32/64 achieved median 641/915/1,487 output tokens/s, with p50
 first-token times of 130/295/1,051 ms. This is a batching/latency tradeoff,
@@ -177,15 +179,44 @@ Its frozen runtime adds the validated MLA/SWA fixes. A controller checkpoints
 and resumes across the AR series' two-hour allocations without submitting
 additional jobs. The earlier invalid 117 questions are excluded. This new run
 is in progress; partial subsets do not establish the full quality score.
-At 2026-11-23 10:32 UTC, the two evaluations shared 874 completed questions:
-AR 732/874 (83.75%), SD7 737/874 (84.32%). The same five-minute log window
-reported 231 versus 436 output tokens/s (1.89x). Active questions/cache
+At 2026-11-23 11:28 UTC, the two evaluations shared 1,308 completed questions:
+AR 1,083/1,308 (82.80%), SD7 1,088/1,308 (83.18%). The same five-minute log window
+reported 236 versus 546 output tokens/s (2.32x). Active questions/cache
 histories and runtime fixes differ, so this is a descriptive live comparison.
 The CPU-only [comparison tool](tools/raon_validation/README.md) retains paired
 accuracy and a second subset excluding resumed requests. All 66 executable
-overlay sources match the running patched SD container after excluding
+overlay sources at commit `f2315a4157` matched the running patched MXFP8 SD
+container before the MXFP4 integration, after excluding
 docstrings, comments and formatting from the AST comparison; see the
 [source audit](tools/raon_validation/results/runtime-source-audit-20261123.json).
+The [latest paired snapshot](tools/raon_validation/results/evaluation-comparison-20261123T1127Z.json)
+retains exact counts, window boundaries and source hashes.
+
+## Experimental Quark MXFP4
+
+The released MXFP8 checkpoint was requantized through pinned
+`haanjack/quanto` and AMD Quark 0.12.post1. All 9,216 routed expert tensors are
+packed MXFP4 with dynamic MXFP4 activations; all 1,002 other tensors are
+byte-identical. Safetensors storage decreased from 32.70 GB to 19.87 GB.
+The source restoration passed independent Torch FP64 checks, and the export
+audit checks every packed shape/scale and excluded tensor. No calibration or
+evaluation data was used by the RTN conversion.
+
+Native AITER `AITER_MXFP4_MXFP4` and FlyDSL a4w4 SiTU kernels are observed on
+MI355X at TP1/DP1. Both SD off/on pass the same four natural-EOS content smoke
+tasks and have started fresh MMLU-Pro state (`quality-evaluation-v14-mxfp4`),
+on GPUs 2/3 alongside the unchanged MXFP8 evaluations on GPUs 0/1. Full MXFP4
+quality and performance results remain pending. The exact shape uses heuristic
+native FlyDSL configurations, with no tuned profile currently observed.
+
+Source `docker/raon/runtime-mxfp4-env.sh` for this separate checkpoint and
+select the public `aiter` MoE backend. Rebuilt images accept
+`RAON_RUNTIME_PROFILE=mxfp4`; the default profile remains MXFP8. The model's
+fused-projection mapping preserves BF16 exclusions, and its config hook keeps
+Quark metadata/backend selection intact. AITER/FlyDSL source and compilers are
+unchanged. Conversion, export-audit and smoke commands are registered with the
+[validation tools](tools/raon_validation/README.md); see
+[the measured record](tools/raon_validation/results/mxfp4-20261123.json).
 
 The evaluation uses five-shot CoT,
 thinking enabled, temperature 1, top-p 0.95, top-k 20 and presence penalty 1.5.

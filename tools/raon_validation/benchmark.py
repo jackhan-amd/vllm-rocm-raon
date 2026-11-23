@@ -218,6 +218,21 @@ def main():
     result["requested_config"] = config
     llm = LLM(**config)
     result["observed_config"] = repr(llm.llm_engine.vllm_config)
+    actual = llm.llm_engine.vllm_config.speculative_config
+    result["effective_speculation"] = {
+        "draft_tokens": actual.num_speculative_tokens,
+        "draft_method": actual.draft_sample_method,
+        "verify_method": actual.rejection_sample_method,
+    }
+    expected = {
+        "draft_tokens": a.draft_tokens,
+        "draft_method": a.draft_method,
+        "verify_method": a.verify_method,
+    }
+    if result["effective_speculation"] != expected:
+        result["status"] = "CONFIGURATION_MISMATCH"
+        write_json(a.output, result)
+        raise ValueError("Model configuration overrode the requested SD profile")
     # Warm every requested batch shape before timing it.
     for c in a.concurrencies:
         result["warmup"].append(measure(llm, rows[:c], 32, -1, True))

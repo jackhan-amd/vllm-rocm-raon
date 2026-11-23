@@ -239,9 +239,12 @@ SD7/probabilistic/standard profile achieved median output rates of
 641/915/1,487 tokens/s at those concurrencies (two repetitions, same GPU).
 Pooled request p50 offline TTFT was 130/295/1,051 ms; p50 TPOT was
 21.7/23.0/23.0 ms. These are throughput/latency tradeoffs on this closed-loop
-workload, not an HTTP SLA. On the separate 16-request timing workload, SD1/3,
-greedy drafting and block verification did not improve throughput robustly
-over SD7/probabilistic/standard. Natural EOS changed observed output lengths;
+workload, not an HTTP SLA. On the separate 16-request timing workload, SD1/3
+and block verification did not improve throughput robustly over
+SD7/probabilistic/standard. The requested greedy point was overridden to
+probabilistic by the model config; it cannot establish greedy performance.
+The tool now records and checks the effective speculation fields before
+warmup/measurement. Natural EOS changed observed output lengths;
 the raw lengths and repetition spread are retained in
 [the measurement record](results/sd-performance-20261123.json).
 
@@ -267,6 +270,55 @@ See the [2026-11-23 live comparison](results/evaluation-comparison-20261123.json
 874 paired questions scored 83.75% AR and 84.32% SD7. The common five-minute
 window measured 231 versus 436 output tokens/s (1.89x). These are partial,
 descriptive results with the limitations above.
+The [later checkpoint snapshot](results/evaluation-comparison-20261123T1127Z.json)
+compares 1,308 common questions: AR 82.80%, SD7 83.18%, with 236/546 output
+tokens/s in its five-minute window. Use an explicit `--job` for the last fully
+reported allocation while a new allocation is still initializing.
+
+## Experimental Quark MXFP4 conversion
+
+The pinned `haanjack/quanto` revision is
+`30e613245063db738570212307e799b3f0a63ffa`. Use its source with the image's
+AMD Quark 0.12.post1, Torch 2.14.0+rocm10.2.0 and Python 3.14.10. Quanto's
+older Quark submodule has a Python <3.13 build restriction and is not the
+Quark implementation used in this experiment. Install quanto in a separate
+environment without resolving or replacing Torch:
+
+```bash
+uv venv --system-site-packages .venv
+uv pip install --python .venv/bin/python --no-deps --no-build-isolation /path/to/quanto
+.venv/bin/python -m tools.raon_validation.quantize \
+  --model /models/released-raon-mxfp8 --output /models/raon-quark-mxfp4
+.venv/bin/python -m tools.raon_validation.quantized \
+  --source /models/released-raon-mxfp8 --model /models/raon-quark-mxfp4 \
+  --output evidence/mxfp4-export-audit.json
+```
+
+The Raon adapter registers a model template and temporarily connects Quark's
+input-format recovery to row-wise E4M3/E8M0 decoding. It restores the released
+MXFP8 weights before quanto's file-to-file RTN conversion. Only routed expert
+weights are converted; attention, dense/shared FFN, routers, norms, embeddings
+and output head remain unchanged. This is requantization of the released
+MXFP8 checkpoint. It does not recover the unavailable original BF16 weights.
+RTN uses no calibration/evaluation data. Quanto's MXFP4 scheme declares both
+MXFP4 weights and dynamic MXFP4 activations (W4A4).
+
+The actual three-tensor source restoration matches independent Torch FP64
+arithmetic exactly. All 9,216 packed expert weights passed shape/scale checks;
+all 1,002 other tensors have identical dtype, shape and bytes. Safetensors
+storage changed from 32,702,145,088 to 19,867,486,640 bytes. These export
+checks do not establish native GEMM correctness or model accuracy. Fresh
+native-path smoke and MMLU-Pro run separately from the MXFP8 evaluation.
+
+For this checkpoint only, source `docker/raon/runtime-mxfp4-env.sh` and select
+the public `aiter` MoE backend. Quark's activation metadata selects its native
+MXFP4/MXFP4 implementation. The profile disables the custom
+MXFP8 loader/forward overrides and selects AITER's a4w4 SiTUv2 path. The vLLM
+model config preserves Quark metadata and backend selection. No AITER/FlyDSL
+source or compiler patch is required. The four-task example accepts
+`--moe-backend aiter` and a local `--model` directory.
+Future images built from these Dockerfiles select this experimental profile
+with `RAON_RUNTIME_PROFILE=mxfp4`; the default remains the MXFP8 profile.
 
 ## Experimental MLA workaround
 

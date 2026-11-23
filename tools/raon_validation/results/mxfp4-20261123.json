@@ -1,0 +1,202 @@
+{
+  "snapshot_utc": "2026-11-23T11:17:00.329911+00:00",
+  "source": {
+    "model": "KRAFTON/Raon-1-mini-preview",
+    "revision": "1b4f494d71dff50318288309f64c72aa8c11340e",
+    "quanto": "haanjack/quanto",
+    "quanto_commit": "30e613245063db738570212307e799b3f0a63ffa",
+    "quark": "Image amd-quark 0.12.post1; older quanto submodule not used"
+  },
+  "environment": {
+    "amd-quark": "0.12.post1",
+    "quanto": "0.1.0",
+    "torch": "2.14.0+rocm10.2.0",
+    "transformers": "5.19.0",
+    "safetensors": "0.8.0"
+  },
+  "quantization": {
+    "algorithm": "RTN through quanto file-to-file",
+    "calibration_samples": 0,
+    "source": "Released routed MXFP8, not original BF16 training weights",
+    "routed_experts": "MXFP4 weights + dynamic MXFP4 activations",
+    "other_weights": "unchanged",
+    "KV": "FP8 E4M3"
+  },
+  "export": {
+    "status": "EXPORT_VALID",
+    "packed_expert_weights": 9216,
+    "unchanged_tensors": 1002,
+    "source_safetensors_bytes": 32702145088,
+    "output_safetensors_bytes": 19867486640,
+    "scope": "Packed layout, all scale codes and exact excluded tensors; not native GEMM correctness or model quality",
+    "source_index_sha256": "698935d27fd0a7be12be30beb0f93408e378b158cb0913390652c7c6a51713a2",
+    "output_index_sha256": "01b1ed899a4d37654bc8690c913d6bc2a892b672fecb30e4bcd4c141a0f545ba",
+    "tool_sha256": "4cd8b36405c77fbe65e0b6690f5088a024921def43cd23cfbdede6636afce457"
+  },
+  "source_restore_and_export_smoke": {
+    "status": "PASS",
+    "restored_source_matches_torch_fp64": true,
+    "packed_expert_weights": [
+      "model.layers.1.moe.experts.0.down_proj.weight",
+      "model.layers.1.moe.experts.0.gate_proj.weight",
+      "model.layers.1.moe.experts.0.up_proj.weight"
+    ],
+    "excluded_router_exact": true,
+    "output_keys": [
+      "model.layers.1.moe.experts.0.down_proj.weight",
+      "model.layers.1.moe.experts.0.down_proj.weight_scale",
+      "model.layers.1.moe.experts.0.gate_proj.weight",
+      "model.layers.1.moe.experts.0.gate_proj.weight_scale",
+      "model.layers.1.moe.experts.0.up_proj.weight",
+      "model.layers.1.moe.experts.0.up_proj.weight_scale",
+      "model.layers.1.moe.gate.weight"
+    ]
+  },
+  "quantization_seconds": 188.2261580650229,
+  "evaluation": {
+    "unit": "quality-evaluation-v14-mxfp4",
+    "job": "86542",
+    "node": "TheraC79",
+    "TP": 1,
+    "DP": 1,
+    "concurrency": 16,
+    "max_context": 262144,
+    "ignore_eos": false,
+    "min_tokens": 0,
+    "protocol": "MMLU-Pro five-shot CoT; original manifest, temperature 1, top_p .95, top_k20, presence penalty1.5",
+    "profiles": {
+      "sd_off": {
+        "status": "BOUNDED_SHARD_CHECKPOINTED",
+        "phase": "checkpointed",
+        "evaluated": 101,
+        "correct": 87,
+        "accuracy_so_far_percent": 86.13861386138613,
+        "unparsed": 0,
+        "gpu": 2,
+        "smoke": {
+          "status": "LIMITED_CONTENT_SMOKE_PASS",
+          "cases": [
+            {
+              "index": 0,
+              "normal_eos": true,
+              "reasoning_closed": true,
+              "expected_content_in_final_answer": true
+            },
+            {
+              "index": 1,
+              "normal_eos": true,
+              "reasoning_closed": true,
+              "expected_content_in_final_answer": true
+            },
+            {
+              "index": 2,
+              "normal_eos": true,
+              "reasoning_closed": true,
+              "expected_content_in_final_answer": true
+            },
+            {
+              "index": 3,
+              "normal_eos": true,
+              "reasoning_closed": true,
+              "expected_content_in_final_answer": true
+            }
+          ]
+        },
+        "native_backend": "AITER_MXFP4_MXFP4",
+        "flydsl_kernels": [
+          "flydsl_moe1_afp4_wfp4_bf16_t128x128x256_w2_bnt0",
+          "flydsl_moe1_afp4_wfp4_bf16_t32x128x256_w2",
+          "flydsl_moe1_afp4_wfp4_bf16_t64x128x256_w3_bnt0",
+          "flydsl_moe1_afp4_wfp4_bf16_t64x128x256_w4_bnt0",
+          "flydsl_moe2_afp4_wfp4_bf16_t128x128x128_atomic",
+          "flydsl_moe2_afp4_wfp4_bf16_t32x128x128_atomic_bnt2",
+          "flydsl_moe2_afp4_wfp4_bf16_t64x128x128_atomic"
+        ],
+        "tuning": "Heuristic native FlyDSL configuration; no tuned profile for the exact Raon shape"
+      },
+      "sd_on": {
+        "status": "BOUNDED_SHARD_CHECKPOINTED",
+        "phase": "checkpointed",
+        "evaluated": 199,
+        "correct": 173,
+        "accuracy_so_far_percent": 86.93467336683418,
+        "unparsed": 0,
+        "gpu": 3,
+        "smoke": {
+          "status": "LIMITED_CONTENT_SMOKE_PASS",
+          "cases": [
+            {
+              "index": 0,
+              "normal_eos": true,
+              "reasoning_closed": true,
+              "expected_content_in_final_answer": true
+            },
+            {
+              "index": 1,
+              "normal_eos": true,
+              "reasoning_closed": true,
+              "expected_content_in_final_answer": true
+            },
+            {
+              "index": 2,
+              "normal_eos": true,
+              "reasoning_closed": true,
+              "expected_content_in_final_answer": true
+            },
+            {
+              "index": 3,
+              "normal_eos": true,
+              "reasoning_closed": true,
+              "expected_content_in_final_answer": true
+            }
+          ]
+        },
+        "native_backend": "AITER_MXFP4_MXFP4",
+        "flydsl_kernels": [
+          "flydsl_moe1_afp4_wfp4_bf16_t128x128x256_w2_bnt0",
+          "flydsl_moe1_afp4_wfp4_bf16_t32x128x256_w2",
+          "flydsl_moe1_afp4_wfp4_bf16_t64x128x256_w3_bnt0",
+          "flydsl_moe1_afp4_wfp4_bf16_t64x128x256_w4_bnt0",
+          "flydsl_moe2_afp4_wfp4_bf16_t128x128x128_atomic",
+          "flydsl_moe2_afp4_wfp4_bf16_t32x128x128_atomic_bnt2",
+          "flydsl_moe2_afp4_wfp4_bf16_t64x128x128_atomic"
+        ],
+        "tuning": "Heuristic native FlyDSL configuration; no tuned profile for the exact Raon shape"
+      }
+    },
+    "frozen_input_manifest_sha256": "a3d4787d68db214167f7da12f34a9147e234e8fc2d324309009072c7fbb02203",
+    "continuation_status": "WAITING_FOR_NEXT_AR_ALLOCATION"
+  },
+  "integration_attempts": [
+    {
+      "unit": "v12-mxfp4",
+      "outcome": "Rejected internal backend alias before model load; zero quality samples"
+    },
+    {
+      "unit": "v13-mxfp4",
+      "outcome": "Missing fused projection quantization metadata; loader shape assertion before quality samples"
+    },
+    {
+      "unit": "v14-mxfp4",
+      "fix": "Raon packed_modules_mapping, public aiter backend; fresh state"
+    }
+  ],
+  "scope": "Export structure and unchanged weights verified; four basic natural-EOS tasks per profile passed. Full accuracy and performance acceptance not established. Native kernel precision is observed, not an independent FP4 MoE arithmetic proof.",
+  "validator_unit_tests": {
+    "status": "PASS",
+    "cases": 3,
+    "scope": "Scalar BF16 byte preservation, invalid packed width and nonfinite E8M0 scale detection"
+  },
+  "image": "docker.io/hanjack/vllm-rocm@sha256:5a8538fae062972149a2b278b45f6bf02549989a848e0f6f90fff02ceec92bf7",
+  "runtime_patch_sha256": {
+    "vllm/model_executor/models/config.py": "28aa0cdea0a6150bd9d263c74b556e793ed0060ed70cdf8586bb8873d6bb70f2",
+    "vllm/models/raon1_mini/model.py": "c5bacf805d80af4a58be25ba92a7a16917404bc021d3b04bd03fb43debbb1c26"
+  },
+  "cleanup": {
+    "quantization_and_export_audit_containers_removed": true,
+    "quality_containers_running": false,
+    "checkpoints_images_and_raw_attempts_retained": true,
+    "quality_job_checkpointed": true
+  },
+  "checkpoint_snapshot_utc": "2026-11-23T11:26:38.326078+00:00"
+}

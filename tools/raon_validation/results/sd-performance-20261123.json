@@ -168,7 +168,13 @@
               "zero_token_count": 0,
               "all_finished": true
             }
-          ]
+          ],
+          "configuration_audit": {
+            "requested_draft_method": "probabilistic",
+            "effective_draft_method_from_executed_source": "probabilistic",
+            "configuration_matches_request": true,
+            "runtime_field_was_explicitly_captured": false
+          }
         },
         {
           "id": "k3-prob-standard",
@@ -269,7 +275,13 @@
               "zero_token_count": 0,
               "all_finished": true
             }
-          ]
+          ],
+          "configuration_audit": {
+            "requested_draft_method": "probabilistic",
+            "effective_draft_method_from_executed_source": "probabilistic",
+            "configuration_matches_request": true,
+            "runtime_field_was_explicitly_captured": false
+          }
         },
         {
           "id": "k7-greedy-standard",
@@ -370,7 +382,13 @@
               "zero_token_count": 0,
               "all_finished": true
             }
-          ]
+          ],
+          "configuration_audit": {
+            "requested_draft_method": "greedy",
+            "effective_draft_method_from_executed_source": "probabilistic",
+            "configuration_matches_request": false,
+            "runtime_field_was_explicitly_captured": false
+          }
         },
         {
           "id": "k7-prob-block",
@@ -471,7 +489,13 @@
               "zero_token_count": 0,
               "all_finished": true
             }
-          ]
+          ],
+          "configuration_audit": {
+            "requested_draft_method": "probabilistic",
+            "effective_draft_method_from_executed_source": "probabilistic",
+            "configuration_matches_request": true,
+            "runtime_field_was_explicitly_captured": false
+          }
         },
         {
           "id": "k7-prob-standard",
@@ -572,7 +596,13 @@
               "zero_token_count": 0,
               "all_finished": true
             }
-          ]
+          ],
+          "configuration_audit": {
+            "requested_draft_method": "probabilistic",
+            "effective_draft_method_from_executed_source": "probabilistic",
+            "configuration_matches_request": true,
+            "runtime_field_was_explicitly_captured": false
+          }
         }
       ]
     },
@@ -791,7 +821,13 @@
               "zero_token_count": 0,
               "all_finished": true
             }
-          ]
+          ],
+          "configuration_audit": {
+            "requested_draft_method": "probabilistic",
+            "effective_draft_method_from_executed_source": "probabilistic",
+            "configuration_matches_request": true,
+            "runtime_field_was_explicitly_captured": false
+          }
         }
       ]
     }
@@ -807,5 +843,11 @@
     "AR_unchanged": true,
     "image_and_model_caches_retained": true
   },
-  "performance_acceptance": "NOT_DECIDED; no user-specified gain/latency gates. Results are scoped measurements with two repetitions."
+  "performance_acceptance": "NOT_DECIDED; no user-specified gain/latency gates. Results are scoped measurements with two repetitions.",
+  "configuration_audit": {
+    "audited_utc": "2026-11-23T11:22:00.296367+00:00",
+    "evidence": "Executed Raon1MiniForCausalLMConfig.verify_and_update_config unconditionally assigns draft_sample_method=probabilistic; benchmark did not restore it. observed_config repr omits this field.",
+    "source_commit": "54b3ebee229f1a63659246386b70d2579501c151",
+    "correction": "Requested greedy profile is not a valid greedy comparison; raw measurements retained."
+  }
 }

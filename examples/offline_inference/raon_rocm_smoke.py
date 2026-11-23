@@ -19,6 +19,7 @@ def main():
         "--revision", default="1b4f494d71dff50318288309f64c72aa8c11340e"
     )
     parser.add_argument("--draft", default=None)
+    parser.add_argument("--moe-backend", default=None)
     parser.add_argument(
         "--draft-revision", default="164b3dda020f145a4650b3c050841e15250c2f77"
     )
@@ -44,6 +45,8 @@ def main():
     )
     if not Path(args.model).is_dir():
         config["revision"] = args.revision
+    if args.moe_backend:
+        config["kernel_config"] = {"moe_backend": args.moe_backend}
     if args.draft:
         spec = dict(
             method="dflash",

@@ -2191,6 +2191,23 @@ def _install_graph_replay_counter() -> None:
 
 
 class Raon1MiniForCausalLM(nn.Module, SupportsEagle3, HasInnerState, IsHybrid):
+    # Quantization exclusions name checkpoint projections; vLLM constructs
+    # these fused modules. Keep the mapping visible to configure_quant_config
+    # so excluded BF16 projections are not allocated as packed FP4 weights.
+    packed_modules_mapping = {
+        "in_proj_qkvgfab": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "g_proj",
+            "f_a_proj",
+            "b_proj",
+        ],
+        "conv1d": ["q_conv1d", "k_conv1d", "v_conv1d"],
+        "gate_up_proj": ["gate_proj", "up_proj"],
+        "fused_qkv_a_proj": ["q_a_proj", "kv_a_proj_with_mqa"],
+    }
+
     # The HF release names the MoE container ``moe`` and the routed expert
     # projections ``gate_proj``/``up_proj``/``down_proj``; the modules keep the
     # bundle names ``block_sparse_moe`` and ``w1``/``w3``/``w2``. Bundle exports
