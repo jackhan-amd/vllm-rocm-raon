@@ -245,6 +245,29 @@ over SD7/probabilistic/standard. Natural EOS changed observed output lengths;
 the raw lengths and repetition spread are retained in
 [the measurement record](results/sd-performance-20261123.json).
 
+## Compare ongoing SD off/on evaluations
+
+```bash
+.venv/bin/python -m tools.raon_validation.evaluation \
+  --sd-off-root /evidence/original-ar \
+  --sd-on-root /evidence/patched-sd \
+  --window-seconds 300 --output evidence/evaluation-comparison.json
+```
+
+This CPU-only tool reads the existing `state/PROFILE/mmlu/completed` records
+and `jobs/JOB/PROFILE.log` files; it never changes or pauses an evaluation.
+It selects the latest common allocation unless `--job` is supplied, verifies
+the protocol and paired prompt hashes, and reports both cumulative and common
+completed-question accuracy. A second paired subset excludes resumed requests.
+Generation rates are time-weighted over the same log window. Different active
+questions, cache histories and the original AR versus patched SD runtime mean
+this is a live descriptive comparison, not an isolated performance A/B.
+Raw prompts, output text and token IDs are excluded from its JSON output.
+See the [2026-11-23 live comparison](results/evaluation-comparison-20261123.json):
+874 paired questions scored 83.75% AR and 84.32% SD7. The common five-minute
+window measured 231 versus 436 output tokens/s (1.89x). These are partial,
+descriptive results with the limitations above.
+
 ## Experimental MLA workaround
 
 On the tested gfx950 AITER build, real H40 padded to H48 at query length two

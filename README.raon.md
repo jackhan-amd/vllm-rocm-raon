@@ -177,6 +177,15 @@ Its frozen runtime adds the validated MLA/SWA fixes. A controller checkpoints
 and resumes across the AR series' two-hour allocations without submitting
 additional jobs. The earlier invalid 117 questions are excluded. This new run
 is in progress; partial subsets do not establish the full quality score.
+At 2026-11-23 10:32 UTC, the two evaluations shared 874 completed questions:
+AR 732/874 (83.75%), SD7 737/874 (84.32%). The same five-minute log window
+reported 231 versus 436 output tokens/s (1.89x). Active questions/cache
+histories and runtime fixes differ, so this is a descriptive live comparison.
+The CPU-only [comparison tool](tools/raon_validation/README.md) retains paired
+accuracy and a second subset excluding resumed requests. All 66 executable
+overlay sources match the running patched SD container after excluding
+docstrings, comments and formatting from the AST comparison; see the
+[source audit](tools/raon_validation/results/runtime-source-audit-20261123.json).
 
 The evaluation uses five-shot CoT,
 thinking enabled, temperature 1, top-p 0.95, top-k 20 and presence penalty 1.5.
