@@ -12,14 +12,8 @@ import datetime as dt
 import hashlib
 import json
 import math
-import re
 import statistics
 from pathlib import Path
-
-LOG = re.compile(
-    r"INFO (\d{2}-\d{2} \d{2}:\d{2}:\d{2}).*"
-    r"Avg generation throughput: ([\d.]+) tokens/s, Running: (\d+) reqs"
-)
 
 
 def read_json(path):
@@ -105,12 +99,16 @@ def paired(off, on):
 def log_points(path, year):
     raw = path.read_bytes()
     points = []
-    for match in LOG.finditer(raw.decode("utf-8", errors="replace")):
-        stamp = dt.datetime.strptime(f"{year}-{match[1]}", "%Y-%m-%d %H:%M:%S")
-        rate = float(match[2])
+    for line in raw.decode("utf-8", errors="replace").splitlines():
+        if "Avg generation throughput:" not in line or " INFO " not in line:
+            continue
+        stamp_text = line.split(" INFO ", 1)[1][:14]
+        stamp = dt.datetime.strptime(f"{year}-{stamp_text}", "%Y-%m-%d %H:%M:%S")
+        rate = float(line.split("Avg generation throughput:", 1)[1].split()[0])
+        running = int(line.split("Running:", 1)[1].split()[0])
         if not math.isfinite(rate) or rate < 0:
             raise ValueError("Invalid throughput")
-        points.append((stamp.replace(tzinfo=dt.UTC).timestamp(), rate, int(match[3])))
+        points.append((stamp.replace(tzinfo=dt.UTC).timestamp(), rate, running))
     if len(points) < 2 or any(b[0] <= a[0] for a, b in zip(points, points[1:])):
         raise ValueError(f"Missing/nonmonotonic throughput log: {path.name}")
     return points, hashlib.sha256(raw).hexdigest()
@@ -178,7 +176,7 @@ def compare(off_root, on_root, job=None, window=300, year=None):
             "manifest_sha256": saved["sd_off"]["manifest_sha256"],
             "profiles": {},
             "limitations": [
-                "Live state is read sequentially; counts may advance during collection.",
+                "Live state is read sequentially; counts may advance while collecting.",
                 "Early completed subsets are not full scores or random samples.",
                 "Throughput shares a time window but not requests or cache histories.",
                 "Original AR and patched SD differ beyond the SD switch; not an A/B.",
