@@ -358,8 +358,16 @@ quality or authorize deploying the port. `MEASURED` means finite measurements
 were collected; the tool imposes no numerical acceptance threshold and installs
 no tuning CSV. Its `cosine_diff` field follows the vendor-style formula
 `1 - 2*dot(x,y)/(sum(x*x)+sum(y*y))`; it is not ordinary cosine distance.
+The pinned vendor fixture resets its seed to zero during construction. The
+historical record's `seed` is the caller's requested seed, not the effective
+fixture seed. The current tool records the observed seed and an input
+fingerprint per case; independent-seed claims require distinct fixtures.
 
 ### Excluding compilation from SD timing
+
+`--draft-tokens 0` also benchmarks SD off. It passes no speculative
+configuration and checks that the engine actually disabled speculation.
+Positive draft lengths retain the SD configuration and verification checks.
 
 Use the separate compiler-guarded timing tool after sourcing the appropriate
 Raon runtime profile. Give each engine its own cache directories, set before

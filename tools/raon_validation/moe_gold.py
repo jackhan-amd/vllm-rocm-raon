@@ -51,7 +51,11 @@ def main():
         "status": "RUNNING",
         "scope": __doc__,
         "environment": observed,
-        "seed": 20261123,
+        "requested_seed": 20261123,
+        "fixture_seed_policy": (
+            "Vendor fixture construction can reset the seed; each case records "
+            "the observed initial seed and an input fingerprint"
+        ),
         "cases": [],
         "legacy_operator_support": aiter.is_mxfp4_moe_shape_supported(
             128, 2560, 1152, 6
@@ -104,6 +108,16 @@ def main():
         with torch.inference_mode():
             for tokens in args.tokens:
                 data = port._prepare_case(tokens, 2560, 1152, 128, 6, dtypes.bf16)
+                fixture_seed = torch.initial_seed()
+                probe = (
+                    data["input"]
+                    .reshape(-1)[:4096]
+                    .contiguous()
+                    .view(torch.uint8)
+                    .cpu()
+                    .numpy()
+                    .tobytes()
+                )
                 data["w1_a16"].is_shuffled = data["w2_a16"].is_shuffled = True
                 references = {
                     "bf16_intermediate": port._torch_ref(
@@ -167,6 +181,8 @@ def main():
                 result["cases"].append(
                     {
                         "tokens": tokens,
+                        "fixture_initial_seed": fixture_seed,
+                        "input_probe_sha256": hashlib.sha256(probe).hexdigest(),
                         "baseline_vs_torch": {
                             k: error(baseline, v) for k, v in references.items()
                         },

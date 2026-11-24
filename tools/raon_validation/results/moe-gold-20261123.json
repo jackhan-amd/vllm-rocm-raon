@@ -6,7 +6,8 @@
     "remote_root": "/home/jackhan/bench-results/raon-mi355x-20261120/local-moe-gold-and-sweep-v1",
     "tp": 1,
     "dp": 1,
-    "acceptance": "diagnostic only; no configuration deployed"
+    "acceptance": "diagnostic only; no configuration deployed",
+    "fixture_seed_note": "The pinned vendor fixture resets torch.manual_seed(0); gold.seed records the caller request. These are two deterministic seed-0 fixture cases, not proof of independent random seeds. Raw measurements and tool hash retained."
   },
   "gold": {
     "status": "MEASURED",

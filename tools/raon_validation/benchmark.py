@@ -158,6 +158,8 @@ def main():
         ),
     )
     a = p.parse_args()
+    if a.draft_tokens < 0:
+        p.error("--draft-tokens must be nonnegative; zero disables speculation")
     assert AiterMLAHelper.get_actual_mla_num_heads(40) == 64, (
         "Enable the tested H40->64 decode workaround"
     )
@@ -215,19 +217,25 @@ def main():
             "rejection_sample_method": a.verify_method,
         },
     )
+    if a.draft_tokens == 0:
+        config["speculative_config"] = None
     result["requested_config"] = config
     llm = LLM(**config)
     result["observed_config"] = repr(llm.llm_engine.vllm_config)
     actual = llm.llm_engine.vllm_config.speculative_config
-    result["effective_speculation"] = {
-        "draft_tokens": actual.num_speculative_tokens,
-        "draft_method": actual.draft_sample_method,
-        "verify_method": actual.rejection_sample_method,
-    }
+    result["effective_speculation"] = (
+        {
+            "draft_tokens": actual.num_speculative_tokens,
+            "draft_method": actual.draft_sample_method,
+            "verify_method": actual.rejection_sample_method,
+        }
+        if actual is not None
+        else {"draft_tokens": 0, "draft_method": None, "verify_method": None}
+    )
     expected = {
         "draft_tokens": a.draft_tokens,
-        "draft_method": a.draft_method,
-        "verify_method": a.verify_method,
+        "draft_method": a.draft_method if a.draft_tokens else None,
+        "verify_method": a.verify_method if a.draft_tokens else None,
     }
     if result["effective_speculation"] != expected:
         result["status"] = "CONFIGURATION_MISMATCH"
