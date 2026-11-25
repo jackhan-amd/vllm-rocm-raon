@@ -15,6 +15,13 @@ the structural-tag builder to this vLLM version's fifth `token_suffix`
 argument. Seven CPU tokenizer/parser checks pass, including that dispatch.
 The benchmark image predates this optional strict-tool grammar signature fix;
 the benchmark requests have no tool schemas and retain the frozen image.
+For general reuse with that signature fix, use
+`docker.io/hanjack/vllm-rocm:raon-release-rocm102-dlpack-api2-20261126`,
+digest `sha256:0d0d9782a1d850890e042be59790beea56fc0818e6e3fd9c71fabaff87b6a245`.
+This is a parser-only child image; numerical kernels and dependencies are
+unchanged. It was published as an additional OCI layer after the same files
+passed the seven CPU checks. It has not been a separate GPU model benchmark.
+See [`image-api2-20261126.json`](image-api2-20261126.json).
 
 The 2026-11-26 image adds a ROCm-built `torch-c-dlpack-ext` 0.1.5 and
 pyarrow 26.0.1 for evaluation. The runtime Python overlay remains commit

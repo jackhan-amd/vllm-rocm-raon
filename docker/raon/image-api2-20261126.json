@@ -1,0 +1,28 @@
+{
+  "source_commit": "bc19ebba2c901e563ff4c34ac5972314cd0eaf42",
+  "parent_image": "sha256:a076455aeee097067ac1f407eee98476b6fbdd430d348cf56d94014e19191f10",
+  "files": {
+    "usr/local/lib/python3.14/dist-packages/vllm/tool_parsers/raon_1_tool_parser.py": "sha256:4268062ed5a4d895daea3c7e1465c404fff28ce3bae7cae7b8659da9703af67d",
+    "usr/local/lib/python3.14/dist-packages/vllm/reasoning/raon_1_reasoning_parser.py": "sha256:16c37e98ab28c71f66472e4d597a615c01ae18d21fae5c69d19c7d38cd440f77",
+    "opt/raon/tools/raon_validation/parser_api.py": "sha256:9b802da82e159e5797b6a013c7eba43d566f18da678177ce64f4d64cb1786277"
+  },
+  "validation": {
+    "status": "PASS",
+    "checks": [
+      "registry resolution",
+      "reasoning split",
+      "thinking off",
+      "split-delimiter reasoning stream",
+      "plain content",
+      "typed tool arguments",
+      "five-argument structural-tag dispatch"
+    ],
+    "scope": "CPU parser contracts; no model generation or GPU benchmark"
+  },
+  "numeric_kernels_unchanged": true,
+  "benchmark_image_retained": "sha256:a076455aeee097067ac1f407eee98476b6fbdd430d348cf56d94014e19191f10",
+  "status": "PUBLISHED",
+  "tag": "docker.io/hanjack/vllm-rocm:raon-release-rocm102-dlpack-api2-20261126",
+  "digest": "sha256:0d0d9782a1d850890e042be59790beea56fc0818e6e3fd9c71fabaff87b6a245",
+  "new_layer_bytes": 14779
+}
