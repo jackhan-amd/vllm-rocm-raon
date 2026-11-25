@@ -82,6 +82,9 @@ from vllm.model_executor.kernels.linear.mxfp4.emulation import (
 from vllm.model_executor.kernels.linear.mxfp4.flashinfer import (
     FlashInferMxFp4LinearKernel,
 )
+from vllm.model_executor.kernels.linear.mxfp4.flydsl_a16 import (
+    FlydslMxfp4A16LinearKernel,
+)
 from vllm.model_executor.kernels.linear.mxfp4.humming import (
     HummingMxFp4LinearKernel,
 )
@@ -117,6 +120,7 @@ from vllm.model_executor.kernels.linear.mxfp8.flashinfer import (
     FlashInferCutlassMxfp8LinearKernel,
     FlashInferTrtllmMxfp8LinearKernel,
 )
+from vllm.model_executor.kernels.linear.mxfp8.flydsl import FlydslMxfp8LinearKernel
 from vllm.model_executor.kernels.linear.mxfp8.humming import (
     HummingMxfp8LinearKernel,
 )
@@ -562,6 +566,7 @@ _POSSIBLE_MXFP8_KERNELS: dict[PlatformEnum, list[type[Mxfp8LinearKernel]]] = {
     PlatformEnum.ROCM: [
         # Native CDNA4 (gfx950) MX linear; is_supported() gates to gfx95x and
         # falls through to BF16 emulation (hipBLASLt) elsewhere / on regression.
+        FlydslMxfp8LinearKernel,
         RocmDotScaledMxfp8LinearKernel,
         EmulationMxfp8LinearKernel,
     ],
@@ -613,6 +618,7 @@ _POSSIBLE_MXFP4_KERNELS: dict[PlatformEnum, list[type[MxFp4LinearKernel]]] = {
         EmulationMxfp4LinearKernel,
     ],
     PlatformEnum.ROCM: [
+        FlydslMxfp4A16LinearKernel,
         AiterMxfp4LinearKernel,
         EmulationMxfp4LinearKernel,
     ],

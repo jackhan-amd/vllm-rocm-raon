@@ -1227,6 +1227,9 @@ class GPUModelRunner(LoRAModelRunnerMixin):
                     req_id, req_index, new_req_data.sampling_params
                 )
 
+        from vllm.models.raon1_mini.effort_steering import runner_v2_add_requests
+
+        runner_v2_add_requests(self, scheduler_output)
         if scheduler_output.scheduled_new_reqs:
             self.req_states.apply_staged_writes()
             self.model_state.apply_staged_writes()
@@ -1812,6 +1815,9 @@ class GPUModelRunner(LoRAModelRunnerMixin):
             input_batch = self.prepare_inputs(
                 scheduler_output, batch_req_state, batch_desc, num_active_loras
             )
+            from vllm.models.raon1_mini.effort_steering import runner_v2_prepare_inputs
+
+            runner_v2_prepare_inputs(self, input_batch)
             block_tables, slot_mappings = self.prepare_attn(input_batch)
             # Mamba "align" pre-copy: migrate recurrent state across block
             # boundaries before the forward. Runs only on real batches, and

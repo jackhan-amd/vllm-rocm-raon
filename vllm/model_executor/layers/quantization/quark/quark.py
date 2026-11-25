@@ -73,6 +73,7 @@ from vllm.model_executor.layers.quantization.utils.quant_utils import (
     kNvfp4Dynamic,
     kNvfp4Static,
 )
+from vllm.model_executor.layers.vocab_parallel_embedding import ParallelLMHead
 from vllm.model_executor.models.utils import WeightsMapper
 from vllm.platforms import current_platform
 
@@ -249,7 +250,12 @@ class QuarkConfig(QuantizationConfig):
             if issubclass(layer_type, LinearBase):
                 return None, None, UnquantizedLinearMethod
             return None, None, None
-        if issubclass(layer_type, LinearBase):
+        # LM-head quantization is opt-in through an explicit per-layer entry;
+        # retain the historical unquantized default for ordinary Quark exports.
+        explicit_lm_head = issubclass(layer_type, ParallelLMHead) and (
+            self.get_layer_quant_config_from_name(prefix) is not None
+        )
+        if issubclass(layer_type, LinearBase) or explicit_lm_head:
             weight_quant_key, activation_key, _ = self.get_scheme_cls(
                 layer_type, prefix
             )

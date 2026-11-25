@@ -8,9 +8,12 @@ fused with the routed one. raon-1-mini has no latent expert projection, no
 sequence-parallel sharding and no expert-group routing.
 """
 
+import os
+
 import torch
 from torch import nn
 
+from vllm.compilation.breakable_cudagraph import eager_break_during_capture
 from vllm.config import VllmConfig
 from vllm.distributed import get_tensor_model_parallel_world_size
 from vllm.model_executor.layers.activation import SiluAndMul, SituAndMul
@@ -104,6 +107,18 @@ class RaonMoE(nn.Module):
         self.moe_router_activation_func = config.moe_router_activation_func
         self.num_shared_experts = config.num_shared_experts
         self.layer_idx = layer_idx
+        parallel = vllm_config.parallel_config
+        self._raon_local_graph_world = (
+            parallel.tensor_parallel_size == 1
+            and parallel.data_parallel_size == 1
+            and not parallel.enable_expert_parallel
+            and not parallel.enable_eplb
+        )
+        self._raon_native_graph_requested = (
+            bool(torch.version.hip)
+            and os.environ.get("RAON_MOE_BACKEND", "legacy") == "flydsl"
+            and os.environ.get("RAON_MOE_OUTER_GRAPH", "0") == "1"
+        )
         self.padded_moe_intermediate_size = moe_intermediate_size
         min_moe_intermediate_per_partition = getattr(
             config, "min_moe_intermediate_per_partition", 256
@@ -134,6 +149,7 @@ class RaonMoE(nn.Module):
             torch.empty(num_experts, dtype=torch.float32)
         )
 
+        self.shared_experts: RaonMLP | None
         if self.num_shared_experts is not None:
             shared_intermediate_size = moe_intermediate_size * self.num_shared_experts
             self.shared_experts = RaonMLP(
@@ -188,6 +204,30 @@ class RaonMoE(nn.Module):
             )
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
+        if self._raon_native_graph_requested:
+            out = torch.empty_like(hidden_states)
+            self._native_graph_forward(hidden_states, out)
+            return out
+        return self._native_forward(hidden_states)
+
+    @eager_break_during_capture
+    def _native_graph_forward(self, hidden_states, out):
+        from .rocm_mxfp4_graph import try_forward
+
+        result = try_forward(self, hidden_states)
+        out.copy_(self._native_forward(hidden_states) if result is None else result)
+
+    def _native_forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
+        from .rocm_shared_stream import configure_native
+
+        configure_native(self, hidden_states)
+        if (
+            torch.version.hip
+            and os.environ.get("RAON_MOE_BACKEND", "legacy") == "flydsl"
+        ):
+            from .rocm_mxfp4_graph import verify_native_backend
+
+            verify_native_backend(self, hidden_states)
         num_tokens, hidden_size = hidden_states.shape
         hidden_states = hidden_states.view(-1, hidden_size)
         router_logits, _ = self.gate(hidden_states)

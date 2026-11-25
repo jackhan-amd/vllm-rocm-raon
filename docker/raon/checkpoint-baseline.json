@@ -1,0 +1,114 @@
+{
+  "target": {
+    "id": "KRAFTON/Raon-1-mini",
+    "revision": "3f85cd63ea420100a84378f72ae162af86a441fd",
+    "config_sha256": "c228c6f8c70fff3eb70bca329207643ca6201bc445b9024d39d3656f8f20806e"
+  },
+  "draft": {
+    "id": "KRAFTON/Raon-1-mini-dflash2",
+    "revision": "74f2835bd683458f6124f48784b078b06770d824",
+    "config_checks": {
+      "vocabulary": true,
+      "embedding": true,
+      "target_layers": true,
+      "streams": true,
+      "features": true,
+      "block_size_sd7": true
+    },
+    "official_pairing": "https://huggingface.co/KRAFTON/Raon-1-mini#speculative-decoding"
+  },
+  "preview_comparison": {
+    "equal_config_fields": [
+      "architectures",
+      "hidden_size",
+      "num_hidden_layers",
+      "vocab_size",
+      "max_position_embeddings",
+      "rda_config",
+      "quantization_config",
+      "moe_intermediate_size",
+      "intermediate_size"
+    ],
+    "different_config_fields": [
+      "reasoning_effort_steering",
+      "transformers_version"
+    ],
+    "weight_identity": "NOT_ESTABLISHED"
+  },
+  "steering": {
+    "config": {
+      "alpha": {
+        "none": 0,
+        "low": 0.3,
+        "medium": 0.1,
+        "high": 0.05,
+        "xhigh": 0.02,
+        "max": 0
+      },
+      "default": "high",
+      "layers": [
+        12,
+        14,
+        16,
+        18,
+        20
+      ]
+    },
+    "index_keys": [
+      "model.layers.12.moe.reasoning_effort_steering",
+      "model.layers.14.moe.reasoning_effort_steering",
+      "model.layers.16.moe.reasoning_effort_steering",
+      "model.layers.18.moe.reasoning_effort_steering",
+      "model.layers.20.moe.reasoning_effort_steering"
+    ],
+    "runtime_status": "IMPLEMENTED_COMPONENTS_AND_FINITE_NATIVE_SD_ON_OFF_SMOKES_PASS",
+    "required": [
+      "load FP32 steering vectors",
+      "API and scheduler per-request alpha propagation",
+      "graph replay refresh of per-token alpha",
+      "add alpha * vector at official MoE output boundary",
+      "separate prefix cache identity by alpha",
+      "verify native MoE shared-stream/outer-graph interaction"
+    ]
+  },
+  "mxfp4": {
+    "status": "PUBLIC_EXPORT_VALIDATED",
+    "old_preview_export_reusable_as_new_release": false,
+    "source_revision": "3f85cd63ea420100a84378f72ae162af86a441fd",
+    "repo": "jackhan-amd/Raon-1-mini-MXFP4",
+    "revision": "74fe32713a200a95e00faa30a161e5bbb4b3abc6",
+    "packed_expert_weights": 9216,
+    "unchanged_tensors": 1007,
+    "weight_bytes": 19867538384
+  },
+  "mxfp4_mixed": {
+    "status": "PUBLIC_EXPORT_ARITHMETIC_AND_FINITE_NATIVE_SMOKES_PASS",
+    "repo": "jackhan-amd/Raon-1-mini-MXFP4",
+    "branch": "nvfp4-policy",
+    "revision": "62479b0a6c1c9ef2fec51a29bed5c983bc86b7f7",
+    "policy_reference": "KRAFTON/Raon-1-mini-nvfp4@b485e3af0951cff0c0c606f7f1aee15f0ea55009",
+    "routed_mxfp4_w4a4": 9216,
+    "other_mxfp4_w4a16": 272,
+    "lm_head_mxfp8_w8a8": 1,
+    "unchanged_tensors": 734,
+    "weight_bytes": 16683563352,
+    "converted_weights_checked": 9489,
+    "scale_mismatches": 0,
+    "decoded_rtn_mismatches": 0,
+    "algorithm": "Our quanto/Quark RTN; not a claim to reproduce an unpublished official conversion algorithm"
+  },
+  "release_serving_status": "FINITE_NATIVE_SD_ON_OFF_SMOKES_PASS_FULL_ACCURACY_AND_TPS_NOT_MEASURED",
+  "weights_downloaded": true,
+  "gpu_launched": true,
+  "scope": "Release conversion/upload, per-request steering integration, finite correctness validation",
+  "resolved_output_issues": [
+    "MLA phase and metadata were frozen in breakable capture; native live-metadata callback fixed the observed NaN/SD drift",
+    "Dense FlyDSL unpadding returned strided rows consumed as contiguous by SiTU; materializing contiguous output fixed mixed-model repetitions"
+  ],
+  "validation_limits": [
+    "Seven fixed thinking-on math prompts per profile, max 128 new tokens, natural EOS; not full model quality",
+    "MLA Torch gold uses the same quantized Q/KV inputs, seven native decode calls per profile",
+    "Local graph caches are bounded and can log INERT for missing shapes; graph=1 is not universal replay coverage",
+    "Native MXFP4 atomic reductions are not certified bitwise deterministic"
+  ]
+}

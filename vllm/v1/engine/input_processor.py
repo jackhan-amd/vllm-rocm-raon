@@ -535,23 +535,27 @@ class InputProcessor:
                     )
                 )
 
-        return EngineCoreRequest(
-            request_id=request_id,
-            prompt_token_ids=prompt_token_ids,
-            prompt_embeds=prompt_embeds,
-            prompt_is_token_ids=prompt_is_token_ids,
-            mm_features=mm_features,
-            sampling_params=sampling_params,
-            pooling_params=pooling_params,
-            arrival_time=arrival_time,
-            lora_request=lora_request,
-            cache_salt=decoder_input.get("cache_salt"),
-            priority=priority,
-            data_parallel_rank=data_parallel_rank,
-            trace_headers=trace_headers,
-            resumable=resumable,
-            session_id=session_id,
-            kv_hints=kv_hints,
+        from vllm.models.raon1_mini.effort_steering import engine_request
+
+        return engine_request(
+            EngineCoreRequest(
+                request_id=request_id,
+                prompt_token_ids=prompt_token_ids,
+                prompt_embeds=prompt_embeds,
+                prompt_is_token_ids=prompt_is_token_ids,
+                mm_features=mm_features,
+                sampling_params=sampling_params,
+                pooling_params=pooling_params,
+                arrival_time=arrival_time,
+                lora_request=lora_request,
+                cache_salt=decoder_input.get("cache_salt"),
+                priority=priority,
+                data_parallel_rank=data_parallel_rank,
+                trace_headers=trace_headers,
+                resumable=resumable,
+                session_id=session_id,
+                kv_hints=kv_hints,
+            )
         )
 
     def _validate_prompt_len(

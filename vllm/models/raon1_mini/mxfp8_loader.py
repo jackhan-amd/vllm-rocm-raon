@@ -28,11 +28,15 @@ def validate_compact_loading():
     required = {
         "RAON_MOE_EXPERT_MXFP8_REALIZED": "1",
         "RAON_MOE_TRAINER_REALIZED": "1",
-        "RAON_MOE_MXFP8_W8A8_TRITON": "1",
         "RAON_MOE_MXFP8_W8A8_GEMM_MODE": "0",
         "RAON_MXFP8_MIN_M": "0",
         "RAON_PREFILL_ALIGNED": "0",
     }
+    backend = os.environ.get("RAON_MOE_BACKEND", "legacy")
+    if backend not in ("legacy", "flydsl"):
+        raise ValueError(f"Unknown Raon MoE backend: {backend}")
+    if backend == "legacy":
+        required["RAON_MOE_MXFP8_W8A8_TRITON"] = "1"
     for name, expected in required.items():
         if os.environ.get(name) != expected:
             raise ValueError(f"Compact MXFP8 loading requires {name}={expected}")
@@ -71,13 +75,14 @@ def _from_checkpoint(checkpoint_quantization):
 def make_quant_config(layer_idx, checkpoint_quantization=None):
     """Use vLLM's MoE construction contract; shared/dense linears stay BF16."""
     import torch
-    from vllm.model_executor.layers.fused_moe.routed_experts import RoutedExperts
+
     from vllm.model_executor.layers.fused_moe.config import FusedMoEQuantConfig
     from vllm.model_executor.layers.fused_moe.fused_moe_method_base import (
         FusedMoEMethodBase,
     )
-    from vllm.model_executor.layers.quantization.base_config import QuantizationConfig
+    from vllm.model_executor.layers.fused_moe.routed_experts import RoutedExperts
     from vllm.model_executor.layers.linear import LinearBase, UnquantizedLinearMethod
+    from vllm.model_executor.layers.quantization.base_config import QuantizationConfig
     from vllm.model_executor.utils import set_weight_attrs
 
     validate_compact_loading()
@@ -216,7 +221,8 @@ def make_quant_config(layer_idx, checkpoint_quantization=None):
                 delattr(layer, name)
             _WQ_CACHE[key] = (*tensors, layer.w13_weight, layer.w2_weight)
             print(
-                f"RAON_ROCM_MXFP8_LOADED layer={layer_idx} layout=rowwise expert_bf16_storage=0",
+                f"RAON_ROCM_MXFP8_LOADED layer={layer_idx} layout=rowwise "
+                f"expert_bf16_storage=0",
                 flush=True,
             )
 
@@ -292,7 +298,8 @@ def _load_checkpoint_expert(param, loaded_weight, weight_name, expert_id, shard_
     """
     if loaded_weight.dtype != param.dtype:
         raise ValueError(
-            f"{weight_name}: checkpoint dtype {loaded_weight.dtype}, expected {param.dtype}"
+            f"{weight_name}: checkpoint dtype {loaded_weight.dtype}, "
+            f"expected {param.dtype}"
         )
     target = param.data[expert_id]
     if shard_id in ("w1", "w3"):

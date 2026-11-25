@@ -4021,6 +4021,9 @@ class GPUModelRunner(
             logits_indices, spec_decode_metadata, max_num_sampled_tokens = (
                 self._prepare_inputs(scheduler_output, num_scheduled_tokens_np)
             )
+            from vllm.models.raon1_mini.effort_steering import runner_v1_prepare_inputs
+
+            runner_v1_prepare_inputs(self)
 
             (
                 cudagraph_mode,

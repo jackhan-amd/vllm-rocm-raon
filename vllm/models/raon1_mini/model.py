@@ -19,15 +19,16 @@ stream tensor is an ordinary activation.
 
 Out of scope for v1 and asserted, not silently degraded: pipeline parallelism
 (the carrier would have to move through ``IntermediateTensors``), sequence
-parallelism (nobody has sharded the 3-D carrier), MTP (weights are converted, the layer is not built).
+parallelism (nobody has sharded the 3-D carrier), MTP (weights are
+converted, the layer is not built).
 """
 
 import os
-import re
 import types
 from collections.abc import Iterable
 from typing import Any
 
+import regex as re
 import torch
 from torch import nn
 
@@ -59,17 +60,17 @@ from vllm.model_executor.models.utils import (
     make_layers,
     maybe_prefix,
 )
-
 from vllm.transformers_utils.configs.raon1_mini import Raon1MiniConfig
+
+from . import raon_phase
 from .kda import RaonKDAAttention
-from .mla_attention import MultiHeadLatentAttention
-from .mlp import RaonMLP, RaonMoE
-from .mla_refit import StableMLAScaleBuffers
-from .mla_align import install_mla_output_gate_two_round
-from .mla_proj_align import apply_module as apply_mla_proj_persistent
 from .mhc import _AGGNORM_FUSED_ENV as _MHC_AGGNORM_FUSED_ENV
 from .mhc import RaonMHC
-from . import raon_phase
+from .mla_align import install_mla_output_gate_two_round
+from .mla_attention import MultiHeadLatentAttention
+from .mla_proj_align import apply_module as apply_mla_proj_persistent
+from .mla_refit import StableMLAScaleBuffers
+from .mlp import RaonMLP, RaonMoE
 from .mlp_align import apply_module as apply_dense_mlp_persistent
 from .mlp_align import apply_situ_native as apply_dense_mlp_situ_native
 from .moe_align import _combine_ep_partial_fp32_loop as moe_combine_ep_partial_loop
@@ -83,21 +84,23 @@ from .moe_align import install_shared_expert_situ as moe_install_shared_situ
 from .moe_align import shared_situ_realized as moe_shared_situ_realized
 from .moe_align import situ_reference as moe_situ_reference
 from .moe_align import trainer_realized as moe_trainer_realized
-from .mxfp8_align import apply_mla_mxfp8 as mxfp8_apply_mla
-from .mxfp8_align import apply_shared_mxfp8 as mxfp8_apply_shared
-from .mxfp8_align import expert_mxfp8_realized as moe_expert_mxfp8_realized
-from .mxfp8_align import MIN_M as _MXFP8_MIN_M
-from .mxfp8_align import rows_reach_min_m as mxfp8_rows_reach_min_m
-from .mxfp8_align import fused_expert_rows as mxfp8_fused_expert_rows
-from .mxfp8_w8a8_triton import enabled as mxw8a8_triton_enabled
-from .mxfp8_w8a8_triton import expert_chain_mxw8a8
-from .mxfp8_w8a8_triton import expert_chain_mxw8a8_ep_finalized
-from .mxfp8_w8a8_triton import expert_chain_mxw8a8_finalized
-from .mxfp8_align import fused_expert_rows_static as mxfp8_fused_expert_rows_static
 from .moe_renorm import renorm_realized as moe_renorm_realized
 from .moe_renorm import select_experts_realized as moe_select_experts_realized
 from .moe_route import enabled as moe_route_capture_enabled
 from .moe_route import record as moe_route_record
+from .mxfp8_align import MIN_M as _MXFP8_MIN_M
+from .mxfp8_align import apply_mla_mxfp8 as mxfp8_apply_mla
+from .mxfp8_align import apply_shared_mxfp8 as mxfp8_apply_shared
+from .mxfp8_align import expert_mxfp8_realized as moe_expert_mxfp8_realized
+from .mxfp8_align import fused_expert_rows as mxfp8_fused_expert_rows
+from .mxfp8_align import fused_expert_rows_static as mxfp8_fused_expert_rows_static
+from .mxfp8_align import rows_reach_min_m as mxfp8_rows_reach_min_m
+from .mxfp8_w8a8_triton import enabled as mxw8a8_triton_enabled
+from .mxfp8_w8a8_triton import (
+    expert_chain_mxw8a8,
+    expert_chain_mxw8a8_ep_finalized,
+    expert_chain_mxw8a8_finalized,
+)
 
 
 class RaonRefitMLA(StableMLAScaleBuffers, MultiHeadLatentAttention):
@@ -141,7 +144,7 @@ _LEVER_ANNOUNCED: set = set()
 # its own tail call: a bump is proof its _ep_fn ran, no bump is proof the tail
 # never called it. Bookkeeping only -- one dict store on a path that already
 # launches a combine.
-_EP_PARTIAL_CALLS = {"n": 0, "fn": None}
+_EP_PARTIAL_CALLS: dict[str, Any] = {"n": 0, "fn": None}
 
 
 def _situ_and_mul(gate_up: torch.Tensor, beta: float, linear_beta: float | None):
@@ -196,7 +199,7 @@ def _raon_fp32_combine_moe_impl(self, hidden_states):
 # A SECOND stream, not the model's existing aux_stream: that one is already
 # spoken for by the MLA g_proj overlap (RaonModel.streams), and sharing it
 # would serialize the two overlaps against each other.
-_SHARED_SIDE_STREAMS = {}
+_SHARED_SIDE_STREAMS: dict[Any, Any] = {}
 
 
 def _shared_side_stream(device):
@@ -255,7 +258,7 @@ def _raon_fp32_combine_moe_impl_eager(
 
     Fail-closed: only the RAON config path is supported (non-latent, non-MegaMoE,
     unquantized bf16 experts, TP1/EP-off so every expert is local). Anything else
-    raises rather than silently mis-measure. One host sync per MoE layer (the
+    raises rather than silently mismeasure. One host sync per MoE layer (the
     per-expert row counts) is accepted: under enforce_eager there is no CUDA-graph
     capture to break, and under VLLM_USE_BREAKABLE_CUDAGRAPH the whole chain runs
     as an eager break (``_raon_fp32_combine_moe_forward`` below), outside every
@@ -277,6 +280,10 @@ def _raon_fp32_combine_moe_impl_eager(
         and (
             not torch.cuda.is_current_stream_capturing()
             or os.environ.get("RAON_EXPERIMENT_SHARED_GRAPH", "0") == "1"
+            or (
+                torch.version.hip
+                and os.environ.get("RAON_MOE_BACKEND", "legacy") == "flydsl"
+            )
         )
     ):
         _main = torch.cuda.current_stream()
@@ -287,6 +294,7 @@ def _raon_fp32_combine_moe_impl_eager(
         # it. Same reason the shared output needs record_stream at the join.
         x.record_stream(_side)
         with torch.cuda.stream(_side):
+            assert self.shared_experts is not None
             _shared_out = self.shared_experts(x)
         _shared_evt = torch.cuda.Event()
         _shared_evt.record(_side)
@@ -436,13 +444,15 @@ def _raon_fp32_combine_moe_impl_eager(
             # of this forward, ran concurrently with the whole routed chain,
             # and its result is the operand being added. A launch-site line
             # could not tell that apart from a stream nobody ever joined.
-            if ("shared_side_live",) not in _LEVER_ANNOUNCED:
-                _LEVER_ANNOUNCED.add(("shared_side_live",))
+            _shared_capturing = torch.cuda.is_current_stream_capturing()
+            _shared_key = ("shared_side_live", _shared_capturing)
+            if _shared_key not in _LEVER_ANNOUNCED:
+                _LEVER_ANNOUNCED.add(_shared_key)
                 print(
                     f"[parity] RAON_MOE_SHARED_SIDE_STREAM LIVE: shared "
                     f"experts ran on the side stream and joined the main "
                     f"stream on layer_idx={layer_idx} -- {tuple(x.shape)} "
-                    f"input, overlapped against the routed chain; the "
+                    f"input, capturing={int(_shared_capturing)}; the "
                     f"addition and both operands are bit-unchanged, only "
                     f"the timing moved",
                     flush=True,
@@ -583,7 +593,10 @@ def _moe_expert_chain_reference(
         gate_up = seg @ w13[eid].t()  # [cnt, 2I]
         if realized:
             inter = moe_situ_reference(gate_up, beta, linear_beta)  # [cnt, I]
-            inter = moe_fold_probs(inter, probs_rows[start : start + cnt])
+            inter = moe_fold_probs(
+                inter,
+                probs_rows[start : start + cnt],  # type: ignore[index]
+            )
         else:
             inter = _situ_and_mul(gate_up, beta, linear_beta)  # [cnt, I]
         # Inverse permutation back to (token, slot) rows.
@@ -724,6 +737,25 @@ def _moe_expert_chain_mxfp8(
     # chain, so the condition is AND NOT aligned(). During aligned prefill
     # this falls through to the alignment reference chain below
     # (byte-identical to _moe_expert_chain_reference); decode is unaffected.
+    from . import mxfp8_flydsl
+
+    if mxfp8_flydsl.enabled():
+        if raon_phase.PREFILL_ALIGNED:
+            raise RuntimeError("FlyDSL MXFP8 requires RAON_PREFILL_ALIGNED=0")
+        expert_out = mxfp8_flydsl.expert_rows(
+            x, topk_weights, topk_ids, w13, w2, beta, linear_beta, layer_idx
+        )
+        return _moe_combine_realized_tail(
+            expert_out,
+            topk_ids,
+            topk_weights,
+            x.dtype,
+            num_experts,
+            layer_idx,
+            True,
+            moe_combine_ep_partial,
+        )
+
     if mxw8a8_triton_enabled() and not raon_phase.aligned("moe.expert_chain"):
         # RAON_MOE_MXFP8_W8A8_FINALIZE=1 (default 0 = byte-identical rows path
         # below): absorb mode 2's (T,K,H) row materialization and combine tail
@@ -1347,7 +1379,10 @@ def _moe_expert_chain_fused_host(
         gu = gate_up_all[c0:c1]
         if realized:
             s = moe_situ_reference(gu, beta, linear_beta)
-            s = moe_fold_probs(s, probs_rows[c0:c1])
+            s = moe_fold_probs(
+                s,
+                probs_rows[c0:c1],  # type: ignore[index]
+            )
         else:
             s = _situ_and_mul(gu, beta, linear_beta)
         inter_all[c0:c1].copy_(s)
@@ -1413,7 +1448,7 @@ try:
     _MOE_EAGER_BREAK = bool(_is_breakable_enabled())
 except ImportError:  # eager-only vLLM build: nothing to break out of
 
-    def _eager_break_during_capture(fn):
+    def _eager_break_during_capture(fn):  # type: ignore[misc]
         return fn
 
 
@@ -1660,7 +1695,8 @@ class RaonDecoderLayer(nn.Module):
             if compact_loading_enabled():
                 if quant_config is not None:
                     raise ValueError(
-                        "Compact routed MXFP8 cannot replace another quantization configuration"
+                        "Compact routed MXFP8 cannot replace another "
+                        "quantization configuration"
                     )
                 moe_quant_config = make_quant_config(
                     layer_idx, getattr(config, "raon_expert_quantization", None)
@@ -1700,7 +1736,8 @@ class RaonDecoderLayer(nn.Module):
                 # Native MoERunner owns TP reductions and DP/EP dispatch/combine.
                 # Its quant method runs the same preconverted MXFP8 expert chain.
                 print(
-                    f"[raon-parallel] layer={layer_idx} native MoERunner communication; "
+                    f"[raon-parallel] layer={layer_idx} native MoERunner "
+                    f"communication; "
                     "packed MXFP8 experts; native shared-expert scheduling",
                     flush=True,
                 )
@@ -1712,7 +1749,7 @@ class RaonDecoderLayer(nn.Module):
                     self.block_sparse_moe.forward
                 )
                 self.block_sparse_moe.raon_aligned_combine = aligned_moe_combine
-                self.block_sparse_moe.forward = types.MethodType(
+                self.block_sparse_moe.forward = types.MethodType(  # type: ignore[method-assign]
                     _raon_fp32_combine_moe_forward, self.block_sparse_moe
                 )
             # RAON_MOE_SHARED_SITU_REALIZED (default OFF): RAON_MOE_TRAINER_
@@ -1727,7 +1764,7 @@ class RaonDecoderLayer(nn.Module):
             if moe_shared_situ_realized():
                 _swap = moe_install_shared_situ(
                     self.block_sparse_moe,
-                    config.activation_situ_beta,
+                    config.activation_situ_beta,  # type: ignore[arg-type]
                     config.activation_situ_linear_beta,
                 )
                 global _MOE_SHARED_SITU_ANNOUNCED
@@ -1771,6 +1808,15 @@ class RaonDecoderLayer(nn.Module):
             # L00.mhc_post. See mlp_align.apply_situ_native.
             self._mlp_situ_parity = apply_dense_mlp_situ_native(self.mlp)
 
+        from . import effort_steering
+
+        effort_steering.attach(
+            getattr(self, "block_sparse_moe", None),
+            layer_idx,
+            config.hidden_size,
+            vllm_config,
+        )
+
         self.input_layernorm = QuackRMSNorm(config.hidden_size, eps=config.rms_norm_eps)
         self.post_attention_layernorm = QuackRMSNorm(
             config.hidden_size, eps=config.rms_norm_eps
@@ -1782,6 +1828,13 @@ class RaonDecoderLayer(nn.Module):
         n = config.raon_mhc_streams
         self.self_attn_raon_mhc = RaonMHC(n, config.hidden_size, 2 * layer_idx)
         self.mlp_raon_mhc = RaonMHC(n, config.hidden_size, 2 * layer_idx + 1)
+
+    def _mlp_with_effort(self, x):
+        from . import effort_steering
+
+        out = self.mlp(x)
+        c = getattr(self.mlp, "raon_effort_c", None)
+        return out if c is None else effort_steering.steer(out, c)
 
     def forward(self, positions: torch.Tensor, s: torch.Tensor) -> torch.Tensor:
         """s: [T, streams, hidden] in, same out."""
@@ -1812,7 +1865,7 @@ class RaonDecoderLayer(nn.Module):
             )
             return self.mlp_raon_mhc(
                 s,
-                lambda a: self.mlp(a),
+                lambda a: self._mlp_with_effort(a),
                 branch_norm_weight=self.post_attention_layernorm.weight,
                 branch_norm_eps=self.post_attention_layernorm.variance_epsilon,
             )
@@ -1823,7 +1876,7 @@ class RaonDecoderLayer(nn.Module):
             ),
         )
         return self.mlp_raon_mhc(
-            s, lambda a: self.mlp(self.post_attention_layernorm(a))
+            s, lambda a: self._mlp_with_effort(self.post_attention_layernorm(a))
         )
 
 
@@ -1873,6 +1926,9 @@ class RaonModel(nn.Module, EagleModelMixin):
         )
         # norm_f parity site — QuACK-backed to match the trainer's final
         # decoder.final_layernorm (megatron KimiRMSNorm backend='quack').
+        from . import effort_steering
+
+        effort_steering.check_attached()
         self.norm = QuackRMSNorm(config.hidden_size, eps=config.rms_norm_eps)
 
     def embed_input_ids(self, input_ids: torch.Tensor) -> torch.Tensor:
@@ -1928,7 +1984,7 @@ class RaonModel(nn.Module, EagleModelMixin):
             ckpt_gate_proj_name="w1",
             ckpt_down_proj_name="w2",
             ckpt_up_proj_name="w3",
-            num_experts=self.config.num_experts,
+            num_experts=self.config.num_experts,  # type: ignore[arg-type]
         )
         params_dict = dict(self.named_parameters())
         mhc_sites = {n: m for n, m in self.named_modules() if isinstance(m, RaonMHC)}
@@ -2178,7 +2234,7 @@ def _install_graph_replay_counter() -> None:
         _GRAPH_REPLAYS["n"] += 1
         return orig(self, *a, **k)
 
-    replay._raon_counted = True
+    replay._raon_counted = True  # type: ignore[attr-defined]
     g.replay = replay
     import atexit
 
@@ -2259,10 +2315,10 @@ class Raon1MiniForCausalLM(nn.Module, SupportsEagle3, HasInnerState, IsHybrid):
                     "the lever would be a silent no-op"
                 )
             _pats = [p for p in (s.strip() for s in _fp8_ignore.split(",")) if p]
-            self.quant_config.ignored_layers = (
+            self.quant_config.ignored_layers = (  # type: ignore[attr-defined]
                 list(getattr(self.quant_config, "ignored_layers", None) or []) + _pats
             )
-            self.quant_config.ignored_layers_match_mode = "substring"
+            self.quant_config.ignored_layers_match_mode = "substring"  # type: ignore[attr-defined]
             print(
                 f"[q4] RAON_FP8_IGNORE: quantization skips layers whose "
                 f"prefix contains any of {_pats} (substring match); skipped "
@@ -2292,7 +2348,7 @@ class Raon1MiniForCausalLM(nn.Module, SupportsEagle3, HasInnerState, IsHybrid):
             from .mxfp8_w8a8_cutlass import prewarm_shape_map_kernels
 
             prewarm_shape_map_kernels(
-                device=torch.cuda.current_device(),
+                device=torch.accelerator.current_device_index(),
                 top_k=self.config.num_experts_per_token,
             )
         except Exception as _e:  # noqa: BLE001
@@ -2300,7 +2356,7 @@ class Raon1MiniForCausalLM(nn.Module, SupportsEagle3, HasInnerState, IsHybrid):
         try:
             from .kda_frontend_fused import prewarm_frontend_fused
 
-            prewarm_frontend_fused(device=torch.cuda.current_device())
+            prewarm_frontend_fused(device=torch.accelerator.current_device_index())
         except Exception as _e:  # noqa: BLE001
             print(f"[raon-kda] FUSED_FLOW prewarm skipped: {_e}", flush=True)
 
@@ -2384,6 +2440,9 @@ class Raon1MiniForCausalLM(nn.Module, SupportsEagle3, HasInnerState, IsHybrid):
             raise RuntimeError("no streamed Raon weights were loaded")
         self._invalidate_refit_derived()
         self._finalize_mhc_refit()
+        from . import effort_steering
+
+        effort_steering.check_loaded()
         batches = self._deferred_refit_batches
         self._deferred_refit_batches = 0
         self._deferred_refit_active = False
@@ -2420,9 +2479,17 @@ class Raon1MiniForCausalLM(nn.Module, SupportsEagle3, HasInnerState, IsHybrid):
                 "_raon_kda_decode_graph_stamp",
                 "_raon_moe_outer_cache",
                 "_raon_moe_outer_stamp",
+                "_raon_flydsl_weights",
+                "_raon_flydsl_live",
+                "_raon_mxfp4_flydsl_checked",
+                "_raon_flydsl_conv_weight",
             ):
                 if hasattr(module, name):
                     delattr(module, name)
+        for parameter in self.parameters():
+            for name in ("_raon_flydsl_weights", "_raon_flydsl_live"):
+                if hasattr(parameter, name):
+                    delattr(parameter, name)
 
     def _finalize_mhc_refit(self) -> None:
         for module in self.modules():
@@ -2434,16 +2501,21 @@ class Raon1MiniForCausalLM(nn.Module, SupportsEagle3, HasInnerState, IsHybrid):
             self, "_offline_weights_loaded", False
         ):
             raise RuntimeError(
-                "Preconverted MXFP8 serving does not support weight refit; reconvert and restart"
+                "Preconverted MXFP8 serving does not support weight "
+                "refit; reconvert and restart"
             )
         if not self._deferred_refit_active:
             self._invalidate_refit_derived()
         # AutoWeightsLoader routes ``model.*`` into RaonModel.load_weights and
         # loads ``lm_head.weight`` itself. MultiHeadLatentAttention's
         # kv_b_proj absorption runs from the loader's generic post-load hook.
+        from . import effort_steering
+
         loaded = AutoWeightsLoader(self).load_weights(
-            weights, mapper=self.hf_to_vllm_mapper
+            effort_steering.take_vectors(weights), mapper=self.hf_to_vllm_mapper
         )
+        if not self._deferred_refit_active:
+            effort_steering.check_loaded()
         self._offline_weights_loaded = True
         if self._deferred_refit_active:
             self._deferred_refit_batches += 1

@@ -1,5 +1,19 @@
 # Agent Instructions for vLLM
 
+## Local Raon performance benchmark policy
+
+For this fork, follow the Raon Performance Benchmark Contract in `../AGENTS.md`.
+Never use `--enforce-eager` for performance measurements. The runtime profile's
+historical graph/side-stream zeros are not universal performance requirements;
+review the actual connection and activation of each switch. ROCm optimization
+branches must connect native FlyDSL/AITER kernels, with distinct MXFP8 and MXFP4
+packing and actual kernel witnesses. Keep unvalidated candidates opt-in.
+Use `--dtype auto`, enabled prefix caching,
+TP1/DP1 per GPU, and eight independent replicas. Do not reuse historical eager,
+forced-BF16, or prefix-cache-disabled performance profiles. Review the revised
+server/client commands before launching; report graph failures instead of
+silently falling back to eager execution.
+
 > These instructions apply to **all** AI-assisted contributions to `vllm-project/vllm`.
 > Breaching these guidelines can result in automatic banning.
 

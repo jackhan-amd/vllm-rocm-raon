@@ -1,11 +1,15 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
 # SPDX-License-Identifier: Apache-2.0
-# ROCm adapter derived from KRAFTON Raon kda.py at 335a45e3f9d8a7f5f76c884734b5797ec9623fb3.
+# ROCm adapter derived from KRAFTON Raon kda.py
+# at 335a45e3f9d8a7f5f76c884734b5797ec9623fb3.
 import os
+from typing import Any
+
 import torch
 import torch.nn.functional as F
 from einops import rearrange
+
 from vllm.compilation.breakable_cudagraph import eager_break_during_capture
 from vllm.forward_context import get_forward_context
 from vllm.model_executor.layers.linear import ColumnParallelLinear
@@ -23,7 +27,22 @@ from vllm.models.kimi_k3.amd.ops.third_party.kda import (
     fused_recurrent_kda_packed_decode,
 )
 from vllm.v1.attention.backends.gdn_attn import GDNAttentionMetadata as RaonRDAMetadata
-from .rda_base import RaonRDABase
+
+from . import kda_vsplit as _kda_vsplit
+from .rda_base import RaonRDABase, _flashkda_prefill
+
+_FLASHKDA_DEDICATED: dict = {}
+
+
+def _flashkda_dedicated_buffers(specs, device):
+    key = (str(device), tuple((tuple(shape), dtype) for shape, dtype in specs))
+    bufs = _FLASHKDA_DEDICATED.get(key)
+    if bufs is None:
+        bufs = [
+            torch.empty(shape, dtype=dtype, device=device) for shape, dtype in specs
+        ]
+        _FLASHKDA_DEDICATED[key] = bufs
+    return bufs
 
 
 def compute_rda_value_ratio(beta_logits, write_delta_logits):
@@ -37,6 +56,16 @@ class RaonKDAAttention(RaonRDABase):
     def __init__(self, config, vllm_config, prefix=""):
         super().__init__(config, vllm_config, prefix)
         self.kda_decode_backend = "rocm_recurrent"
+        from .rocm_flydsl_decode import resolve_backend
+
+        self.rocm_decode_backend = resolve_backend()
+        self.rocm_aiter_fused_decode = self.rocm_decode_backend != "legacy"
+        parallel = vllm_config.parallel_config
+        self._raon_decode_graph_local = (
+            parallel.tensor_parallel_size == 1
+            and parallel.data_parallel_size == 1
+            and not parallel.enable_expert_parallel
+        )
         self.rda_w_proj = ColumnParallelLinear(
             self.hidden_size,
             self.num_heads,
@@ -131,6 +160,19 @@ class RaonKDAAttention(RaonRDABase):
         assert isinstance(attn_metadata_narrowed, RaonRDAMetadata)
         m = attn_metadata_narrowed
         _record_route(self.prefix, m)
+        if os.environ.get("RAON_KDA_DECODE_GRAPH", "0") == "1":
+            from .rocm_kda_graph import try_forward
+
+            if try_forward(self, m, (mixed_qkv, g1, g2, beta, ratio), core_attn_out):
+                return
+        self._forward_step(m, mixed_qkv, g1, g2, beta, ratio, core_attn_out)
+
+    def _forward_step(self, m, mixed_qkv, g1, g2, beta, ratio, core_attn_out):
+        if self.rocm_aiter_fused_decode:
+            from .rocm_aiter_decode import try_forward
+
+            if try_forward(self, m, (mixed_qkv, g1, g2, beta, ratio), core_attn_out):
+                return
         has_initial_state = m.has_initial_state
         non_spec_query_start_loc = m.non_spec_query_start_loc
         non_spec_state_indices_tensor = m.non_spec_state_indices_tensor
@@ -143,7 +185,8 @@ class RaonKDAAttention(RaonRDABase):
         has_spec_decode = m.num_spec_decodes > 0
         if self.kda_cpr and has_spec_decode:
             raise RuntimeError(
-                "RAON_KDA_CPR does not support speculative decode (the spec path bypasses the 64-boundary entry-chain bookkeeping)"
+                "RAON_KDA_CPR does not support speculative decode (the "
+                "spec path bypasses the 64-boundary entry-chain bookkeeping)"
             )
         mixed_qkv = mixed_qkv[:num_actual_tokens]
         g1 = g1[:, :num_actual_tokens]
@@ -265,6 +308,7 @@ class RaonKDAAttention(RaonRDABase):
                     rearrange(x, "n (h d) -> 1 n h d", d=self.head_dim)
                     for x in (q_ns, k_ns, v_ns)
                 )
+                assert ratio_ns is not None
                 v_ns = (v_ns.float() * ratio_ns.unsqueeze(-1)).to(v_ns.dtype)
                 assert non_spec_state_indices_tensor is not None
                 assert has_initial_state is not None
@@ -380,7 +424,12 @@ class RaonKDAAttention(RaonRDABase):
         core_attn_out.copy_(self.o_norm(core_attn_out, g2))
 
 
-RUNTIME_WITNESS = {"prefill_calls": 0, "decode_calls": 0, "spec_calls": 0, "layers": []}
+RUNTIME_WITNESS: dict[str, Any] = {
+    "prefill_calls": 0,
+    "decode_calls": 0,
+    "spec_calls": 0,
+    "layers": [],
+}
 
 
 def _record_route(prefix, metadata):

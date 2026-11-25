@@ -906,6 +906,11 @@ class ModelConfig:
         # Avoid running try_verify_and_update_config multiple times
         self.config_updated = False
         self._try_verify_and_update_model_config()
+        if getattr(self.hf_text_config, "model_type", None) == "raon1_mini":
+            from vllm.models.raon1_mini.effort_steering import configure
+
+            configure(self.hf_text_config, self.model)
+
         self._verify_quantization()
         self._verify_cuda_graph()
 

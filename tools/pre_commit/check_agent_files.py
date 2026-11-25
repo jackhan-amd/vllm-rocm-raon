@@ -152,7 +152,11 @@ def check_links(files: dict[str, str]) -> list[str]:
             if URL_SCHEME.match(link):
                 continue
             ref, _, anchor = link.partition("#")
-            dest = posixpath.normpath(posixpath.join(posixpath.dirname(path), ref))
+            dest = (
+                posixpath.normpath(posixpath.join(posixpath.dirname(path), ref))
+                if ref
+                else path
+            )
             if dest not in files and dest not in dirs:
                 errors.append(f"{path}: link {link} does not exist")
             elif anchor and dest.endswith(".md") and not has_heading(dest, anchor):

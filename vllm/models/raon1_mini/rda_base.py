@@ -7,9 +7,11 @@ The forward pass lives in kda.py (``RaonKDAAttention``). Prefill runs FlashKDA
 """
 
 from collections.abc import Callable
+
 import torch
 from torch import nn
 from torch.nn.parameter import Parameter
+
 from vllm.config import VllmConfig
 from vllm.distributed import divide, get_tensor_model_parallel_rank
 from vllm.logger import init_logger
@@ -30,12 +32,12 @@ from vllm.model_executor.model_loader.weight_utils import (
 )
 from vllm.model_executor.parameter import BasevLLMParameter
 from vllm.model_executor.utils import set_weight_attrs
-from vllm.platforms import current_platform
-from vllm.third_party.flash_linear_attention.ops.kda import FusedRMSNormGated
-from vllm.v1.attention.backend import AttentionBackend
 from vllm.models.kimi_k3.amd.kda_metadata import (
     KimiK3ROCmKDABackend as RaonRDAAttentionBackend,
 )
+from vllm.platforms import current_platform
+from vllm.third_party.flash_linear_attention.ops.kda import FusedRMSNormGated
+from vllm.v1.attention.backend import AttentionBackend
 
 logger = init_logger(__name__)
 _RDA_GATE_LOGBOUND_MIN = -5.0
@@ -175,7 +177,7 @@ def _flashkda_prefill(
     final_state: torch.Tensor,
     workspace: torch.Tensor,
 ) -> tuple[torch.Tensor, torch.Tensor]:
-    import vllm._flashkda_C
+    import vllm._flashkda_C  # noqa: F401 - registers torch.ops
 
     torch.ops._flashkda_C.fwd(
         q.contiguous(),
@@ -201,9 +203,9 @@ def resolve_rda_prefill_backend(
 ) -> str:
     if not current_platform.is_rocm():
         raise RuntimeError("This integration overlay is ROCm-only")
-    if backend not in ("auto", "fused", "triton"):
-        raise ValueError("ROCm RDA requires auto/fused/triton KDA backend")
-    return "rocm_fused" if backend != "triton" else "rocm_triton"
+    from .rocm_prefill import select_backend
+
+    return select_backend(backend, head_dim, dtype, lower_bound)
 
 
 def _make_decode_conv1d_weight_loader(
@@ -301,6 +303,11 @@ class RaonRDABase(GatedDeltaNetAttention):
         )
         if self.in_proj_padding:
             self.in_proj_qkvgfab.weight.data[-self.in_proj_padding :].zero_()
+            scale = getattr(self.in_proj_qkvgfab, "weight_scale", None)
+            if scale is not None and scale.ndim == 2:
+                # The alignment-only partition has no checkpoint tensor. Its
+                # packed zero weights also need finite E8M0 scales.
+                scale.data[-self.in_proj_padding :].zero_()
         self.f_b_proj = ColumnParallelLinear(
             self.head_dim,
             self.projection_size,
@@ -362,7 +369,8 @@ class RaonRDABase(GatedDeltaNetAttention):
         self.gate_lower_bound: float | None = rda_config.get("gate_lower_bound", None)
         if self.gate_lower_bound is not None:
             assert _RDA_GATE_LOGBOUND_MIN <= self.gate_lower_bound < 0, (
-                f"RDA gate lower bound must be in [{_RDA_GATE_LOGBOUND_MIN}, 0). Got {self.gate_lower_bound}."
+                f"RDA gate lower bound must be in "
+                f"[{_RDA_GATE_LOGBOUND_MIN}, 0). Got {self.gate_lower_bound}."
             )
         additional_config = vllm_config.additional_config
         backend = (
@@ -383,7 +391,8 @@ class RaonRDABase(GatedDeltaNetAttention):
             T = vllm_config.scheduler_config.max_num_batched_tokens
             N = vllm_config.scheduler_config.max_num_seqs
             H, D = (self.local_num_heads, self.head_dim)
-            import vllm._flashkda_C
+
+            import vllm._flashkda_C  # noqa: F401 - registers torch.ops
 
             workspace_size = torch.ops._flashkda_C.get_workspace_size(T, H, N)
             self._flashkda_buffer_specs = (

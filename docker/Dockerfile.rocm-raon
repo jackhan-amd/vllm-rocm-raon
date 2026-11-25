@@ -24,7 +24,7 @@ RUN /opt/raon/.venv/bin/python /opt/raon-library-patch/apply_upgrade.py
 
 COPY vllm /tmp/raon-source/vllm
 COPY docker/raon/overlay-files.json /tmp/raon-source/docker/raon/overlay-files.json
-COPY docker/raon/install_overlay.py docker/raon/runtime-env.sh docker/raon/runtime-mxfp4-env.sh docker/raon/entrypoint.sh /opt/raon/
+COPY docker/raon/install_overlay.py docker/raon/runtime-env.sh docker/raon/runtime-mxfp4-env.sh docker/raon/runtime-flydsl-env.sh docker/raon/entrypoint.sh /opt/raon/
 COPY examples/offline_inference/raon_rocm_smoke.py /opt/raon/smoke.py
 COPY tools/raon_validation /opt/raon/tools/raon_validation
 RUN /opt/raon/.venv/bin/python /opt/raon/install_overlay.py /tmp/raon-source \

@@ -269,6 +269,12 @@ class OpenAIServingChat(GenerateBaseServing):
             or an ErrorResponse on failure.
 
         """
+        from vllm.models.raon1_mini.effort_steering import api_request_error
+
+        effort_error = api_request_error(self, request)
+        if effort_error is not None:
+            return self.create_error_response(effort_error)
+
         error_check_ret = await self._check_model(request)
         if error_check_ret is not None:
             logger.error("Error with model %s", error_check_ret)

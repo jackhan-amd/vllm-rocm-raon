@@ -8,6 +8,9 @@ Torch/vLLM/native extensions available; no model download is performed.
 
 | Command | Independent check |
 | --- | --- |
+| `flydsl-moe` | Candidate MXFP8 FlyDSL expert rows vs independent Torch gold with both FP32 and BF16 activation boundaries; repeated graph replay with changed routes, probabilities and inputs. Use `--moe-full-shape` for E128/H2560/I1088. This is a finite diagnostic, not a throughput measurement. |
+| `aiter-rda` | Select `--decode-backend flydsl` for the three-kernel FlyDSL chain or `aiter_triton` for the older fused derivative. Compare with the existing AMD chain and independent Torch conv/RDA/norm gold; AR and SD lengths 2/4/8, all accepted counts, changing state indices, full conv histories, untouched recurrent rows, and exact graph/direct comparison. Finite MI355X results are linked below. |
+| `effort` | Independent mixed-token alpha expansion, real decoder MoE-output boundary, Torch gold, zero-alpha bit preservation and HIP graph replay for release steering. |
 | `core` | RDA recurrent and fused prefill output/final state versus direct FP32 erase/write equations; lengths 1, 8, 65, 257 |
 | `rollback` | Every previous accepted count for draft lengths 1, 3, 7; convolution history, candidate recurrent states, reordered batches 16/15/8/1 and untouched cache rows |
 | `stress` | Repeat the rollback checks for 1,024 rounds per draft length by default |
@@ -21,6 +24,28 @@ Torch/vLLM/native extensions available; no model download is performed.
 
 From the repository root in an installed development environment:
 
+Release checkpoint steering tools:
+
+```bash
+.venv/bin/python tools/raon_validation/test_effort_steering.py
+.venv/bin/python -m tools.raon_validation effort --output evidence/effort.json
+.venv/bin/python -m tools.raon_validation.effort_cost --output evidence/effort-cost.json
+.venv/bin/python -m tools.raon_validation.release_model \
+  --model /models/Raon-1-mini --output evidence/release-smoke.json
+```
+
+The release smoke requires the candidate profile in
+`docker/raon/runtime-flydsl-env.sh` (choose `RAON_RUNTIME_PROFILE=mxfp4-flydsl`
+for the release MXFP4 derivative). It uses breakable PIECEWISE graphs, dtype
+auto, FP8 KV and enabled prefix caching; it refuses a resolved non-PIECEWISE
+mode and records generation replay counts. Add `--draft-model` with the pinned
+release DFlash2 snapshot for SD7. It checks seven mixed-effort requests with
+fixed prompt IDs and a 32-token output cap, not full API template behavior,
+long generations or model accuracy. `effort_cost --implementation compiled`
+measures a separate pointwise fusion candidate, not the deployed plain path.
+`aiter-rda --conv-weight-fp32` also checks the loader's losslessly widened
+convolution parameters, without changing the checkpoint's BF16 values.
+
 ```bash
 .venv/bin/python -m tools.raon_validation core --output evidence/core.json
 .venv/bin/python -m tools.raon_validation rollback --output evidence/rollback.json
@@ -29,6 +54,45 @@ From the repository root in an installed development environment:
 .venv/bin/python -m tools.raon_validation sampler --samples 65536 --output evidence/sampler.json
 .venv/bin/python -m tools.raon_validation sampler-gold --output evidence/sampler-gold.json
 ```
+
+The opt-in MoE/KDA candidate and its precision-specific activation profile are
+documented in [FLYDSL-CANDIDATE.md](../../docker/raon/FLYDSL-CANDIDATE.md).
+On an idle gfx950 GPU, its additional checks are:
+
+```bash
+export RAON_MXFP8_FLYDSL_FUSED_A2=1
+.venv/bin/python -m tools.raon_validation flydsl-moe --moe-full-shape \
+  --output evidence/flydsl-mxfp8-gold.json
+.venv/bin/python -m tools.raon_validation aiter-rda --decode-backend flydsl \
+  --draft-counts 1 3 7 --output evidence/flydsl-rda-gold.json
+.venv/bin/python -m tools.raon_validation.moe_graph_mxfp8 \
+  --output evidence/mxfp8-model-graph.json
+.venv/bin/python -m tools.raon_validation.moe_graph \
+  --output evidence/mxfp4-native-graph.json
+```
+
+These commands do not start a serving endpoint or measure throughput. The
+decode tool selects its fused/direct fixtures explicitly; no global fused
+decode option is needed. The three-kernel decode candidate is FlyDSL throughout;
+the older single-kernel derivative is AMD Triton. CPU dispatch or offline
+gfx950 compile-only checks do not establish GPU arithmetic correctness.
+
+The [2026-11-25 MI355X record](results/mi355x-flydsl-20261125.json) contains
+executed finite GPU results. FlyDSL RDA passed 45 AR/SD cases across batches
+1/3/16, including 128 live SD graph tokens, after correcting physical indexing
+of the rank-two state-index matrix. Use `--decode-batch-size` to select a batch.
+The fused-A2 MXFP8 path passed Torch gold and legacy comparison; it avoids the
+extra BF16 intermediate with `RAON_MXFP8_FLYDSL_FUSED_A2=1`. Its component graph
+and actual model shared-stream call sites passed exact replay checks.
+
+`moe_graph` checks the native MXFP4 layout/selector, actual SharedExperts owner,
+and outer graph on a synthetic fixture; it does not load a Quark checkpoint or
+the full FusedMoERunner. It derives the reference's intermediate dtype from
+actual stage1 metadata and restores inputs/routes between stream modes.
+MXFP4 numerical gold/replay checks passed, but **exact checks remain FAIL**:
+the selected stage2 atomic path is not bitwise-repeatable even in direct eager
+repeats. The tool reports `numeric_status` separately and does not relax its
+original exact gates. No throughput or full-model accuracy result follows.
 
 Numerical gates are declared before execution: BF16 RDA/convolution use
 RMS error <= `1e-5 + 0.01 * reference_RMS` and maximum absolute error <=
@@ -453,6 +517,51 @@ source or compiler patch is required. The four-task example accepts
 `--moe-backend aiter` and a local `--model` directory.
 Future images built from these Dockerfiles select this experimental profile
 with `RAON_RUNTIME_PROFILE=mxfp4`; the default remains the MXFP8 profile.
+
+## Release mixed-precision export and independent gold
+
+`quantize --reference-nvfp4-config /path/to/pinned-official-config.json` translates
+the official NVFP4 layer policy to MXFP4 W4A4 experts, MXFP4 W4A16 other linears
+and an MXFP8 LM head. NVFP4 block-16 scales are not reused as MXFP4 scales.
+This remains our quanto/Quark RTN conversion; the reference metadata does not
+establish the official conversion algorithm. The original expert-only mode
+is retained when that option is omitted.
+
+```bash
+.venv/bin/python -m tools.raon_validation.quantized \
+  --source /models/raon-original --model /models/raon-mixed \
+  --reference-nvfp4-config /path/to/pinned-official-config.json \
+  --output evidence/export-layout.json
+.venv/bin/python -m tools.raon_validation.quantized_math \
+  --source /models/raon-original --model /models/raon-mixed \
+  --reference-nvfp4-config /path/to/pinned-official-config.json \
+  --output evidence/export-arithmetic.json
+RAON_ROCM_DENSE_LINEAR_BACKEND=flydsl .venv/bin/python \
+  -m tools.raon_validation.dense_math --output evidence/dense-gold.json
+.venv/bin/python -m tools.raon_validation.release_model \
+  --model /models/raon-mixed --audit-loaded-linears --torch-gold-mla \
+  --max-tokens 128 --output evidence/release-gold.json
+```
+
+The arithmetic audit uses only independent Torch E2M1/E4M3/E8M0 math and reads
+every converted weight. `dense_math` compares native GEMMs with FP32 Torch,
+checks strided inputs and changed-input HIP graph replay, and verifies the
+SiTU composition. Its intentionally strided SiTU negative control must fail.
+`--audit-loaded-linears` checks real loaded/merged payloads and scales against
+checkpoint tensors, then compares each loaded native Linear with Torch GEMM.
+`--torch-gold-mla` checks the first seven real AITER decode calls, per sequence,
+against dense causal FP32 Torch attention on the same quantized Q/KV inputs.
+These tools distinguish conversion, loading, kernel and composition failures.
+None is a full model accuracy evaluation or serving-speed measurement.
+
+Source `runtime-flydsl-env.sh` first. The native candidate also requires
+`RAON_ROCM_MLA_LIVE_METADATA=1` and
+`RAON_ROCM_DENSE_LINEAR_BACKEND=flydsl`. The MLA callback refreshes the current
+phase and metadata while retaining the Kimi/AITER kernels; other graph segments
+remain active. Dense unpadding materializes contiguous rows because downstream
+SiTU addresses rows using the logical width. The fixed-prompt release fixture
+uses the same thinking-on token IDs for all efforts to isolate steering;
+separate API tests cover `none` turning thinking off.
 
 ## Experimental MLA workaround
 

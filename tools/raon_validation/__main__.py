@@ -26,6 +26,9 @@ def main():
             "teacher",
             "replay",
             "draft-replay",
+            "flydsl-moe",
+            "aiter-rda",
+            "effort",
         ],
     )
     p.add_argument("--output", required=True)
@@ -33,10 +36,19 @@ def main():
     p.add_argument("--window", type=int, default=2048)
     p.add_argument("--torch-gold", action="store_true")
     p.add_argument("--heads", type=int, default=40)
+    p.add_argument("--moe-full-shape", action="store_true")
     p.add_argument("--dim", type=int, default=128)
     p.add_argument("--seed", type=int, default=1509)
     p.add_argument("--rounds", type=int, default=1024)
     p.add_argument("--draft-counts", nargs="+", type=int, default=[1, 3, 7])
+    p.add_argument("--decode-batch-size", type=int, default=3)
+    p.add_argument("--conv-weight-fp32", action="store_true")
+    p.add_argument(
+        "--decode-backend",
+        choices=["aiter_triton", "flydsl"],
+        default="aiter_triton",
+        help="Candidate backend for the aiter-rda operation/graph diagnostic",
+    )
     p.add_argument("--samples", type=int, default=65536)
     p.add_argument("--scratch-poison", action="store_true")
     p.add_argument(
@@ -105,6 +117,12 @@ def main():
             from .replay import run
         elif args.command == "draft-replay":
             from .draft_replay import run
+        elif args.command == "flydsl-moe":
+            from .flydsl_moe import run
+        elif args.command == "aiter-rda":
+            from .aiter_rda import run
+        elif args.command == "effort":
+            from .effort import run
         else:
             from .model import run
         with torch.inference_mode():

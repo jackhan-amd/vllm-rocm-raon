@@ -1,6 +1,10 @@
 {
     "base_commit":  "5df63a7203cdb9328d824a27b682e77c7b9928be",
     "files":  [
+                  "vllm/model_executor/layers/quantization/quark/quark.py",
+                  "vllm/model_executor/kernels/linear/__init__.py",
+                  "vllm/model_executor/kernels/linear/mxfp4/flydsl_a16.py",
+                  "vllm/model_executor/kernels/linear/mxfp8/flydsl.py",
                   "vllm/model_executor/layers/attention/attention.py",
                   "vllm/model_executor/models/config.py",
                   "vllm/model_executor/models/registry.py",
@@ -13,6 +17,8 @@
                   "vllm/models/raon1_mini/ep_routes.py",
                   "vllm/models/raon1_mini/head_cache.py",
                   "vllm/models/raon1_mini/kda.py",
+                  "vllm/models/raon1_mini/rocm_flydsl_rda.py",
+                  "vllm/models/raon1_mini/rocm_flydsl_decode.py",
                   "vllm/models/raon1_mini/kda_boundary_batch.py",
                   "vllm/models/raon1_mini/kda_cpr_graph.py",
                   "vllm/models/raon1_mini/kda_decode_graph.py",
@@ -38,6 +44,14 @@
                   "vllm/models/raon1_mini/moe_ep_kernel.py",
                   "vllm/models/raon1_mini/moe_grouped.py",
                   "vllm/models/raon1_mini/moe_outer_graph.py",
+                  "vllm/models/raon1_mini/mxfp8_flydsl.py",
+                  "vllm/models/raon1_mini/rocm_moe_outer_graph.py",
+                  "vllm/models/raon1_mini/rocm_mxfp4_graph.py",
+                  "vllm/models/raon1_mini/rocm_kda_graph.py",
+                  "vllm/models/raon1_mini/rocm_shared_stream.py",
+                  "vllm/models/raon1_mini/rocm_prefill.py",
+                  "vllm/models/raon1_mini/rocm_aiter_decode.py",
+                  "vllm/models/raon1_mini/rocm_aiter_rda_kernel.py",
                   "vllm/models/raon1_mini/moe_renorm.py",
                   "vllm/models/raon1_mini/moe_route.py",
                   "vllm/models/raon1_mini/mxfp8_align.py",
@@ -66,6 +80,15 @@
                   "vllm/v1/core/kv_cache_utils.py",
                   "vllm/envs.py",
                   "vllm/v1/attention/backends/mla/rocm_aiter_mla.py",
-                  "vllm/v1/attention/ops/prefix_prefill.py"
+                  "vllm/v1/attention/ops/prefix_prefill.py",
+                  "vllm/models/raon1_mini/effort_steering.py",
+                  "vllm/config/model.py",
+                  "vllm/entrypoints/openai/chat_completion/serving.py",
+                  "vllm/entrypoints/openai/chat_completion/batch_serving.py",
+                  "vllm/entrypoints/openai/responses/serving.py",
+                  "vllm/v1/engine/input_processor.py",
+                  "vllm/v1/worker/gpu/model_runner.py",
+                  "vllm/v1/worker/gpu_model_runner.py",
+                  "vllm/config/cache.py"
               ]
 }

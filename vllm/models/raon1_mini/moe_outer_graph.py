@@ -4,8 +4,8 @@
 """Replay routing, routed experts and shared experts without changing arithmetic."""
 
 import torch
-from . import moe_grouped
 
+from . import moe_grouped
 
 _CAPTURE_ANNOUNCED = False
 _REPLAY_ANNOUNCED = False
@@ -13,6 +13,15 @@ _REPLAY_ANNOUNCED = False
 
 def try_forward(module, x, compute):
     from . import model
+
+    if torch.version.hip:
+        from . import mxfp8_flydsl
+
+        if mxfp8_flydsl.enabled():
+            from .rocm_moe_outer_graph import try_forward as rocm_try_forward
+
+            return rocm_try_forward(module, x, compute)
+        return None
 
     # The local graph may be entered during a real prefill, whereas the
     # phase gate treats graph capture as decode. Never capture/replay this

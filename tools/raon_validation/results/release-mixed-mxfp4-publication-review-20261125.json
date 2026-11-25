@@ -1,0 +1,79 @@
+{
+  "scope": "Static arithmetic-structure comparison after excluding imports, docstrings, typing-only annotations, defensive asserts and direct accelerator API aliases. This is not a second GPU test.",
+  "changes": {
+    "tools/raon_validation/aiter_rda.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "tools/raon_validation/effort.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "tools/raon_validation/effort_cost.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "tools/raon_validation/flydsl_moe.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "tools/raon_validation/moe_graph.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "tools/raon_validation/moe_graph_mxfp8.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "vllm/model_executor/kernels/linear/mxfp4/flydsl_a16.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "vllm/models/raon1_mini/effort_steering.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "vllm/models/raon1_mini/kda.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": [
+        "_flashkda_dedicated_buffers"
+      ]
+    },
+    "vllm/models/raon1_mini/mla_attention.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "vllm/models/raon1_mini/mlp.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "vllm/models/raon1_mini/model.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "vllm/models/raon1_mini/moe_outer_graph.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "vllm/models/raon1_mini/mxfp8_loader.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "vllm/models/raon1_mini/rda_base.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "vllm/models/raon1_mini/rocm_aiter_rda_kernel.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "vllm/models/raon1_mini/rocm_flydsl_rda.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    },
+    "vllm/models/raon1_mini/rocm_moe_outer_graph.py": {
+      "existing_function_or_class_changes": [],
+      "added_functions_or_classes": []
+    }
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "status": "FINITE_NATIVE_CORRECTNESS_PASS_FULL_ACCURACY_AND_TPS_NOT_MEASURED",
+  "job": "87817",
+  "node": "TheraC78",
+  "environment": {
+    "torch": "2.14.0+rocm10.2.0",
+    "hip": "7.17.26434",
+    "gpu": "AMD Instinct MI355X",
+    "architecture": "gfx950:sramecc+:xnack-",
+    "visible_devices": "1",
+    "job": null,
+    "python": "/opt/raon/.venv/bin/python",
+    "pythonpath": "/candidate:/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+    "platform": "RocmPlatform"
+  },
+  "source_revision": "3f85cd63ea420100a84378f72ae162af86a441fd",
+  "draft_revision": "74f2835bd683458f6124f48784b078b06770d824",
+  "policy_reference_revision": "b485e3af0951cff0c0c606f7f1aee15f0ea55009",
+  "hf_mixed_weight_revision": "62479b0a6c1c9ef2fec51a29bed5c983bc86b7f7",
+  "remote_weight_hashes_verified": true,
+  "runtime_source_files": 89,
+  "overlay_hashes_identical_on_both_gpus": true,
+  "static_checks": {
+    "pre_commit": "PASS (all applicable hooks, including mypy)",
+    "shell_syntax": "PASS",
+    "git_diff_whitespace": "PASS",
+    "post_validation_source_review": "release-mixed-mxfp4-publication-review-20261125.json"
+  },
+  "conversion": {
+    "packed_expert_weights": 9216,
+    "converted_nonexpert_weights": 273,
+    "unchanged_tensors": 734,
+    "source_safetensors_bytes": 32702196872,
+    "output_safetensors_bytes": 16683563352
+  },
+  "arithmetic": {
+    "weights_checked": 9489,
+    "scale_mismatches": 0,
+    "decoded_rtn_mismatches": 0,
+    "weight_relative_rms": 0.11956512393093709
+  },
+  "dense": {
+    "cases": 30,
+    "graph_comparisons": 90,
+    "max_relative_rms": 0.0002439321926197666,
+    "situ_composition_cases": 3,
+    "strided_situ_negative_controls_rejected": 2,
+    "real_loaded_linears": 151,
+    "loaded_gemm_comparisons": 302
+  },
+  "runs": {
+    "mxfp8_sd_off": {
+      "status": "PASS",
+      "requests": 7,
+      "output_lengths": [
+        45,
+        31,
+        45,
+        45,
+        50,
+        58,
+        58
+      ],
+      "all_natural_eos": true,
+      "generation_graph_replays": 3094,
+      "mla_gold_comparisons": 49,
+      "mla_max_relative_rms": 0.009760367506862844,
+      "evidence": "1/mxfp8-native-sdoff-gold.json"
+    },
+    "mxfp8_sd_on": {
+      "status": "PASS",
+      "requests": 7,
+      "output_lengths": [
+        47,
+        31,
+        47,
+        47,
+        57,
+        54,
+        54
+      ],
+      "all_natural_eos": true,
+      "generation_graph_replays": 1036,
+      "mla_gold_comparisons": 49,
+      "mla_max_relative_rms": 0.010547183205187232,
+      "evidence": "1/mxfp8-native-sdon-gold.json"
+    },
+    "mxfp4_mixed_sd_off": {
+      "status": "PASS",
+      "requests": 7,
+      "output_lengths": [
+        56,
+        20,
+        65,
+        33,
+        26,
+        64,
+        58
+      ],
+      "all_natural_eos": true,
+      "generation_graph_replays": 3426,
+      "mla_gold_comparisons": 49,
+      "mla_max_relative_rms": 0.010092183763363986,
+      "evidence": "0/mixed-contiguous-native-sdoff-gold.json"
+    },
+    "mxfp4_mixed_sd_on": {
+      "status": "PASS",
+      "requests": 7,
+      "output_lengths": [
+        52,
+        22,
+        20,
+        25,
+        56,
+        61,
+        36
+      ],
+      "all_natural_eos": true,
+      "generation_graph_replays": 1168,
+      "mla_gold_comparisons": 49,
+      "mla_max_relative_rms": 0.010587441548165485,
+      "evidence": "0/mixed-contiguous-native-sdon-gold.json"
+    }
+  },
+  "cpu_regressions": {
+    "steering": 8,
+    "fake_dispatch_lifecycle": 28
+  },
+  "resolved_bugs": [
+    "MLA Python phase/metadata dispatch frozen by capture; native live-metadata callback",
+    "Padded dense output returned as strided view; SiTU requires dense logical rows"
+  ],
+  "limits": [
+    "Fixed thinking-on prompt IDs for steering isolation, max128 output tokens, temperature0 seed42; no full model accuracy test",
+    "MLA gold starts from the same quantized Q/KV, seven native calls per profile",
+    "Bounded local graph caches may be INERT for uncached shapes; capture witnesses include warmup",
+    "MXFP4 native atomic reductions not bitwise deterministic",
+    "No new container image built; matching pinned native ABI plus Python overlay tested"
+  ],
+  "publication_cleanup": "GPU evidence hashes refer to pre-publication sources. Later formatting, typing, defensive assertions, canonical imports, accelerator bookkeeping aliases and inactive NVIDIA helper restoration were reviewed separately; no GPU rerun of cleanup claimed."
+}

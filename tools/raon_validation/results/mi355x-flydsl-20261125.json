@@ -1,0 +1,249 @@
+{
+  "scope": "Finite synthetic kernel/component gold and graph/stream validation. No full checkpoint serving, model-quality evaluation or throughput measurement.",
+  "hardware": {
+    "torch": "2.14.0+rocm10.2.0",
+    "hip": "7.17.26434",
+    "gpu": "AMD Instinct MI355X",
+    "architecture": "gfx950:sramecc+:xnack-",
+    "visible_devices": "0",
+    "job": null,
+    "python": "/opt/raon/.venv/bin/python",
+    "pythonpath": "/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+    "platform": "RocmPlatform"
+  },
+  "user_authorization": "User explicitly lifted the correctness-test allocation wait on 2026-11-25; performance command review is separate.",
+  "gpu_jobs": [
+    "87627",
+    "87628",
+    "87631"
+  ],
+  "execution": {
+    "node": "TheraC79",
+    "image": "docker.io/hanjack/vllm-rocm@sha256:5a8538fae062972149a2b278b45f6bf02549989a848e0f6f90fff02ceec92bf7",
+    "lifecycle": {
+      "observed_utc": "2026-11-25T20:02:57.302729+09:00",
+      "squeue_stdout": "",
+      "squeue_returncode": 0,
+      "sacct_stdout": "87627|FAILED|00:06:27|2:0|TheraC79\n87627.batch|FAILED|00:06:27|2:0|TheraC79\n87627.extern|COMPLETED|00:06:27|0:0|TheraC79\n87627.0|FAILED|00:06:23|2:0|TheraC79\n87628|FAILED|00:03:36|2:0|TheraC79\n87628.batch|FAILED|00:03:36|2:0|TheraC79\n87628.extern|COMPLETED|00:03:36|0:0|TheraC79\n87628.0|FAILED|00:03:32|2:0|TheraC79\n87631|FAILED|00:21:49|2:0|TheraC79\n87631.batch|FAILED|00:21:49|2:0|TheraC79\n87631.extern|COMPLETED|00:21:49|0:0|TheraC79\n87631.0|FAILED|00:21:44|2:0|TheraC79\n87631.1|COMPLETED|00:00:00|0:0|TheraC79\n87631.2|COMPLETED|00:00:18|0:0|TheraC79\n",
+      "sacct_returncode": 0,
+      "all_three_jobs_absent_from_squeue": true,
+      "container_removal_evidence": "Final Slurm log prints the exact container name from successful podman rm in the job-scoped cleanup.",
+      "slurm_failures_preserved": "Initial failure code is retained by debug worker; individual corrected request outcomes are in worker-status.json. MXFP4 exact checks remain FAIL."
+    },
+    "job_status_note": "Slurm FAILED records preserve initial debug failures and MXFP4 exact failures; corrected numerical cases are reported individually below."
+  },
+  "rda_flydsl": {
+    "status": "PASS",
+    "cases": 45,
+    "batch_sizes": [
+      3,
+      1,
+      16
+    ],
+    "draft_tokens": [
+      1,
+      3,
+      7
+    ],
+    "output_gold": {
+      "status": "PASS",
+      "checks": 45,
+      "failed_checks": 0,
+      "max_relative_rms": 0.0030665979073764816,
+      "max_abs": 0.0078125
+    },
+    "state_gold": {
+      "status": "PASS",
+      "checks": 45,
+      "failed_checks": 0,
+      "max_relative_rms": 0.0016448782811398813,
+      "max_abs": 0.00026436150074005127
+    },
+    "graph_exact": {
+      "status": "PASS",
+      "checks": 135,
+      "failed_checks": 0,
+      "max_relative_rms": 0.0,
+      "max_abs": 0.0
+    },
+    "untouched_rows": {
+      "status": "PASS",
+      "checks": 45,
+      "failed_checks": 0,
+      "max_relative_rms": 0,
+      "max_abs": 0
+    }
+  },
+  "aiter_triton_rda": "PASS",
+  "prefill_core": "PASS",
+  "rollback": "PASS",
+  "mxfp8_fused_a2": {
+    "status": "PASS",
+    "cases": 3,
+    "torch_gold": {
+      "status": "PASS",
+      "checks": 3,
+      "failed_checks": 0,
+      "max_relative_rms": 0.001177522845600397,
+      "max_abs": 0.0078125
+    },
+    "legacy_triton": {
+      "status": "PASS",
+      "checks": 3,
+      "failed_checks": 0,
+      "max_relative_rms": 0.00030675470193402134,
+      "max_abs": 0.00390625
+    },
+    "graph_exact": {
+      "status": "PASS",
+      "checks": 9,
+      "failed_checks": 0,
+      "max_relative_rms": 0.0,
+      "max_abs": 0.0
+    }
+  },
+  "mxfp8_model_call_sites": {
+    "status": "PASS",
+    "cases": 6,
+    "torch_gold": {
+      "status": "PASS",
+      "checks": 6,
+      "failed_checks": 0,
+      "max_relative_rms": 0.0024321298811966225,
+      "max_abs": 0.015625
+    },
+    "graph_exact": {
+      "status": "PASS",
+      "checks": 18,
+      "failed_checks": 0,
+      "max_relative_rms": 0.0,
+      "max_abs": 0.0
+    },
+    "shared_once": {
+      "status": "PASS",
+      "checks": 18,
+      "failed_checks": 0,
+      "max_relative_rms": 0,
+      "max_abs": 0
+    }
+  },
+  "mxfp4_native_component": {
+    "raw_status": "FAIL",
+    "numeric_status": "PASS",
+    "cases": 6,
+    "torch_gold": {
+      "status": "PASS",
+      "checks": 6,
+      "failed_checks": 0,
+      "max_relative_rms": 0.0040564554509670454,
+      "max_abs": 0.09375
+    },
+    "graph_numeric": {
+      "status": "PASS",
+      "checks": 18,
+      "failed_checks": 0,
+      "max_relative_rms": 0.004347984336531233,
+      "max_abs": 0.125
+    },
+    "graph_exact": {
+      "status": "FAIL",
+      "checks": 18,
+      "failed_checks": 18,
+      "max_relative_rms": 0.004347984336531233,
+      "max_abs": 0.125
+    },
+    "eager_repeat_exact": {
+      "status": "FAIL",
+      "checks": 18,
+      "failed_checks": 18,
+      "max_relative_rms": 0.0037773967999828297,
+      "max_abs": 0.125
+    },
+    "shared_once": {
+      "status": "PASS",
+      "checks": 18,
+      "failed_checks": 0,
+      "max_relative_rms": 0,
+      "max_abs": 0
+    },
+    "reference_boundaries": [
+      "bf16_then_fp4"
+    ],
+    "stage1_kernels": [
+      "flydsl_moe1_afp4_wfp4_bf16_t32x128x256_w2"
+    ],
+    "limitation": "Native FlyDSL stage2 atomic accumulation is not bitwise-repeatable even in eager repeats. Exact checks remain FAIL; 1% RMS/2% peak numerical checks pass. Full FusedMoERunner/checkpoint loading is not covered."
+  },
+  "old_mxfp8_bf16_intermediate": {
+    "raw_status": "FAIL",
+    "legacy_triton": {
+      "status": "FAIL",
+      "checks": 3,
+      "failed_checks": 3,
+      "max_relative_rms": 0.016487961539524327,
+      "max_abs": 0.05078125
+    },
+    "resolution": "Candidate profile now uses native fused FP32-to-MXFP8 A2 quantization and the original BF16 probability fold."
+  },
+  "fixes": [
+    "Use physical stride-based scalar buffer loads for the rank-two SD state-index matrix; FlyDSL logical scalar coordinates had remapped row/column offsets.",
+    "Fuse SiTU/probability/A2 quantization in FlyDSL GEMM1, eliminating the added BF16 intermediate. Graph stamps include the fused-A2 selection.",
+    "Validation fixture restores inputs/routes between stream modes and derives its Torch intermediate precision from actual stage1 metadata; tolerances and exact checks were not relaxed."
+  ],
+  "thresholds": {
+    "relative_rms": 0.01,
+    "relative_peak": 0.02,
+    "atol": 1e-05,
+    "exact": 0
+  },
+  "status": "NUMERIC_COMPONENTS_PASS_WITH_MXFP4_EXACT_LIMITATION",
+  "throughput": "NOT_MEASURED",
+  "full_model_serving": "NOT_RUN",
+  "model_quality": "NOT_RUN",
+  "existing_evaluations_changed": false,
+  "pushed": false,
+  "source_sha256": {
+    "vllm/models/raon1_mini/rocm_flydsl_rda.py": "1976e7fc82f4725b211e76fc03ca0f952c70fafab99328563a4271d58ed15a42",
+    "vllm/models/raon1_mini/mxfp8_flydsl.py": "a638c402313c763b43125022e6a49cd8d5ea77f3b203d44ba9b7b8784dcdb1fd",
+    "vllm/models/raon1_mini/rocm_moe_outer_graph.py": "3d26d05ea0c17ac3c8beba9635e16f3d595971266cd5e290f7f9c01c71065b6b",
+    "tools/raon_validation/moe_graph.py": "8b7ef5df7d28bb0bdb2b40489a02a037960fc6c22d497e8fbd79ca3d35ff7881",
+    "tools/raon_validation/moe_graph_mxfp8.py": "191220b2e1e6559564382af4f9448c67644d426a4cea272b9c581d88d827e21c"
+  },
+  "raw_result_sha256": {
+    "corrected-87631\\debug-analysis.json": "ce025205fad03c722a09ae1743d49a9e9bb71fce858df0f90d5cae4eefc169ac",
+    "corrected-87631\\execution.json": "1e8e4413e7628ad42b8574784356d6f4ec6a9bb02a5b0c769ab9acffee78395f",
+    "corrected-87631\\flydsl-mxfp8-fused-a2.json": "aa17908f900a4e2783f934dc5ebad170042c376b7d84fe8a4187bcd6bc02217a",
+    "corrected-87631\\flydsl-rda-batch1.json": "537ab682a8e9398c05ea187ee025287c36938f16a5c177c0d5fa286b176b270e",
+    "corrected-87631\\flydsl-rda-batch16.json": "47d4e983de0d0f657cd3d37d38dde6d6a859e8895ef3234a90e9c69d51750024",
+    "corrected-87631\\flydsl-rda-debug-argv.json": "321658c55c05bd5626ee52a04abcafac3e9b527a5276f15e0dc4e931dc58bba1",
+    "corrected-87631\\flydsl-rda-debug.json": "eb03bb5b531faa0caed16de0f8372f6b92cb7589e376091f0a7c67a60567133e",
+    "corrected-87631\\flydsl-rda-v2.json": "7f5a99ce7cc9364026978b150d00b6bec8254170627ac9bec7613161013b2e13",
+    "corrected-87631\\lifecycle.json": "1c4197bdcd9c6b18b90f3b3d0f3a60cd39b825a76008561ff38b8fc2cfd3b14e",
+    "corrected-87631\\mxfp4-graph-v2.json": "09a8c7b34cfc16fd28b213008b4ddb2d9c6f58974b923e1a9e6a2591f20f0b0f",
+    "corrected-87631\\mxfp4-graph.json": "3537dcf2eebb873c26a7090a61dbe6edc630dae88213c6a680a545cd67d4fb09",
+    "corrected-87631\\mxfp8-fused-model-graph.json": "fa570b8513762136f5684570c51dd9e60a2625586ef4bdd5d229a6f1fa967697",
+    "corrected-87631\\mxfp8-model-graph.json": "b6a6425da2822be0889f6a868dbaae08c9e38a1dd9bd4f2113bbdeda9f9f5f4c",
+    "corrected-87631\\request-002.json": "4d1da6250c03e27118743c9d035ec00217152e75b826fe5054cb435d2de0e40e",
+    "corrected-87631\\request-003.json": "4054f10422873f0c4d9b73f2ceae310fba0ab30fe0e781f77a7c3f6f11391964",
+    "corrected-87631\\request-004.json": "6dc214de8f65d9a0a74dbda221ea3218a7973014159bfc8aafea09bd5c4f3e2b",
+    "corrected-87631\\request-005.json": "2f69017e5b04b2453c8df1b2fb47581ea8363e0677cd1c050e2a7acde3a2f3d8",
+    "corrected-87631\\request-006.json": "60d142570f7a8d69e2741f20f47c2b525b7e59c371369b24180503dab0f03fa6",
+    "corrected-87631\\request-007.json": "dcfa105938f4db74df2f5ec2ab5b728d5df488eb9857a919484fc5eecab03f46",
+    "corrected-87631\\request-008.json": "242d4c0c4b55b1d65f07f12fc3a738d09bd025c0d47b1c4fdc93952277fefb57",
+    "corrected-87631\\request-009.json": "3be6da082198a16e6142dfda09daa4b3474744b63beca65f8466b2dc49087d55",
+    "corrected-87631\\request-010.json": "ecfa526380e65059b795a9e0e55e0624ea50ea80a5721427387ad5e3f46d5283",
+    "corrected-87631\\request-011.json": "254d0add833b59c8ffb6860f71cf08ae225786c41bcc01a32dfe28449eb0acea",
+    "corrected-87631\\worker-status.json": "1d46565bee6867a421c42a67f02a49a2f84fb14dd78317d50145dc72ac128f0c",
+    "initial-87627\\aiter-triton-rda-argv.json": "dc776bfc1d30d2a3ae81caff3cd01649eed47479518a54b30fd20c2a8db28ef9",
+    "initial-87627\\aiter-triton-rda.json": "28eebb0a21dc12b9d0a7368262b9509ce6f1949e421a765f9f0fd03271103c29",
+    "initial-87627\\execution.json": "aa271a922bce0b6105a9182dad9318d8c0363f962646eafd1ecf330b829080f8",
+    "initial-87627\\flydsl-mxfp8-argv.json": "e35f33ae7c1564ec61a7d9475e340e3e5c2f43d3209ce8fcad57f0179f435c12",
+    "initial-87627\\flydsl-mxfp8.json": "5ca4b1a1cb59d0503c8f0cca378257b434f553549bbec2a675d6c6700793bd90",
+    "initial-87627\\flydsl-rda-argv.json": "da237d42275a6d601803a02a38b52e5dc9986b2a49502ee8a9bd6e1de7a5d72b",
+    "initial-87627\\flydsl-rda.json": "454b2149fdf871a8752bac3aedba15848359ac8f10f166dc5393a4b736be8331",
+    "initial-87627\\rda-prefill-argv.json": "0d6a78dcbe2dfb97d2a5ceb2025f6d1b9324f76ae0bd4b5428150acec5193b15",
+    "initial-87627\\rda-prefill.json": "60a6c78d54e03f1fc272392777cfb60ed6bd856b638dfc49af9461e33699c312",
+    "initial-87627\\rollback-argv.json": "b000ce61700b75dbb3e99d2b996ea31cbedc73c2aedd5f6e3228b76cf680e77d",
+    "initial-87627\\rollback.json": "d03844e7491968dfa233aa528404d282c1cc4a551269b47a875f0387b333204d"
+  }
+}
