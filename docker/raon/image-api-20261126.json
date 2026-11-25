@@ -1,0 +1,54 @@
+﻿{
+    "status":  "READY",
+    "tag":  "docker.io/hanjack/vllm-rocm:raon-release-rocm102-dlpack-api-20261126",
+    "digest":  "sha256:a076455aeee097067ac1f407eee98476b6fbdd430d348cf56d94014e19191f10",
+    "image":  "docker.io/hanjack/vllm-rocm@sha256:a076455aeee097067ac1f407eee98476b6fbdd430d348cf56d94014e19191f10",
+    "job":  "88270",
+    "node":  "TheraC87",
+    "vllm_commit":  "3b4e0972f7cbd83cbef90d24280bc28d9b3373ae",
+    "dlpack":  {
+                   "status":  "PASS",
+                   "torch":  "2.14.0+rocm10.2.0",
+                   "hip":  "7.17.26434",
+                   "c_exchange_api":  true,
+                   "zero_copy_roundtrip":  [
+                                               "torch.float32",
+                                               "torch.bfloat16",
+                                               "torch.float8_e4m3fn",
+                                               "torch.uint8"
+                                           ],
+                   "extension_path":  "/opt/raon/.venv/lib/python3.14/site-packages/torch_c_dlpack_ext/__init__.py"
+               },
+    "versions":  {
+                     "versions":  {
+                                      "torch":  "2.14.0+rocm10.2.0",
+                                      "vllm":  "0.32.1.dev0+g5df63a720.d20261116.rocm102",
+                                      "amd-aiter":  "0.1.29.post1",
+                                      "flydsl":  "0.5.0",
+                                      "apache-tvm-ffi":  "0.1.11",
+                                      "torch-c-dlpack-ext":  "0.1.5",
+                                      "pyarrow":  "26.0.1"
+                                  },
+                     "tvm_ffi_addon_source":  "05e3a7c5568b5e21c92f50aa7b916fe25e674b61",
+                     "vllm_commit":  "3b4e0972f7cbd83cbef90d24280bc28d9b3373ae"
+                 },
+    "parser_validation":  {
+                              "status":  "PASS",
+                              "reasoning_parser":  "raon_1",
+                              "tool_parser":  "raon_1",
+                              "checks":  [
+                                             "registry resolution",
+                                             "reasoning split",
+                                             "plain text",
+                                             "tool markup"
+                                         ]
+                          },
+    "numeric_runtime_commit":  "3b4e0972f7cbd83cbef90d24280bc28d9b3373ae",
+    "parser_upstream_commit":  "7dcdc8a35f1d76a03fa74af6c022ff6be0ef3bf0",
+    "parent_image":  "docker.io/hanjack/vllm-rocm@sha256:457b95f9b571662ab7aa23ed9d019507fed567ba0e9fb9fd9e11ffb7f9f60396",
+    "default_entrypoint_fixed":  true,
+    "build_gpu_mask_removed":  true,
+    "parser_build_job":  "88287",
+    "parser_build_node":  "TheraC85",
+    "provenance_note":  "job/node refer to the parent DLPack build; parser image was assembled in CPU overlap of job 88287 before model measurement."
+}

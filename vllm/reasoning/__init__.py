@@ -20,6 +20,7 @@ Example:
 
 
 _REASONING_PARSERS_TO_REGISTER = {
+    "raon_1": ("raon_1_reasoning_parser", "RaonReasoningParser"),
     "deepseek_r1": (  # name
         "deepseek_r1_reasoning_parser",  # filename
         "DeepSeekR1ReasoningParser",  # class_name

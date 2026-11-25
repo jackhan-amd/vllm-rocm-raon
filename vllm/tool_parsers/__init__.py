@@ -22,6 +22,7 @@ Example:
 
 
 _TOOL_PARSERS_TO_REGISTER = {
+    "raon_1": ("raon_1_tool_parser", "RaonToolParser"),
     "dots": (
         "dots_tool_parser",
         "DotsToolParser",

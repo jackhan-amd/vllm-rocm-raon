@@ -89,6 +89,10 @@
                   "vllm/v1/engine/input_processor.py",
                   "vllm/v1/worker/gpu/model_runner.py",
                   "vllm/v1/worker/gpu_model_runner.py",
-                  "vllm/config/cache.py"
+                  "vllm/config/cache.py",
+                  "vllm/tool_parsers/__init__.py",
+                  "vllm/tool_parsers/raon_1_tool_parser.py",
+                  "vllm/reasoning/__init__.py",
+                  "vllm/reasoning/raon_1_reasoning_parser.py"
               ]
 }

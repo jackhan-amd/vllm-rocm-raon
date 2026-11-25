@@ -1,5 +1,21 @@
 # ROCm graph/stream candidate: KDA, MXFP8 and MXFP4 MoE
 
+For the reviewed API benchmark, use
+`docker.io/hanjack/vllm-rocm:raon-release-rocm102-dlpack-api-20261126`,
+digest `sha256:a076455aeee097067ac1f407eee98476b6fbdd430d348cf56d94014e19191f10`.
+It adds both official `raon_1` parsers and registry entries, adapts their imports
+to this runtime's protocol locations, and restores the normal runtime
+entrypoint. Its 89 numerical overlay files remain at `3b4e0972f7`.
+See [`image-api-20261126.json`](image-api-20261126.json).
+The DLPack-only image below is its parent and lacks these API parser additions.
+
+Parser source comes from `krafton-ai/vllm` commit
+`7dcdc8a35f1d76a03fa74af6c022ff6be0ef3bf0`. The repository additionally adapts
+the structural-tag builder to this vLLM version's fifth `token_suffix`
+argument. Seven CPU tokenizer/parser checks pass, including that dispatch.
+The benchmark image predates this optional strict-tool grammar signature fix;
+the benchmark requests have no tool schemas and retain the frozen image.
+
 The 2026-11-26 image adds a ROCm-built `torch-c-dlpack-ext` 0.1.5 and
 pyarrow 26.0.1 for evaluation. The runtime Python overlay remains commit
 `3b4e0972f7cbd83cbef90d24280bc28d9b3373ae`. The published image is

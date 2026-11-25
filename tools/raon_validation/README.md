@@ -600,3 +600,16 @@ individual comparisons and exit status. `PASS` covers only executed cases;
 it does not establish all-input correctness, model quality, full scheduler
 lifetime correctness, or cross-device bitwise equivalence. Outputs with
 changed RNG consumption must be assessed distributionally, not by seed alone.
+
+## Raon API parser checks
+
+```bash
+python -m tools.raon_validation.parser_api \
+  --model /path/to/pinned/Raon-1-mini --output parser-result.json
+```
+
+This CPU diagnostic checks both `raon_1` registries, reasoning extraction and
+streaming, thinking disabled, plain content, typed tool arguments, and the
+current five-argument structural-tag dispatch. It uses the local checkpoint's
+tokenizer without downloading remote code. Its PASS is independent of GPU
+kernel correctness, generation quality and throughput.
