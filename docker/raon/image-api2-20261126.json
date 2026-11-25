@@ -21,8 +21,9 @@
   },
   "numeric_kernels_unchanged": true,
   "benchmark_image_retained": "sha256:a076455aeee097067ac1f407eee98476b6fbdd430d348cf56d94014e19191f10",
+  "build_gpu_mask_removed": true,
   "status": "PUBLISHED",
   "tag": "docker.io/hanjack/vllm-rocm:raon-release-rocm102-dlpack-api2-20261126",
-  "digest": "sha256:0d0d9782a1d850890e042be59790beea56fc0818e6e3fd9c71fabaff87b6a245",
-  "new_layer_bytes": 14779
+  "digest": "sha256:41ddfcb29a92661cb59897c2151b82b006ae4ec3a2ac5b0d771d3a4f07e88fac",
+  "new_layer_bytes": 14794
 }

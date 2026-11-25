@@ -47,7 +47,8 @@
     "parser_upstream_commit":  "7dcdc8a35f1d76a03fa74af6c022ff6be0ef3bf0",
     "parent_image":  "docker.io/hanjack/vllm-rocm@sha256:457b95f9b571662ab7aa23ed9d019507fed567ba0e9fb9fd9e11ffb7f9f60396",
     "default_entrypoint_fixed":  true,
-    "build_gpu_mask_removed":  true,
+    "build_gpu_mask_removed":  false,
+    "gpu_mask_note": "The frozen parent retains ROCR_VISIBLE_DEVICES=0. Every benchmark replica explicitly overrides it with its Slurm-assigned GPU; api2 removes the inherited mask.",
     "parser_build_job":  "88287",
     "parser_build_node":  "TheraC85",
     "provenance_note":  "job/node refer to the parent DLPack build; parser image was assembled in CPU overlap of job 88287 before model measurement."
