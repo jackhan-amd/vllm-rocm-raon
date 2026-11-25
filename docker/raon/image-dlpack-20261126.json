@@ -1,0 +1,35 @@
+{
+  "status": "READY",
+  "tag": "docker.io/hanjack/vllm-rocm:raon-release-rocm102-3b4e097-dlpack-20261126",
+  "digest": "sha256:457b95f9b571662ab7aa23ed9d019507fed567ba0e9fb9fd9e11ffb7f9f60396",
+  "image": "docker.io/hanjack/vllm-rocm@sha256:457b95f9b571662ab7aa23ed9d019507fed567ba0e9fb9fd9e11ffb7f9f60396",
+  "job": "88270",
+  "node": "TheraC87",
+  "vllm_commit": "3b4e0972f7cbd83cbef90d24280bc28d9b3373ae",
+  "dlpack": {
+    "status": "PASS",
+    "torch": "2.14.0+rocm10.2.0",
+    "hip": "7.17.26434",
+    "c_exchange_api": true,
+    "zero_copy_roundtrip": [
+      "torch.float32",
+      "torch.bfloat16",
+      "torch.float8_e4m3fn",
+      "torch.uint8"
+    ],
+    "extension_path": "/opt/raon/.venv/lib/python3.14/site-packages/torch_c_dlpack_ext/__init__.py"
+  },
+  "versions": {
+    "versions": {
+      "torch": "2.14.0+rocm10.2.0",
+      "vllm": "0.32.1.dev0+g5df63a720.d20261116.rocm102",
+      "amd-aiter": "0.1.29.post1",
+      "flydsl": "0.5.0",
+      "apache-tvm-ffi": "0.1.11",
+      "torch-c-dlpack-ext": "0.1.5",
+      "pyarrow": "26.0.1"
+    },
+    "tvm_ffi_addon_source": "05e3a7c5568b5e21c92f50aa7b916fe25e674b61",
+    "vllm_commit": "3b4e0972f7cbd83cbef90d24280bc28d9b3373ae"
+  }
+}

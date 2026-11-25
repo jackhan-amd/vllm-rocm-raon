@@ -1,5 +1,21 @@
 # ROCm graph/stream candidate: KDA, MXFP8 and MXFP4 MoE
 
+The 2026-11-26 image adds a ROCm-built `torch-c-dlpack-ext` 0.1.5 and
+pyarrow 26.0.1 for evaluation. The runtime Python overlay remains commit
+`3b4e0972f7cbd83cbef90d24280bc28d9b3373ae`. The published image is
+`docker.io/hanjack/vllm-rocm:raon-release-rocm102-3b4e097-dlpack-20261126`,
+digest `sha256:457b95f9b571662ab7aa23ed9d019507fed567ba0e9fb9fd9e11ffb7f9f60396`.
+Its GPU DLPack C exchange and zero-copy round trips passed for FP32, BF16,
+E4M3 FP8 and UINT8 on MI355X in build job 88270. This is not a model-quality
+or serving-throughput result. The immutable receipt is
+[`image-dlpack-20261126.json`](image-dlpack-20261126.json).
+
+Both Dockerfile recipes now build the addon from the same pinned upstream
+source and archive checksum. The published image was assembled and verified
+with the recorded Podman build job; the Dockerfile recipes were statically
+checked rather than separately rebuilt. Builds without a GPU defer the
+round-trip check until allocation.
+
 Status: finite MI355X GPU kernel/component diagnostics completed on 2026-11-25.
 Numerical gold checks passed. RDA and MXFP8 replay checks were exact; MXFP4's
 native atomic path failed the stricter bitwise gate, including eager repeats.
