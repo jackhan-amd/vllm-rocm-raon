@@ -8,10 +8,36 @@ No Triton, CUTLASS, or automatic backend fallback is selected here. The caller
 owns the existing Raon combine and BF16 shared expert.
 """
 
+import json
 import os
 from functools import cache
 
 import torch
+
+
+@cache
+def tile_config():
+    """Explicit opt-in geometry overrides; checkpoint packing stays fixed."""
+    raw = os.environ.get("RAON_MXFP8_FLYDSL_TILE_CONFIG", "{}")
+    config = json.loads(raw)
+    allowed = {
+        "block_m": (16, 32),
+        "fused_route_prepare": (0, 1),
+        "stage1_tile_n": (32, 64, 128, 256),
+        "stage1_k_wave": (1, 2, 4),
+        "stage1_waves_per_eu": (1, 2, 3, 4),
+        "stage2_tile_n": (64, 128, 256),
+    }
+    if not isinstance(config, dict) or set(config) - allowed.keys():
+        raise ValueError("Unknown native MXFP8 MoE tile configuration")
+    for key, value in config.items():
+        if type(value) is not int or value not in allowed[key]:
+            raise ValueError(f"Unsupported native MXFP8 MoE geometry: {key}={value}")
+    return config
+
+
+def fused_route_prepare_enabled(tokens):
+    return tokens <= 32 and tile_config().get("fused_route_prepare", 0) == 1
 
 
 def enabled():
@@ -152,21 +178,34 @@ def expert_rows(x, weights, ids, w13, w2, beta, linear_beta, layer_idx=None):
         raise ValueError("FlyDSL SiTUv2 requires positive gate and linear beta")
     p13, s13, p2, s2 = packed_weights(w13, w2)
     sort, quant, stage1, stage2, *_ = _ops()
+    config = tile_config()
     fused_a2 = os.environ.get("RAON_MXFP8_FLYDSL_FUSED_A2", "0") == "1"
-    route_weights = weights.bfloat16().float() if fused_a2 else weights.float()
     topk = ids.shape[1]
-    block_m = 32
-    sorted_ids, sorted_weights, expert_ids, valid, _ = sort(
-        ids.to(torch.int32),
-        route_weights,
-        p13.shape[0],
-        x.shape[1],
-        x.dtype,
-        block_m,
-        None,
-        None,
-        accumulate=False,
-    )
+    # Sort, A1/A2 scale layout and both GEMMs share one M quantum. M16 is
+    # experimental: the native builder has half-scale support, but its general
+    # dispatch registry does not advertise this FP8/FP8 combination.
+    block_m = config.get("block_m", 32)
+    if fused_route_prepare_enabled(x.shape[0]):
+        if not fused_a2:
+            raise ValueError("Fused route preparation requires native fused A2")
+        from .rocm_flydsl_route_prepare import prepare
+
+        sorted_ids, sorted_weights, expert_ids, valid = prepare(
+            ids, weights, p13.shape[0], block_m
+        )
+    else:
+        route_weights = weights.bfloat16().float() if fused_a2 else weights.float()
+        sorted_ids, sorted_weights, expert_ids, valid, _ = sort(
+            ids.to(torch.int32),
+            route_weights,
+            p13.shape[0],
+            x.shape[1],
+            x.dtype,
+            block_m,
+            None,
+            None,
+            accumulate=False,
+        )
     quant_args = dict(
         sorted_ids=sorted_ids,
         num_valid_ids=valid,
@@ -185,7 +224,7 @@ def expert_rows(x, weights, ids, w13, w2, beta, linear_beta, layer_idx=None):
         valid,
         topk=topk,
         tile_m=block_m,
-        tile_n=256,
+        tile_n=config.get("stage1_tile_n", 256),
         tile_k=256,
         a_dtype="fp8",
         b_dtype="fp8",
@@ -199,6 +238,8 @@ def expert_rows(x, weights, ids, w13, w2, beta, linear_beta, layer_idx=None):
         gate_mode="interleave",
         use_async_copy=True,
         k_batch=1,
+        k_wave=config.get("stage1_k_wave", 1),
+        waves_per_eu=config.get("stage1_waves_per_eu", 3),
     )
     # AITER materializes BF16 here; the legacy Triton chain quantizes directly
     # from FP32. This is a numerical boundary to validate, not bit-neutral glue.
@@ -215,7 +256,7 @@ def expert_rows(x, weights, ids, w13, w2, beta, linear_beta, layer_idx=None):
         valid,
         topk=topk,
         tile_m=block_m,
-        tile_n=128,
+        tile_n=config.get("stage2_tile_n", 128),
         tile_k=256,
         a_dtype="fp8",
         b_dtype="fp8",
@@ -235,6 +276,7 @@ def expert_rows(x, weights, ids, w13, w2, beta, linear_beta, layer_idx=None):
             f"intermediate={w2.shape[-1]} padded={p2.shape[-1]} "
             "sort=flydsl gemm1=flydsl gemm2=flydsl quant=aiter_hip "
             f"fused_a2={int(fused_a2)} prob_fold=stage1 "
+            f"tiles={json.dumps(config, sort_keys=True, separators=(',', ':'))} "
             "combine=existing backend_fallback=0",
             flush=True,
         )

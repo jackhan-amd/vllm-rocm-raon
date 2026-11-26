@@ -358,7 +358,14 @@ def _raon_fp32_combine_moe_impl_eager(
             router_logits=router_logits,
             topk_indices_dtype=torch.int32,
         )
-    topk_ids = topk_ids.long()
+    from . import mxfp8_flydsl
+
+    if not (
+        mxfp8_flydsl.enabled()
+        and mxfp8_flydsl.fused_route_prepare_enabled(num_tokens)
+        and os.environ.get("RAON_MOE_COMBINE_UNW_FUSED", "0") == "flydsl"
+    ):
+        topk_ids = topk_ids.long()
 
     # RAON_MOE_ROUTE_CAPTURE (default OFF): record the selection this forward
     # is about to dispatch on, for the trainer's MCore RouterReplay arm. The

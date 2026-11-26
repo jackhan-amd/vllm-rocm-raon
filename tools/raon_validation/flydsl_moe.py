@@ -84,6 +84,9 @@ def run(args, result):
     s2 = torch.full(
         (experts, hidden, intermediate // 32), 122, device="cuda", dtype=torch.uint8
     )
+    if args.moe_varied_scales:
+        s13.random_(120, 125)
+        s2.random_(120, 125)
     w13, w2 = SimpleNamespace(), SimpleNamespace()
     w13.shape, w2.shape = q13.shape, q2.shape
     _WQ_CACHE[id(w13)] = (q13, s13, q2, s2, w13, w2)
@@ -93,13 +96,21 @@ def run(args, result):
     result["fixture"] = dict(
         experts=experts, hidden=hidden, intermediate=intermediate, topk=topk
     )
+    result["tile_config"] = candidate.tile_config()
+    result["varied_weight_scales"] = args.moe_varied_scales
+    result["timing_scope"] = (
+        "Native expert_rows only, including sorting/quantization and both GEMMs; "
+        "synthetic quantized full shapes, warmed graph GPU time, not serving TPS"
+    )
     result["tolerances"] = {
         "relative_rms": 0.01,
         "relative_peak": 0.02,
         "absolute": 1e-5,
     }
     try:
-        for tokens in (1, 8, 32):
+        if not args.moe_token_counts or min(args.moe_token_counts) < 1:
+            raise ValueError("Use positive MoE token counts")
+        for tokens in args.moe_token_counts:
             x = torch.randn(tokens, hidden, device="cuda", dtype=torch.bfloat16)
             probs = torch.rand(tokens, topk, device="cuda")
             probs /= probs.sum(-1, keepdim=True)
@@ -134,6 +145,61 @@ def run(args, result):
                 graph.replay()
                 check = error(captured, expected, rms_limit=0, peak_limit=0, atol=0)
                 case[f"graph_replay_{repeat}"] = check
+            changed_gold = gold(x, probs, ids, q13, s13, q2, s2, not fused_a2)
+            case["changed_routes_vs_native_gold"] = error(captured, changed_gold)
+            replays = args.moe_timing_replays
+            if replays < 0:
+                raise ValueError("Use a nonnegative replay count")
+            if replays and all(
+                v["pass"] for v in case.values() if isinstance(v, dict) and "pass" in v
+            ):
+                for _ in range(10):
+                    graph.replay()
+                torch.accelerator.synchronize()
+                start, end = (
+                    torch.cuda.Event(enable_timing=True),
+                    torch.cuda.Event(enable_timing=True),
+                )
+                start.record()
+                for _ in range(replays):
+                    graph.replay()
+                end.record()
+                end.synchronize()
+                case["timing_replays"] = replays
+                case["graph_us"] = start.elapsed_time(end) * 1000 / replays
+            if args.moe_kernel_witness:
+                with torch.profiler.profile(
+                    activities=[
+                        torch.profiler.ProfilerActivity.CPU,
+                        torch.profiler.ProfilerActivity.CUDA,
+                    ]
+                ) as profiler:
+                    fn()
+                    torch.accelerator.synchronize()
+                kernels = sorted(
+                    {
+                        event.name
+                        for event in profiler.events()
+                        if event.device_type.name == "CUDA"
+                    }
+                )
+                block_m = candidate.tile_config().get("block_m", 32)
+                witnesses = {
+                    stage: any(
+                        f"mfma_moe{stage}_" in name and f"_t{block_m}x" in name
+                        for name in kernels
+                    )
+                    for stage in (1, 2)
+                }
+                if candidate.fused_route_prepare_enabled(tokens):
+                    witnesses["route_prepare"] = any(
+                        "raon_mxfp8_route_prepare" in name for name in kernels
+                    )
+                case["kernel_witness"] = dict(
+                    expected_m=block_m, stages=witnesses, kernels=kernels
+                )
+                if not all(witnesses.values()):
+                    raise RuntimeError("Missing native MoE M-tile kernel witness")
             result["cases"].append(case)
     finally:
         _WQ_CACHE.pop(id(w13), None)

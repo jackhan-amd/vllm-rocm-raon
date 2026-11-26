@@ -1,0 +1,342 @@
+{
+  "job": "89601",
+  "node": "TheraC80",
+  "image": "docker.io/hanjack/vllm-rocm@sha256:c41349b2bca3335d3a7eacceb6e4d9d21c4fa4602f7d24e454a8ccb9f739c281",
+  "status": "COMPLETE",
+  "scope": "MXFP8 SD-off diagnostic serving, each TP1/DP1 on separate GPU; not official accuracy or fixed ISL/OSL/cache-hit benchmark.",
+  "target_snapshot": "3f85cd63ea420100a84378f72ae162af86a441fd",
+  "conditions": {
+    "requests": 128,
+    "dataset": "GSM8K diagnostic prompts",
+    "temperature": 1,
+    "top_p": 0.95,
+    "top_k": 20,
+    "max_tokens": 4096,
+    "respect_eos": true,
+    "warmup_excluded": true,
+    "measurements_per_condition": 1,
+    "precision": "auto; checkpoint MXFP8 metadata, BF16 non-quantized modules, FP8 E4M3 KV",
+    "graph": "FULL_AND_PIECEWISE; compilation mode0; breakable1; no enforce-eager"
+  },
+  "source_sha256": {
+    "model.py": "726fea7ecc452cbca80d0997265496b463cfbc0983bde45d25e069318ec817ec",
+    "mxfp8_flydsl.py": "54fdb48760f3499b5b33df2ab8f6bd246c8a58a9fe3b054a2dd58bb26cb5d24a",
+    "rocm_flydsl_route_prepare.py": "4e1fbd712e8d4615d7b99022de641389127be8ed47122234de8b45106d52f2f7",
+    "__main__.py": "a8da620c846058465cdf7fe0f3af3f6ad9f8f88fe3e7022d07808babdf58e2af",
+    "flydsl_moe.py": "28a256d50ac66087dbd5b2e6dfa0d343913630980eba79144ddbba79dd52a7a0",
+    "route_prepare.py": "f1a6b8adc153c712721100d8fc7041b05a10ebc93038a08b6aba4ac7fcbbdc1e",
+    "rocm_flydsl_combine.py": "8b7086705d09c46c069e707bfe9cf421727379cfb368c8989a7b96c5ac9bacc3"
+  },
+  "serving": [
+    {
+      "c": 1,
+      "baseline_tps": 190.8576831854578,
+      "candidate_tps": 202.1344265528756,
+      "speedup": 1.0590845659404766,
+      "baseline_output_tokens": 56823,
+      "candidate_output_tokens": 56823,
+      "exact_output_texts": 128,
+      "candidate_eos_stops": 126,
+      "candidate_length_limited": 2,
+      "candidate_max_absent_compile_events": true
+    },
+    {
+      "c": 8,
+      "baseline_tps": 859.3064437970324,
+      "candidate_tps": 895.1796358608112,
+      "speedup": 1.0417466810853475,
+      "baseline_output_tokens": 55863,
+      "candidate_output_tokens": 55863,
+      "exact_output_texts": 128,
+      "candidate_eos_stops": 124,
+      "candidate_length_limited": 4,
+      "candidate_max_absent_compile_events": true
+    },
+    {
+      "c": 32,
+      "baseline_tps": 1600.6550914174645,
+      "candidate_tps": 1649.0422262972756,
+      "speedup": 1.0302295823374177,
+      "baseline_output_tokens": 62463,
+      "candidate_output_tokens": 62733,
+      "exact_output_texts": 27,
+      "candidate_eos_stops": 124,
+      "candidate_length_limited": 4,
+      "candidate_max_absent_compile_events": true
+    }
+  ],
+  "evidence": [
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-off-c1-off/server-argv.json",
+      "sha256": "236c10c2d99c51dcafacf8e0ba154ef132c42916bab2e1bfc6641442bbb4b996"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-off-c1-off/environment.json",
+      "sha256": "c12ec206587914fa9cdcacaf81e3191705dbdeb7a1e614efaddab681a12dd66f"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-off-c1-off/gsm8k-c1/result.json",
+      "sha256": "4d528f8be259bda41c2f3863245c47224696c76192323dacc7615f0d1594996f"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-off-c1-off/gsm8k-c1/requests.jsonl",
+      "sha256": "8db088806e4216ce754c854eeef1e7b1594a8038880316404a43ed0d0d17e8e3"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-off-c1-off/gsm8k-c1/backend-witness.json",
+      "sha256": "effed2863be7fd80ea68c98a4d1ddbd69a209403cefcec722c5e898631a436e1"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c1-off/server-argv.json",
+      "sha256": "29b29f26e66c3814197ae6d361a648e83f628728386b0065a09a370ea3603641"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c1-off/environment.json",
+      "sha256": "a7a480cb04c674a3ff6f756fad9df84e4b738f1095e6a16eb4ece799500bd5e8"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c1-off/gsm8k-c1/result.json",
+      "sha256": "a8f1ede3f85cc0a10ab46218463b62cad6e66248e1e17146f9644e66e9a02b11"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c1-off/gsm8k-c1/requests.jsonl",
+      "sha256": "14ff5a94c9d21ab0a1504b0c65271ea4d058852368393377c8a73dae248f5645"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c1-off/gsm8k-c1/backend-witness.json",
+      "sha256": "9897db1cd2948edda46ba714a2a60c5b1c7906622ac4b38513e240f457abea16"
+    },
+    {
+      "path": "/home/jackhan/bench-results/raon-moe-smallm-20261127/cases/route-off-c8-off/server-argv.json",
+      "sha256": "eb63977450db8a2ec338973080a2cba45f69e8259a0de38e85df751ebfa71889"
+    },
+    {
+      "path": "/home/jackhan/bench-results/raon-moe-smallm-20261127/cases/route-off-c8-off/environment.json",
+      "sha256": "c12ec206587914fa9cdcacaf81e3191705dbdeb7a1e614efaddab681a12dd66f"
+    },
+    {
+      "path": "/home/jackhan/bench-results/raon-moe-smallm-20261127/cases/route-off-c8-off/gsm8k-c8/result.json",
+      "sha256": "9d9da2bf35e54d341c7f38b15bd70fb527395f0c067cd79924a2184c6686394f"
+    },
+    {
+      "path": "/home/jackhan/bench-results/raon-moe-smallm-20261127/cases/route-off-c8-off/gsm8k-c8/requests.jsonl",
+      "sha256": "d04f25bcd9683ab98705abb38812c05a44a4c721b4e6b32883a1d0febb90620a"
+    },
+    {
+      "path": "/home/jackhan/bench-results/raon-moe-smallm-20261127/cases/route-off-c8-off/gsm8k-c8/backend-witness.json",
+      "sha256": "effed2863be7fd80ea68c98a4d1ddbd69a209403cefcec722c5e898631a436e1"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c8-off/server-argv.json",
+      "sha256": "0406215fcf3e2c39f62750ed0455d99d26538ba99a7001cdddd2a31ed99f5c1e"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c8-off/environment.json",
+      "sha256": "a7a480cb04c674a3ff6f756fad9df84e4b738f1095e6a16eb4ece799500bd5e8"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c8-off/gsm8k-c8/result.json",
+      "sha256": "058d6d2a5b5fcbd6dc25c828aaec7ff1632b8e7d01a8d620aae9afb8f89c3d0d"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c8-off/gsm8k-c8/requests.jsonl",
+      "sha256": "fc59ffab18c586476c1429b591a88d73b8a35de72533e92c8958a0dfc531a645"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c8-off/gsm8k-c8/backend-witness.json",
+      "sha256": "9897db1cd2948edda46ba714a2a60c5b1c7906622ac4b38513e240f457abea16"
+    },
+    {
+      "path": "/home/jackhan/bench-results/raon-moe-smallm-20261127/cases/route-off-c32-off/server-argv.json",
+      "sha256": "21261e099c2723e7b43d908d608eee54d2bea3e2996157393c83afdb1fe6a4a8"
+    },
+    {
+      "path": "/home/jackhan/bench-results/raon-moe-smallm-20261127/cases/route-off-c32-off/environment.json",
+      "sha256": "c12ec206587914fa9cdcacaf81e3191705dbdeb7a1e614efaddab681a12dd66f"
+    },
+    {
+      "path": "/home/jackhan/bench-results/raon-moe-smallm-20261127/cases/route-off-c32-off/gsm8k-c32/result.json",
+      "sha256": "732b6d52c5ed43b50b6c29d13ca9331efbb58c506ef20d2ad98d58a74b6f6468"
+    },
+    {
+      "path": "/home/jackhan/bench-results/raon-moe-smallm-20261127/cases/route-off-c32-off/gsm8k-c32/requests.jsonl",
+      "sha256": "90ab5a38a7b714da400bd59a2f2f73d5fb7b46952be7e8a4ed8c8f366d0f2028"
+    },
+    {
+      "path": "/home/jackhan/bench-results/raon-moe-smallm-20261127/cases/route-off-c32-off/gsm8k-c32/backend-witness.json",
+      "sha256": "effed2863be7fd80ea68c98a4d1ddbd69a209403cefcec722c5e898631a436e1"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c32-off/server-argv.json",
+      "sha256": "ee6a8fc0a558ddd117dc05b563f62f1b90fecc9db05cb39dc911761b905081a9"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c32-off/environment.json",
+      "sha256": "a7a480cb04c674a3ff6f756fad9df84e4b738f1095e6a16eb4ece799500bd5e8"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c32-off/gsm8k-c32/result.json",
+      "sha256": "aa2bd8ca5e73242ff8cbb133c13d1b895c2a269877924c5f994aa20a954c7afb"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c32-off/gsm8k-c32/requests.jsonl",
+      "sha256": "a234048e9712e1863bf3bc048e8136359c31360df6b4a3abf36974baefeec54e"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/fixed-speed2/cases/route-fixed-on-c32-off/gsm8k-c32/backend-witness.json",
+      "sha256": "9897db1cd2948edda46ba714a2a60c5b1c7906622ac4b38513e240f457abea16"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/route-abi-attempt1.json",
+      "sha256": "de62d5e740f39925b45355dee37249b7a0378e4d20f6b3226fabac33d0fd044d",
+      "status": "PASS",
+      "fixtures": 32,
+      "checks": 224
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/combine-regression-suite.json",
+      "sha256": "de0c40ae3ac9a2fb3da56cd1892e41adb3270676cd9835d8e188dfb12da59cee",
+      "status": "PASS",
+      "cases": 42,
+      "dtype_transition_exact": true
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/route-final-gold.json",
+      "sha256": "ba6d9b7026e177db5f98d9e446907048bd397c8e666b18f7cef167f3e0b788f3",
+      "status": "PASS"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/cold-chain.json",
+      "sha256": "34b501fdbfd445dceca125beeb3301412afaecb34e8c6fed9580309c6058b72e",
+      "status": "PASS"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/rda-parts/cases/rda-parts-control-c1-off/block-times.json",
+      "sha256": "a6595a88823ec7dbefc705dd4c1c7bbbca7a2c5a15a7d2622e0a0342d31ae015"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/rda-parts/cases/rda-parts-input-c1-off/block-times.json",
+      "sha256": "67cba8deebe4e00cea5971c3aaaeab35a3932e03dca6eecc24e1ebd125505350"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/rda-parts/cases/rda-parts-gate-c1-off/block-times.json",
+      "sha256": "7437c8bac12a85e818f8e27e6f2d39d58af0dd684367887aa91b91dda2bd0c5a"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/rda-parts/cases/rda-parts-core-c1-off/block-times.json",
+      "sha256": "11acbb04ecae47352fbc42eec62ae1155b7f88d63bf6b31e455cbb428fffc87e"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/rda-parts/cases/rda-parts-control-c32-off/block-times.json",
+      "sha256": "322553cec722abb9d1cdd289660de04c0e68a9ec61f358ce3924615a6447ad99"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/rda-parts/cases/rda-parts-input-c32-off/block-times.json",
+      "sha256": "c201b953d9d0f34167629a35deb59a8c8e673894f2eb44232bd46f6341b265e5"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/rda-parts/cases/rda-parts-gate-c32-off/block-times.json",
+      "sha256": "d7706a478fce6210b5779b83a0076b97b10f4d65e1e26d1d043d2ceeb404421b"
+    },
+    {
+      "path": "/mnt/hammerspace/jackhan/raon-moe-smallm-89601-debug/rda-parts/cases/rda-parts-core-c32-off/block-times.json",
+      "sha256": "62e388f929d12bd8eabd2cea88085102c9bd353390c424d68433f89a5aa4ebb9"
+    }
+  ],
+  "dtype_regression": [
+    {
+      "variant": "before",
+      "exact": false,
+      "max_abs": 4.0,
+      "actual": 16.0,
+      "gold": 12.0
+    },
+    {
+      "variant": "after",
+      "exact": true,
+      "max_abs": 0.0,
+      "actual": 12.0,
+      "gold": 12.0
+    }
+  ],
+  "rejected_candidates": {
+    "m16": "Matched M32 controls remove the apparent gain; not promoted.",
+    "route_gemv": "All full-shape gold checks pass, but slower in both hot single-layer and 24 distinct-address layer rotation.",
+    "rda_direct_graph": "Redundant FULL-capture path: V2 intentionally calls FULL capture with context NONE, and original native RDA is already captured. Activation witness rejected new serving trials before timing. Prototype withdrawn."
+  },
+  "failures_retained": [
+    "Original route candidate GPU memory fault from compiled combine signature reuse across int64/int32; fixed and independently reproduced (16 vs gold12, fixed12).",
+    "Original C1 baseline hit HOME EDQUOT; incomplete run excluded and one full rerun stored on Hammerspace.",
+    "First Hammerspace launcher omitted server entrypoint; startup failed before measurement; retained under fixed-speed/."
+  ],
+  "core_cleanup": "Core deletion/move rejected by automatic review; all diagnostic originals retained; new writes use Hammerspace.",
+  "rda_parts": {
+    "scope": "Separate instrumented executions; final replay component sum, not an exact disjoint latency budget. External event overhead included; control has no component events. FULL graph uses original RDA with MoE prepare enabled.",
+    "rows": [
+      {
+        "c": 1,
+        "phase": "control",
+        "model_ms_median_after_eight_steps": 4.333076477050781,
+        "last_replay_component_ms": 0,
+        "component_event_pairs": 0,
+        "last_model_ms": 4.334636211395264
+      },
+      {
+        "c": 1,
+        "phase": "input",
+        "model_ms_median_after_eight_steps": 4.560678482055664,
+        "last_replay_component_ms": 0.4354439973831177,
+        "component_event_pairs": 18,
+        "last_model_ms": 4.569199085235596
+      },
+      {
+        "c": 1,
+        "phase": "gate",
+        "model_ms_median_after_eight_steps": 4.583118915557861,
+        "last_replay_component_ms": 0.36024199798703194,
+        "component_event_pairs": 18,
+        "last_model_ms": 4.585958957672119
+      },
+      {
+        "c": 1,
+        "phase": "core",
+        "model_ms_median_after_eight_steps": 4.6224188804626465,
+        "last_replay_component_ms": 0.46560500003397465,
+        "component_event_pairs": 18,
+        "last_model_ms": 4.605799198150635
+      },
+      {
+        "c": 32,
+        "phase": "control",
+        "model_ms_median_after_eight_steps": 8.24581003189087,
+        "last_replay_component_ms": 0,
+        "component_event_pairs": 0,
+        "last_model_ms": 8.440430641174316
+      },
+      {
+        "c": 32,
+        "phase": "input",
+        "model_ms_median_after_eight_steps": 8.4400315284729,
+        "last_replay_component_ms": 0.5137629974633455,
+        "component_event_pairs": 18,
+        "last_model_ms": 8.629512786865234
+      },
+      {
+        "c": 32,
+        "phase": "gate",
+        "model_ms_median_after_eight_steps": 8.545851707458496,
+        "last_replay_component_ms": 0.4673649985343218,
+        "component_event_pairs": 18,
+        "last_model_ms": 8.702593803405762
+      },
+      {
+        "c": 32,
+        "phase": "core",
+        "model_ms_median_after_eight_steps": 8.460352420806885,
+        "last_replay_component_ms": 1.195771999657154,
+        "component_event_pairs": 18,
+        "last_model_ms": 8.6138334274292
+      }
+    ]
+  }
+}

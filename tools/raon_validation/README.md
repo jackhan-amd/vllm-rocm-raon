@@ -10,6 +10,7 @@ Torch/vLLM/native extensions available; no model download is performed.
 | --- | --- |
 | `draft-native` | Experimental BF16 20Q/5KV D128 DFlash2: native HIP cache bytes versus Torch quantization, untouched slots, FlyDSL paged gather plus HIP attention versus FP32 noncausal sliding-window gold, expired NaNs, strided QKV/cache, padding, and replay with changed lengths, query boundaries, scales and block mappings. Select `--draft-case 0` through `7`; `auto` uses CK for eight-query requests and Opus for mixed lengths. No model-quality or end-to-end speed claim. |
 | `flydsl-moe` | Candidate MXFP8 FlyDSL expert rows vs independent Torch gold with both FP32 and BF16 activation boundaries; repeated graph replay with changed routes, probabilities and inputs. Use `--moe-full-shape` for E128/H2560/I1088. This is a finite diagnostic, not a throughput measurement. |
+| `moe-route-prepare` | Native route packing versus CPU expert counts and token/slot mapping; exact Torch BF16 probability bits, including ties and subnormals. Checks int32/int64 cache separation, M16/M32 padding, and captured replay with changing counts, duplicate experts and invalid IDs. |
 | `aiter-rda` | Select `--decode-backend flydsl` for the three-kernel FlyDSL chain or `aiter_triton` for the older fused derivative. Compare with the existing AMD chain and independent Torch conv/RDA/norm gold; AR and SD lengths 2/4/8, all accepted counts, changing state indices, full conv histories, untouched recurrent rows, and exact graph/direct comparison. Finite MI355X results are linked below. |
 | `effort` | Independent mixed-token alpha expansion, real decoder MoE-output boundary, Torch gold, zero-alpha bit preservation and HIP graph replay for release steering. |
 | `core` | RDA recurrent and fused prefill output/final state versus direct FP32 erase/write equations; lengths 1, 8, 65, 257 |
@@ -149,6 +150,52 @@ decode tool selects its fused/direct fixtures explicitly; no global fused
 decode option is needed. The three-kernel decode candidate is FlyDSL throughout;
 the older single-kernel derivative is AMD Triton. CPU dispatch or offline
 gfx950 compile-only checks do not establish GPU arithmetic correctness.
+
+For an opt-in small-M MXFP8 experiment, set
+`RAON_MXFP8_FLYDSL_TILE_CONFIG='{"block_m":16,"stage1_tile_n":128}'`.
+The adapter uses the same M quantum for sorting, activation-scale layouts and
+both native GEMMs; MXFP4 packing is unchanged. M32 remains the default.
+Use `--moe-varied-scales --moe-token-counts 1 8 17 32
+--moe-kernel-witness` with `flydsl-moe` to check different E8M0 exponents,
+partial M tiles, independent Torch gold after changed routes, and the actual
+stage1/stage2 GPU kernel names. Missing native M-tile witnesses fail the run.
+`--moe-timing-replays 200` optionally measures one warmed graph interval after
+correctness passes. This includes sorting, quantization and both GEMMs, but
+excludes router, shared expert and combine; it is not model or serving TPS.
+
+The separate `fused_route_prepare` candidate keeps the existing expert GEMMs
+and checkpoint bytes. For up to 32 rows, a native FlyDSL kernel packs routes
+and rounds probabilities through BF16 in one dispatch. With the native FlyDSL
+combine selected, the model also retains router int32 IDs. Larger batches use
+the existing native sort and cast sequence. This candidate is off by default
+and applies only to the MXFP8 adapter.
+The configuration is cached per process; restart the server to change it.
+The ordered combine launcher separates compiled signatures by ID dtype and
+device. `combine_math` starts with an int64/int32 cancellation regression before
+the existing random, nonfinite and changed-input replay cases.
+
+```bash
+.venv/bin/python -m tools.raon_validation moe-route-prepare \
+  --output evidence/route-prepare-gold.json
+RAON_MXFP8_FLYDSL_FUSED_A2=1 \
+RAON_MXFP8_FLYDSL_TILE_CONFIG='{"fused_route_prepare":1}' \
+.venv/bin/python -m tools.raon_validation flydsl-moe --moe-full-shape \
+  --moe-varied-scales --moe-token-counts 1 8 17 32 --moe-kernel-witness \
+  --output evidence/route-prepare-expert-gold.json
+```
+
+The [2026-11-27 small-batch record](results/moe-smallm-20261127.json) reports
+190.9 to 202.1 output tok/s at C1, 859.3 to 895.2 at C8, and 1600.7 to 1649.0
+at C32 with route preparation enabled and the default M32 GEMM geometry.
+Each condition used one 128-prompt GSM8K diagnostic measurement after separate
+warmup, with natural EOS and a 4096-token cap. No compilation was detected
+during measurement. These are not official accuracy results or the fixed
+ISL/OSL, measured-50%-prefix-hit benchmark. C1 and C8 outputs matched all 128
+baseline texts; C32 used dynamic batching and matched 27/128 exactly, so the
+record does not claim fixed-batch bitwise generation equivalence.
+Matched M32 controls did not support promoting M16. A route-wise GEMV prototype
+was slower both in a hot layer and with 24 distinct-address weight sets; neither
+experiment changes the default schedule.
 
 The [2026-11-25 MI355X record](results/mi355x-flydsl-20261125.json) contains
 executed finite GPU results. FlyDSL RDA passed 45 AR/SD cases across batches

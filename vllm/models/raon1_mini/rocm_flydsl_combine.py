@@ -10,7 +10,7 @@ _ANNOUNCED = False
 
 
 @lru_cache(maxsize=32)
-def _create(topk, hidden):
+def _create(topk, hidden, ids_dtype, device_index):
     import flydsl.compiler as flyc
     import flydsl.expr as fx
     from aiter.ops.flydsl.kernels.gdn_decode_verify import _load_vec, _store_vec
@@ -81,7 +81,8 @@ def combine_unweighted(values, ids):
     out = torch.empty((rows, hidden), device=values.device, dtype=values.dtype)
     if rows:
         _run_compiled(
-            _create(topk, hidden),
+            # AITER's fast launcher caches one compiled tensor signature.
+            _create(topk, hidden, ids.dtype, ids.device.index),
             values,
             ids.view(-1),
             out,

@@ -1,0 +1,170 @@
+{
+  "status": "COMPLETE",
+  "job": "89552",
+  "node": "TheraC80",
+  "precision": "MXFP8",
+  "sd": "off",
+  "parallelism": "independent TP1/DP1",
+  "image": "docker.io/hanjack/vllm-rocm@sha256:c41349b2bca3335d3a7eacceb6e4d9d21c4fa4602f7d24e454a8ccb9f739c281",
+  "scope": "Diagnostic only. Actual single-step inclusive block times within FULL model graph, not E2E TPS. Module events perturb timing. Outside intervals exclude engine/client work. C denotes requested concurrency and selected graph size, not asserted constant live request count.",
+  "isolated_blocks": [
+    {
+      "class": "RaonMoE",
+      "graph_tokens": 1,
+      "last_step_block_ms": 1.881177008152008,
+      "last_step_model_ms": 4.930957794189453,
+      "diagnostic_model_fraction": 0.38150336844674504
+    },
+    {
+      "class": "RaonMoE",
+      "graph_tokens": 32,
+      "last_step_block_ms": 4.962118983268738,
+      "last_step_model_ms": 9.24443244934082,
+      "diagnostic_model_fraction": 0.5367683749609273
+    },
+    {
+      "class": "RaonKDAAttention",
+      "graph_tokens": 1,
+      "last_step_block_ms": 1.454890988767147,
+      "last_step_model_ms": 4.823718070983887,
+      "diagnostic_model_fraction": 0.3016119448436992
+    },
+    {
+      "class": "RaonKDAAttention",
+      "graph_tokens": 32,
+      "last_step_block_ms": 2.48737795650959,
+      "last_step_model_ms": 9.097430229187012,
+      "diagnostic_model_fraction": 0.273415447422659
+    }
+  ],
+  "controls": [
+    {
+      "graph_tokens": 1,
+      "model_ms_median_after_eight_steps": 4.60321307182312,
+      "last_step_model_ms": 4.602712154388428,
+      "outside_ms_median_after_eight_steps": {
+        "logits_including_lm_head": 0.19630200415849686,
+        "topk_topp_and_gumbel": 0.18532100319862366,
+        "sampler_total": 0.22274149954319
+      },
+      "route_count": 144,
+      "allocated_m32_rows": 4608,
+      "logical_row_occupancy": 0.03125,
+      "active_experts_per_layer_range": [
+        6,
+        6
+      ],
+      "occupancy_scope": "Last replay route slots, including any graph padding. Not MFMA utilization, memory bandwidth, or predicted speedup."
+    },
+    {
+      "graph_tokens": 32,
+      "model_ms_median_after_eight_steps": 8.646061420440674,
+      "last_step_model_ms": 8.908623695373535,
+      "outside_ms_median_after_eight_steps": {
+        "logits_including_lm_head": 0.2727220058441162,
+        "topk_topp_and_gumbel": 0.2488809898495674,
+        "sampler_total": 0.2908024936914444
+      },
+      "route_count": 4608,
+      "allocated_m32_rows": 57696,
+      "logical_row_occupancy": 0.07986688851913477,
+      "active_experts_per_layer_range": [
+        65,
+        91
+      ],
+      "occupancy_scope": "Last replay route slots, including any graph padding. Not MFMA utilization, memory bandwidth, or predicted speedup."
+    }
+  ],
+  "receipts": [
+    {
+      "case": "block-isolated-RaonMoE-c1",
+      "raw": "/home/jackhan/bench-results/raon-sd-off-native-20261127/cases/block-isolated-RaonMoE-c1-off/block-times.json",
+      "sha256": "3ff1d2ec6ab24da8d6d5e4f48967b5c1d025d095d0bc4a2edc12ad60009cdf19",
+      "native_and_full_graph_witness": {
+        "RAON_FLYDSL_RDA_DECODE LAUNCHED": true,
+        "RAON_MXFP8_FLYDSL LIVE": true,
+        "RAON_ROCM_MHC_GATE LAUNCHED": true,
+        "Capturing CUDA graphs (FULL)": true
+      },
+      "completed_requests": 1,
+      "min_actual_output_tokens": 126,
+      "max_actual_output_tokens": 126
+    },
+    {
+      "case": "block-isolated-RaonMoE-c32",
+      "raw": "/home/jackhan/bench-results/raon-sd-off-native-20261127/cases/block-isolated-RaonMoE-c32-off/block-times.json",
+      "sha256": "293dd9087b2dae4586dcb05cdbc40a235122c7b3360f487e4a51a6d8a7076fff",
+      "native_and_full_graph_witness": {
+        "RAON_FLYDSL_RDA_DECODE LAUNCHED": true,
+        "RAON_MXFP8_FLYDSL LIVE": true,
+        "RAON_ROCM_MHC_GATE LAUNCHED": true,
+        "Capturing CUDA graphs (FULL)": true
+      },
+      "completed_requests": 32,
+      "min_actual_output_tokens": 70,
+      "max_actual_output_tokens": 256
+    },
+    {
+      "case": "block-isolated-RaonKDAAttention-c1",
+      "raw": "/home/jackhan/bench-results/raon-sd-off-native-20261127/cases/block-isolated-RaonKDAAttention-c1-off/block-times.json",
+      "sha256": "44ad11194a80c1896a8abfc349b74b86815f69d2b9fd06d64c6a1b740066f61f",
+      "native_and_full_graph_witness": {
+        "RAON_FLYDSL_RDA_DECODE LAUNCHED": true,
+        "RAON_MXFP8_FLYDSL LIVE": true,
+        "RAON_ROCM_MHC_GATE LAUNCHED": true,
+        "Capturing CUDA graphs (FULL)": true
+      },
+      "completed_requests": 1,
+      "min_actual_output_tokens": 126,
+      "max_actual_output_tokens": 126
+    },
+    {
+      "case": "block-isolated-RaonKDAAttention-c32",
+      "raw": "/home/jackhan/bench-results/raon-sd-off-native-20261127/cases/block-isolated-RaonKDAAttention-c32-off/block-times.json",
+      "sha256": "6b519a7e5e9159bdf2763aecaddd9f4f208c4c377d730d00e25fd5119fb7a87b",
+      "native_and_full_graph_witness": {
+        "RAON_FLYDSL_RDA_DECODE LAUNCHED": true,
+        "RAON_MXFP8_FLYDSL LIVE": true,
+        "RAON_ROCM_MHC_GATE LAUNCHED": true,
+        "Capturing CUDA graphs (FULL)": true
+      },
+      "completed_requests": 32,
+      "min_actual_output_tokens": 70,
+      "max_actual_output_tokens": 256
+    },
+    {
+      "case": "block-control-c1",
+      "raw": "/home/jackhan/bench-results/raon-sd-off-native-20261127/cases/block-control-c1-off/block-times.json",
+      "sha256": "9688ac07fb090f8c4f1f27725cac99bf7efc11261c79c4a3b9966837991db514",
+      "native_and_full_graph_witness": {
+        "RAON_FLYDSL_RDA_DECODE LAUNCHED": true,
+        "RAON_MXFP8_FLYDSL LIVE": true,
+        "RAON_ROCM_MHC_GATE LAUNCHED": true,
+        "Capturing CUDA graphs (FULL)": true
+      },
+      "completed_requests": 1,
+      "min_actual_output_tokens": 126,
+      "max_actual_output_tokens": 126
+    },
+    {
+      "case": "block-control-c32",
+      "raw": "/home/jackhan/bench-results/raon-sd-off-native-20261127/cases/block-control-c32-off/block-times.json",
+      "sha256": "2030827178ee399c01f3afcbfa96ab8de8c7418334b1acce507c10825b9e3c86",
+      "native_and_full_graph_witness": {
+        "RAON_FLYDSL_RDA_DECODE LAUNCHED": true,
+        "RAON_MXFP8_FLYDSL LIVE": true,
+        "RAON_ROCM_MHC_GATE LAUNCHED": true,
+        "Capturing CUDA graphs (FULL)": true
+      },
+      "completed_requests": 32,
+      "min_actual_output_tokens": 70,
+      "max_actual_output_tokens": 256
+    }
+  ],
+  "limitations": [
+    "All-module nested event percentages are superseded by isolated-class diagnostics. Do not use the earlier mHC glue percentage.",
+    "The dense event pass had ~1.4 ms more model time than the no-module-event control. Isolated passes reduce, but do not eliminate, event overhead.",
+    "This does not validate new MoE kernels, an SD change, MXFP4 speed, model accuracy, fixed ISL/OSL, or 50 percent prefix cache hit rate.",
+    "Logical padded-row sparsity alone cannot predict latency: weight bytes and fixed work remain."
+  ]
+}

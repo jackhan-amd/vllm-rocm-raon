@@ -28,6 +28,7 @@ def main():
             "draft-replay",
             "draft-native",
             "flydsl-moe",
+            "moe-route-prepare",
             "aiter-rda",
             "effort",
         ],
@@ -85,6 +86,10 @@ def main():
         help="Check decoder/logits/sampler without cloning RDA cache rows",
     )
     p.add_argument("--generation-seconds", type=int, default=900)
+    p.add_argument("--moe-timing-replays", type=int, default=0)
+    p.add_argument("--moe-token-counts", nargs="+", type=int, default=[1, 8, 32])
+    p.add_argument("--moe-varied-scales", action="store_true")
+    p.add_argument("--moe-kernel-witness", action="store_true")
     p.add_argument("--max-tokens", type=int, default=262144)
     args = p.parse_args()
     result = {
@@ -124,6 +129,8 @@ def main():
             from .draft_native import run
         elif args.command == "flydsl-moe":
             from .flydsl_moe import run
+        elif args.command == "moe-route-prepare":
+            from .route_prepare import run
         elif args.command == "aiter-rda":
             from .aiter_rda import run
         elif args.command == "effort":

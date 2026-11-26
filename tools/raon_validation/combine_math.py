@@ -36,6 +36,23 @@ def timing(fn):
     return start.elapsed_time(end) * 1000 / 320
 
 
+def check_dtype_transitions(topk):
+    """Catch stale compiled i64 signatures when small batches retain i32 IDs."""
+    values = torch.zeros((1, topk, 2560), device="cuda", dtype=torch.bfloat16)
+    for slot, value in enumerate((2**26, 1, -(2**26), 2, 4, 8)):
+        values[:, slot] = value
+    ids64 = torch.tensor([list(range(topk))], device="cuda", dtype=torch.int64)
+    ids64[:, :6] = torch.tensor([3, 1, 4, 0, 5, 2], device="cuda")
+    # Extra storage makes an erroneous i64 read safe, so the regression fails
+    # on its numerical result instead of causing a GPU memory fault.
+    storage = torch.zeros(topk * 2, device="cuda", dtype=torch.int32)
+    ids32 = storage[:topk].view(1, topk)
+    ids32.copy_(ids64)
+    for ids in (ids64, ids32, ids64, ids32):
+        actual = combine_unweighted(values, ids)
+        torch.testing.assert_close(actual, gold(values, ids), rtol=0, atol=0)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True)
@@ -45,6 +62,8 @@ def main():
     result = dict(status="RUNNING", topk=args.topk, cases=[], timings=[])
     try:
         with torch.inference_mode():
+            check_dtype_transitions(args.topk)
+            result["dtype_transition_exact"] = True
             for rows in (1, 8, 32, 64, 128, 256, 1024):
                 for dtype in (torch.int32, torch.int64):
                     ids = torch.randint(
