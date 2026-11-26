@@ -1,0 +1,16 @@
+# Opt-in native DFlash2 attention over the tested native Raon image.
+ARG BASE_IMAGE=docker.io/hanjack/vllm-rocm@sha256:21ae335dd3d6aa57d0d75b5ee044c43336019d3ee726e5966c9eba54c729a329
+FROM ${BASE_IMAGE}
+ARG VCS_REF=unknown
+LABEL org.opencontainers.image.source="https://github.com/jackhan-amd/vllm-rocm-raon" \
+  org.opencontainers.image.revision="${VCS_REF}" \
+  ai.raon.native.draft.status="opt-in-mxfp8-validated"
+COPY vllm/models/raon1_mini/rocm_draft_attention.py \
+  vllm/models/raon1_mini/rocm_draft_backend.py \
+  /usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/
+COPY vllm/v1/attention/backends/registry.py \
+  /usr/local/lib/python3.14/dist-packages/vllm/v1/attention/backends/registry.py
+COPY tools/raon_validation/__main__.py \
+  tools/raon_validation/draft_native.py \
+  tools/raon_validation/README.md \
+  /opt/raon/tools/raon_validation/

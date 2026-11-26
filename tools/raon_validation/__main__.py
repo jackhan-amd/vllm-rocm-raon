@@ -26,6 +26,7 @@ def main():
             "teacher",
             "replay",
             "draft-replay",
+            "draft-native",
             "flydsl-moe",
             "aiter-rda",
             "effort",
@@ -34,6 +35,8 @@ def main():
     p.add_argument("--output", required=True)
     p.add_argument("--dump")
     p.add_argument("--window", type=int, default=2048)
+    p.add_argument("--draft-case", type=int, choices=range(8), default=0)
+    p.add_argument("--draft-provider", choices=["auto", "opus", "ck"], default="auto")
     p.add_argument("--torch-gold", action="store_true")
     p.add_argument("--heads", type=int, default=40)
     p.add_argument("--moe-full-shape", action="store_true")
@@ -117,6 +120,8 @@ def main():
             from .replay import run
         elif args.command == "draft-replay":
             from .draft_replay import run
+        elif args.command == "draft-native":
+            from .draft_native import run
         elif args.command == "flydsl-moe":
             from .flydsl_moe import run
         elif args.command == "aiter-rda":

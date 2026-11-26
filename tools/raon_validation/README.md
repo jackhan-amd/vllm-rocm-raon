@@ -8,6 +8,7 @@ Torch/vLLM/native extensions available; no model download is performed.
 
 | Command | Independent check |
 | --- | --- |
+| `draft-native` | Experimental BF16 20Q/5KV D128 DFlash2: native HIP cache bytes versus Torch quantization, untouched slots, FlyDSL paged gather plus HIP attention versus FP32 noncausal sliding-window gold, expired NaNs, strided QKV/cache, padding, and replay with changed lengths, query boundaries, scales and block mappings. Select `--draft-case 0` through `7`; `auto` uses CK for eight-query requests and Opus for mixed lengths. No model-quality or end-to-end speed claim. |
 | `flydsl-moe` | Candidate MXFP8 FlyDSL expert rows vs independent Torch gold with both FP32 and BF16 activation boundaries; repeated graph replay with changed routes, probabilities and inputs. Use `--moe-full-shape` for E128/H2560/I1088. This is a finite diagnostic, not a throughput measurement. |
 | `aiter-rda` | Select `--decode-backend flydsl` for the three-kernel FlyDSL chain or `aiter_triton` for the older fused derivative. Compare with the existing AMD chain and independent Torch conv/RDA/norm gold; AR and SD lengths 2/4/8, all accepted counts, changing state indices, full conv histories, untouched recurrent rows, and exact graph/direct comparison. Finite MI355X results are linked below. |
 | `effort` | Independent mixed-token alpha expansion, real decoder MoE-output boundary, Torch gold, zero-alpha bit preservation and HIP graph replay for release steering. |
