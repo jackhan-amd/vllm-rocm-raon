@@ -1,5 +1,11 @@
 # Other kernels and next optimization candidates
 
+Current-image follow-up: see
+[the November 27 profile and fusion review](FRESH-PROFILE-AND-FUSION-CANDIDATES-20261127.md).
+It updates the candidate ranking with valid GPU traces, direct mHC operator
+mapping, and an explicit profiler spawn workaround. The historical evidence
+below remains unchanged.
+
 The next candidates are copy/metadata/graph scheduling at C1 and RDA verification
 at C32. An arithmetic-only MLA A4W4 BMM rewrite is lower priority. This review
 reuses six historical traces and audits current source; it does not measure a

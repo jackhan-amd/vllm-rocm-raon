@@ -1,0 +1,3229 @@
+{
+  "status": "GPU_KERNEL_DECOMPOSITION_COMPLETE_GRAPH_ATTRIBUTION_LIMITED",
+  "job": "89470",
+  "slurm_state": "COMPLETED",
+  "slurm_elapsed": "00:06:55",
+  "slurm_exit": "0:0",
+  "image": "docker.io/hanjack/vllm-rocm@sha256:f683e05a88ace2c842316fca4772f0f5fe72c1b5b0f2db69b7bb127a46ac9026",
+  "runtime_source_commit": "fcee6105d3cc5e3d2814a10b87e205610caa9e7a",
+  "runtime_source_changed": false,
+  "scope": "MXFP8 diagnostic; eight independent TP1/DP1 replicas, SD off/on x max concurrency 1/32 x requested phase; not a throughput/accuracy benchmark or new speedup claim. All percentages divide by summed profiled GPU kernel durations.",
+  "inputs": [
+    {
+      "gpu": 0,
+      "sd": "off",
+      "concurrency": 1,
+      "phase": "prefill",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu0-prefill-off/traces/raon-off-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795703931732993217.pt.trace.json.gz",
+      "trace_sha256": "4cbb3ad3d8d3076e90306258933b3f4c2f0a2805b5efbd9f67faabe0a0bc8b43",
+      "quality": {
+        "status": "GPU_EVENTS_CONFIRMED",
+        "kernel_events": 5820,
+        "kernel_sum_ms": 36.959906000000004,
+        "scope": "Profiled kernel duration sum, not performance or critical path",
+        "trace": "/work/cases/job89470-a0-gpu0-prefill-off/traces/raon-off-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795703931732993217.pt.trace.json.gz"
+      },
+      "server_argv": [
+        "/opt/raon/.venv/bin/python",
+        "/work/capture-entry.py",
+        "serve",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "18100",
+        "--served-model-name",
+        "raon",
+        "--reasoning-parser",
+        "raon_1",
+        "--enable-auto-tool-choice",
+        "--tool-call-parser",
+        "raon_1",
+        "--default-chat-template-kwargs",
+        "{\"enable_thinking\":true,\"truncate_history_thinking\":false}",
+        "--tokenizer",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--tensor-parallel-size",
+        "1",
+        "--data-parallel-size",
+        "1",
+        "--dtype",
+        "auto",
+        "--max-model-len",
+        "262144",
+        "--max-num-batched-tokens",
+        "16384",
+        "--max-num-seqs",
+        "128",
+        "--gpu-memory-utilization",
+        "0.85",
+        "--enable-prefix-caching",
+        "--kv-cache-dtype",
+        "fp8_e4m3",
+        "--mamba-cache-mode",
+        "align",
+        "--compilation-config",
+        "{\"mode\":0,\"cudagraph_mode\":\"PIECEWISE\"}",
+        "--attention-config",
+        "{\"backend_per_kind\":{\"mla_attention\":\"ROCM_AITER_MLA\",\"sliding_window\":\"ROCM_RAON_DFLASH\"},\"mla_prefill_backend\":\"ROCM_AITER_FA\"}",
+        "--additional-config",
+        "{\"kda_prefill_backend\":\"fused\"}",
+        "--seed",
+        "42",
+        "--profiler-config",
+        "{\"profiler\": \"torch\", \"torch_profiler_dir\": \"/work/cases/job89470-a0-gpu0-prefill-off/traces\", \"torch_profiler_activities\": [\"CPU\", \"CUDA\"], \"torch_profiler_record_shapes\": true, \"ignore_frontend\": true, \"capture_torch_profiler\": true}"
+      ],
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      },
+      "graph_counter_files": [
+        "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu0-prefill-off/kda-graph-counts-16.json"
+      ]
+    },
+    {
+      "gpu": 1,
+      "sd": "off",
+      "concurrency": 1,
+      "phase": "decode",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu1-decode-off/traces/raon-off-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795703932294373367.pt.trace.json.gz",
+      "trace_sha256": "426723ba1d6059bb1c2369a65430ed2922fb8cf8b285e9cfe01f98dbabb1d2c9",
+      "quality": {
+        "status": "GPU_EVENTS_CONFIRMED",
+        "kernel_events": 22320,
+        "kernel_sum_ms": 127.69066000000001,
+        "scope": "Profiled kernel duration sum, not performance or critical path",
+        "trace": "/work/cases/job89470-a0-gpu1-decode-off/traces/raon-off-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795703932294373367.pt.trace.json.gz"
+      },
+      "server_argv": [
+        "/opt/raon/.venv/bin/python",
+        "/work/capture-entry.py",
+        "serve",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "18101",
+        "--served-model-name",
+        "raon",
+        "--reasoning-parser",
+        "raon_1",
+        "--enable-auto-tool-choice",
+        "--tool-call-parser",
+        "raon_1",
+        "--default-chat-template-kwargs",
+        "{\"enable_thinking\":true,\"truncate_history_thinking\":false}",
+        "--tokenizer",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--tensor-parallel-size",
+        "1",
+        "--data-parallel-size",
+        "1",
+        "--dtype",
+        "auto",
+        "--max-model-len",
+        "262144",
+        "--max-num-batched-tokens",
+        "16384",
+        "--max-num-seqs",
+        "128",
+        "--gpu-memory-utilization",
+        "0.85",
+        "--enable-prefix-caching",
+        "--kv-cache-dtype",
+        "fp8_e4m3",
+        "--mamba-cache-mode",
+        "align",
+        "--compilation-config",
+        "{\"mode\":0,\"cudagraph_mode\":\"PIECEWISE\"}",
+        "--attention-config",
+        "{\"backend_per_kind\":{\"mla_attention\":\"ROCM_AITER_MLA\",\"sliding_window\":\"ROCM_RAON_DFLASH\"},\"mla_prefill_backend\":\"ROCM_AITER_FA\"}",
+        "--additional-config",
+        "{\"kda_prefill_backend\":\"fused\"}",
+        "--seed",
+        "42",
+        "--profiler-config",
+        "{\"profiler\": \"torch\", \"torch_profiler_dir\": \"/work/cases/job89470-a0-gpu1-decode-off/traces\", \"torch_profiler_activities\": [\"CPU\", \"CUDA\"], \"torch_profiler_record_shapes\": true, \"ignore_frontend\": true, \"capture_torch_profiler\": true}"
+      ],
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      },
+      "graph_counter_files": [
+        "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu1-decode-off/kda-graph-counts-16.json"
+      ]
+    },
+    {
+      "gpu": 2,
+      "sd": "off",
+      "concurrency": 32,
+      "phase": "prefill",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu2-prefill-off/traces/raon-off-c32_dp0_pp0_tp0_dcp0_ep0_rank0.1795703926386900638.pt.trace.json.gz",
+      "trace_sha256": "5d2f2cdb0af626015b52dd7a9b8a3fcf6e76fbc0b04280737908586fe0f32bfb",
+      "quality": {
+        "status": "GPU_EVENTS_CONFIRMED",
+        "kernel_events": 6457,
+        "kernel_sum_ms": 67.356553,
+        "scope": "Profiled kernel duration sum, not performance or critical path",
+        "trace": "/work/cases/job89470-a0-gpu2-prefill-off/traces/raon-off-c32_dp0_pp0_tp0_dcp0_ep0_rank0.1795703926386900638.pt.trace.json.gz"
+      },
+      "server_argv": [
+        "/opt/raon/.venv/bin/python",
+        "/work/capture-entry.py",
+        "serve",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "18102",
+        "--served-model-name",
+        "raon",
+        "--reasoning-parser",
+        "raon_1",
+        "--enable-auto-tool-choice",
+        "--tool-call-parser",
+        "raon_1",
+        "--default-chat-template-kwargs",
+        "{\"enable_thinking\":true,\"truncate_history_thinking\":false}",
+        "--tokenizer",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--tensor-parallel-size",
+        "1",
+        "--data-parallel-size",
+        "1",
+        "--dtype",
+        "auto",
+        "--max-model-len",
+        "262144",
+        "--max-num-batched-tokens",
+        "16384",
+        "--max-num-seqs",
+        "128",
+        "--gpu-memory-utilization",
+        "0.85",
+        "--enable-prefix-caching",
+        "--kv-cache-dtype",
+        "fp8_e4m3",
+        "--mamba-cache-mode",
+        "align",
+        "--compilation-config",
+        "{\"mode\":0,\"cudagraph_mode\":\"PIECEWISE\"}",
+        "--attention-config",
+        "{\"backend_per_kind\":{\"mla_attention\":\"ROCM_AITER_MLA\",\"sliding_window\":\"ROCM_RAON_DFLASH\"},\"mla_prefill_backend\":\"ROCM_AITER_FA\"}",
+        "--additional-config",
+        "{\"kda_prefill_backend\":\"fused\"}",
+        "--seed",
+        "42",
+        "--profiler-config",
+        "{\"profiler\": \"torch\", \"torch_profiler_dir\": \"/work/cases/job89470-a0-gpu2-prefill-off/traces\", \"torch_profiler_activities\": [\"CPU\", \"CUDA\"], \"torch_profiler_record_shapes\": true, \"ignore_frontend\": true, \"capture_torch_profiler\": true}"
+      ],
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      },
+      "graph_counter_files": [
+        "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu2-prefill-off/kda-graph-counts-16.json"
+      ]
+    },
+    {
+      "gpu": 3,
+      "sd": "off",
+      "concurrency": 32,
+      "phase": "decode",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu3-decode-off/traces/raon-off-c32_dp0_pp0_tp0_dcp0_ep0_rank0.1795703925737257167.pt.trace.json.gz",
+      "trace_sha256": "4f06575d9a191260a818f603dd7ca59ef5b0fe4e5724a32d60e8ffaa12a86acd",
+      "quality": {
+        "status": "GPU_EVENTS_CONFIRMED",
+        "kernel_events": 24704,
+        "kernel_sum_ms": 193.02723999999998,
+        "scope": "Profiled kernel duration sum, not performance or critical path",
+        "trace": "/work/cases/job89470-a0-gpu3-decode-off/traces/raon-off-c32_dp0_pp0_tp0_dcp0_ep0_rank0.1795703925737257167.pt.trace.json.gz"
+      },
+      "server_argv": [
+        "/opt/raon/.venv/bin/python",
+        "/work/capture-entry.py",
+        "serve",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "18103",
+        "--served-model-name",
+        "raon",
+        "--reasoning-parser",
+        "raon_1",
+        "--enable-auto-tool-choice",
+        "--tool-call-parser",
+        "raon_1",
+        "--default-chat-template-kwargs",
+        "{\"enable_thinking\":true,\"truncate_history_thinking\":false}",
+        "--tokenizer",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--tensor-parallel-size",
+        "1",
+        "--data-parallel-size",
+        "1",
+        "--dtype",
+        "auto",
+        "--max-model-len",
+        "262144",
+        "--max-num-batched-tokens",
+        "16384",
+        "--max-num-seqs",
+        "128",
+        "--gpu-memory-utilization",
+        "0.85",
+        "--enable-prefix-caching",
+        "--kv-cache-dtype",
+        "fp8_e4m3",
+        "--mamba-cache-mode",
+        "align",
+        "--compilation-config",
+        "{\"mode\":0,\"cudagraph_mode\":\"PIECEWISE\"}",
+        "--attention-config",
+        "{\"backend_per_kind\":{\"mla_attention\":\"ROCM_AITER_MLA\",\"sliding_window\":\"ROCM_RAON_DFLASH\"},\"mla_prefill_backend\":\"ROCM_AITER_FA\"}",
+        "--additional-config",
+        "{\"kda_prefill_backend\":\"fused\"}",
+        "--seed",
+        "42",
+        "--profiler-config",
+        "{\"profiler\": \"torch\", \"torch_profiler_dir\": \"/work/cases/job89470-a0-gpu3-decode-off/traces\", \"torch_profiler_activities\": [\"CPU\", \"CUDA\"], \"torch_profiler_record_shapes\": true, \"ignore_frontend\": true, \"capture_torch_profiler\": true}"
+      ],
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      },
+      "graph_counter_files": [
+        "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu3-decode-off/kda-graph-counts-16.json"
+      ]
+    },
+    {
+      "gpu": 4,
+      "sd": "on",
+      "concurrency": 1,
+      "phase": "prefill",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu4-prefill-on/traces/raon-on-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795703948256518956.pt.trace.json.gz",
+      "trace_sha256": "bdd458823437dd1f189d29716ab8589c702ed6326e34db444211a348ecaae9ec",
+      "quality": {
+        "status": "GPU_EVENTS_CONFIRMED",
+        "kernel_events": 7017,
+        "kernel_sum_ms": 50.414860999999995,
+        "scope": "Profiled kernel duration sum, not performance or critical path",
+        "trace": "/work/cases/job89470-a0-gpu4-prefill-on/traces/raon-on-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795703948256518956.pt.trace.json.gz"
+      },
+      "server_argv": [
+        "/opt/raon/.venv/bin/python",
+        "/work/capture-entry.py",
+        "serve",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "18104",
+        "--served-model-name",
+        "raon",
+        "--reasoning-parser",
+        "raon_1",
+        "--enable-auto-tool-choice",
+        "--tool-call-parser",
+        "raon_1",
+        "--default-chat-template-kwargs",
+        "{\"enable_thinking\":true,\"truncate_history_thinking\":false}",
+        "--tokenizer",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--tensor-parallel-size",
+        "1",
+        "--data-parallel-size",
+        "1",
+        "--dtype",
+        "auto",
+        "--max-model-len",
+        "262144",
+        "--max-num-batched-tokens",
+        "16384",
+        "--max-num-seqs",
+        "128",
+        "--gpu-memory-utilization",
+        "0.85",
+        "--enable-prefix-caching",
+        "--kv-cache-dtype",
+        "fp8_e4m3",
+        "--mamba-cache-mode",
+        "align",
+        "--compilation-config",
+        "{\"mode\":0,\"cudagraph_mode\":\"PIECEWISE\"}",
+        "--attention-config",
+        "{\"backend_per_kind\":{\"mla_attention\":\"ROCM_AITER_MLA\",\"sliding_window\":\"ROCM_RAON_DFLASH\"},\"mla_prefill_backend\":\"ROCM_AITER_FA\"}",
+        "--additional-config",
+        "{\"kda_prefill_backend\":\"fused\"}",
+        "--seed",
+        "42",
+        "--speculative-config",
+        "{\"method\":\"dflash\",\"model\":\"/release/draft/74f2835bd683458f6124f48784b078b06770d824\",\"num_speculative_tokens\":7,\"draft_sample_method\":\"probabilistic\",\"rejection_sample_method\":\"standard\"}",
+        "--per-request-spec-decode-metrics",
+        "summary",
+        "--profiler-config",
+        "{\"profiler\": \"torch\", \"torch_profiler_dir\": \"/work/cases/job89470-a0-gpu4-prefill-on/traces\", \"torch_profiler_activities\": [\"CPU\", \"CUDA\"], \"torch_profiler_record_shapes\": true, \"ignore_frontend\": true, \"capture_torch_profiler\": true}"
+      ],
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      },
+      "graph_counter_files": [
+        "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu4-prefill-on/kda-graph-counts-16.json"
+      ]
+    },
+    {
+      "gpu": 5,
+      "sd": "on",
+      "concurrency": 1,
+      "phase": "decode",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu5-decode-on/traces/raon-on-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795703950120953855.pt.trace.json.gz",
+      "trace_sha256": "0306ec07fc8fdf5e910297da8c8c50877c1750a985b46ef7a3cc4fbe83e4bfc3",
+      "quality": {
+        "status": "GPU_EVENTS_CONFIRMED",
+        "kernel_events": 27768,
+        "kernel_sum_ms": 188.75575099999998,
+        "scope": "Profiled kernel duration sum, not performance or critical path",
+        "trace": "/work/cases/job89470-a0-gpu5-decode-on/traces/raon-on-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795703950120953855.pt.trace.json.gz"
+      },
+      "server_argv": [
+        "/opt/raon/.venv/bin/python",
+        "/work/capture-entry.py",
+        "serve",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "18105",
+        "--served-model-name",
+        "raon",
+        "--reasoning-parser",
+        "raon_1",
+        "--enable-auto-tool-choice",
+        "--tool-call-parser",
+        "raon_1",
+        "--default-chat-template-kwargs",
+        "{\"enable_thinking\":true,\"truncate_history_thinking\":false}",
+        "--tokenizer",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--tensor-parallel-size",
+        "1",
+        "--data-parallel-size",
+        "1",
+        "--dtype",
+        "auto",
+        "--max-model-len",
+        "262144",
+        "--max-num-batched-tokens",
+        "16384",
+        "--max-num-seqs",
+        "128",
+        "--gpu-memory-utilization",
+        "0.85",
+        "--enable-prefix-caching",
+        "--kv-cache-dtype",
+        "fp8_e4m3",
+        "--mamba-cache-mode",
+        "align",
+        "--compilation-config",
+        "{\"mode\":0,\"cudagraph_mode\":\"PIECEWISE\"}",
+        "--attention-config",
+        "{\"backend_per_kind\":{\"mla_attention\":\"ROCM_AITER_MLA\",\"sliding_window\":\"ROCM_RAON_DFLASH\"},\"mla_prefill_backend\":\"ROCM_AITER_FA\"}",
+        "--additional-config",
+        "{\"kda_prefill_backend\":\"fused\"}",
+        "--seed",
+        "42",
+        "--speculative-config",
+        "{\"method\":\"dflash\",\"model\":\"/release/draft/74f2835bd683458f6124f48784b078b06770d824\",\"num_speculative_tokens\":7,\"draft_sample_method\":\"probabilistic\",\"rejection_sample_method\":\"standard\"}",
+        "--per-request-spec-decode-metrics",
+        "summary",
+        "--profiler-config",
+        "{\"profiler\": \"torch\", \"torch_profiler_dir\": \"/work/cases/job89470-a0-gpu5-decode-on/traces\", \"torch_profiler_activities\": [\"CPU\", \"CUDA\"], \"torch_profiler_record_shapes\": true, \"ignore_frontend\": true, \"capture_torch_profiler\": true}"
+      ],
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      },
+      "graph_counter_files": [
+        "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu5-decode-on/kda-graph-counts-16.json"
+      ]
+    },
+    {
+      "gpu": 6,
+      "sd": "on",
+      "concurrency": 32,
+      "phase": "prefill",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu6-prefill-on/traces/raon-on-c32_dp0_pp0_tp0_dcp0_ep0_rank0.1795703945871970506.pt.trace.json.gz",
+      "trace_sha256": "e98f3e0ef4fe385ee50d82106aabab5636b8140306e6e204b09990c3aab7bea9",
+      "quality": {
+        "status": "GPU_EVENTS_CONFIRMED",
+        "kernel_events": 8340,
+        "kernel_sum_ms": 103.388382,
+        "scope": "Profiled kernel duration sum, not performance or critical path",
+        "trace": "/work/cases/job89470-a0-gpu6-prefill-on/traces/raon-on-c32_dp0_pp0_tp0_dcp0_ep0_rank0.1795703945871970506.pt.trace.json.gz"
+      },
+      "server_argv": [
+        "/opt/raon/.venv/bin/python",
+        "/work/capture-entry.py",
+        "serve",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "18106",
+        "--served-model-name",
+        "raon",
+        "--reasoning-parser",
+        "raon_1",
+        "--enable-auto-tool-choice",
+        "--tool-call-parser",
+        "raon_1",
+        "--default-chat-template-kwargs",
+        "{\"enable_thinking\":true,\"truncate_history_thinking\":false}",
+        "--tokenizer",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--tensor-parallel-size",
+        "1",
+        "--data-parallel-size",
+        "1",
+        "--dtype",
+        "auto",
+        "--max-model-len",
+        "262144",
+        "--max-num-batched-tokens",
+        "16384",
+        "--max-num-seqs",
+        "128",
+        "--gpu-memory-utilization",
+        "0.85",
+        "--enable-prefix-caching",
+        "--kv-cache-dtype",
+        "fp8_e4m3",
+        "--mamba-cache-mode",
+        "align",
+        "--compilation-config",
+        "{\"mode\":0,\"cudagraph_mode\":\"PIECEWISE\"}",
+        "--attention-config",
+        "{\"backend_per_kind\":{\"mla_attention\":\"ROCM_AITER_MLA\",\"sliding_window\":\"ROCM_RAON_DFLASH\"},\"mla_prefill_backend\":\"ROCM_AITER_FA\"}",
+        "--additional-config",
+        "{\"kda_prefill_backend\":\"fused\"}",
+        "--seed",
+        "42",
+        "--speculative-config",
+        "{\"method\":\"dflash\",\"model\":\"/release/draft/74f2835bd683458f6124f48784b078b06770d824\",\"num_speculative_tokens\":7,\"draft_sample_method\":\"probabilistic\",\"rejection_sample_method\":\"standard\"}",
+        "--per-request-spec-decode-metrics",
+        "summary",
+        "--profiler-config",
+        "{\"profiler\": \"torch\", \"torch_profiler_dir\": \"/work/cases/job89470-a0-gpu6-prefill-on/traces\", \"torch_profiler_activities\": [\"CPU\", \"CUDA\"], \"torch_profiler_record_shapes\": true, \"ignore_frontend\": true, \"capture_torch_profiler\": true}"
+      ],
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      },
+      "graph_counter_files": [
+        "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu6-prefill-on/kda-graph-counts-16.json"
+      ]
+    },
+    {
+      "gpu": 7,
+      "sd": "on",
+      "concurrency": 32,
+      "phase": "decode",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu7-decode-on/traces/raon-on-c32_dp0_pp0_tp0_dcp0_ep0_rank0.1795703948742394551.pt.trace.json.gz",
+      "trace_sha256": "29cc3976a1e3360ffef2408193256b0b0ecaf515071462296c9d8410b77e96c0",
+      "quality": {
+        "status": "GPU_EVENTS_CONFIRMED",
+        "kernel_events": 27808,
+        "kernel_sum_ms": 385.322406,
+        "scope": "Profiled kernel duration sum, not performance or critical path",
+        "trace": "/work/cases/job89470-a0-gpu7-decode-on/traces/raon-on-c32_dp0_pp0_tp0_dcp0_ep0_rank0.1795703948742394551.pt.trace.json.gz"
+      },
+      "server_argv": [
+        "/opt/raon/.venv/bin/python",
+        "/work/capture-entry.py",
+        "serve",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "18107",
+        "--served-model-name",
+        "raon",
+        "--reasoning-parser",
+        "raon_1",
+        "--enable-auto-tool-choice",
+        "--tool-call-parser",
+        "raon_1",
+        "--default-chat-template-kwargs",
+        "{\"enable_thinking\":true,\"truncate_history_thinking\":false}",
+        "--tokenizer",
+        "/release/target/3f85cd63ea420100a84378f72ae162af86a441fd",
+        "--tensor-parallel-size",
+        "1",
+        "--data-parallel-size",
+        "1",
+        "--dtype",
+        "auto",
+        "--max-model-len",
+        "262144",
+        "--max-num-batched-tokens",
+        "16384",
+        "--max-num-seqs",
+        "128",
+        "--gpu-memory-utilization",
+        "0.85",
+        "--enable-prefix-caching",
+        "--kv-cache-dtype",
+        "fp8_e4m3",
+        "--mamba-cache-mode",
+        "align",
+        "--compilation-config",
+        "{\"mode\":0,\"cudagraph_mode\":\"PIECEWISE\"}",
+        "--attention-config",
+        "{\"backend_per_kind\":{\"mla_attention\":\"ROCM_AITER_MLA\",\"sliding_window\":\"ROCM_RAON_DFLASH\"},\"mla_prefill_backend\":\"ROCM_AITER_FA\"}",
+        "--additional-config",
+        "{\"kda_prefill_backend\":\"fused\"}",
+        "--seed",
+        "42",
+        "--speculative-config",
+        "{\"method\":\"dflash\",\"model\":\"/release/draft/74f2835bd683458f6124f48784b078b06770d824\",\"num_speculative_tokens\":7,\"draft_sample_method\":\"probabilistic\",\"rejection_sample_method\":\"standard\"}",
+        "--per-request-spec-decode-metrics",
+        "summary",
+        "--profiler-config",
+        "{\"profiler\": \"torch\", \"torch_profiler_dir\": \"/work/cases/job89470-a0-gpu7-decode-on/traces\", \"torch_profiler_activities\": [\"CPU\", \"CUDA\"], \"torch_profiler_record_shapes\": true, \"ignore_frontend\": true, \"capture_torch_profiler\": true}"
+      ],
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      },
+      "graph_counter_files": [
+        "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu7-decode-on/kda-graph-counts-16.json"
+      ]
+    }
+  ],
+  "traces": [
+    {
+      "label": "sd_off_c1_decode",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu1-decode-off/traces/raon-off-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795703932294373367.pt.trace.json.gz",
+      "kernel_sum_ms": 127.69066000000004,
+      "kernel_calls": 22320,
+      "gpu_first_to_last_span_ms": 239.2038056640625,
+      "gpu_kernel_union_ms": 127.6882197265625,
+      "scope": "Kernel-name families, not per-layer attribution or E2E critical-path fractions. CPU operator links are exact External-id matches only; graph kernels without such links remain unowned. Traces include profiling overhead and mixed prefill/decode.",
+      "groups": [
+        {
+          "family": "Generic GEMM (owner unresolved)",
+          "ms": 37.065218000000016,
+          "calls": 4400,
+          "percent_kernel_sum": 29.02735250957275,
+          "percent_subset": 29.02735250957275
+        },
+        {
+          "family": "Copy/cast",
+          "ms": 21.55992500000001,
+          "calls": 4992,
+          "percent_kernel_sum": 16.884496485490796,
+          "percent_subset": 16.884496485490796
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 17.672810999999975,
+          "calls": 4128,
+          "percent_kernel_sum": 13.840331783076358,
+          "percent_subset": 13.840331783076358
+        },
+        {
+          "family": "MoE GEMM",
+          "ms": 11.356848000000006,
+          "calls": 768,
+          "percent_kernel_sum": 8.894031873592011,
+          "percent_subset": 8.894031873592011
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 11.310405000000003,
+          "calls": 2400,
+          "percent_kernel_sum": 8.857660380171893,
+          "percent_subset": 8.857660380171893
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 10.119139000000002,
+          "calls": 2256,
+          "percent_kernel_sum": 7.924729185360934,
+          "percent_subset": 7.924729185360934
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 4.665957999999997,
+          "calls": 560,
+          "percent_kernel_sum": 3.6541106452108525,
+          "percent_subset": 3.6541106452108525
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 4.35984100000001,
+          "calls": 928,
+          "percent_kernel_sum": 3.414377371062229,
+          "percent_subset": 3.414377371062229
+        },
+        {
+          "family": "MoE routing/reduction",
+          "ms": 3.5348150000000005,
+          "calls": 768,
+          "percent_kernel_sum": 2.7682643350735283,
+          "percent_subset": 2.7682643350735283
+        },
+        {
+          "family": "Attention core",
+          "ms": 2.4117469999999996,
+          "calls": 352,
+          "percent_kernel_sum": 1.8887419017177913,
+          "percent_subset": 1.8887419017177913
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 1.5175730000000012,
+          "calls": 288,
+          "percent_kernel_sum": 1.1884761187701598,
+          "percent_subset": 1.1884761187701598
+        },
+        {
+          "family": "A4W4 batched GEMM",
+          "ms": 1.0295080000000003,
+          "calls": 224,
+          "percent_kernel_sum": 0.8062516083791876,
+          "percent_subset": 0.8062516083791876
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 0.5707400000000001,
+          "calls": 144,
+          "percent_kernel_sum": 0.4469708277801994,
+          "percent_subset": 0.4469708277801994
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.297322,
+          "calls": 80,
+          "percent_kernel_sum": 0.23284553466948948,
+          "percent_subset": 0.23284553466948948
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.21880999999999998,
+          "calls": 32,
+          "percent_kernel_sum": 0.17135944007181098,
+          "percent_subset": 0.17135944007181098
+        }
+      ],
+      "original_other_percent": 50.71116947786156,
+      "original_other_breakdown": [
+        {
+          "family": "Copy/cast",
+          "ms": 21.55992500000001,
+          "calls": 4992,
+          "percent_kernel_sum": 16.884496485490796,
+          "percent_subset": 33.29541925248221
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 17.672810999999975,
+          "calls": 4128,
+          "percent_kernel_sum": 13.840331783076358,
+          "percent_subset": 27.29247210344555
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 10.119139000000002,
+          "calls": 2256,
+          "percent_kernel_sum": 7.924729185360934,
+          "percent_subset": 15.62718680510918
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 7.606856,
+          "calls": 1600,
+          "percent_kernel_sum": 5.9572532556414055,
+          "percent_subset": 11.747418403044524
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 4.665957999999997,
+          "calls": 560,
+          "percent_kernel_sum": 3.6541106452108525,
+          "percent_subset": 7.205731366156107
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 1.5175730000000012,
+          "calls": 288,
+          "percent_kernel_sum": 1.1884761187701598,
+          "percent_subset": 2.3436180451113446
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 0.5707400000000001,
+          "calls": 144,
+          "percent_kernel_sum": 0.4469708277801994,
+          "percent_subset": 0.8814050876411533
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 0.5242929999999998,
+          "calls": 112,
+          "percent_kernel_sum": 0.4105962017895433,
+          "percent_subset": 0.809676065484534
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.297322,
+          "calls": 80,
+          "percent_kernel_sum": 0.23284553466948948,
+          "percent_subset": 0.4591602541746556
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.21880999999999998,
+          "calls": 32,
+          "percent_kernel_sum": 0.17135944007181098,
+          "percent_subset": 0.33791261735073885
+        }
+      ],
+      "cpu_execution_count": 16,
+      "pure_decode": true
+    },
+    {
+      "label": "sd_off_c32_decode",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu3-decode-off/traces/raon-off-c32_dp0_pp0_tp0_dcp0_ep0_rank0.1795703925737257167.pt.trace.json.gz",
+      "kernel_sum_ms": 193.0272400000001,
+      "kernel_calls": 24704,
+      "gpu_first_to_last_span_ms": 277.74219140625,
+      "gpu_kernel_union_ms": 192.97429296875,
+      "scope": "Kernel-name families, not per-layer attribution or E2E critical-path fractions. CPU operator links are exact External-id matches only; graph kernels without such links remain unowned. Traces include profiling overhead and mixed prefill/decode.",
+      "groups": [
+        {
+          "family": "MoE GEMM",
+          "ms": 46.50444399999999,
+          "calls": 768,
+          "percent_kernel_sum": 24.092166473498754,
+          "percent_subset": 24.092166473498754
+        },
+        {
+          "family": "Generic GEMM (owner unresolved)",
+          "ms": 40.78750899999998,
+          "calls": 4400,
+          "percent_kernel_sum": 21.13044200393683,
+          "percent_subset": 21.13044200393683
+        },
+        {
+          "family": "Copy/cast",
+          "ms": 31.870836000000175,
+          "calls": 6992,
+          "percent_kernel_sum": 16.511056159742097,
+          "percent_subset": 16.511056159742097
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 17.883413999999988,
+          "calls": 4128,
+          "percent_kernel_sum": 9.264709996371485,
+          "percent_subset": 9.264709996371485
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 14.078104999999999,
+          "calls": 3008,
+          "percent_kernel_sum": 7.293325543068426,
+          "percent_subset": 7.293325543068426
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 12.694088999999998,
+          "calls": 288,
+          "percent_kernel_sum": 6.5763200054044155,
+          "percent_subset": 6.5763200054044155
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 11.648509999999959,
+          "calls": 2400,
+          "percent_kernel_sum": 6.034645680060469,
+          "percent_subset": 6.034645680060469
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 5.812726999999999,
+          "calls": 560,
+          "percent_kernel_sum": 3.0113506259531024,
+          "percent_subset": 3.0113506259531024
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 4.563579999999984,
+          "calls": 928,
+          "percent_kernel_sum": 2.364215537661929,
+          "percent_subset": 2.364215537661929
+        },
+        {
+          "family": "Attention core",
+          "ms": 2.717622,
+          "calls": 352,
+          "percent_kernel_sum": 1.407895590280418,
+          "percent_subset": 1.407895590280418
+        },
+        {
+          "family": "MoE routing/reduction",
+          "ms": 1.8065530000000007,
+          "calls": 384,
+          "percent_kernel_sum": 0.935905730196422,
+          "percent_subset": 0.935905730196422
+        },
+        {
+          "family": "A4W4 batched GEMM",
+          "ms": 1.37879,
+          "calls": 224,
+          "percent_kernel_sum": 0.7142981477640148,
+          "percent_subset": 0.7142981477640148
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 0.6671670000000001,
+          "calls": 160,
+          "percent_kernel_sum": 0.345633600729099,
+          "percent_subset": 0.345633600729099
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.390765,
+          "calls": 80,
+          "percent_kernel_sum": 0.2024403395085584,
+          "percent_subset": 0.2024403395085584
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.223129,
+          "calls": 32,
+          "percent_kernel_sum": 0.1155945658239738,
+          "percent_subset": 0.1155945658239738
+        }
+      ],
+      "original_other_percent": 47.534198800127946,
+      "original_other_breakdown": [
+        {
+          "family": "Copy/cast",
+          "ms": 31.870836000000175,
+          "calls": 6992,
+          "percent_kernel_sum": 16.511056159742097,
+          "percent_subset": 34.73510982938384
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 17.883413999999988,
+          "calls": 4128,
+          "percent_kernel_sum": 9.264709996371485,
+          "percent_subset": 19.490619869975696
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 14.078104999999999,
+          "calls": 3008,
+          "percent_kernel_sum": 7.293325543068426,
+          "percent_subset": 15.343322759547165
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 12.694088999999998,
+          "calls": 288,
+          "percent_kernel_sum": 6.5763200054044155,
+          "percent_subset": 13.834923426513534
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 7.586709999999961,
+          "calls": 1600,
+          "percent_kernel_sum": 3.9303830899721497,
+          "percent_subset": 8.26853757754211
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 5.812726999999999,
+          "calls": 560,
+          "percent_kernel_sum": 3.0113506259531024,
+          "percent_subset": 6.335124398783381
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 0.6671670000000001,
+          "calls": 160,
+          "percent_kernel_sum": 0.345633600729099,
+          "percent_subset": 0.7271261732682632
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 0.5470099999999999,
+          "calls": 112,
+          "percent_kernel_sum": 0.2833848735546339,
+          "percent_subset": 0.596170506094385
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.390765,
+          "calls": 80,
+          "percent_kernel_sum": 0.2024403395085584,
+          "percent_subset": 0.42588356303170405
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.223129,
+          "calls": 32,
+          "percent_kernel_sum": 0.1155945658239738,
+          "percent_subset": 0.2431818958599186
+        }
+      ],
+      "cpu_execution_count": 16,
+      "pure_decode": true
+    },
+    {
+      "label": "sd_on_c1_decode",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu5-decode-on/traces/raon-on-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795703950120953855.pt.trace.json.gz",
+      "kernel_sum_ms": 188.75575100000003,
+      "kernel_calls": 27768,
+      "gpu_first_to_last_span_ms": 451.94726953125,
+      "gpu_kernel_union_ms": 188.75243359375,
+      "scope": "Kernel-name families, not per-layer attribution or E2E critical-path fractions. CPU operator links are exact External-id matches only; graph kernels without such links remain unowned. Traces include profiling overhead and mixed prefill/decode.",
+      "groups": [
+        {
+          "family": "Generic GEMM (owner unresolved)",
+          "ms": 51.10532900000002,
+          "calls": 4960,
+          "percent_kernel_sum": 27.074846053299865,
+          "percent_subset": 27.074846053299865
+        },
+        {
+          "family": "Copy/cast",
+          "ms": 36.791497999999976,
+          "calls": 7988,
+          "percent_kernel_sum": 19.49159048404304,
+          "percent_subset": 19.49159048404304
+        },
+        {
+          "family": "MoE GEMM",
+          "ms": 22.509129000000023,
+          "calls": 768,
+          "percent_kernel_sum": 11.9250030161995,
+          "percent_subset": 11.9250030161995
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 19.196762,
+          "calls": 4384,
+          "percent_kernel_sum": 10.17016006044764,
+          "percent_subset": 10.17016006044764
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 13.360417999999987,
+          "calls": 2736,
+          "percent_kernel_sum": 7.078151489010782,
+          "percent_subset": 7.078151489010782
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 11.78753000000002,
+          "calls": 2400,
+          "percent_kernel_sum": 6.244858732807574,
+          "percent_subset": 6.244858732807574
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 7.632774000000001,
+          "calls": 288,
+          "percent_kernel_sum": 4.043730566916608,
+          "percent_subset": 4.043730566916608
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 6.603305999999996,
+          "calls": 704,
+          "percent_kernel_sum": 3.4983336746121156,
+          "percent_subset": 3.4983336746121156
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 6.422877999999997,
+          "calls": 1296,
+          "percent_kernel_sum": 3.4027455936958426,
+          "percent_subset": 3.4027455936958426
+        },
+        {
+          "family": "Attention core",
+          "ms": 4.448468,
+          "calls": 368,
+          "percent_kernel_sum": 2.356732431426685,
+          "percent_subset": 2.356732431426685
+        },
+        {
+          "family": "MoE routing/reduction",
+          "ms": 3.8932150000000005,
+          "calls": 768,
+          "percent_kernel_sum": 2.06256761946289,
+          "percent_subset": 2.06256761946289
+        },
+        {
+          "family": "A4W4 batched GEMM",
+          "ms": 1.2187840000000005,
+          "calls": 224,
+          "percent_kernel_sum": 0.6456937039232253,
+          "percent_subset": 0.6456937039232253
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 1.1710280000000004,
+          "calls": 260,
+          "percent_kernel_sum": 0.6203932827455945,
+          "percent_subset": 0.6203932827455945
+        },
+        {
+          "family": "Draft grouped convolution",
+          "ms": 1.0022050000000005,
+          "calls": 320,
+          "percent_kernel_sum": 0.5309533588727584,
+          "percent_subset": 0.5309533588727584
+        },
+        {
+          "family": "Standalone quantization",
+          "ms": 0.839446,
+          "calls": 80,
+          "percent_kernel_sum": 0.44472605234687657,
+          "percent_subset": 0.44472605234687657
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 0.657354,
+          "calls": 208,
+          "percent_kernel_sum": 0.34825640888684767,
+          "percent_subset": 0.34825640888684767
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.11562700000000002,
+          "calls": 16,
+          "percent_kernel_sum": 0.06125747130215917,
+          "percent_subset": 0.06125747130215917
+        }
+      ],
+      "original_other_percent": 49.40883417109764,
+      "original_other_breakdown": [
+        {
+          "family": "Copy/cast",
+          "ms": 36.791497999999976,
+          "calls": 7988,
+          "percent_kernel_sum": 19.49159048404304,
+          "percent_subset": 39.449606150482516
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 19.196762,
+          "calls": 4384,
+          "percent_kernel_sum": 10.17016006044764,
+          "percent_subset": 20.583687575443367
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 12.716590999999987,
+          "calls": 2720,
+          "percent_kernel_sum": 6.737061484288224,
+          "percent_subset": 13.635337885039919
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 7.7583350000000175,
+          "calls": 1600,
+          "percent_kernel_sum": 4.11025092422218,
+          "percent_subset": 8.318858344215956
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 7.632774000000001,
+          "calls": 288,
+          "percent_kernel_sum": 4.043730566916608,
+          "percent_subset": 8.184225826728863
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 6.603305999999996,
+          "calls": 704,
+          "percent_kernel_sum": 3.4983336746121156,
+          "percent_subset": 7.080380934506067
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 1.3607049999999998,
+          "calls": 304,
+          "percent_kernel_sum": 0.7208813468152289,
+          "percent_subset": 1.4590130670132633
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 0.657354,
+          "calls": 208,
+          "percent_kernel_sum": 0.34825640888684767,
+          "percent_subset": 0.7048464403771845
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.429064,
+          "calls": 100,
+          "percent_kernel_sum": 0.2273117495635934,
+          "percent_subset": 0.4600629692585673
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.11562700000000002,
+          "calls": 16,
+          "percent_kernel_sum": 0.06125747130215917,
+          "percent_subset": 0.12398080693430438
+        }
+      ],
+      "cpu_execution_count": 16,
+      "pure_decode": true
+    },
+    {
+      "label": "sd_on_c32_decode",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu7-decode-on/traces/raon-on-c32_dp0_pp0_tp0_dcp0_ep0_rank0.1795703948742394551.pt.trace.json.gz",
+      "kernel_sum_ms": 385.3224059999999,
+      "kernel_calls": 27808,
+      "gpu_first_to_last_span_ms": 589.4024775390625,
+      "gpu_kernel_union_ms": 385.181408203125,
+      "scope": "Kernel-name families, not per-layer attribution or E2E critical-path fractions. CPU operator links are exact External-id matches only; graph kernels without such links remain unowned. Traces include profiling overhead and mixed prefill/decode.",
+      "groups": [
+        {
+          "family": "MoE GEMM",
+          "ms": 91.10274600000001,
+          "calls": 768,
+          "percent_kernel_sum": 23.64325162030677,
+          "percent_subset": 23.64325162030677
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 83.92763900000004,
+          "calls": 288,
+          "percent_kernel_sum": 21.781146824874767,
+          "percent_subset": 21.781146824874767
+        },
+        {
+          "family": "Generic GEMM (owner unresolved)",
+          "ms": 76.872273,
+          "calls": 5392,
+          "percent_kernel_sum": 19.950117564666098,
+          "percent_subset": 19.950117564666098
+        },
+        {
+          "family": "Copy/cast",
+          "ms": 40.3913119999999,
+          "calls": 7296,
+          "percent_kernel_sum": 10.482471657773232,
+          "percent_subset": 10.482471657773232
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 21.49352499999998,
+          "calls": 3472,
+          "percent_kernel_sum": 5.578062595197225,
+          "percent_subset": 5.578062595197225
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 19.740246999999997,
+          "calls": 4384,
+          "percent_kernel_sum": 5.123046750621608,
+          "percent_subset": 5.123046750621608
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 14.506491000000006,
+          "calls": 2400,
+          "percent_kernel_sum": 3.7647670558768414,
+          "percent_subset": 3.7647670558768414
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 13.398514,
+          "calls": 592,
+          "percent_kernel_sum": 3.4772216178884765,
+          "percent_subset": 3.4772216178884765
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 6.5604079999999945,
+          "calls": 1296,
+          "percent_kernel_sum": 1.7025763095645148,
+          "percent_subset": 1.7025763095645148
+        },
+        {
+          "family": "Attention core",
+          "ms": 6.027799999999999,
+          "calls": 368,
+          "percent_kernel_sum": 1.5643523205863092,
+          "percent_subset": 1.5643523205863092
+        },
+        {
+          "family": "A4W4 batched GEMM",
+          "ms": 2.704990000000001,
+          "calls": 224,
+          "percent_kernel_sum": 0.7020069318263318,
+          "percent_subset": 0.7020069318263318
+        },
+        {
+          "family": "MoE routing/reduction",
+          "ms": 2.634481999999998,
+          "calls": 384,
+          "percent_kernel_sum": 0.6837084890412521,
+          "percent_subset": 0.6837084890412521
+        },
+        {
+          "family": "Standalone quantization",
+          "ms": 1.6978909999999998,
+          "calls": 80,
+          "percent_kernel_sum": 0.44064164802292866,
+          "percent_subset": 0.44064164802292866
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 1.614722,
+          "calls": 288,
+          "percent_kernel_sum": 0.4190573854145405,
+          "percent_subset": 0.4190573854145405
+        },
+        {
+          "family": "Draft grouped convolution",
+          "ms": 1.4912939999999977,
+          "calls": 320,
+          "percent_kernel_sum": 0.38702498914636124,
+          "percent_subset": 0.38702498914636124
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 1.031767,
+          "calls": 240,
+          "percent_kernel_sum": 0.2677671954534615,
+          "percent_subset": 0.2677671954534615
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.126305,
+          "calls": 16,
+          "percent_kernel_sum": 0.03277904373928363,
+          "percent_subset": 0.03277904373928363
+        }
+      ],
+      "original_other_percent": 49.64417381946898,
+      "original_other_breakdown": [
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 83.92763900000004,
+          "calls": 288,
+          "percent_kernel_sum": 21.781146824874767,
+          "percent_subset": 43.87452776247602
+        },
+        {
+          "family": "Copy/cast",
+          "ms": 40.3913119999999,
+          "calls": 7296,
+          "percent_kernel_sum": 10.482471657773232,
+          "percent_subset": 21.11521020753158
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 20.88145699999998,
+          "calls": 3456,
+          "percent_kernel_sum": 5.419216914159927,
+          "percent_subset": 10.916118644388982
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 19.740246999999997,
+          "calls": 4384,
+          "percent_kernel_sum": 5.123046750621608,
+          "percent_subset": 10.3195326993487
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 13.398514,
+          "calls": 592,
+          "percent_kernel_sum": 3.4772216178884765,
+          "percent_subset": 7.004289426858813
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 9.471939999999995,
+          "calls": 1600,
+          "percent_kernel_sum": 2.4581856265062347,
+          "percent_subset": 4.951609498922122
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 1.479947,
+          "calls": 304,
+          "percent_kernel_sum": 0.3840801824537554,
+          "percent_subset": 0.773666178533785
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 1.031767,
+          "calls": 240,
+          "percent_kernel_sum": 0.2677671954534615,
+          "percent_subset": 0.5393728505326664
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.8409969999999999,
+          "calls": 128,
+          "percent_kernel_sum": 0.21825800599822892,
+          "percent_subset": 0.43964475427050936
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.126305,
+          "calls": 16,
+          "percent_kernel_sum": 0.03277904373928363,
+          "percent_subset": 0.06602797713682296
+        }
+      ],
+      "cpu_execution_count": 16,
+      "pure_decode": true
+    },
+    {
+      "label": "sd_off_c1_prefill",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu0-prefill-off/traces/raon-off-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795703931732993217.pt.trace.json.gz",
+      "kernel_sum_ms": 36.959906000000004,
+      "kernel_calls": 5820,
+      "gpu_first_to_last_span_ms": 82.1445556640625,
+      "gpu_kernel_union_ms": 36.9585517578125,
+      "scope": "Kernel-name families, not per-layer attribution or E2E critical-path fractions. CPU operator links are exact External-id matches only; graph kernels without such links remain unowned. Traces include profiling overhead and mixed prefill/decode.",
+      "groups": [
+        {
+          "family": "Generic GEMM (owner unresolved)",
+          "ms": 9.933226,
+          "calls": 1133,
+          "percent_kernel_sum": 26.87567982451037,
+          "percent_subset": 26.87567982451037
+        },
+        {
+          "family": "Copy/cast",
+          "ms": 5.940955999999999,
+          "calls": 1367,
+          "percent_kernel_sum": 16.07405603250181,
+          "percent_subset": 16.07405603250181
+        },
+        {
+          "family": "MoE GEMM",
+          "ms": 5.578408999999999,
+          "calls": 192,
+          "percent_kernel_sum": 15.09313632994629,
+          "percent_subset": 15.09313632994629
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 4.288585000000001,
+          "calls": 1013,
+          "percent_kernel_sum": 11.603343904608417,
+          "percent_subset": 11.603343904608417
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 2.8825070000000004,
+          "calls": 600,
+          "percent_kernel_sum": 7.7990106360119,
+          "percent_subset": 7.7990106360119
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 2.677098000000001,
+          "calls": 597,
+          "percent_kernel_sum": 7.243248941163435,
+          "percent_subset": 7.243248941163435
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 1.2578700000000005,
+          "calls": 140,
+          "percent_kernel_sum": 3.4033365777499553,
+          "percent_subset": 3.4033365777499553
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 1.1857580000000003,
+          "calls": 250,
+          "percent_kernel_sum": 3.2082278564236613,
+          "percent_subset": 3.2082278564236613
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 1.116748,
+          "calls": 144,
+          "percent_kernel_sum": 3.0215120135857485,
+          "percent_subset": 3.0215120135857485
+        },
+        {
+          "family": "MoE routing/reduction",
+          "ms": 0.7894390000000001,
+          "calls": 168,
+          "percent_kernel_sum": 2.135933462601339,
+          "percent_subset": 2.135933462601339
+        },
+        {
+          "family": "Attention core",
+          "ms": 0.665317,
+          "calls": 87,
+          "percent_kernel_sum": 1.8001046864134338,
+          "percent_subset": 1.8001046864134338
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 0.274866,
+          "calls": 55,
+          "percent_kernel_sum": 0.7436869563466962,
+          "percent_subset": 0.7436869563466962
+        },
+        {
+          "family": "A4W4 batched GEMM",
+          "ms": 0.196479,
+          "calls": 42,
+          "percent_kernel_sum": 0.5316003779879742,
+          "percent_subset": 0.5316003779879742
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.11773600000000001,
+          "calls": 24,
+          "percent_kernel_sum": 0.3185505937163368,
+          "percent_subset": 0.3185505937163368
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.054912,
+          "calls": 8,
+          "percent_kernel_sum": 0.14857180643262458,
+          "percent_subset": 0.14857180643262458
+        }
+      ],
+      "original_other_percent": 46.03611545981746,
+      "original_other_breakdown": [
+        {
+          "family": "Copy/cast",
+          "ms": 5.940955999999999,
+          "calls": 1367,
+          "percent_kernel_sum": 16.07405603250181,
+          "percent_subset": 34.916186719820054
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 4.288585000000001,
+          "calls": 1013,
+          "percent_kernel_sum": 11.603343904608417,
+          "percent_subset": 25.204871846184275
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 2.677098000000001,
+          "calls": 597,
+          "percent_kernel_sum": 7.243248941163435,
+          "percent_subset": 15.733840418151031
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 1.9088969999999998,
+          "calls": 400,
+          "percent_kernel_sum": 5.164777745917426,
+          "percent_subset": 11.218969485871355
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 1.2578700000000005,
+          "calls": 140,
+          "percent_kernel_sum": 3.4033365777499553,
+          "percent_subset": 7.392753588691799
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 0.28482900000000005,
+          "calls": 54,
+          "percent_kernel_sum": 0.7706431937353954,
+          "percent_subset": 1.67399700439115
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 0.274866,
+          "calls": 55,
+          "percent_kernel_sum": 0.7436869563466962,
+          "percent_subset": 1.6154424605955775
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 0.209156,
+          "calls": 46,
+          "percent_kernel_sum": 0.5658997076453604,
+          "percent_subset": 1.2292516473057005
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.11773600000000001,
+          "calls": 24,
+          "percent_kernel_sum": 0.3185505937163368,
+          "percent_subset": 0.6919580215111397
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.054912,
+          "calls": 8,
+          "percent_kernel_sum": 0.14857180643262458,
+          "percent_subset": 0.32272880747791416
+        }
+      ],
+      "cpu_execution_count": 4,
+      "pure_decode": false
+    },
+    {
+      "label": "sd_off_c32_prefill",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu2-prefill-off/traces/raon-off-c32_dp0_pp0_tp0_dcp0_ep0_rank0.1795703926386900638.pt.trace.json.gz",
+      "kernel_sum_ms": 67.356553,
+      "kernel_calls": 6457,
+      "gpu_first_to_last_span_ms": 243.6999091796875,
+      "gpu_kernel_union_ms": 67.3524599609375,
+      "scope": "Kernel-name families, not per-layer attribution or E2E critical-path fractions. CPU operator links are exact External-id matches only; graph kernels without such links remain unowned. Traces include profiling overhead and mixed prefill/decode.",
+      "groups": [
+        {
+          "family": "Generic GEMM (owner unresolved)",
+          "ms": 16.108446,
+          "calls": 1116,
+          "percent_kernel_sum": 23.915187583901453,
+          "percent_subset": 23.915187583901453
+        },
+        {
+          "family": "MoE GEMM",
+          "ms": 15.973209000000002,
+          "calls": 192,
+          "percent_kernel_sum": 23.714409791724353,
+          "percent_subset": 23.714409791724353
+        },
+        {
+          "family": "Copy/cast",
+          "ms": 9.220509999999996,
+          "calls": 1751,
+          "percent_kernel_sum": 13.689106091874974,
+          "percent_subset": 13.689106091874974
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 6.516910000000002,
+          "calls": 216,
+          "percent_kernel_sum": 9.675242733992045,
+          "percent_subset": 9.675242733992045
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 4.657103,
+          "calls": 1059,
+          "percent_kernel_sum": 6.9141052987079075,
+          "percent_subset": 6.9141052987079075
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 4.211684000000001,
+          "calls": 600,
+          "percent_kernel_sum": 6.252819974323807,
+          "percent_subset": 6.252819974323807
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 4.065462,
+          "calls": 732,
+          "percent_kernel_sum": 6.035733449720921,
+          "percent_subset": 6.035733449720921
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 1.5399839999999996,
+          "calls": 268,
+          "percent_kernel_sum": 2.286316522165259,
+          "percent_subset": 2.286316522165259
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 1.5279360000000004,
+          "calls": 76,
+          "percent_kernel_sum": 2.26842962109418,
+          "percent_subset": 2.26842962109418
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 1.343191,
+          "calls": 140,
+          "percent_kernel_sum": 1.9941504429420551,
+          "percent_subset": 1.9941504429420551
+        },
+        {
+          "family": "Attention core",
+          "ms": 1.0795519999999998,
+          "calls": 101,
+          "percent_kernel_sum": 1.6027423493598314,
+          "percent_subset": 1.6027423493598314
+        },
+        {
+          "family": "MoE routing/reduction",
+          "ms": 0.4329120000000001,
+          "calls": 96,
+          "percent_kernel_sum": 0.6427169751397465,
+          "percent_subset": 0.6427169751397465
+        },
+        {
+          "family": "A4W4 batched GEMM",
+          "ms": 0.244601,
+          "calls": 42,
+          "percent_kernel_sum": 0.36314358307498307,
+          "percent_subset": 0.36314358307498307
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.23601200000000003,
+          "calls": 29,
+          "percent_kernel_sum": 0.35039203980643135,
+          "percent_subset": 0.35039203980643135
+        },
+        {
+          "family": "Standalone quantization",
+          "ms": 0.136889,
+          "calls": 31,
+          "percent_kernel_sum": 0.20323041174627807,
+          "percent_subset": 0.20323041174627807
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.06215199999999999,
+          "calls": 8,
+          "percent_kernel_sum": 0.09227313042578054,
+          "percent_subset": 0.09227313042578054
+        }
+      ],
+      "original_other_percent": 38.55278936260292,
+      "original_other_breakdown": [
+        {
+          "family": "Copy/cast",
+          "ms": 9.220509999999996,
+          "calls": 1751,
+          "percent_kernel_sum": 13.689106091874974,
+          "percent_subset": 35.50743362075305
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 4.657103,
+          "calls": 1059,
+          "percent_kernel_sum": 6.9141052987079075,
+          "percent_subset": 17.934124645763625
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 4.065462,
+          "calls": 732,
+          "percent_kernel_sum": 6.035733449720921,
+          "percent_subset": 15.65576330405737
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 2.769549000000001,
+          "calls": 400,
+          "percent_kernel_sum": 4.1117736532628095,
+          "percent_subset": 10.665307805850551
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 1.5973760000000004,
+          "calls": 36,
+          "percent_kernel_sum": 2.3715227826459593,
+          "percent_subset": 6.151364977358526
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 1.5279360000000004,
+          "calls": 76,
+          "percent_kernel_sum": 2.26842962109418,
+          "percent_subset": 5.883957188567549
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 1.343191,
+          "calls": 140,
+          "percent_kernel_sum": 1.9941504429420551,
+          "percent_subset": 5.172519228599387
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 0.48853899999999995,
+          "calls": 64,
+          "percent_kernel_sum": 0.7253028521219012,
+          "percent_subset": 1.8813239304169813
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.23601200000000003,
+          "calls": 29,
+          "percent_kernel_sum": 0.35039203980643135,
+          "percent_subset": 0.9088630047254624
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.06215199999999999,
+          "calls": 8,
+          "percent_kernel_sum": 0.09227313042578054,
+          "percent_subset": 0.23934229390750017
+        }
+      ],
+      "cpu_execution_count": 4,
+      "pure_decode": false
+    },
+    {
+      "label": "sd_on_c1_prefill",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu4-prefill-on/traces/raon-on-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795703948256518956.pt.trace.json.gz",
+      "kernel_sum_ms": 50.414861,
+      "kernel_calls": 7017,
+      "gpu_first_to_last_span_ms": 140.3715078125,
+      "gpu_kernel_union_ms": 50.4143681640625,
+      "scope": "Kernel-name families, not per-layer attribution or E2E critical-path fractions. CPU operator links are exact External-id matches only; graph kernels without such links remain unowned. Traces include profiling overhead and mixed prefill/decode.",
+      "groups": [
+        {
+          "family": "Generic GEMM (owner unresolved)",
+          "ms": 13.247584999999999,
+          "calls": 1274,
+          "percent_kernel_sum": 26.27714276550321,
+          "percent_subset": 26.27714276550321
+        },
+        {
+          "family": "Copy/cast",
+          "ms": 9.065803000000006,
+          "calls": 1952,
+          "percent_kernel_sum": 17.982402054029276,
+          "percent_subset": 17.982402054029276
+        },
+        {
+          "family": "MoE GEMM",
+          "ms": 8.145596,
+          "calls": 192,
+          "percent_kernel_sum": 16.157132715292022,
+          "percent_subset": 16.157132715292022
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 4.668078000000001,
+          "calls": 1079,
+          "percent_kernel_sum": 9.25932930768172,
+          "percent_subset": 9.25932930768172
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 3.48151,
+          "calls": 715,
+          "percent_kernel_sum": 6.9057217077321695,
+          "percent_subset": 6.9057217077321695
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 3.0330630000000003,
+          "calls": 600,
+          "percent_kernel_sum": 6.016208197023492,
+          "percent_subset": 6.016208197023492
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 2.279515,
+          "calls": 144,
+          "percent_kernel_sum": 4.521514003579222,
+          "percent_subset": 4.521514003579222
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 1.6736359999999995,
+          "calls": 342,
+          "percent_kernel_sum": 3.319727490669863,
+          "percent_subset": 3.319727490669863
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 1.6551969999999998,
+          "calls": 173,
+          "percent_kernel_sum": 3.283152957617,
+          "percent_subset": 3.283152957617
+        },
+        {
+          "family": "Attention core",
+          "ms": 0.9932349999999999,
+          "calls": 90,
+          "percent_kernel_sum": 1.9701234522891966,
+          "percent_subset": 1.9701234522891966
+        },
+        {
+          "family": "MoE routing/reduction",
+          "ms": 0.8509989999999998,
+          "calls": 168,
+          "percent_kernel_sum": 1.687992356063423,
+          "percent_subset": 1.687992356063423
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.31745600000000007,
+          "calls": 67,
+          "percent_kernel_sum": 0.6296873455626507,
+          "percent_subset": 0.6296873455626507
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 0.31600900000000004,
+          "calls": 74,
+          "percent_kernel_sum": 0.6268171601226868,
+          "percent_subset": 0.6268171601226868
+        },
+        {
+          "family": "Draft grouped convolution",
+          "ms": 0.24332399999999996,
+          "calls": 80,
+          "percent_kernel_sum": 0.48264340151607266,
+          "percent_subset": 0.48264340151607266
+        },
+        {
+          "family": "A4W4 batched GEMM",
+          "ms": 0.22923999999999997,
+          "calls": 42,
+          "percent_kernel_sum": 0.4547071943727068,
+          "percent_subset": 0.4547071943727068
+        },
+        {
+          "family": "Standalone quantization",
+          "ms": 0.17870000000000005,
+          "calls": 20,
+          "percent_kernel_sum": 0.3544589758960161,
+          "percent_subset": 0.3544589758960161
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.035915,
+          "calls": 5,
+          "percent_kernel_sum": 0.07123891504927485,
+          "percent_subset": 0.07123891504927485
+        }
+      ],
+      "original_other_percent": 45.65750959821153,
+      "original_other_breakdown": [
+        {
+          "family": "Copy/cast",
+          "ms": 9.065803000000006,
+          "calls": 1952,
+          "percent_kernel_sum": 17.982402054029276,
+          "percent_subset": 39.385420300571255
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 4.668078000000001,
+          "calls": 1079,
+          "percent_kernel_sum": 9.25932930768172,
+          "percent_subset": 20.27997012794675
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 3.349554,
+          "calls": 711,
+          "percent_kernel_sum": 6.643981424445463,
+          "percent_subset": 14.551782352810843
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 1.9676540000000005,
+          "calls": 400,
+          "percent_kernel_sum": 3.9029245761482914,
+          "percent_subset": 8.548264262536945
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 1.6551969999999998,
+          "calls": 173,
+          "percent_kernel_sum": 3.283152957617,
+          "percent_subset": 7.190827941578324
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 1.413556,
+          "calls": 54,
+          "percent_kernel_sum": 2.80384785747996,
+          "percent_subset": 6.141044227234397
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 0.41770999999999997,
+          "calls": 94,
+          "percent_kernel_sum": 0.8285453767292941,
+          "percent_subset": 1.814696824291418
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 0.31600900000000004,
+          "calls": 74,
+          "percent_kernel_sum": 0.6268171601226868,
+          "percent_subset": 1.3728676085023264
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.12869400000000003,
+          "calls": 27,
+          "percent_kernel_sum": 0.2552699689085724,
+          "percent_subset": 0.5590974434544536
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.035915,
+          "calls": 5,
+          "percent_kernel_sum": 0.07123891504927485,
+          "percent_subset": 0.15602891107329553
+        }
+      ],
+      "cpu_execution_count": 4,
+      "pure_decode": false
+    },
+    {
+      "label": "sd_on_c32_prefill",
+      "trace": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu6-prefill-on/traces/raon-on-c32_dp0_pp0_tp0_dcp0_ep0_rank0.1795703945871970506.pt.trace.json.gz",
+      "kernel_sum_ms": 103.38838200000001,
+      "kernel_calls": 8340,
+      "gpu_first_to_last_span_ms": 391.7945673828125,
+      "gpu_kernel_union_ms": 103.379853515625,
+      "scope": "Kernel-name families, not per-layer attribution or E2E critical-path fractions. CPU operator links are exact External-id matches only; graph kernels without such links remain unowned. Traces include profiling overhead and mixed prefill/decode.",
+      "groups": [
+        {
+          "family": "MoE GEMM",
+          "ms": 24.064910000000012,
+          "calls": 192,
+          "percent_kernel_sum": 23.27622266107231,
+          "percent_subset": 23.27622266107231
+        },
+        {
+          "family": "Generic GEMM (owner unresolved)",
+          "ms": 23.449249999999996,
+          "calls": 1376,
+          "percent_kernel_sum": 22.680739892031575,
+          "percent_subset": 22.680739892031575
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 13.623069999999997,
+          "calls": 360,
+          "percent_kernel_sum": 13.176596573491201,
+          "percent_subset": 13.176596573491201
+        },
+        {
+          "family": "Copy/cast",
+          "ms": 11.390853,
+          "calls": 2077,
+          "percent_kernel_sum": 11.017536767332327,
+          "percent_subset": 11.017536767332327
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 6.127903999999999,
+          "calls": 982,
+          "percent_kernel_sum": 5.927072154006625,
+          "percent_subset": 5.927072154006625
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 5.741295,
+          "calls": 506,
+          "percent_kernel_sum": 5.5531336199844965,
+          "percent_subset": 5.5531336199844965
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 5.0651399999999995,
+          "calls": 1218,
+          "percent_kernel_sum": 4.899138473798728,
+          "percent_subset": 4.899138473798728
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 4.501353999999999,
+          "calls": 600,
+          "percent_kernel_sum": 4.353829620817549,
+          "percent_subset": 4.353829620817549
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 2.955751,
+          "calls": 159,
+          "percent_kernel_sum": 2.858881184541605,
+          "percent_subset": 2.858881184541605
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 2.2266759999999985,
+          "calls": 378,
+          "percent_kernel_sum": 2.1537004032039095,
+          "percent_subset": 2.1537004032039095
+        },
+        {
+          "family": "Attention core",
+          "ms": 1.538307,
+          "calls": 104,
+          "percent_kernel_sum": 1.4878915505225723,
+          "percent_subset": 1.4878915505225723
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.70637,
+          "calls": 76,
+          "percent_kernel_sum": 0.6832198998916531,
+          "percent_subset": 0.6832198998916531
+        },
+        {
+          "family": "Standalone quantization",
+          "ms": 0.6740349999999999,
+          "calls": 89,
+          "percent_kernel_sum": 0.6519446256543602,
+          "percent_subset": 0.6519446256543602
+        },
+        {
+          "family": "MoE routing/reduction",
+          "ms": 0.49734599999999995,
+          "calls": 96,
+          "percent_kernel_sum": 0.48104631330820113,
+          "percent_subset": 0.48104631330820113
+        },
+        {
+          "family": "A4W4 batched GEMM",
+          "ms": 0.43808299999999994,
+          "calls": 42,
+          "percent_kernel_sum": 0.4237255594153702,
+          "percent_subset": 0.4237255594153702
+        },
+        {
+          "family": "Draft grouped convolution",
+          "ms": 0.34396299999999996,
+          "calls": 80,
+          "percent_kernel_sum": 0.33269018563420394,
+          "percent_subset": 0.33269018563420394
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.044075,
+          "calls": 5,
+          "percent_kernel_sum": 0.04263051529329475,
+          "percent_subset": 0.04263051529329475
+        }
+      ],
+      "original_other_percent": 39.47115353831535,
+      "original_other_breakdown": [
+        {
+          "family": "Copy/cast",
+          "ms": 11.390853,
+          "calls": 2077,
+          "percent_kernel_sum": 11.017536767332327,
+          "percent_subset": 27.91288264893857
+        },
+        {
+          "family": "Unresolved kernel names",
+          "ms": 6.058706999999999,
+          "calls": 978,
+          "percent_kernel_sum": 5.8601429704161525,
+          "percent_subset": 14.846647349000348
+        },
+        {
+          "family": "Index/gather/scatter",
+          "ms": 5.741295,
+          "calls": 506,
+          "percent_kernel_sum": 5.5531336199844965,
+          "percent_subset": 14.068840462425227
+        },
+        {
+          "family": "RDA/conv recurrence",
+          "ms": 5.3341059999999985,
+          "calls": 18,
+          "percent_kernel_sum": 5.15928956118106,
+          "percent_subset": 13.071038210658948
+        },
+        {
+          "family": "Generic elementwise",
+          "ms": 5.0651399999999995,
+          "calls": 1218,
+          "percent_kernel_sum": 4.899138473798728,
+          "percent_subset": 12.411946534683988
+        },
+        {
+          "family": "Sampling/SD helpers",
+          "ms": 2.955751,
+          "calls": 159,
+          "percent_kernel_sum": 2.858881184541605,
+          "percent_subset": 7.242963349845954
+        },
+        {
+          "family": "Named mHC kernels",
+          "ms": 2.8700559999999986,
+          "calls": 400,
+          "percent_kernel_sum": 2.7759946954194508,
+          "percent_subset": 7.032970781370105
+        },
+        {
+          "family": "Normalization (including fused quant)",
+          "ms": 0.8784759999999999,
+          "calls": 130,
+          "percent_kernel_sum": 0.8496854124286419,
+          "percent_subset": 2.1526743868882305
+        },
+        {
+          "family": "Cache/state/metadata helpers",
+          "ms": 0.47012799999999993,
+          "calls": 36,
+          "percent_kernel_sum": 0.4547203379195932,
+          "percent_subset": 1.1520320465886262
+        },
+        {
+          "family": "Generic reduction",
+          "ms": 0.044075,
+          "calls": 5,
+          "percent_kernel_sum": 0.04263051529329475,
+          "percent_subset": 0.10800422960001042
+        }
+      ],
+      "cpu_execution_count": 4,
+      "pure_decode": false
+    }
+  ],
+  "phases": [
+    {
+      "sd": "off",
+      "concurrency": 1,
+      "requested_phase": "prefill",
+      "annotations": {
+        "execute_context_1(60)_generation_0(0)": 1,
+        "execute_context_0(0)_generation_1(1)": 3
+      },
+      "cpu_execution_count": 4,
+      "pure_decode": false,
+      "pure_decode_at_requested_concurrency": null,
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      }
+    },
+    {
+      "sd": "off",
+      "concurrency": 1,
+      "requested_phase": "decode",
+      "annotations": {
+        "execute_context_0(0)_generation_1(1)": 16
+      },
+      "cpu_execution_count": 16,
+      "pure_decode": true,
+      "pure_decode_at_requested_concurrency": true,
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      }
+    },
+    {
+      "sd": "off",
+      "concurrency": 32,
+      "requested_phase": "prefill",
+      "annotations": {
+        "execute_context_2(90)_generation_0(0)": 1,
+        "execute_context_30(1644)_generation_2(2)": 1,
+        "execute_context_0(0)_generation_32(32)": 2
+      },
+      "cpu_execution_count": 4,
+      "pure_decode": false,
+      "pure_decode_at_requested_concurrency": null,
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      }
+    },
+    {
+      "sd": "off",
+      "concurrency": 32,
+      "requested_phase": "decode",
+      "annotations": {
+        "execute_context_0(0)_generation_32(32)": 16
+      },
+      "cpu_execution_count": 16,
+      "pure_decode": true,
+      "pure_decode_at_requested_concurrency": true,
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      }
+    },
+    {
+      "sd": "on",
+      "concurrency": 1,
+      "requested_phase": "prefill",
+      "annotations": {
+        "execute_context_1(60)_generation_0(0)": 1,
+        "execute_context_0(0)_generation_1(8)": 3
+      },
+      "cpu_execution_count": 4,
+      "pure_decode": false,
+      "pure_decode_at_requested_concurrency": null,
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      }
+    },
+    {
+      "sd": "on",
+      "concurrency": 1,
+      "requested_phase": "decode",
+      "annotations": {
+        "execute_context_0(0)_generation_1(8)": 16
+      },
+      "cpu_execution_count": 16,
+      "pure_decode": true,
+      "pure_decode_at_requested_concurrency": true,
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      }
+    },
+    {
+      "sd": "on",
+      "concurrency": 32,
+      "requested_phase": "prefill",
+      "annotations": {
+        "execute_context_1(60)_generation_0(0)": 1,
+        "execute_context_31(1449)_generation_1(8)": 1,
+        "execute_context_5(225)_generation_27(216)": 1,
+        "execute_context_0(0)_generation_32(256)": 1
+      },
+      "cpu_execution_count": 4,
+      "pure_decode": false,
+      "pure_decode_at_requested_concurrency": null,
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      }
+    },
+    {
+      "sd": "on",
+      "concurrency": 32,
+      "requested_phase": "decode",
+      "annotations": {
+        "execute_context_0(0)_generation_32(256)": 12,
+        "execute_context_0(0)_generation_31(248)": 2,
+        "execute_context_0(0)_generation_30(240)": 1,
+        "execute_context_0(0)_generation_29(232)": 1
+      },
+      "cpu_execution_count": 16,
+      "pure_decode": true,
+      "pure_decode_at_requested_concurrency": false,
+      "environment": {
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "flags": {
+          "ROCPROFILER_SET_ROCPROFILER_REGISTER_LIBRARY": "0",
+          "VLLM_ROCM_USE_AITER": "1",
+          "HIP_FORCE_DEV_KERNARG": "1",
+          "RAON_NATIVE_DRAFT": "1",
+          "RAON_ROCM_MHC_BACKEND": "hip",
+          "RAON_ROCM_MHC_FINISHER": "flydsl",
+          "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+          "RAON_ROCM_MOE_DIRECT_GRAPH": "1",
+          "VLLM_USE_V2_MODEL_RUNNER": "1"
+        }
+      }
+    }
+  ],
+  "profiler_probe": {
+    "default": {
+      "mode": "default",
+      "torch": "2.14.0+rocm10.2.0",
+      "hip": "7.17.26434",
+      "flag": "1",
+      "sessions": [
+        {
+          "session": 0,
+          "gpu_events": 0,
+          "trace": "/work/probe-default-0.json"
+        },
+        {
+          "session": 1,
+          "gpu_events": 0,
+          "trace": "/work/probe-default-1.json"
+        }
+      ],
+      "status": "GPU_EVENTS_MISSING"
+    },
+    "fixed": {
+      "mode": "fixed",
+      "torch": "2.14.0+rocm10.2.0",
+      "hip": "7.17.26434",
+      "flag": "0",
+      "sessions": [
+        {
+          "session": 0,
+          "gpu_events": 10,
+          "trace": "/work/probe-fixed-0.json"
+        },
+        {
+          "session": 1,
+          "gpu_events": 10,
+          "trace": "/work/probe-fixed-1.json"
+        }
+      ],
+      "status": "PASS"
+    },
+    "upstream_issue": "https://github.com/pytorch/pytorch/issues/182373",
+    "production_precision_or_kernel_change": false
+  },
+  "tracelens": {
+    "revision": "c80f7de688c485fd6924da9a4de345a785bac60e",
+    "status": "GRAPH_UNDER_RECORDED_FALLBACK_COMPLETE",
+    "quality": {
+      "graph_under_recorded": true,
+      "graph_replay_fraction": 0.8584675977981069
+    },
+    "analysis_mode": "Deterministic fallback; no agentic attribution or roofline gain estimates."
+  },
+  "mhc_direct_warmup_mapping": {
+    "scope": "Direct kernel execution during runner warmup; exact External-ID join and innermost explicit module interval. Not a mapping of replay events or a timing comparison.",
+    "source": "/home/jackhan/bench-results/raon-other-kernels-20261126/fresh-capture-gpu/cases/job89470-a0-gpu5-decode-on/traces/capture_traces/runner-warmup-1-rank0-54.json.gz",
+    "kernels": [
+      {
+        "links": {
+          "aten::bmm | RAON_MODULE/model.layers.0.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.0.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.1.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.1.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.2.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.2.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.3.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.3.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.4.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.4.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.5.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.5.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.6.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.6.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.7.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.7.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.8.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.8.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.9.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.9.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.10.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.10.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.11.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.11.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.12.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.12.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.13.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.13.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.14.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.14.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.15.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.15.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.16.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.16.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.17.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.17.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.18.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.18.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.19.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.19.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.20.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.20.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.21.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.21.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.22.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.22.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.23.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.23.mlp_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.24.self_attn_raon_mhc:RaonMHC": 5,
+          "aten::bmm | RAON_MODULE/model.layers.24.mlp_raon_mhc:RaonMHC": 5
+        },
+        "examples": [
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.0.self_attn_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4,
+                3
+              ],
+              [
+                1,
+                3,
+                3456
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.0.mlp_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4,
+                3
+              ],
+              [
+                1,
+                3,
+                3456
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.1.self_attn_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4,
+                3
+              ],
+              [
+                1,
+                3,
+                3456
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.1.mlp_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4,
+                3
+              ],
+              [
+                1,
+                3,
+                3456
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.2.self_attn_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4,
+                3
+              ],
+              [
+                1,
+                3,
+                3456
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.2.mlp_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4,
+                3
+              ],
+              [
+                1,
+                3,
+                3456
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.3.self_attn_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4,
+                3
+              ],
+              [
+                1,
+                3,
+                3456
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.3.mlp_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4,
+                3
+              ],
+              [
+                1,
+                3,
+                3456
+              ]
+            ]
+          }
+        ],
+        "kernel_sha256": "24eb60fc3dfd93447d3c61df4e698259a0fa2eec2ef37eba0b38969e95072034",
+        "kernel_display": "Cijk_Ailk_Bljk_S_B_Bias_HA_S..."
+      },
+      {
+        "links": {
+          "aten::bmm | RAON_MODULE/model.layers.0.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.0.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.1.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.1.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.2.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.2.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.3.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.3.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.4.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.4.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.5.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.5.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.6.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.6.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.7.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.7.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.8.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.8.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.9.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.9.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.10.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.10.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.11.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.11.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.12.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.12.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.13.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.13.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.14.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.14.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.15.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.15.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.16.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.16.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.17.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.17.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.18.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.18.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.19.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.19.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.20.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.20.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.21.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.21.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.22.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.22.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.23.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.23.mlp_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.24.self_attn_raon_mhc:RaonMHC": 3,
+          "aten::bmm | RAON_MODULE/model.layers.24.mlp_raon_mhc:RaonMHC": 3
+        },
+        "examples": [
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.0.self_attn_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4608,
+                3
+              ],
+              [
+                1,
+                3,
+                4
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.0.mlp_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4608,
+                3
+              ],
+              [
+                1,
+                3,
+                4
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.1.self_attn_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4608,
+                3
+              ],
+              [
+                1,
+                3,
+                4
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.1.mlp_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4608,
+                3
+              ],
+              [
+                1,
+                3,
+                4
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.2.self_attn_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4608,
+                3
+              ],
+              [
+                1,
+                3,
+                4
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.2.mlp_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4608,
+                3
+              ],
+              [
+                1,
+                3,
+                4
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.3.self_attn_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4608,
+                3
+              ],
+              [
+                1,
+                3,
+                4
+              ]
+            ]
+          },
+          {
+            "cpu_op": "aten::bmm",
+            "module": "RAON_MODULE/model.layers.3.mlp_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1,
+                4608,
+                3
+              ],
+              [
+                1,
+                3,
+                4
+              ]
+            ]
+          }
+        ],
+        "kernel_sha256": "f3f8f9fec3a03a92a8f8991ea9ed5a6b7bba1dc1a5062abe4ad3d14873dc13c3",
+        "kernel_display": "Cijk_Alik_Bljk_S_B_Bias_HA_S..."
+      },
+      {
+        "links": {
+          "aten::copy_ | RAON_MODULE/model.layers.0.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.0.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.1.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.1.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.2.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.2.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.3.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.3.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.4.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.4.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.5.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.5.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.6.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.6.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.7.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.7.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.8.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.8.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.9.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.9.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.10.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.10.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.11.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.11.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.12.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.12.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.13.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.13.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.14.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.14.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.15.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.15.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.16.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.16.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.17.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.17.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.18.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.18.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.19.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.19.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.20.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.20.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.21.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.21.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.22.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.22.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.23.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.23.mlp_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.24.self_attn_raon_mhc:RaonMHC": 10,
+          "aten::copy_ | RAON_MODULE/model.layers.24.mlp_raon_mhc:RaonMHC": 10
+        },
+        "examples": [
+          {
+            "cpu_op": "aten::copy_",
+            "module": "RAON_MODULE/model.layers.0.self_attn_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                3,
+                1152,
+                1,
+                3,
+                1
+              ],
+              [
+                3,
+                1152,
+                1,
+                3,
+                1
+              ],
+              []
+            ]
+          },
+          {
+            "cpu_op": "aten::copy_",
+            "module": "RAON_MODULE/model.layers.0.self_attn_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1152,
+                4,
+                3,
+                1,
+                1
+              ],
+              [
+                1152,
+                4,
+                3,
+                1,
+                1
+              ],
+              []
+            ]
+          },
+          {
+            "cpu_op": "aten::copy_",
+            "module": "RAON_MODULE/model.layers.0.mlp_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                3,
+                1152,
+                1,
+                3,
+                1
+              ],
+              [
+                3,
+                1152,
+                1,
+                3,
+                1
+              ],
+              []
+            ]
+          },
+          {
+            "cpu_op": "aten::copy_",
+            "module": "RAON_MODULE/model.layers.0.mlp_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1152,
+                4,
+                3,
+                1,
+                1
+              ],
+              [
+                1152,
+                4,
+                3,
+                1,
+                1
+              ],
+              []
+            ]
+          },
+          {
+            "cpu_op": "aten::copy_",
+            "module": "RAON_MODULE/model.layers.1.self_attn_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                3,
+                1152,
+                1,
+                3,
+                1
+              ],
+              [
+                3,
+                1152,
+                1,
+                3,
+                1
+              ],
+              []
+            ]
+          },
+          {
+            "cpu_op": "aten::copy_",
+            "module": "RAON_MODULE/model.layers.1.self_attn_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1152,
+                4,
+                3,
+                1,
+                1
+              ],
+              [
+                1152,
+                4,
+                3,
+                1,
+                1
+              ],
+              []
+            ]
+          },
+          {
+            "cpu_op": "aten::copy_",
+            "module": "RAON_MODULE/model.layers.1.mlp_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                1152,
+                4,
+                3,
+                1,
+                1
+              ],
+              [
+                1152,
+                4,
+                3,
+                1,
+                1
+              ],
+              []
+            ]
+          },
+          {
+            "cpu_op": "aten::copy_",
+            "module": "RAON_MODULE/model.layers.1.mlp_raon_mhc:RaonMHC",
+            "shape": [
+              [
+                3,
+                1152,
+                1,
+                3,
+                1
+              ],
+              [
+                3,
+                1152,
+                1,
+                3,
+                1
+              ],
+              []
+            ]
+          }
+        ],
+        "kernel_sha256": "81130c009e8f6efb857e2425a1c6cdbc94784260a1bb392e7d25d1f5078cd31f",
+        "kernel_display": "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1} const&)::{lambda(int, bool)#1}) [clone .kd]"
+      }
+    ]
+  },
+  "mhc_chart_kernel_classes": [
+    {
+      "case": "sd_on_c1_decode",
+      "percent_kernel_sum": 8.569341021031946,
+      "calls": 3200,
+      "kernel_count": 3,
+      "scope": "Kernel classes mapped exclusively to mHC in direct warmup; replay per-layer graph attribution remains incomplete."
+    },
+    {
+      "case": "sd_on_c32_decode",
+      "percent_kernel_sum": 4.531107126949657,
+      "calls": 3200,
+      "kernel_count": 3,
+      "scope": "Kernel classes mapped exclusively to mHC in direct warmup; replay per-layer graph attribution remains incomplete."
+    }
+  ],
+  "prior_attempts": {
+    "89424": "Failed shell CRLF before model execution.",
+    "89425": "Failed diagnostic entry point multiprocessing main guard before model execution.",
+    "89442": "Controller recovered requests but step exceeded memory and replay lacked GPU events. Slurm FAILED; excluded from GPU performance analysis."
+  },
+  "ranked_candidates": [
+    {
+      "priority": 1,
+      "name": "Native FlyDSL mHC head/chart/mix",
+      "reason": "Keep current HIP projection/FlyDSL finisher; fold the remaining Torch QZQ^T chart and its copies into a Raon-specific native head/chart kernel and native mix. Current head/mix are Triton. Do not substitute AITER Sinkhorn math.",
+      "estimated_speedup": null
+    },
+    {
+      "priority": 2,
+      "name": "RDA value-ratio frontend and redundant output zero",
+      "reason": "Fuse the raw BF16 beta/delta -> FP32 logsigmoid difference/exp expression with native FlyDSL. Audit the outer output.zero_ because native gated norm already writes every actual output; retain required intermediate PAD initialization until independently proven.",
+      "estimated_speedup": null
+    },
+    {
+      "priority": 3,
+      "name": "C32 RDA shared preparation and checkpoint IO",
+      "reason": "Recurrence remains 21.78% by name-family measurement. Separate repeated Q/K normalization/gate work from rollback checkpoint writes; preserve all accepted counts and state refresh.",
+      "estimated_speedup": null
+    },
+    {
+      "priority": 4,
+      "name": "Graph/input/metadata staging; defer MLA arithmetic-only rewrite",
+      "reason": "Copy remains significant, but it cannot all be attributed to metadata. MLA A4W4 BMM classes occupy only 0.65/0.70% in SD-on C1/C32.",
+      "estimated_speedup": null
+    }
+  ],
+  "symbol_export": {
+    "scope": "Long GPU symbols use SHA-256 identities and readable prefixes in this export. Full measured symbols are preserved in the evidence bundle.",
+    "mapping_file": "mhc-warmup-mapping.json",
+    "mapping_file_sha256": "bcce43ea219bdef9934e10e98530d865976fe9381b3e23c4be47102e242bcc81"
+  }
+}
