@@ -201,5 +201,22 @@
     "finish_0.kd",
     "head_0.kd",
     "mix_0.kd"
-  ]
+  ],
+  "publication": {
+    "status": "PASS",
+    "digest": "sha256:c41349b2bca3335d3a7eacceb6e4d9d21c4fa4602f7d24e454a8ccb9f739c281",
+    "config": "sha256:8f5eb2f83878cea05ef5b33caf0ec2f34d0c19eb5eaa1cb194945def43486493",
+    "tag": "docker.io/hanjack/vllm-rocm:raon-mhc-gate-c659474bf7-20261127",
+    "source_commit": "c659474bf7e68fd801ec7235385357a7ad9417c0"
+  },
+  "cleanup": {
+    "status": "COMPLETE",
+    "job_state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "00:37:00",
+    "owned_container_removal_exit": 0,
+    "temporary_image_check_container_removal_exit": 0,
+    "retained": "Published immutable image, shared model/cache and raw evidence; no active GPU allocation"
+  },
+  "final_raw_archive_sha256": "db10d2b9e1258058a09837604edf4562a70d3016b2c2e0dbee5633d39a9dfa69"
 }
