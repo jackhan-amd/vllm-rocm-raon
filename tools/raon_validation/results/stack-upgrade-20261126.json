@@ -1,0 +1,463 @@
+{
+  "status": "CANDIDATE_WITH_OPEN_NUMERICAL_FINDINGS",
+  "job": "88770",
+  "node": "TheraC91",
+  "job_state": "COMPLETED",
+  "job_exit_code": "0:0",
+  "baseline_job": "88723",
+  "baseline_node": "TheraC81",
+  "image": "docker.io/hanjack/vllm-rocm@sha256:9f94e15c16a2774e67ab7e841fd5e91a36f7e63c0d0a37b39227014c4cf1b537",
+  "tag": "docker.io/hanjack/vllm-rocm:raon-rocm102-aiter69753cf7-flydsl053-candidate-20261126",
+  "runtime_source_commit": "e263eec9d4eb77b4fc8b135b0ed66238128fe591",
+  "build_recipe_commit": "ad82142f5f",
+  "installed": {
+    "status": "INSTALLED_NOT_GPU_VALIDATED",
+    "aiter_commit": "69753cf7f4323ef8ec511d1e3a5d273e818a7029",
+    "source": "/opt/raon/aiter-source-69753cf7",
+    "versions": {
+      "torch": "2.14.0+rocm10.2.0",
+      "triton": "3.8.0+git669b31ac",
+      "vllm": "0.32.1.dev0+g5df63a720.d20261116.rocm102",
+      "amd-aiter": "0.1.1.dev1+g69753cf7f",
+      "flydsl": "0.5.3",
+      "apache-tvm-ffi": "0.1.11"
+    },
+    "pins": {
+      "aiter_commit": "69753cf7f4323ef8ec511d1e3a5d273e818a7029",
+      "aiter_repository": "https://github.com/ROCm/aiter.git",
+      "flydsl_version": "0.5.3",
+      "flydsl_wheel": {
+        "filename": "flydsl-0.5.3-cp314-cp314-manylinux_2_27_x86_64.whl",
+        "url": "https://files.pythonhosted.org/packages/30/ca/0d16d286f9606df3931915ee9d4aa72b0edc73c731626f2c96c5d2a918e9/flydsl-0.5.3-cp314-cp314-manylinux_2_27_x86_64.whl",
+        "sha256": "322094199102deaebb6332f331d196a6ad7b792cf58943d61e6f0f189f2be726"
+      },
+      "base_image": "docker.io/hanjack/vllm-rocm@sha256:5749ad5d9b0f11ea525495a01c07f6a739e8423ec7b96669cb7d757bf534b82e",
+      "status": "CANDIDATE_NOT_VALIDATED"
+    }
+  },
+  "scope": "Original Raon-1-mini MXFP8, one MI355X, TP1/DP1, native profile; GSM8K first 128, T=1 p=.95 k=20, thinking, max4096, natural EOS. Single measurement per condition after separate warmup. Profiling separate from performance.",
+  "limits": [
+    "Different nodes and stochastic output lengths; changes are descriptive, not causal speedups.",
+    "Short natural prompts, not the reviewed fixed-ISL/OSL 50% prefix-hit workload.",
+    "No full model accuracy evaluation or MXFP4 end-to-end speed evaluation.",
+    "Compile candidate remains deferred; no enforce-eager fallback."
+  ],
+  "measurements": [
+    {
+      "sd": "off",
+      "concurrency": 1,
+      "baseline": {
+        "output_tps": 75.5606309803267,
+        "output_tokens": 56439,
+        "seconds": 746.9365894349758,
+        "length_limited": 3
+      },
+      "candidate": {
+        "output_tps": 75.4528129123719,
+        "output_tokens": 56439,
+        "seconds": 748.0039222069317,
+        "length_limited": 3,
+        "requests": 128,
+        "status": "VALID_SINGLE_MEASUREMENT",
+        "warmup_excluded": true,
+        "cache_artifact_changes": [],
+        "jit_warnings": []
+      },
+      "tps_change_percent": -0.14269079884058344,
+      "result_sha256": "637c85f253a8f50e2b6f848e0dbd42939ef88b7bc74ac75b7bb8324a3063cd14"
+    },
+    {
+      "sd": "off",
+      "concurrency": 8,
+      "baseline": {
+        "output_tps": 386.88361701631413,
+        "output_tokens": 58849,
+        "seconds": 152.11034381308127,
+        "length_limited": 4
+      },
+      "candidate": {
+        "output_tps": 403.361400566387,
+        "output_tokens": 66823,
+        "seconds": 165.66533115506172,
+        "length_limited": 7,
+        "requests": 128,
+        "status": "VALID_SINGLE_MEASUREMENT",
+        "warmup_excluded": true,
+        "cache_artifact_changes": [],
+        "jit_warnings": []
+      },
+      "tps_change_percent": 4.259106052913575,
+      "result_sha256": "c7dd0ecde272136f4f4bed07e43e3139457df0da110deb24228aedbcf1529530"
+    },
+    {
+      "sd": "off",
+      "concurrency": 32,
+      "baseline": {
+        "output_tps": 878.5263432438925,
+        "output_tokens": 70997,
+        "seconds": 80.81374058499932,
+        "length_limited": 8
+      },
+      "candidate": {
+        "output_tps": 747.2216076234644,
+        "output_tokens": 60218,
+        "seconds": 80.5892112669535,
+        "length_limited": 4,
+        "requests": 128,
+        "status": "VALID_SINGLE_MEASUREMENT",
+        "warmup_excluded": true,
+        "cache_artifact_changes": [],
+        "jit_warnings": []
+      },
+      "tps_change_percent": -14.946021440358326,
+      "result_sha256": "e33b95cd7cfe124de3762b2af8170d6cbf2ec14d0ec58cbd680ef7e1f467ee29"
+    },
+    {
+      "sd": "on",
+      "concurrency": 1,
+      "baseline": {
+        "output_tps": 191.4733177920652,
+        "output_tokens": 61827,
+        "seconds": 322.9013875820674,
+        "length_limited": 4
+      },
+      "candidate": {
+        "output_tps": 195.45232631352349,
+        "output_tokens": 55643,
+        "seconds": 284.68834855791647,
+        "length_limited": 3,
+        "requests": 128,
+        "status": "VALID_SINGLE_MEASUREMENT",
+        "warmup_excluded": true,
+        "cache_artifact_changes": [],
+        "jit_warnings": []
+      },
+      "tps_change_percent": 2.0781007857081146,
+      "result_sha256": "87d800b21b7a35347c3a4c5d3d8fb4c3326713a95f8622a0c87353faee790b4c"
+    },
+    {
+      "sd": "on",
+      "concurrency": 8,
+      "baseline": {
+        "output_tps": 899.4888429517632,
+        "output_tokens": 66236,
+        "seconds": 73.63737807201687,
+        "length_limited": 5
+      },
+      "candidate": {
+        "output_tps": 920.5364109169836,
+        "output_tokens": 64779,
+        "seconds": 70.37092637701426,
+        "length_limited": 5,
+        "requests": 128,
+        "status": "VALID_SINGLE_MEASUREMENT",
+        "warmup_excluded": true,
+        "cache_artifact_changes": [],
+        "jit_warnings": []
+      },
+      "tps_change_percent": 2.339947641390494,
+      "result_sha256": "3748b66780ec979630df2f1b03902ca13ecb469ddf4816ac2ac0bcb5d2581225"
+    },
+    {
+      "sd": "on",
+      "concurrency": 32,
+      "baseline": {
+        "output_tps": 1451.5608813583062,
+        "output_tokens": 57246,
+        "seconds": 39.43754666799214,
+        "length_limited": 3
+      },
+      "candidate": {
+        "output_tps": 1627.4481811830624,
+        "output_tokens": 65237,
+        "seconds": 40.085454488988034,
+        "length_limited": 3,
+        "requests": 128,
+        "status": "VALID_SINGLE_MEASUREMENT",
+        "warmup_excluded": true,
+        "cache_artifact_changes": [],
+        "jit_warnings": []
+      },
+      "tps_change_percent": 12.117114899112513,
+      "result_sha256": "62eef021889cc43048ed0c77d55e49937a3a62f05d9a6f40e0d92b954f9fa753"
+    }
+  ],
+  "numerics": {
+    "projection": "PASS",
+    "rda": "PASS",
+    "moe_mxfp8": "PASS",
+    "moe_mxfp4": "FAIL exact replay/repeatability; eager-vs-gold and graph numeric tolerance checks PASS. Synthetic adapter fixture only.",
+    "mla_fp32_gold_baseline": "FAIL",
+    "mla_fp32_gold_candidate": "FAIL",
+    "mla_bf16_stack_comparison": {
+      "scope": "Native MLA before vs after stack upgrade; same saved inputs and FP32 references; real 40 heads only; BF16 storage data/3 per fixed fixture source",
+      "baseline_fp32_gold": "FAIL",
+      "candidate_fp32_gold": "FAIL",
+      "cases": [
+        {
+          "kv_length": 17,
+          "query_length": 1,
+          "changed_live_elements": 0,
+          "live_elements": 20480,
+          "max_bf16_ulp_distance": 0,
+          "max_abs": 0.0,
+          "relative_rms_to_baseline": 0.0
+        },
+        {
+          "kv_length": 17,
+          "query_length": 2,
+          "changed_live_elements": 0,
+          "live_elements": 40960,
+          "max_bf16_ulp_distance": 0,
+          "max_abs": 0.0,
+          "relative_rms_to_baseline": 0.0
+        },
+        {
+          "kv_length": 17,
+          "query_length": 4,
+          "changed_live_elements": 0,
+          "live_elements": 81920,
+          "max_bf16_ulp_distance": 0,
+          "max_abs": 0.0,
+          "relative_rms_to_baseline": 0.0
+        },
+        {
+          "kv_length": 17,
+          "query_length": 8,
+          "changed_live_elements": 0,
+          "live_elements": 163840,
+          "max_bf16_ulp_distance": 0,
+          "max_abs": 0.0,
+          "relative_rms_to_baseline": 0.0
+        },
+        {
+          "kv_length": 65,
+          "query_length": 1,
+          "changed_live_elements": 0,
+          "live_elements": 20480,
+          "max_bf16_ulp_distance": 0,
+          "max_abs": 0.0,
+          "relative_rms_to_baseline": 0.0
+        },
+        {
+          "kv_length": 65,
+          "query_length": 2,
+          "changed_live_elements": 0,
+          "live_elements": 40960,
+          "max_bf16_ulp_distance": 0,
+          "max_abs": 0.0,
+          "relative_rms_to_baseline": 0.0
+        },
+        {
+          "kv_length": 65,
+          "query_length": 4,
+          "changed_live_elements": 0,
+          "live_elements": 81920,
+          "max_bf16_ulp_distance": 0,
+          "max_abs": 0.0,
+          "relative_rms_to_baseline": 0.0
+        },
+        {
+          "kv_length": 65,
+          "query_length": 8,
+          "changed_live_elements": 0,
+          "live_elements": 163840,
+          "max_bf16_ulp_distance": 0,
+          "max_abs": 0.0,
+          "relative_rms_to_baseline": 0.0
+        },
+        {
+          "kv_length": 257,
+          "query_length": 1,
+          "changed_live_elements": 0,
+          "live_elements": 20480,
+          "max_bf16_ulp_distance": 0,
+          "max_abs": 0.0,
+          "relative_rms_to_baseline": 0.0
+        },
+        {
+          "kv_length": 257,
+          "query_length": 2,
+          "changed_live_elements": 4,
+          "live_elements": 40960,
+          "max_bf16_ulp_distance": 1,
+          "max_abs": 6.103515625e-05,
+          "relative_rms_to_baseline": 5.043949953972615e-06
+        },
+        {
+          "kv_length": 257,
+          "query_length": 4,
+          "changed_live_elements": 0,
+          "live_elements": 81920,
+          "max_bf16_ulp_distance": 0,
+          "max_abs": 0.0,
+          "relative_rms_to_baseline": 0.0
+        },
+        {
+          "kv_length": 257,
+          "query_length": 8,
+          "changed_live_elements": 0,
+          "live_elements": 163840,
+          "max_bf16_ulp_distance": 0,
+          "max_abs": 0.0,
+          "relative_rms_to_baseline": 0.0
+        }
+      ]
+    },
+    "sd_off_c1_text_regression": {
+      "scope": "old vs upgraded stack; SD off C1; sampled output comparison, not Torch/logit gold",
+      "requests": 128,
+      "same_text": 128,
+      "same_length": 128,
+      "same_finish": 128
+    }
+  },
+  "profiling": {
+    "tracelens_commit": "c80f7de688c485fd6924da9a4de345a785bac60e",
+    "trace_quality": "GRAPH_UNDER_RECORDED; kernel inventory only, no operator roofline/CPU critical-path conclusion.",
+    "graph_replay_fraction": {
+      "off": 0.8733349576322131,
+      "on": 0.8116565673347352
+    },
+    "wrapper_status": "Both wrappers exported CSV/XLSX, then shell returned 1 with no final traceback; full agent analysis stopped. Standalone deterministic fallback reports generated from exported CSVs.",
+    "inventory": {
+      "off": {
+        "trace": "raon-off-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795666276993740402.pt.trace.json.gz",
+        "scope": "Observed GPU kernel duration sum; not E2E/critical path. First 32 profiled engine steps, includes prefill. Graph shapes not resolved.",
+        "categories": {
+          "": 68,
+          "user_annotation": 32,
+          "cpu_op": 48620,
+          "python_function": 1075929,
+          "cuda_runtime": 25368,
+          "ac2g": 92732,
+          "kernel": 67360,
+          "gpu_memcpy": 4,
+          "gpu_user_annotation": 33,
+          "Trace": 1
+        },
+        "kernel_duration_sum_ms": 516.0754410000003,
+        "kernels": [
+          {
+            "name": "matmul_kernel_persistent.kd",
+            "count": 1600,
+            "ms": 155.9071290000005,
+            "percent_kernel_sum": 30.210143055422087
+          },
+          {
+            "name": "__amd_rocclr_copyBuffer.kd",
+            "count": 8695,
+            "ms": 37.572645999999416,
+            "percent_kernel_sum": 7.280456114554654
+          },
+          {
+            "name": "void at::native::vectorized_elementwise_kernel<4, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul> >(int, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "count": 6720,
+            "ms": 29.28873699999991,
+            "percent_kernel_sum": 5.675282075668447
+          },
+          {
+            "name": "hgemm_bf16_skinny_t8x64x128x2_w1x1x4_0.kd",
+            "count": 2016,
+            "ms": 29.16614900000007,
+            "percent_kernel_sum": 5.651528184229183
+          },
+          {
+            "name": "void at::native::index_elementwise_kernel<128, 4, at::native::gpu_index_kernel<at::native::index_kernel_impl<at::native::OpaqueType<2> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1}>(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>, at::native::index_kernel_impl<at::native::OpaqueType<2> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1} const&, bool)::{lambda(int)#1}>(long, at::native::gpu_index_kernel<at::native::index_kernel_impl<at::native::OpaqueType<2> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1}>(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>, at::native::index_kernel_impl<at::native::OpaqueType<2> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1} const&, bool)::{lambda(int)#1}) [clone .kd]",
+            "count": 4640,
+            "ms": 27.83148500000014,
+            "percent_kernel_sum": 5.392910181129918
+          },
+          {
+            "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>) [clone .kd]",
+            "count": 5920,
+            "ms": 25.74372599999993,
+            "percent_kernel_sum": 4.988364869701272
+          },
+          {
+            "name": "mfma_moe1_silu_mul_afp8_wfp8_fp8_t32x256x256_pm1_fp8q_sort_async_gui_situv2_v33.kd",
+            "count": 768,
+            "ms": 18.55322499999998,
+            "percent_kernel_sum": 3.59506062990507
+          },
+          {
+            "name": "hgemm_bf16_skinny_t8x16x128x2_w1x1x4_0.kd",
+            "count": 558,
+            "ms": 9.810702,
+            "percent_kernel_sum": 1.9010209013220594
+          }
+        ],
+        "full_inventory": "Retained in local trace-kernel-inventory.json; top eight kernels embedded here."
+      },
+      "on": {
+        "trace": "raon-on-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795666532534521270.pt.trace.json.gz",
+        "scope": "Observed GPU kernel duration sum; not E2E/critical path. First 32 profiled engine steps, includes prefill. Graph shapes not resolved.",
+        "categories": {
+          "": 68,
+          "user_annotation": 32,
+          "cpu_op": 109928,
+          "python_function": 1623477,
+          "cuda_runtime": 44288,
+          "ac2g": 126677,
+          "kernel": 82381,
+          "gpu_memcpy": 8,
+          "gpu_user_annotation": 33,
+          "Trace": 1
+        },
+        "kernel_duration_sum_ms": 652.7630459999983,
+        "kernels": [
+          {
+            "name": "matmul_kernel_persistent.kd",
+            "count": 1600,
+            "ms": 156.74940900000027,
+            "percent_kernel_sum": 24.01321734747844
+          },
+          {
+            "name": "hgemm_bf16_skinny_t8x64x128x2_w1x1x4_0.kd",
+            "count": 3071,
+            "ms": 54.201420999999854,
+            "percent_kernel_sum": 8.303383797862846
+          },
+          {
+            "name": "__amd_rocclr_copyBuffer.kd",
+            "count": 7647,
+            "ms": 33.022599999999336,
+            "percent_kernel_sum": 5.058895444886968
+          },
+          {
+            "name": "mfma_moe1_silu_mul_afp8_wfp8_fp8_t32x256x256_pm1_fp8q_sort_async_gui_situv2_v33.kd",
+            "count": 768,
+            "ms": 32.32635399999999,
+            "percent_kernel_sum": 4.952234076069323
+          },
+          {
+            "name": "void at::native::index_elementwise_kernel<128, 4, at::native::gpu_index_kernel<at::native::index_kernel_impl<at::native::OpaqueType<2> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1}>(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>, at::native::index_kernel_impl<at::native::OpaqueType<2> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1} const&, bool)::{lambda(int)#1}>(long, at::native::gpu_index_kernel<at::native::index_kernel_impl<at::native::OpaqueType<2> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1}>(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>, at::native::index_kernel_impl<at::native::OpaqueType<2> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1} const&, bool)::{lambda(int)#1}) [clone .kd]",
+            "count": 4609,
+            "ms": 29.02274500000005,
+            "percent_kernel_sum": 4.446137871597609
+          },
+          {
+            "name": "void at::native::vectorized_elementwise_kernel<4, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul> >(int, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "count": 6194,
+            "ms": 27.834692999999426,
+            "percent_kernel_sum": 4.26413430885294
+          },
+          {
+            "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>) [clone .kd]",
+            "count": 5920,
+            "ms": 26.320049999999586,
+            "percent_kernel_sum": 4.032098655290553
+          },
+          {
+            "name": "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+            "count": 5408,
+            "ms": 24.182619999999464,
+            "percent_kernel_sum": 3.7046551804955463
+          }
+        ],
+        "full_inventory": "Retained in local trace-kernel-inventory.json; top eight kernels embedded here."
+      }
+    }
+  },
+  "remote_artifact_root": "/home/jackhan/bench-results/raon-stack-upgrade-20261126-r2"
+}

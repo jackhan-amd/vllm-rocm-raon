@@ -614,6 +614,24 @@ current five-argument structural-tag dispatch. It uses the local checkpoint's
 tokenizer without downloading remote code. Its PASS is independent of GPU
 kernel correctness, generation quality and throughput.
 
+## MLA stack regression artifacts
+
+Keep the JSON and `.L*.Q*.pt` files produced by the `mla` diagnostic for both
+stacks. Compare the saved tensor payloads without importing Torch or executing
+pickle:
+
+```bash
+python -m tools.raon_validation.compare_mla_artifacts \
+  --baseline /results/mla-baseline.json \
+  --candidate /results/mla-candidate.json \
+  --output /results/mla-stack-comparison.json
+```
+
+This same-Torch-version check compares inputs, outputs and the FP32 references
+byte for byte. It preserves each original gold verdict; identical stacks can
+both exceed the mathematical FP32 error threshold. A different payload requires
+further inspection and is not automatically a numerical regression.
+
 ## Projection and expanded graph checks
 
 After sourcing the updated FlyDSL runtime profile:
