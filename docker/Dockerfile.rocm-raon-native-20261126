@@ -7,6 +7,7 @@ LABEL org.opencontainers.image.source="https://github.com/jackhan-amd/vllm-rocm-
   ai.raon.native.status="opt-in-candidates"
 COPY vllm/models/raon1_mini/mhc.py \
   vllm/models/raon1_mini/rocm_mhc.py \
+  vllm/models/raon1_mini/rocm_mhc_finish.py \
   vllm/models/raon1_mini/moe_align.py \
   vllm/models/raon1_mini/rocm_flydsl_combine.py \
   vllm/models/raon1_mini/model.py \

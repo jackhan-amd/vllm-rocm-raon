@@ -6437,5 +6437,12 @@
   "full_raw_artifacts": "/home/jackhan/bench-results/raon-manual-opt-20261126",
   "cleanup": {
     "status": "PENDING_NEXT_OPTIMIZATION_IN_SAME_AUTHORIZED_ALLOCATION"
+  },
+  "precision_audit": {
+    "checkpoint": "original MXFP8 release metadata",
+    "mla_absorbed_wk_wv": "runtime MXFP4 weights; BF16 activations quantized to MXFP4 inside AITER batched_gemm_a16wfp4; e2m1 x e2m1 dot, FP32 accumulation and BF16 output",
+    "core_attention": "native AITER HIP; FP8 E4M3 KV cache",
+    "scope": "observed in both baseline and optimized profile; no new accuracy test of inherited FP4BMM default",
+    "next_gap": "no drop-in gfx950 FlyDSL batched A4W4 API in pinned tree; preserve packing, activation quantization and output scaling"
   }
 }

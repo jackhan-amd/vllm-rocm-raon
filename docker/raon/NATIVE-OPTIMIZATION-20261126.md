@@ -60,3 +60,33 @@ Next targets: the remaining native MLA-attention callback and KDA replay metadat
 copies. Do not remove their live-metadata refresh or repeat live state updates
 during graph warmup. The 32-step traces include profiler overhead and prefill;
 their inclusive CPU times and GPU kernel-duration sums are not E2E critical paths.
+
+## Precision audit and the next native-kernel gap
+
+The target checkpoint is MXFP8, but that does not describe every runtime-internal
+projection. This runtime defaults `VLLM_ROCM_USE_AITER_FP4BMM=True` on CDNA4.
+For BF16 `kv_b_proj` weights, `MLAAttention` quantizes the absorbed `W_K` and
+`W_V` matrices to MXFP4 during preparation. Both were actually observed calling
+AITER's `batched_gemm_a16wfp4` in the final SD-off/on traces.
+
+Despite the A16 API name, the inspected AITER device kernel calls
+`_mxfp4_quant_op` on its BF16 activation tile and then
+`tl.dot_scaled(..., "e2m1", ..., "e2m1")`. These absorbed projections therefore
+use internal MXFP4 activations and weights, FP32 accumulation and BF16 output.
+The MLA attention core still uses the native AITER HIP implementation and FP8 KV;
+this is a separate precision boundary. All measured profiles retained the same
+behavior, so the relative speed comparison did not introduce this quantization.
+This screen did not measure the accuracy impact of the inherited BMM default.
+
+The pinned AITER tree has a gfx950 FlyDSL A8W8 batched API, a dense A16W4 API
+without activation quantization, and a gfx1250-only batched A8W4 API. None is a
+drop-in gfx950 replacement for the observed A4W4 operation. Preserve the current
+E2M1/E8M0 packing, activation quantization and output scaling when building that
+replacement; do not silently switch to A8 activations or unquantized weights.
+
+Relevant inspected paths are `vllm/model_executor/layers/attention/mla_attention.py`
+(`is_aiter_triton_fp4_bmm_enabled`, weight preparation and `_v_up_proj`) and the
+pinned AITER `ops/triton/_triton_kernels/gemm/batched/batched_gemm_a16wfp4.py`.
+The residual SD-only Triton callers also include DFlash2 convolution, draft
+attention/cache update and rejection sampling. These are separate from Raon's
+native RDA decode and its native MoE GEMMs.

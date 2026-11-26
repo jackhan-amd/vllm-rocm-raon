@@ -87,6 +87,15 @@ fresh phase/slot metadata and one cache update per replay:
 The fixture substitutes attention math to isolate the execution boundary; it is
 not an additional native MLA kernel gold or model-accuracy test.
 
+`RAON_ROCM_MHC_FINISHER=flydsl`, with the HIP mHC backend, replaces the two
+Torch split reductions, score cast and mean normalization with one native
+FlyDSL launch. It retains sequential FP32 accumulation and the BF16 score
+boundary; its reduction order can differ from Torch's. Check the complete
+real-weight block and changed-input/refit replay with `mhc_math --backend hip
+--finisher flydsl --model /models/Raon-1-mini --output evidence/mhc-finish.json`.
+The default finisher remains Torch. This switch does not change attention,
+activation quantization or MoE routing.
+
 Release checkpoint steering tools:
 
 ```bash

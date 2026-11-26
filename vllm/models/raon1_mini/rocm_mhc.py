@@ -75,8 +75,16 @@ def project(site, x):
             128,
             w_preshuffle_bf16=1,
         )
-        scores = partial.sum(0)[:, :17].to(x.dtype)
-        mean = squares.sum(0) / 10240
+        finisher = os.environ.get("RAON_ROCM_MHC_FINISHER", "torch")
+        if finisher == "flydsl":
+            from .rocm_mhc_finish import reduce
+
+            scores, mean = reduce(partial, squares)
+        elif finisher == "torch":
+            scores = partial.sum(0)[:, :17].to(x.dtype)
+            mean = squares.sum(0) / 10240
+        else:
+            raise ValueError(f"Unknown native mHC finisher: {finisher}")
     else:
         from aiter.ops.flydsl.gemm_kernels import flydsl_hgemm
 

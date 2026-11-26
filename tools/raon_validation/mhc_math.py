@@ -41,13 +41,17 @@ def main():
     parser.add_argument("--model", type=Path, required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--backend", choices=["hip", "flydsl"], default="hip")
+    parser.add_argument("--finisher", choices=["torch", "flydsl"], default="torch")
     parser.add_argument("--layers", nargs="+", type=int, default=[0, 12, 24])
     parser.add_argument(
         "--rows", nargs="+", type=int, default=[1, 8, 32, 64, 256, 1024, 2048]
     )
     parser.add_argument("--scales", nargs="+", type=float, default=[0.125, 1.0, 8.0])
     args = parser.parse_args()
+    if args.finisher == "flydsl" and args.backend != "hip":
+        parser.error("The FlyDSL finisher requires the HIP mHC backend")
     os.environ["RAON_ROCM_MHC_BACKEND"] = args.backend
+    os.environ["RAON_ROCM_MHC_FINISHER"] = args.finisher
     result = dict(status="RUNNING", scope=__doc__, cases=[], refit=[])
     try:
         result["environment"] = environment()
@@ -56,6 +60,11 @@ def main():
         result["native_source"] = provenance(rocm_mhc.project)
         result["mhc_source"] = provenance(mhc.RaonMHC.forward)
         result["backend"] = args.backend
+        result["finisher"] = args.finisher
+        if args.finisher == "flydsl":
+            from vllm.models.raon1_mini import rocm_mhc_finish
+
+            result["finisher_source"] = provenance(rocm_mhc_finish.reduce)
         mapping = json.loads(
             next(args.model.glob("*.safetensors.index.json")).read_text()
         )["weight_map"]
