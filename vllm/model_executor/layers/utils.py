@@ -3,6 +3,7 @@
 """Utility methods for model layers."""
 
 import functools
+import os
 from collections.abc import Callable
 from dataclasses import dataclass
 
@@ -295,6 +296,13 @@ def rocm_unquantized_gemm_impl(
 
         return linear_batch_invariant(x, weight, bias)
 
+    if os.environ.get("RAON_ROCM_DENSE_LINEAR_BACKEND", "legacy") == "flydsl":
+        from vllm.models.raon1_mini.rocm_dense import try_gemm
+
+        native = try_gemm(x, weight, bias)
+        if native is not None:
+            return native
+
     from vllm.platforms.rocm import on_gfx1x, on_gfx9, on_gfx950, on_gfx1250
 
     n = x.numel() // x.size(-1)
@@ -364,7 +372,11 @@ def rocm_unquantized_gemm_impl(
     if rocm_aiter_ops.is_tgemm_enabled():
         from aiter.tuned_gemm import tgemm
 
-        return tgemm.mm(x, weight, bias)
+        # Tuned native kernels consume contiguous matrix rows, unlike F.linear.
+        # AITER's skinny solution otherwise misreads strided/3D activations.
+        x_view = x.reshape(-1, x.size(-1)).contiguous()
+        out = tgemm.mm(x_view, weight.contiguous(), bias)
+        return out.reshape(*x.shape[:-1], weight.shape[0])
 
     return torch.nn.functional.linear(x, weight, bias)
 

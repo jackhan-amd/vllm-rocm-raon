@@ -1,5 +1,35 @@
 # ROCm graph/stream candidate: KDA, MXFP8 and MXFP4 MoE
 
+The updated FlyDSL candidate profile reserves 64 local shapes and up to 512
+tokens for both KDA decode and MoE outer graphs. The previous eight entries
+could be consumed by large startup shapes; the 128-token ceiling also excluded
+C=32 with eight SD query tokens. Generic defaults outside this opt-in profile
+remain unchanged. Replay witnesses now identify each token/shape size.
+`RAON_ROCM_GRAPH_WARMUP_BATCHES=1,8,32` also warms the actual SD geometry
+(B requests, eight query tokens each) after generic capture and outside graph
+replay. It uses the existing reserved null state block, never a live request's
+cache. Ordinary one-token dummy batches do not provide equivalent metadata.
+
+`RAON_ROCM_DENSE_LINEAR_BACKEND=flydsl` also connects unquantized BF16 decode
+projections to AITER's native skinny FlyDSL GEMM. Previously this variable only
+selected MXFP4 linears. Native FP32 routing/steering and checkpoint precision
+are preserved. Larger/bias-bearing projections and the measured slower packed
+RDA projection at M>8 retain the existing AITER/native-HIP dispatch. General
+FlyDSL FT tiles were slower in the component screen and are not forced.
+This is selective native dispatch, not complete FlyDSL coverage of all GEMMs.
+
+The profile stages the existing ROCm AOT DLPack library into TVM FFI's expected
+per-Torch cache filename before any server child imports TVM FFI. The installed
+loader otherwise forces a ROCm JIT override despite the installed addon.
+Both Dockerfile recipes include the staging helper. All spawned engine
+processes must load the prebuilt library without an allocator-disabled warning.
+
+Run `python -m tools.raon_validation.projections --output projections.json`
+for FP32 Torch gold, changed-input graph replay, selected-backend evidence and
+separate direct-call/graph timings on representative Raon shapes. The MoE graph
+tools accept `--tokens 256` to exercise SD C=32. These are finite component
+screens; serving speed and full-set quality require their own measurements.
+
 For the reviewed API benchmark, use
 `docker.io/hanjack/vllm-rocm:raon-release-rocm102-dlpack-api-20261126`,
 digest `sha256:a076455aeee097067ac1f407eee98476b6fbdd430d348cf56d94014e19191f10`.

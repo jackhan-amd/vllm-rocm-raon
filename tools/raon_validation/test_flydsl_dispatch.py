@@ -398,6 +398,24 @@ class OuterGraphLifecycle(unittest.TestCase):
         self.owner._raon_graph_precision = "mxfp4"
         self.assertEqual(self.run_graph().value, 6)
 
+    def test_small_and_sd_batches_survive_large_shape_warmup(self):
+        """The old eight-entry cache starved C=1/8/32 and rejected SD C=32."""
+        shapes = [512, 256, 128, 120, 112, 104, 96, 88, 80, 72, 64, 32, 8, 1]
+        with patch.dict(
+            os.environ,
+            {
+                "RAON_MOE_OUTER_GRAPH_SHAPES": "64",
+                "RAON_MOE_OUTER_GRAPH_MAX_TOKENS": "512",
+            },
+        ):
+            for tokens in shapes:
+                self.assertEqual(self.run_graph(tokens=tokens).value, 6)
+            count = self.computes
+            self.allowed = False
+            for tokens in (1, 8, 32, 256):
+                self.assertEqual(self.run_graph(tokens=tokens, value=7).value, 21)
+            self.assertEqual(self.computes, count)
+
     def test_replay_guard_restores_depth_after_exception(self):
         observed = []
         graph_module = self.graph
@@ -494,6 +512,32 @@ class KDAStatefulGraphs(unittest.TestCase):
             (self.executed, self.out.value, self.states), (2, 205, {0: 102, 1: 205})
         )
 
+    def test_small_batches_replay_after_more_than_eight_warmup_shapes(self):
+        shapes = [512, 256, 128, 120, 112, 104, 96, 88, 80, 72, 64, 32, 8, 1]
+
+        def select(tokens):
+            self.metadata.num_actual_tokens = self.metadata.num_decodes = tokens
+            self.metadata.non_spec_state_indices_tensor = Tensor((tokens,), "i32", 0)
+            self.inputs = (Tensor((tokens, 2), value=2),) * 5
+            self.out = Tensor((tokens, 2))
+
+        with patch.dict(
+            os.environ,
+            {
+                "RAON_KDA_DECODE_GRAPH_SHAPES": "64",
+                "RAON_KDA_DECODE_GRAPH_MAX": "512",
+            },
+        ):
+            for tokens in shapes:
+                select(tokens)
+                self.assertTrue(self.decode())
+            self.assertEqual(self.executed, len(shapes))
+            self.allowed = False
+            for tokens in (1, 8, 32, 256):
+                select(tokens)
+                self.assertTrue(self.decode())
+            self.assertEqual(self.executed, len(shapes) + 4)
+
     def test_sd_replay_refreshes_acceptance_and_state_indices(self):
         self.metadata.num_decodes = 0
         self.metadata.num_spec_decodes = 1
@@ -514,6 +558,22 @@ class KDAStatefulGraphs(unittest.TestCase):
         self.allowed = False
         self.assertFalse(self.decode())
         self.assertEqual((self.executed, self.states), (0, {0: 100, 1: 200}))
+
+    def test_sd_warmup_preserves_request_vs_query_token_geometry(self):
+        with patch.dict(
+            os.environ,
+            {
+                "RAON_ROCM_GRAPH_WARMUP_BATCHES": "1,8,32",
+                "RAON_KDA_DECODE_GRAPH_MAX": "512",
+            },
+        ):
+            self.assertEqual(
+                self.kda.decode_warmup_batches(8, 128, 16384),
+                ((1, 8), (8, 64), (32, 256)),
+            )
+            self.assertEqual(self.kda.decode_warmup_batches(1, 128, 16384), ())
+            with self.assertRaisesRegex(ValueError, "bounds"):
+                self.kda.decode_warmup_batches(8, 128, 128)
 
     def test_prefill_and_mixed_decode_are_not_specialized(self):
         self.metadata.num_prefills = 1

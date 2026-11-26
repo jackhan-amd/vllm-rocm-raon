@@ -20,6 +20,7 @@ from .flydsl_moe import gold
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True)
+    parser.add_argument("--tokens", type=int, nargs="+", default=[1, 8, 32])
     args = parser.parse_args()
     os.environ.update(RAON_MOE_BACKEND="flydsl", RAON_MOE_OUTER_GRAPH="1")
     from vllm.models.raon1_mini import model
@@ -112,7 +113,7 @@ def main():
             for stream in ("0", "1"):
                 os.environ["RAON_MOE_SHARED_SIDE_STREAM"] = stream
                 module = Fixture()
-                for tokens in (1, 8, 32):
+                for tokens in args.tokens:
                     x = torch.randn(tokens, h, dtype=torch.bfloat16, device="cuda")
                     eager = model._raon_fp32_combine_moe_impl_eager(module, x)
                     probs, ids = module.experts.router.select_experts(

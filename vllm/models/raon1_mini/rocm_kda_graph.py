@@ -28,6 +28,20 @@ _COUNTS = ("num_prefills", "num_decodes", "num_spec_decodes", "num_actual_tokens
 _ANNOUNCED = set()
 
 
+def decode_warmup_batches(query_len, max_reqs, max_tokens):
+    """Return real SD query geometries, distinct from one-token dummy batches."""
+    raw = os.environ.get("RAON_ROCM_GRAPH_WARMUP_BATCHES", "")
+    if query_len <= 1 or not raw:
+        return ()
+    batches = sorted({int(value) for value in raw.split(",")})
+    limit = min(max_tokens, int(os.environ.get("RAON_KDA_DECODE_GRAPH_MAX", "128")))
+    if any(
+        not 1 <= batch <= max_reqs or batch * query_len > limit for batch in batches
+    ):
+        raise ValueError("ROCm SD graph warmup exceeds request or local token bounds")
+    return tuple((batch, batch * query_len) for batch in batches)
+
+
 def _signature(value):
     if isinstance(value, torch.Tensor):
         return (tuple(value.shape), tuple(value.stride()), value.dtype, value.device)
@@ -112,7 +126,9 @@ def try_forward(layer, metadata, inputs, out):
             return False
         limit = int(os.environ.get("RAON_KDA_DECODE_GRAPH_SHAPES", "8"))
         if len(cache) >= limit:
-            _announce("limit", "INERT per-layer captured-shape limit reached")
+            _announce(
+                "limit", f"INERT per-layer captured-shape limit reached limit={limit}"
+            )
             return False
         static_inputs = tuple(torch.empty_like(value) for value in inputs)
         _copy_inputs(static_inputs, inputs)
@@ -146,7 +162,7 @@ def try_forward(layer, metadata, inputs, out):
         )
         out.copy_(first_output)
         _announce(
-            ("capture", kind),
+            ("capture", kind, metadata.num_actual_tokens),
             f"CAPTURED kind={kind} tokens={metadata.num_actual_tokens} state_steps=1",
         )
         return True
@@ -158,7 +174,7 @@ def try_forward(layer, metadata, inputs, out):
     graph.replay()
     out.copy_(static_out)
     _announce(
-        ("replay", kind),
+        ("replay", kind, metadata.num_actual_tokens),
         f"REPLAYED kind={kind} tokens={metadata.num_actual_tokens} "
         "metadata_refreshed=1",
     )

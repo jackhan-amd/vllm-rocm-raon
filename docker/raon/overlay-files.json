@@ -93,6 +93,9 @@
                   "vllm/tool_parsers/__init__.py",
                   "vllm/tool_parsers/raon_1_tool_parser.py",
                   "vllm/reasoning/__init__.py",
-                  "vllm/reasoning/raon_1_reasoning_parser.py"
+                  "vllm/reasoning/raon_1_reasoning_parser.py",
+                  "vllm/models/raon1_mini/rocm_dense.py",
+                  "vllm/model_executor/layers/utils.py",
+                  "vllm/v1/worker/gpu/cudagraph_utils.py"
               ]
 }

@@ -767,6 +767,44 @@ class ModelCudaGraphManager(CudaGraphManager):
 
         super().capture(create_forward_fn, progress_bar_desc)
 
+        if (
+            self.use_breakable_cg
+            and current_platform.is_rocm()
+            and getattr(self.vllm_config.model_config.hf_config, "model_type", None)
+            == "raon1_mini"
+        ):
+            from vllm.models.raon1_mini.rocm_kda_graph import decode_warmup_batches
+
+            # Generic PIECEWISE descriptors distribute tokens over max requests.
+            # SD needs B requests with Q>1 tokens each. Warm that metadata outside
+            # breakable capture/replay, using only the reserved null state block.
+            # All live acceptance counts and state indices are copied on replay.
+            batches = decode_warmup_batches(
+                self.decode_query_len,
+                self.max_num_reqs,
+                min(
+                    self.vllm_config.scheduler_config.max_num_batched_tokens,
+                    max(self.compilation_config.cudagraph_capture_sizes or [0]),
+                ),
+            )
+            with graph_capture(device=self.device):
+                for batch, tokens in batches:
+                    desc = BatchExecutionDescriptor(
+                        cg_mode=CUDAGraphMode.PIECEWISE,
+                        num_tokens=tokens,
+                        num_reqs=batch,
+                        uniform_token_count=self.decode_query_len,
+                    )
+                    create_forward_fn(desc, warmup=True)(CUDAGraphMode.NONE)
+                    logger.info(
+                        "RAON_ROCM_GRAPH_WARMUP kind=sd batch=%d tokens=%d "
+                        "null_state=1",
+                        batch,
+                        tokens,
+                    )
+            if batches:
+                torch.accelerator.synchronize()
+
     def run_fullgraph(
         self, desc: BatchExecutionDescriptor
     ) -> torch.Tensor | tuple[torch.Tensor, list[torch.Tensor]] | IntermediateTensors:

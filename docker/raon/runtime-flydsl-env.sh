@@ -22,7 +22,20 @@ export RAON_ROCM_KDA_DECODE_BACKEND=flydsl
 export RAON_KDA_DECODE_GRAPH=1
 export RAON_MOE_OUTER_GRAPH=1
 export RAON_MOE_SHARED_SIDE_STREAM=1
+# Cover the default graph schedules, including C=32 with eight SD query tokens.
+# Eight entries were consumed by large warmup shapes before small decode batches.
+export RAON_KDA_DECODE_GRAPH_SHAPES=64
+export RAON_KDA_DECODE_GRAPH_MAX=512
+export RAON_ROCM_GRAPH_WARMUP_BATCHES=1,8,32
+export RAON_MOE_OUTER_GRAPH_SHAPES=64
+export RAON_MOE_OUTER_GRAPH_MAX_TOKENS=512
+export VLLM_ROCM_USE_AITER_LINEAR=1
 # Refresh MLA's phase/metadata in the breakable callback; keep native kernels.
 export RAON_ROCM_MLA_LIVE_METADATA=1
 # Mixed-policy MXFP4 uses native FlyDSL A16W4 linears and the MXFP8 LM head.
 export RAON_ROCM_DENSE_LINEAR_BACKEND=flydsl
+# The installed TVM FFI forces a ROCm override even with an imported AOT addon.
+# Seed its expected cache filename so every spawned server process loads AOT.
+if [[ -f /opt/raon/prepare_dlpack.py ]]; then
+  /opt/raon/.venv/bin/python /opt/raon/prepare_dlpack.py
+fi

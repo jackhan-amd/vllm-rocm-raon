@@ -23,7 +23,7 @@ RUN /opt/raon/.venv/bin/python /opt/raon/install_overlay.py /tmp/raon-source \
   && chmod +x /opt/raon/entrypoint.sh \
   && mkdir -p /var/cache/aiter /var/cache/triton /var/cache/vllm
 
-COPY docker/raon/install_dlpack.py /opt/raon/install_dlpack.py
+COPY docker/raon/install_dlpack.py docker/raon/prepare_dlpack.py /opt/raon/
 RUN /opt/raon/.venv/bin/python /opt/raon/install_dlpack.py
 
 ENTRYPOINT ["/opt/raon/entrypoint.sh"]

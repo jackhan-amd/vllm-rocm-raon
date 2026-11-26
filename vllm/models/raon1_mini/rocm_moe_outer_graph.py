@@ -93,7 +93,9 @@ def try_forward(module, x, compute):
         or x.ndim != 2
         or not x.is_cuda
         or x.dtype != torch.bfloat16
-        or not 1 <= x.shape[0] <= 128
+        or not 1
+        <= x.shape[0]
+        <= int(os.environ.get("RAON_MOE_OUTER_GRAPH_MAX_TOKENS", "128"))
     ):
         _announce(
             "config", "INERT unsupported shape, phase, or diagnostic configuration"
@@ -131,8 +133,9 @@ def try_forward(module, x, compute):
                 "INERT new shapes require warmup outside breakable capture/replay",
             )
             return None
-        if len(cache) >= 8:
-            _announce("limit", "INERT eight captured shapes per layer already retained")
+        limit = int(os.environ.get("RAON_MOE_OUTER_GRAPH_SHAPES", "8"))
+        if len(cache) >= limit:
+            _announce("limit", f"INERT captured-shape limit reached limit={limit}")
             return None
         sx = torch.empty_like(x)
         sx.copy_(x)
@@ -148,14 +151,14 @@ def try_forward(module, x, compute):
         entry = (graph, sx, result, tensors)
         cache[key] = entry
         _announce(
-            ("capture", precision),
+            ("capture", precision, tuple(x.shape)),
             f"CAPTURED shape={tuple(x.shape)} precision={precision} backend=flydsl",
         )
     graph, sx, result, _ = entry
     sx.copy_(x)
     graph.replay()
     _announce(
-        ("replay", precision),
+        ("replay", precision, tuple(x.shape)),
         f"REPLAYED shape={tuple(x.shape)} precision={precision} backend=flydsl",
     )
     # The existing eager-break caller immediately copies this borrowed output.

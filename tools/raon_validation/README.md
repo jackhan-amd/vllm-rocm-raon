@@ -613,3 +613,22 @@ streaming, thinking disabled, plain content, typed tool arguments, and the
 current five-argument structural-tag dispatch. It uses the local checkpoint's
 tokenizer without downloading remote code. Its PASS is independent of GPU
 kernel correctness, generation quality and throughput.
+
+## Projection and expanded graph checks
+
+After sourcing the updated FlyDSL runtime profile:
+
+```bash
+python -m tools.raon_validation.projections --output projections.json
+python -m tools.raon_validation.moe_graph_mxfp8 --tokens 256 --output moe8.json
+python -m tools.raon_validation.moe_graph --tokens 256 --output moe4.json
+python -m tools.raon_validation aiter-rda --decode-backend flydsl \
+  --decode-batch-size 32 --draft-counts 7 --output rda256.json
+```
+
+Projection checks retain BF16 weights and compare against FP32 Torch arithmetic,
+including changed-input graph replay, strided activations and bias preservation.
+Each case records whether the native skinny kernel was selected; larger shapes
+retain existing AITER dispatch. Direct-call and graph timings are distinct and
+exclude initial kernel compilation. MXFP4 retains separate numeric and bitwise
+statuses because native atomic repeats can differ without graph execution.

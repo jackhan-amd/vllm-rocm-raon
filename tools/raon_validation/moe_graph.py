@@ -20,6 +20,7 @@ from .common import environment, error, write_json
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True)
+    parser.add_argument("--tokens", type=int, nargs="+", default=[1, 8, 32])
     args = parser.parse_args()
     os.environ.update(
         RAON_MOE_BACKEND="flydsl",
@@ -160,7 +161,7 @@ def main():
 
     try:
         with torch.inference_mode():
-            for tokens in (1, 8, 32):
+            for tokens in args.tokens:
                 data = port._prepare_case(tokens, 2560, 1152, 128, 6, dtypes.bf16)
                 data["w1_a16"].is_shuffled = data["w2_a16"].is_shuffled = True
                 references = {}
