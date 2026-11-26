@@ -707,6 +707,38 @@ further inspection and is not automatically a numerical regression.
 
 ## Projection and expanded graph checks
 
+The opt-in Raon mHC gate replaces the existing head, Torch chart and mix with
+native FlyDSL head/chart/aggregate and mix kernels. It requires
+`RAON_ROCM_MHC_BACKEND=hip`, `RAON_ROCM_MHC_FINISHER=flydsl`, and
+`RAON_ROCM_MHC_GATE=flydsl`. Its default is `legacy`; this is independent of
+attention and MoE precision. The BF16 projection scores and branch boundary,
+FP32 chart, zero clamp floor, and original checkpoint parameters are retained.
+The chart is Raon's chart equation, not AITER's Sinkhorn mHC algorithm.
+
+```bash
+python -m tools.raon_validation.mhc_math \
+  --model /path/to/pinned/Raon-1-mini --backend hip --finisher flydsl \
+  --gate flydsl --branch affine --layers 0 1 12 24 \
+  --rows 1 2 4 5 8 32 64 256 1024 --scales 0.125 1 8 \
+  --output mhc-gate.json --profile mhc-gate-kernels.json
+```
+
+This compares the branch input, post/residual coefficients, output, changed-input
+graph replay and weight-refit replay against independent FP32 Torch math with
+the BF16 boundaries preserved. It also compares with the existing native
+projection plus legacy gate and the fully legacy path. The `affine` branch
+exercises a non-identity BF16 branch. The optional trace is recorded only after
+all numerical checks pass, to verify actual native kernel selection. It is
+not a serving-throughput or model-accuracy measurement.
+
+`--batch-invariant 0` additionally exercises the existing small-batch aggregation
+tree, single-row mix order and shape-dependent chart FMA schedule. The default
+is `1`, which fixes each arithmetic schedule across batch sizes.
+`--timing-replays 200` optionally records one GPU-event timing interval per
+shape/backend, with separate graph warmup; this times only the last selected
+layer's MLP mHC block and excludes its real MLP computation. It does not measure
+model output TPS. Restore original weights after the refit check before timing.
+
 After sourcing the updated FlyDSL runtime profile:
 
 ```bash

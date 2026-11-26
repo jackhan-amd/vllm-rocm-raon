@@ -1,0 +1,13 @@
+# Opt-in native Raon chart/aggregate/mix over the pinned native draft image.
+ARG BASE_IMAGE=docker.io/hanjack/vllm-rocm@sha256:f683e05a88ace2c842316fca4772f0f5fe72c1b5b0f2db69b7bb127a46ac9026
+FROM ${BASE_IMAGE}
+ARG VCS_REF=unknown
+LABEL org.opencontainers.image.source="https://github.com/jackhan-amd/vllm-rocm-raon" \
+  org.opencontainers.image.revision="${VCS_REF}" \
+  ai.raon.native.mhc.gate.status="opt-in"
+COPY vllm/models/raon1_mini/mhc.py \
+  vllm/models/raon1_mini/rocm_mhc_gate.py \
+  /usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/
+COPY tools/raon_validation/mhc_math.py \
+  tools/raon_validation/README.md \
+  /opt/raon/tools/raon_validation/

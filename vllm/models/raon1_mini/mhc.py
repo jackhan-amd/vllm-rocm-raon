@@ -33,7 +33,7 @@ from collections.abc import Callable
 import torch
 from torch import Tensor, nn
 
-from . import raon_phase, rocm_mhc
+from . import raon_phase, rocm_mhc, rocm_mhc_gate
 from .batch_invariant import matmul_persistent
 
 _EPS = 1e-05
@@ -1716,6 +1716,8 @@ class RaonMHC(nn.Module):
                 "the RAON_MHC_TRAINER_FUSED CUDA path); refusing to "
                 "run with the branch pre-norm silently dropped"
             )
+        if rocm_mhc_gate.enabled():
+            return rocm_mhc_gate.forward(self, s.contiguous(), branch)
         if _FUSED and s.is_cuda and (n == 4) and (s.shape[-1] % 512 == 0):
             if not _CHECK:
                 return self._forward_fused(s.contiguous(), branch)
