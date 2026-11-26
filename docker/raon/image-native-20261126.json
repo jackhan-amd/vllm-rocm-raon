@@ -1,0 +1,463 @@
+{
+  "status": "PUBLISHED",
+  "source_commit": "3ce9e8d1ce2ac363369031c735ed44c5b9ac3f0e",
+  "tag": "docker.io/hanjack/vllm-rocm:raon-native-3ce9e8d1ce-20261126",
+  "began": 1795677544.9929674,
+  "steps": [
+    {
+      "name": "native-image-build",
+      "argv": [
+        "podman",
+        "build",
+        "--pull=never",
+        "--layers",
+        "--build-arg",
+        "VCS_REF=3ce9e8d1ce2ac363369031c735ed44c5b9ac3f0e",
+        "-f",
+        "/home/jackhan/bench-results/raon-manual-opt-20261126/native-build-source/docker/Dockerfile.rocm-raon-native-20261126",
+        "-t",
+        "docker.io/hanjack/vllm-rocm:raon-native-3ce9e8d1ce-20261126",
+        "/home/jackhan/bench-results/raon-manual-opt-20261126/native-build-source"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "native-image-container",
+      "argv": [
+        "podman",
+        "run",
+        "-d",
+        "--name",
+        "raon-native-image-check-89154",
+        "--label",
+        "amd.raon.manual=89154",
+        "--network=host",
+        "--device=/dev/kfd",
+        "--device=/dev/dri",
+        "--group-add=keep-groups",
+        "--shm-size=16g",
+        "--tmpfs=/tmp:rw,size=48g",
+        "-e",
+        "ROCR_VISIBLE_DEVICES=7",
+        "-e",
+        "SLURM_JOB_ID=89154",
+        "-e",
+        "MAX_JOBS=4",
+        "-e",
+        "AITER_MAX_JOBS=4",
+        "-e",
+        "PYTHONUNBUFFERED=1",
+        "-e",
+        "HF_HUB_OFFLINE=1",
+        "-e",
+        "TRANSFORMERS_OFFLINE=1",
+        "-e",
+        "AITER_JIT_DIR=/cache/aiter",
+        "-e",
+        "TRITON_CACHE_DIR=/cache/triton",
+        "-e",
+        "FLYDSL_RUNTIME_CACHE_DIR=/cache/flydsl",
+        "-e",
+        "TVM_FFI_CACHE_DIR=/cache/tvm-ffi",
+        "-e",
+        "TORCH_EXTENSIONS_DIR=/cache/extensions",
+        "-v",
+        "/home/jackhan/bench-results/raon-manual-opt-20261126:/work:rw",
+        "-v",
+        "/home/jackhan/bench-results/raon-manual-opt-20261126/cache:/cache:rw",
+        "-v",
+        "/mnt/hammerspace/jackhan/raon-release-20261125:/release:ro",
+        "--workdir=/opt/raon",
+        "--entrypoint=bash",
+        "docker.io/hanjack/vllm-rocm:raon-native-3ce9e8d1ce-20261126",
+        "-c",
+        "exec sleep 7200"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "native-image-mhc",
+      "argv": [
+        "podman",
+        "exec",
+        "raon-native-image-check-89154",
+        "bash",
+        "-c",
+        "source /opt/raon/runtime-flydsl-env.sh; cd /opt/raon; exec /opt/raon/.venv/bin/python -m tools.raon_validation.mhc_math --model /release/target/3f85cd63ea420100a84378f72ae162af86a441fd --backend hip --output /work/jobs/89154/native-image-mhc.json"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "native-image-combine",
+      "argv": [
+        "podman",
+        "exec",
+        "raon-native-image-check-89154",
+        "bash",
+        "-c",
+        "source /opt/raon/runtime-flydsl-env.sh; cd /opt/raon; exec /opt/raon/.venv/bin/python -m tools.raon_validation.combine_math --topk 6 --output /work/jobs/89154/native-image-combine.json"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "native-image-moe-direct",
+      "argv": [
+        "podman",
+        "exec",
+        "raon-native-image-check-89154",
+        "bash",
+        "-c",
+        "source /opt/raon/runtime-flydsl-env.sh; cd /opt/raon; exec /opt/raon/.venv/bin/python -m tools.raon_validation.moe_graph_mxfp8 --direct --output /work/jobs/89154/native-image-moe-direct.json"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "native-image-mla-split",
+      "argv": [
+        "podman",
+        "exec",
+        "raon-native-image-check-89154",
+        "bash",
+        "-c",
+        "source /opt/raon/runtime-flydsl-env.sh; cd /opt/raon; exec /opt/raon/.venv/bin/python -m tools.raon_validation.mla_split_graph --output /work/jobs/89154/native-image-mla-split.json"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "native-image-push",
+      "argv": [
+        "podman",
+        "push",
+        "--authfile",
+        "/home/jackhan/.config/containers/auth.json",
+        "--digestfile",
+        "/home/jackhan/bench-results/raon-manual-opt-20261126/jobs/89154/native-image.digest",
+        "docker.io/hanjack/vllm-rocm:raon-native-3ce9e8d1ce-20261126",
+        "docker://docker.io/hanjack/vllm-rocm:raon-native-3ce9e8d1ce-20261126"
+      ],
+      "exit": 0
+    }
+  ],
+  "files": {
+    "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/mhc.py": "8fee67d6d5ffb0b1a0c08467b1f0d7cf27648160e948682676be4f422dfcc60a",
+    "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/mla_attention.py": "74aaa832e41bc7a17f8fd4f5132a0501ef9daccbabd4eb1c0e9852b578cacf90",
+    "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/model.py": "e0a42628a8259e84c4e2a7c98656ecc2f02f8c8846174d9b556fbf145b8a7e56",
+    "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/moe_align.py": "9c4fadcc7276a669eb5b0c46d03d74114d9c1a526d6dca7b6bfdd04edc5b1157",
+    "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_flydsl_combine.py": "273ada3cc214b1f6367ac68ec38ad07d9cdf0838ef321cfc3b892418a8545b84",
+    "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc.py": "5c2e97827ce3c162dcc8defc675cbb75bc1da9f6c249a40916afb5c7a4fbd6e2",
+    "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mla_split.py": "7d496c5f87c4c56ef75f057282738fb81afdbcb4cf1a8be1ac9f7dd4626ea935",
+    "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_moe_direct_graph.py": "2d1960c9ec030c7dd0e831fbef5f4b2154bbd2bc3bb68afa1104ca195151f4e3",
+    "/opt/raon/tools/raon_validation/combine_math.py": "1c8fe4d7701fcb1141e22ce5b7e0077f492df35ad9031bb8c066cbbbbd02d4d3",
+    "/opt/raon/tools/raon_validation/mhc_math.py": "9920ce34d4532cd3941d23d0d99433b9911c704bc6c521aedda35e09b9a0c6f1",
+    "/opt/raon/tools/raon_validation/mhc_probe.py": "e6e0328b29fea8edc85f23e5960e3686a83162df4d2a0f362bb3a5a05a8bb602",
+    "/opt/raon/tools/raon_validation/mla_split_graph.py": "9cd28cfddb6c93636d963c34c064c8cfad6f1f4a5e0b8f16807cbbd87d865c7a",
+    "/opt/raon/tools/raon_validation/moe_graph_mxfp8.py": "b2bbabd180c340cdaaef051d3bc71e5f8de75e6201b51b11ffb42809cb9a550e"
+  },
+  "digest": "sha256:74a98d145aecfc637b3a269e4c8d896b2ac842a5fd26fc3a95af4f3e95c4b6db",
+  "ended": 1795677655.1458848,
+  "generation_smoke": {
+    "off": {
+      "status": "PASS",
+      "scope": "Published-image generation smoke, not speed or accuracy evaluation",
+      "samples": [
+        {
+          "prompt": "What is 7 times 8?",
+          "response": {
+            "object": "text_completion",
+            "created": 1795677885,
+            "model": "raon",
+            "choices": [
+              {
+                "index": 0,
+                "text": "We need respond to user simple math. Final answer concise.\n\n\n7 \u00d7 8 = 56.",
+                "logprobs": null,
+                "finish_reason": "stop",
+                "stop_reason": null,
+                "token_ids": null,
+                "prompt_logprobs": null,
+                "prompt_token_ids": null,
+                "routed_experts": null
+              }
+            ],
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.32.1.dev0+g5df63a720.d20261116-cbaaf194",
+            "usage": {
+              "prompt_tokens": 17,
+              "total_tokens": 38,
+              "completion_tokens": 21,
+              "prompt_tokens_details": null,
+              "completion_tokens_details": null
+            },
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null
+          }
+        },
+        {
+          "prompt": "Explain why the sky looks blue in two sentences.",
+          "response": {
+            "object": "text_completion",
+            "created": 1795677885,
+            "model": "raon",
+            "choices": [
+              {
+                "index": 0,
+                "text": "We need respond to user: \"Explain why the sky looks blue in two sentences.\" Simple. Need final two sentences.\n\n\nThe sky looks blue because molecules in the atmosphere scatter shorter blue wavelengths of sunlight more than longer red wavelengths. This scattered blue light reaches our eyes from all directions, making the daytime sky appear blue.",
+                "logprobs": null,
+                "finish_reason": "stop",
+                "stop_reason": null,
+                "token_ids": null,
+                "prompt_logprobs": null,
+                "prompt_token_ids": null,
+                "routed_experts": null
+              }
+            ],
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.32.1.dev0+g5df63a720.d20261116-cbaaf194",
+            "usage": {
+              "prompt_tokens": 18,
+              "total_tokens": 73,
+              "completion_tokens": 55,
+              "prompt_tokens_details": null,
+              "completion_tokens_details": null
+            },
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null
+          }
+        },
+        {
+          "prompt": "A shop sells 3 pens for 6 dollars. What do 9 pens cost?",
+          "response": {
+            "object": "text_completion",
+            "created": 1795677885,
+            "model": "raon",
+            "choices": [
+              {
+                "index": 0,
+                "text": "We need answer simple math. Need final concise. 3 pens cost 6 dollars => 1 pen $2, 9 pens $18.\n\n\n3 pens cost $6, so 1 pen costs $2.  \n9 pens cost 9 \u00d7 $2 = **$18**.",
+                "logprobs": null,
+                "finish_reason": "stop",
+                "stop_reason": null,
+                "token_ids": null,
+                "prompt_logprobs": null,
+                "prompt_token_ids": null,
+                "routed_experts": null
+              }
+            ],
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.32.1.dev0+g5df63a720.d20261116-cbaaf194",
+            "usage": {
+              "prompt_tokens": 27,
+              "total_tokens": 86,
+              "completion_tokens": 59,
+              "prompt_tokens_details": null,
+              "completion_tokens_details": null
+            },
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": null
+          }
+        }
+      ],
+      "witnesses": {
+        "RAON_ROCM_MHC LAUNCHED backend=hip": true,
+        "RAON_FLYDSL_COMBINE LAUNCHED": true,
+        "RAON_ROCM_MOE_DIRECT_GRAPH EXECUTED capturing=1": true,
+        "RAON_ROCM_MLA_SPLIT_GRAPH EXECUTED capturing=1": true,
+        "RAON_FLYDSL_RDA_DECODE LAUNCHED": true
+      }
+    },
+    "on": {
+      "status": "PASS",
+      "scope": "Published-image generation smoke, not speed or accuracy evaluation",
+      "samples": [
+        {
+          "prompt": "What is 7 times 8?",
+          "response": {
+            "object": "text_completion",
+            "created": 1795677897,
+            "model": "raon",
+            "choices": [
+              {
+                "index": 0,
+                "text": "We need respond to simple math. User asks 7 times 8 = 56. Final concise.\n\n\n7 \u00d7 8 = 56.",
+                "logprobs": null,
+                "finish_reason": "stop",
+                "stop_reason": null,
+                "token_ids": null,
+                "prompt_logprobs": null,
+                "prompt_token_ids": null,
+                "routed_experts": null
+              }
+            ],
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.32.1.dev0+g5df63a720.d20261116-4f0eae9e",
+            "usage": {
+              "prompt_tokens": 17,
+              "total_tokens": 47,
+              "completion_tokens": 30,
+              "prompt_tokens_details": null,
+              "completion_tokens_details": null
+            },
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": {
+              "time_to_first_token_ms": null,
+              "generation_time_ms": null,
+              "queue_time_ms": null,
+              "mean_itl_ms": null,
+              "tokens_per_second": null,
+              "speculative_decoding": {
+                "mean_acceptance_length": 3.4444444444444446,
+                "draft_acceptance_rate": 0.3492063492063492,
+                "acceptance_histogram": [
+                  2,
+                  1,
+                  2,
+                  2,
+                  1,
+                  0,
+                  0,
+                  1
+                ],
+                "num_spec_steps": 9,
+                "num_accepted_draft_tokens": 22,
+                "num_draft_tokens": 63,
+                "num_spec_tokens": 7,
+                "per_step_accepted": null,
+                "per_step_drafted": null
+              }
+            }
+          }
+        },
+        {
+          "prompt": "Explain why the sky looks blue in two sentences.",
+          "response": {
+            "object": "text_completion",
+            "created": 1795677897,
+            "model": "raon",
+            "choices": [
+              {
+                "index": 0,
+                "text": "We need respond to user: \"Explain why the sky looks blue in two sentences.\" Simple. Need final two sentences.\n\n\nThe sky looks blue because molecules in the atmosphere scatter shorter, bluer wavelengths of sunlight more than longer red wavelengths. This scattered blue light reaches our eyes from all directions overhead, making the daytime sky appear blue.",
+                "logprobs": null,
+                "finish_reason": "stop",
+                "stop_reason": null,
+                "token_ids": null,
+                "prompt_logprobs": null,
+                "prompt_token_ids": null,
+                "routed_experts": null
+              }
+            ],
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.32.1.dev0+g5df63a720.d20261116-4f0eae9e",
+            "usage": {
+              "prompt_tokens": 18,
+              "total_tokens": 76,
+              "completion_tokens": 58,
+              "prompt_tokens_details": null,
+              "completion_tokens_details": null
+            },
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": {
+              "time_to_first_token_ms": null,
+              "generation_time_ms": null,
+              "queue_time_ms": null,
+              "mean_itl_ms": null,
+              "tokens_per_second": null,
+              "speculative_decoding": {
+                "mean_acceptance_length": 3.4705882352941178,
+                "draft_acceptance_rate": 0.35294117647058826,
+                "acceptance_histogram": [
+                  2,
+                  6,
+                  3,
+                  2,
+                  1,
+                  0,
+                  1,
+                  2
+                ],
+                "num_spec_steps": 17,
+                "num_accepted_draft_tokens": 42,
+                "num_draft_tokens": 119,
+                "num_spec_tokens": 7,
+                "per_step_accepted": null,
+                "per_step_drafted": null
+              }
+            }
+          }
+        },
+        {
+          "prompt": "A shop sells 3 pens for 6 dollars. What do 9 pens cost?",
+          "response": {
+            "object": "text_completion",
+            "created": 1795677897,
+            "model": "raon",
+            "choices": [
+              {
+                "index": 0,
+                "text": "We need answer simple math. Need final concise. 3 pens for $6 => $2 per pen, 9 pens = $18.\n\n\n3 pens cost $6, so 1 pen costs $2.  \n9 pens cost 9 \u00d7 $2 = **$18**.",
+                "logprobs": null,
+                "finish_reason": "stop",
+                "stop_reason": null,
+                "token_ids": null,
+                "prompt_logprobs": null,
+                "prompt_token_ids": null,
+                "routed_experts": null
+              }
+            ],
+            "service_tier": null,
+            "system_fingerprint": "vllm-0.32.1.dev0+g5df63a720.d20261116-4f0eae9e",
+            "usage": {
+              "prompt_tokens": 27,
+              "total_tokens": 85,
+              "completion_tokens": 58,
+              "prompt_tokens_details": null,
+              "completion_tokens_details": null
+            },
+            "kv_transfer_params": null,
+            "ec_transfer_params": null,
+            "metrics": {
+              "time_to_first_token_ms": null,
+              "generation_time_ms": null,
+              "queue_time_ms": null,
+              "mean_itl_ms": null,
+              "tokens_per_second": null,
+              "speculative_decoding": {
+                "mean_acceptance_length": 5.2727272727272725,
+                "draft_acceptance_rate": 0.6103896103896104,
+                "acceptance_histogram": [
+                  0,
+                  0,
+                  3,
+                  2,
+                  1,
+                  2,
+                  0,
+                  3
+                ],
+                "num_spec_steps": 11,
+                "num_accepted_draft_tokens": 47,
+                "num_draft_tokens": 77,
+                "num_spec_tokens": 7,
+                "per_step_accepted": null,
+                "per_step_drafted": null
+              }
+            }
+          }
+        }
+      ],
+      "witnesses": {
+        "RAON_ROCM_MHC LAUNCHED backend=hip": true,
+        "RAON_FLYDSL_COMBINE LAUNCHED": true,
+        "RAON_ROCM_MOE_DIRECT_GRAPH EXECUTED capturing=1": true,
+        "RAON_ROCM_MLA_SPLIT_GRAPH EXECUTED capturing=1": true,
+        "RAON_FLYDSL_RDA_DECODE LAUNCHED": true
+      }
+    }
+  },
+  "opaque_response_ids": "omitted; original API responses retained in raw artifacts"
+}

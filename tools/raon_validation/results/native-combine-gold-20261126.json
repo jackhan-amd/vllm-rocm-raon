@@ -1,0 +1,344 @@
+{
+  "status": "PASS",
+  "topk": 6,
+  "cases": [
+    {
+      "rows": 1,
+      "ids_dtype": "torch.int32",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 1,
+      "ids_dtype": "torch.int32",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 1,
+      "ids_dtype": "torch.int32",
+      "mode": "nonfinite",
+      "exact": true
+    },
+    {
+      "rows": 1,
+      "ids_dtype": "torch.int64",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 1,
+      "ids_dtype": "torch.int64",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 1,
+      "ids_dtype": "torch.int64",
+      "mode": "nonfinite",
+      "exact": true
+    },
+    {
+      "rows": 8,
+      "ids_dtype": "torch.int32",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 8,
+      "ids_dtype": "torch.int32",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 8,
+      "ids_dtype": "torch.int32",
+      "mode": "nonfinite",
+      "exact": true
+    },
+    {
+      "rows": 8,
+      "ids_dtype": "torch.int64",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 8,
+      "ids_dtype": "torch.int64",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 8,
+      "ids_dtype": "torch.int64",
+      "mode": "nonfinite",
+      "exact": true
+    },
+    {
+      "rows": 32,
+      "ids_dtype": "torch.int32",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 32,
+      "ids_dtype": "torch.int32",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 32,
+      "ids_dtype": "torch.int32",
+      "mode": "nonfinite",
+      "exact": true
+    },
+    {
+      "rows": 32,
+      "ids_dtype": "torch.int64",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 32,
+      "ids_dtype": "torch.int64",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 32,
+      "ids_dtype": "torch.int64",
+      "mode": "nonfinite",
+      "exact": true
+    },
+    {
+      "rows": 64,
+      "ids_dtype": "torch.int32",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 64,
+      "ids_dtype": "torch.int32",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 64,
+      "ids_dtype": "torch.int32",
+      "mode": "nonfinite",
+      "exact": true
+    },
+    {
+      "rows": 64,
+      "ids_dtype": "torch.int64",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 64,
+      "ids_dtype": "torch.int64",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 64,
+      "ids_dtype": "torch.int64",
+      "mode": "nonfinite",
+      "exact": true
+    },
+    {
+      "rows": 128,
+      "ids_dtype": "torch.int32",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 128,
+      "ids_dtype": "torch.int32",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 128,
+      "ids_dtype": "torch.int32",
+      "mode": "nonfinite",
+      "exact": true
+    },
+    {
+      "rows": 128,
+      "ids_dtype": "torch.int64",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 128,
+      "ids_dtype": "torch.int64",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 128,
+      "ids_dtype": "torch.int64",
+      "mode": "nonfinite",
+      "exact": true
+    },
+    {
+      "rows": 256,
+      "ids_dtype": "torch.int32",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 256,
+      "ids_dtype": "torch.int32",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 256,
+      "ids_dtype": "torch.int32",
+      "mode": "nonfinite",
+      "exact": true
+    },
+    {
+      "rows": 256,
+      "ids_dtype": "torch.int64",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 256,
+      "ids_dtype": "torch.int64",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 256,
+      "ids_dtype": "torch.int64",
+      "mode": "nonfinite",
+      "exact": true
+    },
+    {
+      "rows": 1024,
+      "ids_dtype": "torch.int32",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 1024,
+      "ids_dtype": "torch.int32",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 1024,
+      "ids_dtype": "torch.int32",
+      "mode": "nonfinite",
+      "exact": true
+    },
+    {
+      "rows": 1024,
+      "ids_dtype": "torch.int64",
+      "mode": "random",
+      "exact": true
+    },
+    {
+      "rows": 1024,
+      "ids_dtype": "torch.int64",
+      "mode": "cancellation",
+      "exact": true
+    },
+    {
+      "rows": 1024,
+      "ids_dtype": "torch.int64",
+      "mode": "nonfinite",
+      "exact": true
+    }
+  ],
+  "timings": [
+    {
+      "rows": 1,
+      "ids_dtype": "torch.int32",
+      "torch_us": 59.182560443878174,
+      "flydsl_us": 2.3090187460184097
+    },
+    {
+      "rows": 1,
+      "ids_dtype": "torch.int64",
+      "torch_us": 58.64518880844116,
+      "flydsl_us": 2.330765686929226
+    },
+    {
+      "rows": 8,
+      "ids_dtype": "torch.int32",
+      "torch_us": 70.65127491950989,
+      "flydsl_us": 2.3803938180208206
+    },
+    {
+      "rows": 8,
+      "ids_dtype": "torch.int64",
+      "torch_us": 70.81114649772644,
+      "flydsl_us": 2.405143715441227
+    },
+    {
+      "rows": 32,
+      "ids_dtype": "torch.int32",
+      "torch_us": 71.28989696502686,
+      "flydsl_us": 2.45189368724823
+    },
+    {
+      "rows": 32,
+      "ids_dtype": "torch.int64",
+      "torch_us": 71.7274010181427,
+      "flydsl_us": 2.4410156533122063
+    },
+    {
+      "rows": 64,
+      "ids_dtype": "torch.int32",
+      "torch_us": 73.9149272441864,
+      "flydsl_us": 2.629018761217594
+    },
+    {
+      "rows": 64,
+      "ids_dtype": "torch.int64",
+      "torch_us": 73.49391579627991,
+      "flydsl_us": 2.6258938014507294
+    },
+    {
+      "rows": 128,
+      "ids_dtype": "torch.int32",
+      "torch_us": 77.81683206558228,
+      "flydsl_us": 2.7366437017917633
+    },
+    {
+      "rows": 128,
+      "ids_dtype": "torch.int64",
+      "torch_us": 76.96756720542908,
+      "flydsl_us": 2.7230188250541687
+    },
+    {
+      "rows": 256,
+      "ids_dtype": "torch.int32",
+      "torch_us": 89.64516520500183,
+      "flydsl_us": 3.1161468476057053
+    },
+    {
+      "rows": 256,
+      "ids_dtype": "torch.int64",
+      "torch_us": 89.16115760803223,
+      "flydsl_us": 3.0890218913555145
+    },
+    {
+      "rows": 1024,
+      "ids_dtype": "torch.int32",
+      "torch_us": 194.12007331848145,
+      "flydsl_us": 6.109918653964996
+    },
+    {
+      "rows": 1024,
+      "ids_dtype": "torch.int64",
+      "torch_us": 195.08085250854492,
+      "flydsl_us": 6.098422035574913
+    }
+  ]
+}

@@ -1,5 +1,10 @@
 # ROCm graph/stream candidate: KDA, MXFP8 and MXFP4 MoE
 
+The later [native optimization screen](NATIVE-OPTIMIZATION-20261126.md) records
+the opt-in HIP mHC, ordered FlyDSL combine, direct MoE graph and narrowed MLA
+callback candidates over the upgraded AITER stack. It includes all intermediate
+measurements, Torch-gold limits and the separately published candidate image.
+
 The focused 2026-11-26 MI355X screen is complete. The tested overlay is published
 as `docker.io/hanjack/vllm-rocm:raon-release-rocm102-graph64-aiter-proj-20261126`,
 digest `sha256:5749ad5d9b0f11ea525495a01c07f6a739e8423ec7b96669cb7d757bf534b82e`.

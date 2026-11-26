@@ -1,0 +1,774 @@
+{
+  "status": "PASS",
+  "scope": "Actual Raon MXFP8 combine/shared-stream/outer-graph call sites on a fixture.\n\nUses synthetic checkpoint-native bytes and routing weights. No model loading\nor throughput measurement. Metadata-only BF16 placeholders reside on meta.\n",
+  "environment": {
+    "torch": "2.14.0+rocm10.2.0",
+    "hip": "7.17.26434",
+    "gpu": "AMD Instinct MI355X",
+    "architecture": "gfx950:sramecc+:xnack-",
+    "visible_devices": "7",
+    "job": "89154",
+    "python": "/opt/raon/.venv/bin/python",
+    "pythonpath": "/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+    "platform": "RocmPlatform"
+  },
+  "cases": [
+    {
+      "tokens": 1,
+      "stream": "0",
+      "eager_vs_torch_gold": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.000883851433172822,
+        "reference_rms": 0.8047453761100769,
+        "relative_rms": 0.0010982994862861128,
+        "max_abs": 0.0078125,
+        "reference_peak": 3.390625,
+        "limits": {
+          "relative_rms": 0.01,
+          "relative_peak": 0.02,
+          "atol": 1e-05
+        }
+      },
+      "direct_0": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.815851092338562,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.546875,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_0": {
+        "pass": true,
+        "executions": 1
+      },
+      "direct_1": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.8567132949829102,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.640625,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_1": {
+        "pass": true,
+        "executions": 1
+      },
+      "direct_2": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.9060628414154053,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.75,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_2": {
+        "pass": true,
+        "executions": 1
+      },
+      "graph_0": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.9717444181442261,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.90625,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_0": {
+        "pass": true,
+        "executions": 3
+      },
+      "graph_1": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 1.0620192289352417,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 4.28125,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_1": {
+        "pass": true,
+        "executions": 1
+      },
+      "graph_2": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 1.1488845348358154,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 4.1875,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_2": {
+        "pass": true,
+        "executions": 1
+      }
+    },
+    {
+      "tokens": 8,
+      "stream": "0",
+      "eager_vs_torch_gold": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0008165400358848274,
+        "reference_rms": 0.8141427040100098,
+        "relative_rms": 0.0010029446089279063,
+        "max_abs": 0.015625,
+        "reference_peak": 3.375,
+        "limits": {
+          "relative_rms": 0.01,
+          "relative_peak": 0.02,
+          "atol": 1e-05
+        }
+      },
+      "direct_0": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.8264673352241516,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.3125,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_0": {
+        "pass": true,
+        "executions": 1
+      },
+      "direct_1": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.8573675751686096,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.53125,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_1": {
+        "pass": true,
+        "executions": 1
+      },
+      "direct_2": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.9022320508956909,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.5625,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_2": {
+        "pass": true,
+        "executions": 1
+      },
+      "graph_0": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.974556028842926,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 4.03125,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_0": {
+        "pass": true,
+        "executions": 3
+      },
+      "graph_1": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 1.058245062828064,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 5.0,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_1": {
+        "pass": true,
+        "executions": 1
+      },
+      "graph_2": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 1.1502740383148193,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 5.59375,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_2": {
+        "pass": true,
+        "executions": 1
+      }
+    },
+    {
+      "tokens": 32,
+      "stream": "0",
+      "eager_vs_torch_gold": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0014252663822844625,
+        "reference_rms": 0.8223161697387695,
+        "relative_rms": 0.0017332340463853896,
+        "max_abs": 0.015625,
+        "reference_peak": 3.71875,
+        "limits": {
+          "relative_rms": 0.01,
+          "relative_peak": 0.02,
+          "atol": 1e-05
+        }
+      },
+      "direct_0": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.8335033655166626,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.78125,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_0": {
+        "pass": true,
+        "executions": 1
+      },
+      "direct_1": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.8625855445861816,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.6875,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_1": {
+        "pass": true,
+        "executions": 1
+      },
+      "direct_2": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.9095976948738098,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 4.125,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_2": {
+        "pass": true,
+        "executions": 1
+      },
+      "graph_0": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.9722471237182617,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 4.34375,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_0": {
+        "pass": true,
+        "executions": 3
+      },
+      "graph_1": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 1.0546338558197021,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 5.0,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_1": {
+        "pass": true,
+        "executions": 1
+      },
+      "graph_2": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 1.1529330015182495,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 5.5625,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_2": {
+        "pass": true,
+        "executions": 1
+      }
+    },
+    {
+      "tokens": 1,
+      "stream": "1",
+      "eager_vs_torch_gold": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0020581569988280535,
+        "reference_rms": 0.8462364673614502,
+        "relative_rms": 0.0024321298811966225,
+        "max_abs": 0.015625,
+        "reference_peak": 3.28125,
+        "limits": {
+          "relative_rms": 0.01,
+          "relative_peak": 0.02,
+          "atol": 1e-05
+        }
+      },
+      "direct_0": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.8488938212394714,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.6875,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_0": {
+        "pass": true,
+        "executions": 1
+      },
+      "direct_1": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.8699095845222473,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.78125,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_1": {
+        "pass": true,
+        "executions": 1
+      },
+      "direct_2": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.9083455204963684,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.703125,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_2": {
+        "pass": true,
+        "executions": 1
+      },
+      "graph_0": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.9616580605506897,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.671875,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_0": {
+        "pass": true,
+        "executions": 3
+      },
+      "graph_1": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 1.036253571510315,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.953125,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_1": {
+        "pass": true,
+        "executions": 1
+      },
+      "graph_2": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 1.1432044506072998,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 4.5,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_2": {
+        "pass": true,
+        "executions": 1
+      }
+    },
+    {
+      "tokens": 8,
+      "stream": "1",
+      "eager_vs_torch_gold": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0009813724318519235,
+        "reference_rms": 0.8144235014915466,
+        "relative_rms": 0.0012049903153023263,
+        "max_abs": 0.015625,
+        "reference_peak": 3.15625,
+        "limits": {
+          "relative_rms": 0.01,
+          "relative_peak": 0.02,
+          "atol": 1e-05
+        }
+      },
+      "direct_0": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.8204875588417053,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.078125,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_0": {
+        "pass": true,
+        "executions": 1
+      },
+      "direct_1": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.8505920171737671,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.59375,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_1": {
+        "pass": true,
+        "executions": 1
+      },
+      "direct_2": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.9009714722633362,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.71875,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_2": {
+        "pass": true,
+        "executions": 1
+      },
+      "graph_0": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.9654293656349182,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.90625,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_0": {
+        "pass": true,
+        "executions": 3
+      },
+      "graph_1": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 1.046635627746582,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 4.46875,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_1": {
+        "pass": true,
+        "executions": 1
+      },
+      "graph_2": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 1.147709608078003,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 4.5625,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_2": {
+        "pass": true,
+        "executions": 1
+      }
+    },
+    {
+      "tokens": 32,
+      "stream": "1",
+      "eager_vs_torch_gold": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0016029184916988015,
+        "reference_rms": 0.8288879990577698,
+        "relative_rms": 0.001933817950701305,
+        "max_abs": 0.015625,
+        "reference_peak": 3.90625,
+        "limits": {
+          "relative_rms": 0.01,
+          "relative_peak": 0.02,
+          "atol": 1e-05
+        }
+      },
+      "direct_0": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.8384431600570679,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.71875,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_0": {
+        "pass": true,
+        "executions": 1
+      },
+      "direct_1": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.8670613169670105,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.65625,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_1": {
+        "pass": true,
+        "executions": 1
+      },
+      "direct_2": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.9113151431083679,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 3.75,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "direct_shared_once_2": {
+        "pass": true,
+        "executions": 1
+      },
+      "graph_0": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 0.9768004417419434,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 4.0625,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_0": {
+        "pass": true,
+        "executions": 3
+      },
+      "graph_1": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 1.0583268404006958,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 4.59375,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_1": {
+        "pass": true,
+        "executions": 1
+      },
+      "graph_2": {
+        "pass": true,
+        "finite": true,
+        "rms_error": 0.0,
+        "reference_rms": 1.1526461839675903,
+        "relative_rms": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 5.15625,
+        "limits": {
+          "relative_rms": 0,
+          "relative_peak": 0,
+          "atol": 0
+        }
+      },
+      "shared_once_2": {
+        "pass": true,
+        "executions": 1
+      }
+    }
+  ],
+  "direct": true
+}
