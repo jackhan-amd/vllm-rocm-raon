@@ -77,11 +77,28 @@ natural-length and acceptance effects; modest ratios are not a variance study.
 | --- | ---: | ---: | ---: | --- |
 | 1 | 284.7 | 296.8 | 1.043x | Valid single measurement |
 | 8 | 1257.1 | 1439.9 | 1.145x | Valid single measurement |
-| 32 | 2222.5 | Excluded | Unavailable | New FlyDSL launch cache artifact during candidate timing |
+| 32 | 2222.5 | 2168.2 | 0.976x | Valid C32-only retry after complete warm cache |
 
-The failed C=32 trial is retained, not silently retried or counted as a speedup.
+The initial C=32 trial is retained as invalid because a FlyDSL launch cache
+artifact was created during timing. The explicitly announced retry measured
+only C32 after warmup with that cache populated; C1/C8 were not repeated.
+The retry recorded no cache changes or JIT warnings. Each point contains 128
+unique raw request IDs and validated output-token totals.
 The isolated attention screen showed approximately 1.8–2.5x for K=4096 and query
 length 8, including gather; that is not the end-to-end speedup above.
+
+Aggregate acceptance length (1 + total accepted drafts / total draft steps):
+
+| C | Prior native | Native draft |
+| --- | ---: | ---: |
+| 1 | 3.480 | 3.497 |
+| 8 | 3.443 | 3.511 |
+| 32 | 3.420 | 3.568 |
+
+This is not another twofold end-to-end improvement. The candidate stays opt-in;
+the C32 trial provides no evidence to enable it universally. Scratch is retained
+per visited batch/token shape. Serving with a wider concurrency/shape sweep needs
+a scratch-memory audit beyond this measured C1/8/32 workload.
 
 Six additional GPUs screened 72 generic full-tile BF16 FlyDSL projection
 configurations over six observed shapes and M=32/64/128/256. All numerical and
@@ -96,3 +113,12 @@ Raw evidence is under
 The first three failed serving starts are preserved separately from the passing
 candidate and named-backend smoke. They exposed an overstrict metadata guard,
 scalar-scale ABI handling, and the large-cache flattening bug, respectively.
+
+Source commit: `fcee6105d3cc5e3d2814a10b87e205610caa9e7a`. The published image is
+`docker.io/hanjack/vllm-rocm:raon-draft-native-fcee6105d3-20261126`, digest
+`sha256:f683e05a88ace2c842316fca4772f0f5fe72c1b5b0f2db69b7bb127a46ac9026`.
+The image's source-file hashes matched the committed build context, all eight
+component fixtures passed in the new image, and its three generation smokes and
+C32 serving point passed. See the [image receipt](image-draft-native-20261126.json)
+and [validated measurements](../../tools/raon_validation/results/native-draft-20261126.json).
+Slurm 89383 completed normally in 1:25:20; its owned containers were removed.

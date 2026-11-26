@@ -1,0 +1,266 @@
+{
+  "source_commit": "fcee6105d3cc5e3d2814a10b87e205610caa9e7a",
+  "tag": "docker.io/hanjack/vllm-rocm:raon-draft-native-fcee6105d3-20261126",
+  "status": "PUBLISHED",
+  "steps": [
+    {
+      "name": "draft-image-build",
+      "argv": [
+        "podman",
+        "build",
+        "--pull=never",
+        "--layers",
+        "--build-arg",
+        "VCS_REF=fcee6105d3cc5e3d2814a10b87e205610caa9e7a",
+        "-f",
+        "/home/jackhan/bench-results/raon-next-native-20261126/draft-image-source-fcee6105d3/docker/Dockerfile.rocm-raon-draft-native-20261126",
+        "-t",
+        "docker.io/hanjack/vllm-rocm:raon-draft-native-fcee6105d3-20261126",
+        "/home/jackhan/bench-results/raon-next-native-20261126/draft-image-source-fcee6105d3"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "draft-image-check-container",
+      "argv": [
+        "podman",
+        "run",
+        "-d",
+        "--name",
+        "raon-draft-image-check-89383",
+        "--label",
+        "amd.raon.manual=89383",
+        "--network=host",
+        "--device=/dev/kfd",
+        "--device=/dev/dri",
+        "--group-add=keep-groups",
+        "--shm-size=16g",
+        "--tmpfs=/tmp:rw,size=48g",
+        "-e",
+        "ROCR_VISIBLE_DEVICES=0,1,2,3,4,5,6,7",
+        "-e",
+        "SLURM_JOB_ID=89383",
+        "-e",
+        "MAX_JOBS=4",
+        "-e",
+        "AITER_MAX_JOBS=4",
+        "-e",
+        "PYTHONUNBUFFERED=1",
+        "-e",
+        "HF_HUB_OFFLINE=1",
+        "-e",
+        "TRANSFORMERS_OFFLINE=1",
+        "-e",
+        "AITER_JIT_DIR=/cache/aiter",
+        "-e",
+        "TRITON_CACHE_DIR=/cache/triton",
+        "-e",
+        "FLYDSL_RUNTIME_CACHE_DIR=/cache/flydsl",
+        "-e",
+        "TVM_FFI_CACHE_DIR=/cache/tvm-ffi",
+        "-e",
+        "TORCH_EXTENSIONS_DIR=/cache/extensions",
+        "-v",
+        "/home/jackhan/bench-results/raon-next-native-20261126:/work:rw",
+        "-v",
+        "/home/jackhan/bench-results/raon-next-native-20261126/cache:/cache:rw",
+        "-v",
+        "/mnt/hammerspace/jackhan/raon-release-20261125:/release:ro",
+        "--workdir=/opt/raon",
+        "--entrypoint=bash",
+        "docker.io/hanjack/vllm-rocm:raon-draft-native-fcee6105d3-20261126",
+        "-c",
+        "exec sleep 7200"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "draft-image-source-audit",
+      "argv": [
+        "podman",
+        "exec",
+        "raon-draft-image-check-89383",
+        "/opt/raon/.venv/bin/python",
+        "-c",
+        "import hashlib,json;from pathlib import Path;expected={'/usr/local/lib/python3.14/dist-packages/vllm/v1/attention/backends/registry.py': 'aff7772d5da1817bf6e83659353849241fab527f0e561b489c858d7a8ef0658d', '/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_draft_attention.py': '04086e3d782a55a4cbf98d9ea7b8e6976ba198d7b74ed7e47d9c9d94eef1b840', '/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_draft_backend.py': '0c5ec6da732ea07141c0b54a501119b7d35759429ec053474142a7c4527d8797', '/opt/raon/tools/raon_validation/README.md': '70422db9ef63a3cf22eb88212e6e7a8b3f9d842e0559b3fe0fcae25d93835cec', '/opt/raon/tools/raon_validation/__main__.py': 'b5a2a51d4f445e2d76fa2ba61e52128245edc5e60572e3ceb46ee2abf76189dc', '/opt/raon/tools/raon_validation/draft_native.py': '7baec7abdc1e0aff0dca498cf19ef85229afeacced20d417dc12c551ed8f9a53'};actual={p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in expected};assert actual==expected,(actual,expected);print(json.dumps(actual))"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "image-draft-gold-3",
+      "argv": [
+        "podman",
+        "exec",
+        "-e",
+        "ROCR_VISIBLE_DEVICES=3",
+        "raon-draft-image-check-89383",
+        "bash",
+        "-c",
+        "source /opt/raon/runtime-flydsl-env.sh; cd /opt/raon; exec timeout 300s /opt/raon/.venv/bin/python -m tools.raon_validation draft-native --draft-case 3 --output /work/jobs/89383/image-draft-gold-3.json"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "image-draft-gold-0",
+      "argv": [
+        "podman",
+        "exec",
+        "-e",
+        "ROCR_VISIBLE_DEVICES=0",
+        "raon-draft-image-check-89383",
+        "bash",
+        "-c",
+        "source /opt/raon/runtime-flydsl-env.sh; cd /opt/raon; exec timeout 300s /opt/raon/.venv/bin/python -m tools.raon_validation draft-native --draft-case 0 --output /work/jobs/89383/image-draft-gold-0.json"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "image-draft-gold-4",
+      "argv": [
+        "podman",
+        "exec",
+        "-e",
+        "ROCR_VISIBLE_DEVICES=4",
+        "raon-draft-image-check-89383",
+        "bash",
+        "-c",
+        "source /opt/raon/runtime-flydsl-env.sh; cd /opt/raon; exec timeout 300s /opt/raon/.venv/bin/python -m tools.raon_validation draft-native --draft-case 4 --output /work/jobs/89383/image-draft-gold-4.json"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "image-draft-gold-5",
+      "argv": [
+        "podman",
+        "exec",
+        "-e",
+        "ROCR_VISIBLE_DEVICES=5",
+        "raon-draft-image-check-89383",
+        "bash",
+        "-c",
+        "source /opt/raon/runtime-flydsl-env.sh; cd /opt/raon; exec timeout 300s /opt/raon/.venv/bin/python -m tools.raon_validation draft-native --draft-case 5 --output /work/jobs/89383/image-draft-gold-5.json"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "image-draft-gold-6",
+      "argv": [
+        "podman",
+        "exec",
+        "-e",
+        "ROCR_VISIBLE_DEVICES=6",
+        "raon-draft-image-check-89383",
+        "bash",
+        "-c",
+        "source /opt/raon/runtime-flydsl-env.sh; cd /opt/raon; exec timeout 300s /opt/raon/.venv/bin/python -m tools.raon_validation draft-native --draft-case 6 --output /work/jobs/89383/image-draft-gold-6.json"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "image-draft-gold-7",
+      "argv": [
+        "podman",
+        "exec",
+        "-e",
+        "ROCR_VISIBLE_DEVICES=7",
+        "raon-draft-image-check-89383",
+        "bash",
+        "-c",
+        "source /opt/raon/runtime-flydsl-env.sh; cd /opt/raon; exec timeout 300s /opt/raon/.venv/bin/python -m tools.raon_validation draft-native --draft-case 7 --output /work/jobs/89383/image-draft-gold-7.json"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "image-draft-gold-1",
+      "argv": [
+        "podman",
+        "exec",
+        "-e",
+        "ROCR_VISIBLE_DEVICES=1",
+        "raon-draft-image-check-89383",
+        "bash",
+        "-c",
+        "source /opt/raon/runtime-flydsl-env.sh; cd /opt/raon; exec timeout 300s /opt/raon/.venv/bin/python -m tools.raon_validation draft-native --draft-case 1 --output /work/jobs/89383/image-draft-gold-1.json"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "image-draft-gold-2",
+      "argv": [
+        "podman",
+        "exec",
+        "-e",
+        "ROCR_VISIBLE_DEVICES=2",
+        "raon-draft-image-check-89383",
+        "bash",
+        "-c",
+        "source /opt/raon/runtime-flydsl-env.sh; cd /opt/raon; exec timeout 300s /opt/raon/.venv/bin/python -m tools.raon_validation draft-native --draft-case 2 --output /work/jobs/89383/image-draft-gold-2.json"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "draft-image-check-cleanup",
+      "argv": [
+        "podman",
+        "rm",
+        "-f",
+        "--time",
+        "2",
+        "raon-draft-image-check-89383"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "draft-image-push",
+      "argv": [
+        "podman",
+        "push",
+        "--authfile",
+        "/home/jackhan/.config/containers/auth.json",
+        "--digestfile",
+        "/home/jackhan/bench-results/raon-next-native-20261126/jobs/89383/draft-image-digest.txt",
+        "docker.io/hanjack/vllm-rocm:raon-draft-native-fcee6105d3-20261126"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "published-c32",
+      "argv": [
+        "/home/jackhan/hyperloom-run/operations/raon-flydsl-decode-20261125/.venv/bin/python",
+        "/home/jackhan/bench-results/raon-next-native-20261126/run-published-c32-host.py"
+      ],
+      "exit": 0
+    }
+  ],
+  "source_sha256": {
+    "docker/Dockerfile.rocm-raon-draft-native-20261126": "61cc54e2ef89e087ff9e51e859e33e6a8ebf3f2dea1a8abc532c66279b3133b8",
+    "vllm/v1/attention/backends/registry.py": "aff7772d5da1817bf6e83659353849241fab527f0e561b489c858d7a8ef0658d",
+    "vllm/models/raon1_mini/rocm_draft_attention.py": "04086e3d782a55a4cbf98d9ea7b8e6976ba198d7b74ed7e47d9c9d94eef1b840",
+    "vllm/models/raon1_mini/rocm_draft_backend.py": "0c5ec6da732ea07141c0b54a501119b7d35759429ec053474142a7c4527d8797",
+    "tools/raon_validation/README.md": "70422db9ef63a3cf22eb88212e6e7a8b3f9d842e0559b3fe0fcae25d93835cec",
+    "tools/raon_validation/__main__.py": "b5a2a51d4f445e2d76fa2ba61e52128245edc5e60572e3ceb46ee2abf76189dc",
+    "tools/raon_validation/draft_native.py": "7baec7abdc1e0aff0dca498cf19ef85229afeacced20d417dc12c551ed8f9a53"
+  },
+  "digest": "sha256:f683e05a88ace2c842316fca4772f0f5fe72c1b5b0f2db69b7bb127a46ac9026",
+  "ended": 1795695511.1130104,
+  "validation": {
+    "component_cases": 8,
+    "component_status": "PASS",
+    "named_backend_smoke": "PASS: 3 short + 3022-token input",
+    "published_image_smoke": "PASS: 3 prompts",
+    "published_image_c32": "VALID_SINGLE_MEASUREMENT: 2168.1947819390266 output tok/s",
+    "cleanup": {
+      "request": {
+        "job": "89383",
+        "reason": "Native draft round complete; source pushed, image published and six valid speed points preserved. Release the owned idle container through the existing controller finalizer.",
+        "epoch": 1795695978.4574149
+      },
+      "controller_status": "RELEASED_IDLE_LEASE",
+      "container_cleanup": {
+        "exit": 0,
+        "stderr": "time=\"2026-11-26T06:26:49-06:00\" level=warning msg=\"StopSignal SIGTERM failed to stop container raon-next-native-89383 in 2 seconds, resorting to SIGKILL\"\n"
+      },
+      "slurm": "89383|COMPLETED|01:25:20|0:0"
+    }
+  }
+}

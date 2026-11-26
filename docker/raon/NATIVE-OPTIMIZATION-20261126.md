@@ -126,3 +126,11 @@ though target MLA used native AITER. The runtime's per-kind overrides are
 FP8-cache support. That capability check alone is not validation of this draft's
 exact masking/cache contract. Check draft attention against Torch gold and SD
 cache replay before measuring this as a separately reviewed configuration.
+
+That follow-on screen is now recorded in
+[native DFlash2 attention](DRAFT-NATIVE-20261126.md). The opt-in
+`ROCM_RAON_DFLASH` backend connects a FlyDSL gather and native HIP cache writer
+to CK HIP noncausal sliding-window attention. Gold and actual serving passed;
+the single-trial SD-on ratios were 1.043x/1.145x/0.976x at C1/8/32. It is not a
+universal default or a twofold end-to-end improvement. A separate 72-candidate
+wide BF16 projection screen did not justify changing those dispatches.
