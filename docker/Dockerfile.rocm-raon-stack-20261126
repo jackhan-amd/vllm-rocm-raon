@@ -1,0 +1,10 @@
+# Preserve the existing runtime; upgrade only AITER and its FlyDSL dependency.
+ARG BASE_IMAGE=docker.io/hanjack/vllm-rocm@sha256:5749ad5d9b0f11ea525495a01c07f6a739e8423ec7b96669cb7d757bf534b82e
+FROM ${BASE_IMAGE}
+LABEL ai.raon.stack.status="candidate" \
+  ai.raon.aiter.ref="69753cf7f4323ef8ec511d1e3a5d273e818a7029" \
+  ai.raon.flydsl.version="0.5.3"
+COPY docker/raon/pins-stack-20261126.json docker/raon/upgrade_stack.py /opt/raon/stack-upgrade/
+RUN /opt/raon/.venv/bin/python /opt/raon/stack-upgrade/upgrade_stack.py
+ENV AITER_JIT_DIR=/var/cache/aiter-69753cf7 \
+  FLYDSL_RUNTIME_CACHE_DIR=/var/cache/flydsl-0.5.3

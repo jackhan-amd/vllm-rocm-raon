@@ -1,0 +1,12 @@
+{
+  "aiter_commit": "69753cf7f4323ef8ec511d1e3a5d273e818a7029",
+  "aiter_repository": "https://github.com/ROCm/aiter.git",
+  "flydsl_version": "0.5.3",
+  "flydsl_wheel": {
+    "filename": "flydsl-0.5.3-cp314-cp314-manylinux_2_27_x86_64.whl",
+    "url": "https://files.pythonhosted.org/packages/30/ca/0d16d286f9606df3931915ee9d4aa72b0edc73c731626f2c96c5d2a918e9/flydsl-0.5.3-cp314-cp314-manylinux_2_27_x86_64.whl",
+    "sha256": "322094199102deaebb6332f331d196a6ad7b792cf58943d61e6f0f189f2be726"
+  },
+  "base_image": "docker.io/hanjack/vllm-rocm@sha256:5749ad5d9b0f11ea525495a01c07f6a739e8423ec7b96669cb7d757bf534b82e",
+  "status": "CANDIDATE_NOT_VALIDATED"
+}
