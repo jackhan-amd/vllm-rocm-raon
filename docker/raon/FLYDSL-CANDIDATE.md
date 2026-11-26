@@ -1,5 +1,21 @@
 # ROCm graph/stream candidate: KDA, MXFP8 and MXFP4 MoE
 
+The focused 2026-11-26 MI355X screen is complete. The tested overlay is published
+as `docker.io/hanjack/vllm-rocm:raon-release-rocm102-graph64-aiter-proj-20261126`,
+digest `sha256:5749ad5d9b0f11ea525495a01c07f6a739e8423ec7b96669cb7d757bf534b82e`.
+Select `RAON_RUNTIME_PROFILE=mxfp8-flydsl` or `mxfp4-flydsl` explicitly.
+See [`image-graph-projections-20261126.json`](image-graph-projections-20261126.json)
+and the [numeric/serving evidence](../../tools/raon_validation/results/runtime-graph-projections-20261126.json).
+
+For original MXFP8, the 128-request GSM8K screen measured SD-off throughput of
+74.6/382.0/785.0 output tokens/s at C=1/8/32; SD-on measured
+192.6/949.0/1604.4. Each point was measured once after separate warmup, with
+no observed compiler/cache changes during measurement. These are bounded
+single-GPU measurements, not performance acceptance or full model accuracy.
+The old SD-off baseline used another node, and old SD-on C=1 has brief CPU
+diagnostic overlap. The general evaluation remains stopped. MXFP4 serving
+throughput and full MMLU-Pro were not run after this fix.
+
 The updated FlyDSL candidate profile reserves 64 local shapes and up to 512
 tokens for both KDA decode and MoE outer graphs. The previous eight entries
 could be consumed by large startup shapes; the 128-token ceiling also excluded

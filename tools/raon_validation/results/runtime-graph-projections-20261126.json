@@ -1,5 +1,5 @@
 {
-  "status": "COMPONENT_NUMERIC_PASS_SERVING_VALIDATION_PENDING",
+  "status": "COMPONENT_NUMERIC_AND_MXFP8_SERVING_SCREEN_PASS",
   "job": "88352",
   "node": "TheraC81",
   "gpu": "MI355X gfx950",
@@ -788,16 +788,179 @@
       "sha256": "8c72dc262ba01cbed7aaac77883a4c943d465fc677c231653aa50698dae53420",
       "raw_artifact": "/home/jackhan/bench-results/raon-runtime-fix-20261126/moe-mxfp4-256.json",
       "numeric_status": "PASS"
+    },
+    "projections-extra.json": {
+      "status": "PASS",
+      "cases": 16,
+      "native_selected_cases": 12,
+      "shapes": [
+        [
+          2176,
+          2560
+        ],
+        [
+          2560,
+          12032
+        ],
+        [
+          24064,
+          2560
+        ],
+        [
+          259840,
+          2560
+        ]
+      ],
+      "raw_artifact": "/home/jackhan/bench-results/raon-runtime-fix-20261126/projections-extra.json",
+      "sha256": "7b481836599a2077403675646f73c7f89ac3468ca161135e68f80d26ce5f93d6"
     }
   },
   "limitations": [
     "Finite synthetic components; not full-set accuracy or throughput acceptance.",
     "MXFP4 bitwise replay and eager repeats differ; numeric and shared-once checks are separate.",
     "Generic FT projection tiles were slower and are not forced.",
-    "An AITER strided 3D+bias case failed before contiguous matrix staging; the repaired case passed."
+    "An AITER strided 3D+bias case failed before contiguous matrix staging; the repaired case passed.",
+    "MXFP4 serving throughput and MMLU-Pro remain stopped/unmeasured after this fix.",
+    "Baseline SD-off used TheraC93; new measurements used TheraC81. Single measurements do not isolate each patch contribution.",
+    "The old SD-on C=1 baseline overlaps a brief CPU-only parser diagnostic and is provisional."
   ],
   "cpu_control_tests": {
     "status": "PASS",
     "count": 31
+  },
+  "serving_source_commit": "e263eec9d4eb77b4fc8b135b0ed66238128fe591",
+  "image": {
+    "tag": "docker.io/hanjack/vllm-rocm:raon-release-rocm102-graph64-aiter-proj-20261126",
+    "digest": "sha256:5749ad5d9b0f11ea525495a01c07f6a739e8423ec7b96669cb7d757bf534b82e",
+    "profile_required": "mxfp8-flydsl or mxfp4-flydsl",
+    "assembly": "Validated base plus identical tested source overlay; fresh-pull GPU retest not run."
+  },
+  "serving": {
+    "model": "KRAFTON/Raon-1-mini@3f85cd63ea420100a84378f72ae162af86a441fd",
+    "draft": "KRAFTON/Raon-1-mini-dflash2@74f2835bd683458f6124f48784b078b06770d824",
+    "precision": "Original MXFP8 metadata; dtype auto, BF16 non-MoE weights preserved; fp8_e4m3 KV",
+    "gpu_count": 1,
+    "tp": 1,
+    "dp": 1,
+    "ep": false,
+    "points": [
+      {
+        "sd": "off",
+        "concurrency": 1,
+        "requests": 128,
+        "output_tps": 74.57935987299716,
+        "output_tokens": 56439,
+        "input_tokens": 7109,
+        "seconds": 756.764339303947,
+        "completed": 125,
+        "length_limited": 3,
+        "ttft_p50_seconds": 0.04256727400934324,
+        "latency_p50_seconds": 2.5083309200126678,
+        "baseline_output_tps": 41.67732129678695,
+        "speedup": 1.7894470554360398,
+        "compile_activity_observed": false,
+        "raw_artifact": "/home/jackhan/bench-results/raon-runtime-fix-20261126/serve-native-full-off/state/gsm8k-c1.json"
+      },
+      {
+        "sd": "off",
+        "concurrency": 8,
+        "requests": 128,
+        "output_tps": 382.0392898243,
+        "output_tokens": 58849,
+        "input_tokens": 7109,
+        "seconds": 154.03913044405635,
+        "completed": 124,
+        "length_limited": 4,
+        "ttft_p50_seconds": 0.06173516303533688,
+        "latency_p50_seconds": 3.2876566399354488,
+        "baseline_output_tps": 211.89299090192156,
+        "speedup": 1.8029821949190084,
+        "compile_activity_observed": false,
+        "raw_artifact": "/home/jackhan/bench-results/raon-runtime-fix-20261126/serve-native-full-off/state/gsm8k-c8.json"
+      },
+      {
+        "sd": "off",
+        "concurrency": 32,
+        "requests": 128,
+        "output_tps": 785.0432184773799,
+        "output_tokens": 62083,
+        "input_tokens": 7109,
+        "seconds": 79.08227029896807,
+        "completed": 123,
+        "length_limited": 5,
+        "ttft_p50_seconds": 0.06925753795076162,
+        "latency_p50_seconds": 4.227967037993949,
+        "baseline_output_tps": 459.2624580823629,
+        "speedup": 1.7093563923236947,
+        "compile_activity_observed": false,
+        "raw_artifact": "/home/jackhan/bench-results/raon-runtime-fix-20261126/serve-native-full-off/state/gsm8k-c32.json"
+      },
+      {
+        "sd": "on",
+        "concurrency": 1,
+        "requests": 128,
+        "output_tps": 192.55983205638464,
+        "output_tokens": 59489,
+        "input_tokens": 7109,
+        "seconds": 308.937743477989,
+        "completed": 125,
+        "length_limited": 3,
+        "ttft_p50_seconds": 0.06094439345179126,
+        "latency_p50_seconds": 0.8060494834790006,
+        "baseline_output_tps": 96.82812409701788,
+        "speedup": 1.988676676865571,
+        "compile_activity_observed": false,
+        "raw_artifact": "/home/jackhan/bench-results/raon-runtime-fix-20261126/serve-native-full-on/state/gsm8k-c1.json"
+      },
+      {
+        "sd": "on",
+        "concurrency": 8,
+        "requests": 128,
+        "output_tps": 949.014398282173,
+        "output_tokens": 57135,
+        "input_tokens": 7109,
+        "seconds": 60.204566024942324,
+        "completed": 124,
+        "length_limited": 4,
+        "ttft_p50_seconds": 0.10256320348707959,
+        "latency_p50_seconds": 1.1075126790092327,
+        "baseline_output_tps": 639.1518264647137,
+        "speedup": 1.4848027635802528,
+        "compile_activity_observed": false,
+        "raw_artifact": "/home/jackhan/bench-results/raon-runtime-fix-20261126/serve-native-full-on/state/gsm8k-c8.json"
+      },
+      {
+        "sd": "on",
+        "concurrency": 32,
+        "requests": 128,
+        "output_tps": 1604.39366448258,
+        "output_tokens": 65769,
+        "input_tokens": 7109,
+        "seconds": 40.99305641499814,
+        "completed": 123,
+        "length_limited": 5,
+        "ttft_p50_seconds": 0.1308586765662767,
+        "latency_p50_seconds": 1.571598842565436,
+        "baseline_output_tps": 1008.407559599233,
+        "speedup": 1.5910170934460341,
+        "compile_activity_observed": false,
+        "raw_artifact": "/home/jackhan/bench-results/raon-runtime-fix-20261126/serve-native-full-on/state/gsm8k-c32.json"
+      }
+    ],
+    "workload": "First 128 GSM8K questions from pinned dataset, natural EOS, max4096 output tokens, T1/p0.95/k20.",
+    "warmup": "Separate input-length-matched prompts with a different first token, plus two variant warmup batches. Engine uses its full default capture list.",
+    "repetitions_per_point": 1,
+    "acceptance": "Measurement only; no numerical performance threshold or full accuracy acceptance."
+  },
+  "cleanup": {
+    "job": "88352",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "01:37:11",
+    "idle_after_final_task_seconds": 1800,
+    "cleanup_followup": "The one-off harness waited for its idle timeout after all tests. Future harness tasks now declare release_allocation_on_success to terminate immediately.",
+    "owned_gpu_allocations_remaining": 0,
+    "full_evaluation_campaign": "Stopped by user; auto-submit stop guard retained",
+    "post_run_gpu_health": "Unavailable: allocation had completed before the snapshot request; no extra allocation requested."
   }
 }

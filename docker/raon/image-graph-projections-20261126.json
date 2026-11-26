@@ -1,0 +1,96 @@
+{
+  "source_commit": "e263eec9d4eb77b4fc8b135b0ed66238128fe591",
+  "parent_image": "sha256:41ddfcb29a92661cb59897c2151b82b006ae4ec3a2ac5b0d771d3a4f07e88fac",
+  "files": {
+    "usr/local/lib/python3.14/dist-packages/vllm/model_executor/layers/utils.py": "sha256:233236afe9b6461dc271971665eb16ac69dea1ab64783edad37409ba54e6cef7",
+    "usr/local/lib/python3.14/dist-packages/vllm/v1/worker/gpu/cudagraph_utils.py": "sha256:84728762614b143ab22849bdf5a755a93c7f03a0c3ad0a9278720c3d8e59b3bf",
+    "usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_dense.py": "sha256:fbc9de82feeb994c88d590b9cac5bcd48fc94a99be35e5a61a210a45fc3a5f43",
+    "usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_kda_graph.py": "sha256:75be4a4330ff95e9c72d07da1e4415880e9a5f018872c19790dd8c7186f4a67d",
+    "usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_moe_outer_graph.py": "sha256:1abf4bee800dc67845dd39aec35064c081a2580615515544f36d92bbdf2abe05",
+    "opt/raon/runtime-flydsl-env.sh": "sha256:91bac77ce9100deb363d10ff61797d8d860be34643e21d64982129ae35ad92f8",
+    "opt/raon/prepare_dlpack.py": "sha256:a1dd4bc80bf812ea8c1f188f61dc663018adf889cb4d95364c4d3b0412f02961",
+    "opt/raon/tools/raon_validation/aiter_rda.py": "sha256:7e7d8896adc921285a60b9ee0476bc0744591eb1020f8fb004fe3171bd4c81e0",
+    "opt/raon/tools/raon_validation/benchmark.py": "sha256:95d19c21bae382946e01156e2f39260cbddeb09ecf3ca6228f884878e3b11d5c",
+    "opt/raon/tools/raon_validation/common.py": "sha256:7aa2f6fbc4ced5aba47c194f4342e7f7ff31de037852bf559e15ed2ee3d289e8",
+    "opt/raon/tools/raon_validation/compile_clean.py": "sha256:e79002d42201b37e31f1b5571831a07578ae9aabf78aab3a71dd93cc2bd6a156",
+    "opt/raon/tools/raon_validation/dense_math.py": "sha256:fe3eee7483d7970d6f3768851ee576292936c491c35601c9f63d27f51991f052",
+    "opt/raon/tools/raon_validation/draft_replay.py": "sha256:87fb7695a4b6c42d1852fe43466cb0a361ef24c67681c53e598d02acd5aad8c4",
+    "opt/raon/tools/raon_validation/effort.py": "sha256:e78388503019ab5a71ebc6f5af97157d21786e2c0b20d601c4466e9286e34e07",
+    "opt/raon/tools/raon_validation/effort_cost.py": "sha256:7c5786d1f966ba0581dc1f464ae9dd7dff41f8ff7238495f33633b3ec72b8627",
+    "opt/raon/tools/raon_validation/evaluation.py": "sha256:7f438c21049662b5b4d7e11e7e428f7c356f4624f74907ee0cfbb2a0fcc93e69",
+    "opt/raon/tools/raon_validation/flydsl_moe.py": "sha256:1fb52bc8e369819dd5e372d03449dffb42297badeccbc2412e7e2999a0d0c7de",
+    "opt/raon/tools/raon_validation/gemm_tune.py": "sha256:fc553c602918e8dceb5c6d9efbe6aadf3d90251e76ec07bc36afa63bb8ffa9d5",
+    "opt/raon/tools/raon_validation/loaded_linears.py": "sha256:ce40e16b3eae2c0f21ad76ed5697d0b5c289e2162df3ac7a5f60815b1c141d06",
+    "opt/raon/tools/raon_validation/mla.py": "sha256:4bae0a806a8578b5012f69c2ca3217def4ccd0b7cdce84fd3a56c5b6dfbd97af",
+    "opt/raon/tools/raon_validation/model.py": "sha256:8d2186adbd005345d0ee0d5de42d75506c73ce0ba7dc24a5a96bb11a290e8c9d",
+    "opt/raon/tools/raon_validation/moe_gold.py": "sha256:f0bec015d09b6dc39ce68ad78ea7490a9f6d7ed8be91c8d15be72b54b999d2f1",
+    "opt/raon/tools/raon_validation/moe_graph.py": "sha256:e19b74dd3e623d2c21fc9aafb2d0ec9d3fcdbc48d589e2c93d9750d66a195c97",
+    "opt/raon/tools/raon_validation/moe_graph_mxfp8.py": "sha256:576d2a65ee5459057d8473ecdc6616e4d7f3608f279c0e3667bdeec8c91f906d",
+    "opt/raon/tools/raon_validation/parser_api.py": "sha256:9b802da82e159e5797b6a013c7eba43d566f18da678177ce64f4d64cb1786277",
+    "opt/raon/tools/raon_validation/profile_model.py": "sha256:59312d34508a1d3b2a4d981640a442222c9003e8904074b3d578477677144cad",
+    "opt/raon/tools/raon_validation/projections.py": "sha256:a2e84971851bc549844a106a30ce7d1511d71aae8c7153f8e5759fa1c02ef370",
+    "opt/raon/tools/raon_validation/prompts.py": "sha256:25f48b4c4f1441811f7e59ce6b212069ba9656f21dac28f40759941f262f74b3",
+    "opt/raon/tools/raon_validation/quantize.py": "sha256:6c687f46508ec60c8d0d089b48986cfc1fdb2639efbd2d938a1354658852325a",
+    "opt/raon/tools/raon_validation/quantized.py": "sha256:eec08423dd6ee7ce5b104b996dd81ebca98a06b722aac363ea3aae8c4d1daad0",
+    "opt/raon/tools/raon_validation/quantized_math.py": "sha256:4bcd1bd434eddf4d23a0d3ceacb4593470e6604928884e3bd49e192a7f3806bb",
+    "opt/raon/tools/raon_validation/rda.py": "sha256:d03e2fb8aaa147e9503c64a5fbf3992704af8604522e492e70fa38ea93c2f8dd",
+    "opt/raon/tools/raon_validation/reference.py": "sha256:d79f8cbd6110a8ff258636fe600f8c7b1444bd4545320be735b4ef4a6051e8b6",
+    "opt/raon/tools/raon_validation/release_model.py": "sha256:de0d11578e860686f13e9814c4e40f6ea5875f27ce2572a3c150b5cda63eed4a",
+    "opt/raon/tools/raon_validation/replay.py": "sha256:feb2e4553806e8929f136aa350fbd125b7c67d3e24da621e5bd768ef283f3d6b",
+    "opt/raon/tools/raon_validation/sampler.py": "sha256:16d430cc554b61b84fafab48ee99f705c9fa5babcd01f800c575f7b95d3fd1e0",
+    "opt/raon/tools/raon_validation/sampler_gold.py": "sha256:79ae263a1a4def58052ad927d1c6bfb9fd4b7b216162f2c45badf1e9cb6ec6ce",
+    "opt/raon/tools/raon_validation/test_effort_steering.py": "sha256:65c7aaf7f1e64a8fe1470c8f20b94d663e351b00447633ee3ef7f460ffff87b2",
+    "opt/raon/tools/raon_validation/test_flydsl_dispatch.py": "sha256:8cd24c53a19ef81db2c639b7eb921cdd747293794474b50177d1f303d0dcfed3",
+    "opt/raon/tools/raon_validation/torch_gold.py": "sha256:b68220eb4a36c85f9e3c62bc13782a3e2cdd8f3a1efdf1de4e8e42b97f11caae",
+    "opt/raon/tools/raon_validation/__init__.py": "sha256:54ea8382192dcbb36dae87493230f18c664c42044f5c07de7e8dfc8b6da98470",
+    "opt/raon/tools/raon_validation/__main__.py": "sha256:bb676aee21454c77ce539897cd6f9533e6bca8943d7ec5c63292354aa2892604"
+  },
+  "measurements": {
+    "off-c1": {
+      "output_tps": 74.57935987299716,
+      "output_tokens": 56439,
+      "seconds": 756.764339303947,
+      "requests": 128
+    },
+    "off-c8": {
+      "output_tps": 382.0392898243,
+      "output_tokens": 58849,
+      "seconds": 154.03913044405635,
+      "requests": 128
+    },
+    "off-c32": {
+      "output_tps": 785.0432184773799,
+      "output_tokens": 62083,
+      "seconds": 79.08227029896807,
+      "requests": 128
+    },
+    "on-c1": {
+      "output_tps": 192.55983205638464,
+      "output_tokens": 59489,
+      "seconds": 308.937743477989,
+      "requests": 128
+    },
+    "on-c8": {
+      "output_tps": 949.014398282173,
+      "output_tokens": 57135,
+      "seconds": 60.204566024942324,
+      "requests": 128
+    },
+    "on-c32": {
+      "output_tps": 1604.39366448258,
+      "output_tokens": 65769,
+      "seconds": 40.99305641499814,
+      "requests": 128
+    }
+  },
+  "component_evidence_root": "/home/jackhan/bench-results/raon-runtime-fix-20261126",
+  "precision_unchanged": true,
+  "native_libraries_unchanged": true,
+  "profile_required": "mxfp8-flydsl or mxfp4-flydsl",
+  "mxfp4_numeric_status": "PASS",
+  "mxfp4_bitwise_status": "FAIL",
+  "status": "PUBLISHED",
+  "tag": "docker.io/hanjack/vllm-rocm:raon-release-rocm102-graph64-aiter-proj-20261126",
+  "digest": "sha256:5749ad5d9b0f11ea525495a01c07f6a739e8423ec7b96669cb7d757bf534b82e",
+  "new_layer_bytes": 100873
+}
