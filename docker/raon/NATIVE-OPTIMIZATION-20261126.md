@@ -90,3 +90,39 @@ pinned AITER `ops/triton/_triton_kernels/gemm/batched/batched_gemm_a16wfp4.py`.
 The residual SD-only Triton callers also include DFlash2 convolution, draft
 attention/cache update and rejection sampling. These are separate from Raon's
 native RDA decode and its native MoE GEMMs.
+
+## Follow-on native mHC finisher
+
+Commit `f6319bb27c` adds `RAON_ROCM_MHC_FINISHER=flydsl` to fuse split
+reductions, the BF16 score cast and mean normalization after the HIP GEMM.
+It remains opt-in. The full real-weight block gold passed 126 cases and 6
+refits. With the same one-trial speed workload, the follow-on results are:
+
+| SD | C | Prior native | With finisher | Ratio |
+| --- | --- | ---: | ---: | ---: |
+| off | 1 | 146.9 | 160.9 | 1.10x |
+| off | 8 | 698.5 | 701.6 | 1.00x |
+| off | 32 | 1309.1 | 1439.0 | 1.10x |
+| on | 1 | 277.3 | 293.0 | 1.06x |
+| on | 8 | 1306.9 | 1299.2 | 0.99x |
+| on | 32 | 1902.8 | 2407.0 | 1.26x |
+
+This is another incremental candidate, not an additional twofold gain. Different
+natural lengths and acceptance remain a limitation, especially for small ratios.
+See [follow-on evidence](../../tools/raon_validation/results/native-finisher-20261126.json)
+and the [residual SD-on Triton callers](../../tools/raon_validation/results/mhc-hip-combine-split-profile-r1-on-triton-callers.json).
+
+The follow-on image is
+`docker.io/hanjack/vllm-rocm:raon-native-f6319bb27c-20261126`, digest
+`sha256:21ae335dd3d6aa57d0d75b5ee044c43336019d3ee726e5966c9eba54c729a329`.
+Its [receipt](image-native-finisher-20261126.json) records exact source hashes,
+fresh component gold and three natural-EOS generation smokes for each SD mode.
+Enable the finisher explicitly; the image retains the old default.
+
+The next low-scope serving candidate is the DFlash2 draft's native attention
+backend: the recorded run used `ROCM_ATTN` Triton attention/cache helpers even
+though target MLA used native AITER. The runtime's per-kind overrides are
+`full_attention` and `sliding_window`; `ROCM_AITER_FA` advertises non-causal and
+FP8-cache support. That capability check alone is not validation of this draft's
+exact masking/cache contract. Check draft attention against Torch gold and SD
+cache replay before measuring this as a separately reviewed configuration.

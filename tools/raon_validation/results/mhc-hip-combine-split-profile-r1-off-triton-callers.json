@@ -1,0 +1,126 @@
+{
+  "scope": "Inclusive CPU profiler times, not unprofiled latency; identifies callers of runtime Triton JIT launches. Graph replay kernels do not invoke these Python functions.",
+  "trace": "/home/jackhan/bench-results/raon-manual-opt-20261126/cases/mhc-hip-combine-split-profile-r1-off/traces/raon-off-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795677532737087760.pt.trace.json.gz",
+  "callers": [
+    {
+      "stack": "vllm/compilation/breakable_cudagraph.py(118): <lambda> -> vllm/models/raon1_mini/rocm_mla_split.py(13): _attention -> vllm/models/kimi_k3/amd/mla.py(92): _fused_decode -> aiter/ops/triton/gemm/batched/batched_gemm_a16wfp4.py(256): batched_gemm_a16wfp4 -> aiter/ops/triton/gemm/batched/batched_gemm_a16wfp4.py(67): batched_gemm_a16wfp4_",
+      "count": 217,
+      "inclusive_ms": 19.500553000000007
+    },
+    {
+      "stack": "vllm/models/kimi_k3/amd/mla.py(92): _fused_decode -> vllm/model_executor/layers/attention/mla_attention.py(1381): _v_up_proj -> vllm/_aiter_ops.py(3870): batched_gemm_a16wfp4 -> aiter/ops/triton/gemm/batched/batched_gemm_a16wfp4.py(256): batched_gemm_a16wfp4 -> aiter/ops/triton/gemm/batched/batched_gemm_a16wfp4.py(67): batched_gemm_a16wfp4_",
+      "count": 217,
+      "inclusive_ms": 18.96351300000001
+    },
+    {
+      "stack": "vllm/v1/sample/ops/topk_topp_sampler.py(460): apply_top_k_top_p -> vllm/v1/sample/ops/topk_topp_triton.py(1613): apply_top_k_top_p_triton -> vllm/v1/sample/ops/topk_topp_triton.py(1567): _apply_topp_split -> vllm/model_executor/warmup/jit_warmup_triton_helper.py(557): __call__ -> vllm/model_executor/warmup/jit_warmup_triton_helper.py(287): launch",
+      "count": 224,
+      "inclusive_ms": 9.900713000000003
+    },
+    {
+      "stack": "vllm/compilation/breakable_cudagraph.py(118): <lambda> -> vllm/models/raon1_mini/kda.py(144): _forward -> vllm/models/raon1_mini/kda.py(170): _forward_step -> vllm/models/raon1_mini/kda.py(289): _prefill_conv -> vllm/model_executor/layers/mamba/ops/causal_conv1d.py(481): causal_conv1d_fn",
+      "count": 54,
+      "inclusive_ms": 6.629028999999999
+    },
+    {
+      "stack": "vllm/v1/worker/gpu/eplb_utils.py(50): wrapper -> vllm/v1/worker/gpu/model_runner.py(2092): sample_tokens -> vllm/v1/worker/gpu/model_runner.py(1682): postprocess_sampled -> vllm/v1/worker/gpu/model_states/mamba_hybrid.py(350): postprocess_state -> vllm/v1/worker/mamba_utils.py(1248): run_fused_postprocess_align",
+      "count": 32,
+      "inclusive_ms": 3.264301
+    },
+    {
+      "stack": "vllm/v1/worker/worker_base.py(365): execute_model -> vllm/v1/worker/gpu_worker.py(1300): execute_model -> vllm/v1/worker/gpu/model_runner.py(1721): execute_model -> vllm/v1/worker/gpu/model_states/mamba_hybrid.py(180): preprocess_state -> vllm/v1/worker/mamba_utils.py(1202): run_fused_precopy",
+      "count": 32,
+      "inclusive_ms": 2.887753
+    },
+    {
+      "stack": "vllm/v1/worker/gpu_worker.py(1293): sample_tokens -> vllm/v1/worker/gpu/eplb_utils.py(50): wrapper -> vllm/v1/worker/gpu/model_runner.py(2092): sample_tokens -> vllm/v1/worker/gpu/model_runner.py(1682): postprocess_sampled -> vllm/v1/worker/gpu/input_batch.py(617): post_update",
+      "count": 32,
+      "inclusive_ms": 2.651962
+    },
+    {
+      "stack": "vllm/v1/worker/gpu/model_runner.py(1595): sample -> vllm/v1/worker/gpu/sample/sampler.py(134): __call__ -> vllm/v1/worker/gpu/sample/sampler.py(278): sample -> vllm/v1/worker/gpu/sample/sampler.py(327): _sample_random -> vllm/v1/worker/gpu/sample/gumbel.py(336): gumbel_sample",
+      "count": 32,
+      "inclusive_ms": 2.649654000000001
+    },
+    {
+      "stack": "vllm/v1/worker/gpu/sample/sampler.py(327): _sample_random -> vllm/v1/sample/ops/topk_topp_sampler.py(460): apply_top_k_top_p -> vllm/v1/sample/ops/topk_topp_triton.py(1613): apply_top_k_top_p_triton -> vllm/model_executor/warmup/jit_warmup_triton_helper.py(557): __call__ -> vllm/model_executor/warmup/jit_warmup_triton_helper.py(287): launch",
+      "count": 32,
+      "inclusive_ms": 2.4937559999999994
+    },
+    {
+      "stack": "vllm/v1/worker/worker_base.py(365): execute_model -> vllm/v1/worker/gpu_worker.py(1300): execute_model -> vllm/v1/worker/gpu/model_runner.py(1721): execute_model -> vllm/v1/worker/gpu/model_runner.py(1357): prepare_inputs -> vllm/v1/worker/gpu/input_batch.py(384): prepare_pos_seq_lens",
+      "count": 32,
+      "inclusive_ms": 2.3802659999999998
+    },
+    {
+      "stack": "vllm/v1/worker/worker_base.py(365): execute_model -> vllm/v1/worker/gpu_worker.py(1300): execute_model -> vllm/v1/worker/gpu/model_runner.py(1721): execute_model -> vllm/v1/worker/gpu/model_runner.py(1357): prepare_inputs -> vllm/v1/worker/gpu/input_batch.py(466): combine_sampled_and_draft_tokens",
+      "count": 32,
+      "inclusive_ms": 2.330362
+    },
+    {
+      "stack": "vllm/v1/worker/worker_base.py(365): execute_model -> vllm/v1/worker/gpu_worker.py(1300): execute_model -> vllm/v1/worker/gpu/model_runner.py(1721): execute_model -> vllm/v1/worker/gpu/model_runner.py(1559): prepare_attn -> vllm/v1/worker/gpu/block_table.py(187): compute_slot_mappings",
+      "count": 32,
+      "inclusive_ms": 2.306553
+    },
+    {
+      "stack": "vllm/v1/serial_utils.py(485): run_method -> vllm/v1/worker/worker_base.py(365): execute_model -> vllm/v1/worker/gpu_worker.py(1300): execute_model -> vllm/v1/worker/gpu/model_runner.py(1721): execute_model -> vllm/v1/worker/gpu/model_states/mamba_hybrid.py(180): preprocess_state",
+      "count": 32,
+      "inclusive_ms": 1.8893899999999997
+    },
+    {
+      "stack": "vllm/v1/worker/gpu/attn_utils.py(457): build_attn_metadata -> vllm/v1/worker/utils.py(341): build_metadata -> vllm/v1/attention/backends/mla/rocm_aiter_mla.py(1566): build -> vllm/model_executor/layers/attention/mla_attention.py(2510): build -> vllm/v1/attention/backends/mla/rocm_aiter_mla.py(1245): _build_decode",
+      "count": 31,
+      "inclusive_ms": 1.839712
+    },
+    {
+      "stack": "vllm/v1/worker/gpu/eplb_utils.py(50): wrapper -> vllm/v1/worker/gpu/model_runner.py(2092): sample_tokens -> vllm/v1/worker/gpu/model_runner.py(1595): sample -> vllm/v1/worker/gpu/sample/sampler.py(134): __call__ -> vllm/v1/worker/gpu/input_batch.py(536): get_num_sampled_and_rejected",
+      "count": 32,
+      "inclusive_ms": 1.7863720000000003
+    },
+    {
+      "stack": "vllm/v1/worker/worker_base.py(365): execute_model -> vllm/v1/worker/gpu_worker.py(1300): execute_model -> vllm/v1/worker/gpu/model_runner.py(1721): execute_model -> vllm/v1/worker/gpu/model_runner.py(1559): prepare_attn -> vllm/v1/worker/gpu/block_table.py(145): gather_block_tables",
+      "count": 32,
+      "inclusive_ms": 1.755094
+    },
+    {
+      "stack": "vllm/model_executor/custom_op.py(133): forward -> vllm/model_executor/custom_op.py(147): forward_hip -> vllm/third_party/flash_linear_attention/ops/kda.py(510): forward_cuda -> vllm/third_party/flash_linear_attention/ops/kda.py(407): rms_norm_gated -> vllm/third_party/flash_linear_attention/ops/kda.py(317): layer_norm_gated_fwd",
+      "count": 18,
+      "inclusive_ms": 1.472541
+    },
+    {
+      "stack": "vllm/v1/worker/gpu_worker.py(1293): sample_tokens -> vllm/v1/worker/gpu/eplb_utils.py(50): wrapper -> vllm/v1/worker/gpu/model_runner.py(2092): sample_tokens -> vllm/v1/worker/gpu/model_runner.py(1682): postprocess_sampled -> vllm/v1/worker/gpu/model_states/mamba_hybrid.py(350): postprocess_state",
+      "count": 32,
+      "inclusive_ms": 1.166389
+    },
+    {
+      "stack": "vllm/compilation/breakable_cudagraph.py(215): replay -> vllm/compilation/breakable_cudagraph.py(118): <lambda> -> vllm/models/raon1_mini/kda.py(144): _forward -> vllm/models/raon1_mini/kda.py(170): _forward_step -> vllm/model_executor/layers/mamba/ops/gather_initial_states.py(45): gather_initial_states",
+      "count": 18,
+      "inclusive_ms": 1.140606
+    },
+    {
+      "stack": "vllm/v1/worker/gpu_worker.py(1300): execute_model -> vllm/v1/worker/gpu/model_runner.py(1721): execute_model -> vllm/v1/worker/gpu/model_runner.py(1181): add_requests -> vllm/v1/worker/gpu/states.py(119): apply_staged_writes -> vllm/v1/worker/gpu/buffer_utils.py(196): apply_write",
+      "count": 3,
+      "inclusive_ms": 0.366911
+    },
+    {
+      "stack": "vllm/v1/worker/utils.py(341): build_metadata -> vllm/models/kimi_k3/amd/kda_metadata.py(96): build -> vllm/v1/attention/backends/gdn_attn.py(262): build -> vllm/models/kimi_k3/amd/kda_metadata.py(145): _build_chunk_metadata -> vllm/models/kimi_k3/amd/kda_metadata.py(66): prepare_chunk_metadata_device",
+      "count": 3,
+      "inclusive_ms": 0.209005
+    },
+    {
+      "stack": "vllm/v1/worker/worker_base.py(365): execute_model -> vllm/v1/worker/gpu_worker.py(1300): execute_model -> vllm/v1/worker/gpu/model_runner.py(1721): execute_model -> vllm/v1/worker/gpu/model_runner.py(1357): prepare_inputs -> vllm/v1/worker/gpu/input_batch.py(320): prepare_prefill_inputs",
+      "count": 1,
+      "inclusive_ms": 0.100967
+    },
+    {
+      "stack": "vllm/v1/worker/worker_base.py(365): execute_model -> vllm/v1/worker/gpu_worker.py(1300): execute_model -> vllm/v1/worker/gpu/model_runner.py(1721): execute_model -> vllm/v1/worker/gpu/block_table.py(131): apply_staged_writes -> vllm/v1/worker/gpu/buffer_utils.py(251): apply",
+      "count": 1,
+      "inclusive_ms": 0.085518
+    },
+    {
+      "stack": "vllm/v1/worker/worker_base.py(365): execute_model -> vllm/v1/worker/gpu_worker.py(1300): execute_model -> vllm/v1/worker/gpu/model_runner.py(1721): execute_model -> vllm/v1/worker/gpu/model_runner.py(1239): update_requests -> vllm/v1/worker/utils.py(232): zero_block_ids",
+      "count": 1,
+      "inclusive_ms": 0.069978
+    }
+  ]
+}

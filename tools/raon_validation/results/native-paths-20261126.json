@@ -6436,7 +6436,17 @@
   ],
   "full_raw_artifacts": "/home/jackhan/bench-results/raon-manual-opt-20261126",
   "cleanup": {
-    "status": "PENDING_NEXT_OPTIMIZATION_IN_SAME_AUTHORIZED_ALLOCATION"
+    "status": "ALLOCATION_RELEASED",
+    "job": "89154",
+    "slurm_state": "CANCELLED by user after finite experiments completed",
+    "owned_performance_and_smoke_containers": "removed by their finite controllers; final node inventory before release contained only raon-manual-89154",
+    "main_container_teardown": "batch finally executed podman rm -f; log records SIGTERM timeout and SIGKILL fallback before batch exit",
+    "post_release_container_inventory": "not independently verified; direct internal-node SSH strict host-key verification refused access",
+    "artifacts": "/home/jackhan/bench-results/raon-manual-opt-20261126",
+    "published_images": [
+      "sha256:74a98d145aecfc637b3a269e4c8d896b2ac842a5fd26fc3a95af4f3e95c4b6db",
+      "sha256:21ae335dd3d6aa57d0d75b5ee044c43336019d3ee726e5966c9eba54c729a329"
+    ]
   },
   "precision_audit": {
     "checkpoint": "original MXFP8 release metadata",
