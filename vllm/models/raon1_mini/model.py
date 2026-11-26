@@ -1463,6 +1463,10 @@ def _raon_fp32_combine_moe_eager_break(
 def _raon_fp32_combine_moe_forward(
     self: RaonMoE, hidden_states: torch.Tensor
 ) -> torch.Tensor:
+    if os.environ.get("RAON_ROCM_MOE_DIRECT_GRAPH", "0") == "1":
+        from .rocm_moe_direct_graph import forward
+
+        return forward(self, hidden_states)
     # RAON_MXFP8_MIN_M phase policy (default 0 = this branch is never
     # taken and the function is unchanged): when the routed rows
     # (tokens * top_k) are below the threshold, run the STOCK fused MoE

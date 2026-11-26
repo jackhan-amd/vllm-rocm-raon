@@ -24,13 +24,16 @@ model produces a different network.
 """
 
 from __future__ import annotations
+
 import functools
 import math
 import os
-from typing import Callable
+from collections.abc import Callable
+
 import torch
 from torch import Tensor, nn
-from . import raon_phase
+
+from . import raon_phase, rocm_mhc
 from .batch_invariant import matmul_persistent
 
 _EPS = 1e-05
@@ -46,7 +49,7 @@ _SGL_STATS = {"head_v2": 0, "rms_in": 0, "chart_in": 0, "split": 0}
 _SGL_ANNOUNCED = False
 _BATCH_INVARIANT = os.environ.get("RAON_BATCH_INVARIANT", "1") == "1"
 _MULTI_TOKEN_MIX = os.environ.get("RAON_MHC_MULTI_TOKEN_MIX", "0") == "1"
-_MULTI_TOKEN_MIX_SEEN = set()
+_MULTI_TOKEN_MIX_SEEN: set[int] = set()
 
 
 def _launch_site_mix(
@@ -111,13 +114,16 @@ def _phi_direct_mode() -> str:
     if raw in ("all", "all-pad"):
         return raw
     raise RuntimeError(
-        f"{_PHI_DIRECT_ENV}={raw!r} is not one of ('0', 'off', '', '1', 'all', 'all-pad'). Refusing to guess."
+        f"{_PHI_DIRECT_ENV}={raw!r} is not one of ('0', 'off', "
+        f"'', '1', 'all', 'all-pad'). Refusing to guess."
     )
 
 
 _PHI_DIRECT_MODE = _phi_direct_mode()
 _PHI_DIRECT = _PHI_DIRECT_MODE != "off"
-_PHI_ALL_TIERS = {
+_PHI_ALL_TIERS: dict[
+    str, tuple[tuple[int, str, tuple[int, int, int] | None, int], ...]
+] = {
     "all": (
         (8, "direct", (256, 1, 1), 17),
         (16, "direct", (256, 1, 2), 17),
@@ -135,11 +141,15 @@ _PHI_ALL_TIERS["all-pad"] = _PHI_ALL_TIERS["all"][:5] + (
 if _PHI_DIRECT:
     from .phi_direct_gemm_vendored import (
         default_tactic as _phi_default_tactic,
+    )
+    from .phi_direct_gemm_vendored import (
         run_direct_dense as _phi_run_direct_dense,
     )
 if _PHI_DIRECT_MODE in ("all", "all-pad"):
     from .phi_direct_gemm_dynm import (
         DynMTactic as _PhiDynMTactic,
+    )
+    from .phi_direct_gemm_dynm import (
         run_direct_dense_dynm as _phi_run_dynm,
     )
 _PHI_DIRECT_STATS = {"direct": 0, "ineligible": 0, "error": 0}
@@ -147,7 +157,7 @@ _PHI_DIRECT_ERR_PRINTED = False
 _PHI_DIRECT_CHECKED = False
 
 
-def _phi_direct_mm(site, v: "Tensor") -> "Tensor":
+def _phi_direct_mm(site, v: Tensor) -> Tensor:
     """Direct-kernel phi logits GEMM with a loud, counted fallback.
 
     Returns the (T, 64) padded output when the direct kernel served the call
@@ -182,13 +192,17 @@ def _phi_direct_mm(site, v: "Tensor") -> "Tensor":
         if not _PHI_DIRECT_ERR_PRINTED:
             _PHI_DIRECT_ERR_PRINTED = True
             print(
-                f"[va] {_PHI_DIRECT_ENV}=1 direct GEMM RAISED and fell back to torch.mm (unpadded): {exc!r}. Counted in _PHI_DIRECT_STATS; the error count should be 0.",
+                (
+                    f"[va] {_PHI_DIRECT_ENV}=1 direct GEMM RAISED and fell "
+                    f"back to torch.mm (unpadded): {exc!r}. Counted in "
+                    f"_PHI_DIRECT_STATS; the error count should be 0."
+                ),
                 flush=True,
             )
         return torch.mm(v, site.phi.t())
 
 
-def _phi_direct_self_check(site, v: "Tensor") -> None:
+def _phi_direct_self_check(site, v: Tensor) -> None:
     """First-live-forward self-check (same pattern as moe_router_gemm.py
     `_pad8_self_check`), on the real activations and weights, at the eligible
     shape only.
@@ -227,7 +241,11 @@ def _phi_direct_self_check(site, v: "Tensor") -> None:
         tail_nonzero = int((yd[:, R:] != 0).sum())
         if tail_nonzero:
             raise RuntimeError(
-                f"{_PHI_DIRECT_ENV}=1 self-check FAILED: {tail_nonzero} nonzero elements in the padded output columns [{R}:{_PHI_DIRECT_N_PAD}]. The zero weight rows leaked, so phi_padded does not hold the live phi plus zeros (stale after a refit?). Refusing to run."
+                f"{_PHI_DIRECT_ENV}=1 self-check FAILED: {tail_nonzero} "
+                f"nonzero elements in the padded output columns "
+                f"[{R}:{_PHI_DIRECT_N_PAD}]. The zero weight rows "
+                f"leaked, so phi_padded does not hold the live phi plus "
+                f"zeros (stale after a refit?). Refusing to run."
             )
         real = yd[:, :R].contiguous()
         neq = int((real.view(torch.int16) != y0.view(torch.int16)).sum())
@@ -235,12 +253,26 @@ def _phi_direct_self_check(site, v: "Tensor") -> None:
             d = (real.float() - y0.float()).abs()
             md = float(d.max())
             print(
-                f"[va] {_PHI_DIRECT_ENV}=1 self-check: direct[:, :{R}] is NOT bit-identical to torch.mm -- {neq}/{y0.numel()} bf16 logits differ (max|d| {md:.3e}, T={v.shape[0]}). ULP-class, not bitwise-safe; do not enable where bit parity is required. stats={_PHI_DIRECT_STATS}",
+                (
+                    f"[va] {_PHI_DIRECT_ENV}=1 self-check: direct[:, :{R}] "
+                    f"is NOT bit-identical to torch.mm -- "
+                    f"{neq}/{y0.numel()} bf16 logits differ (max|d| "
+                    f"{md:.3e}, T={v.shape[0]}). ULP-class, not "
+                    f"bitwise-safe; do not enable where bit parity is "
+                    f"required. stats={_PHI_DIRECT_STATS}"
+                ),
                 flush=True,
             )
         else:
             print(
-                f"[va] {_PHI_DIRECT_ENV}=1 self-check PASS: direct[:, :{R}] == torch.mm(v, phi.t()) bitwise ({y0.numel()} bf16 logits, T={v.shape[0]}) and the padded tail is exactly zero on the live activations/weight. tactic={site._phi_direct_tactic} stats={_PHI_DIRECT_STATS}",
+                (
+                    f"[va] {_PHI_DIRECT_ENV}=1 self-check PASS: direct[:, "
+                    f":{R}] == torch.mm(v, phi.t()) bitwise ({y0.numel()} "
+                    f"bf16 logits, T={v.shape[0]}) and the padded tail is "
+                    f"exactly zero on the live activations/weight. "
+                    f"tactic={site._phi_direct_tactic} "
+                    f"stats={_PHI_DIRECT_STATS}"
+                ),
                 flush=True,
             )
 
@@ -263,7 +295,7 @@ def _phi_tier_name(tier) -> str:
     return f"{kind}{t}-n{npad}@M<={(hi if hi < 1 << 62 else 'inf')}"
 
 
-def _phi_all_run(site, v: "Tensor", tier) -> "Tensor":
+def _phi_all_run(site, v: Tensor, tier) -> Tensor:
     """The tier's GEMM, no ledger. (T, npad) output, real columns [:, :R]."""
     _, kind, tac, npad = tier
     if kind == "mm":
@@ -280,7 +312,7 @@ def _phi_all_run(site, v: "Tensor", tier) -> "Tensor":
     return out
 
 
-def _phi_all_mm(site, v: "Tensor") -> "Tensor":
+def _phi_all_mm(site, v: Tensor) -> Tensor:
     """Tiered phi logits GEMM with a loud, counted fallback (same contract as
     _phi_direct_mm: the caller reads the returned column count)."""
     global _PHI_DIRECT_ERR_PRINTED, _PHI_ALL_CALLS
@@ -293,7 +325,12 @@ def _phi_all_mm(site, v: "Tensor") -> "Tensor":
         if not _PHI_DIRECT_ERR_PRINTED:
             _PHI_DIRECT_ERR_PRINTED = True
             print(
-                f"[phi-all] {_PHI_DIRECT_ENV}={_PHI_DIRECT_MODE} tier {name} RAISED at M={v.shape[0]} and fell back to torch.mm (unpadded): {exc!r}. Counted in _PHI_DIRECT_STATS; the error count should be 0.",
+                (
+                    f"[phi-all] {_PHI_DIRECT_ENV}={_PHI_DIRECT_MODE} tier "
+                    f"{name} RAISED at M={v.shape[0]} and fell back to "
+                    f"torch.mm (unpadded): {exc!r}. Counted in "
+                    f"_PHI_DIRECT_STATS; the error count should be 0."
+                ),
                 flush=True,
             )
         return torch.mm(v, site.phi.t())
@@ -304,13 +341,18 @@ def _phi_all_mm(site, v: "Tensor") -> "Tensor":
         _PHI_ALL_SEEN.add(name)
         cap = v.is_cuda and torch.cuda.is_current_stream_capturing()
         print(
-            f"[phi-all] {_PHI_DIRECT_ENV}={_PHI_DIRECT_MODE} {('first use of ' + name if first else 'ledger')} M={v.shape[0]} capturing={cap} calls={_PHI_ALL_CALLS} stats={_PHI_DIRECT_STATS}",
+            (
+                f"[phi-all] {_PHI_DIRECT_ENV}={_PHI_DIRECT_MODE} "
+                f"{('first use of ' + name if first else 'ledger')} "
+                f"M={v.shape[0]} capturing={cap} calls={_PHI_ALL_CALLS} "
+                f"stats={_PHI_DIRECT_STATS}"
+            ),
             flush=True,
         )
     return out
 
 
-def _phi_all_self_check(site, v: "Tensor") -> None:
+def _phi_all_self_check(site, v: Tensor) -> None:
     """Once per non-"mm" tier, on its first eager call: padded output columns
     must be exactly zero (else raise -- stale/corrupt padded weight), and the
     real columns are compared bitwise with the unpadded torch.mm (recorded,
@@ -331,13 +373,23 @@ def _phi_all_self_check(site, v: "Tensor") -> None:
             tail_nonzero = int((yd[:, R:] != 0).sum())
             if tail_nonzero:
                 raise RuntimeError(
-                    f"{_PHI_DIRECT_ENV}={_PHI_DIRECT_MODE} self-check FAILED ({name}): {tail_nonzero} nonzero elements in the padded output columns [{R}:{yd.shape[1]}]. phi_pad{yd.shape[1]} does not hold the live phi plus zeros (stale after a refit?). Refusing to run."
+                    f"{_PHI_DIRECT_ENV}={_PHI_DIRECT_MODE} self-check "
+                    f"FAILED ({name}): {tail_nonzero} nonzero elements in "
+                    f"the padded output columns [{R}:{yd.shape[1]}]. "
+                    f"phi_pad{yd.shape[1]} does not hold the live phi plus "
+                    f"zeros (stale after a refit?). Refusing to run."
                 )
         real = yd[:, :R].contiguous()
         neq = int((real.view(torch.int16) != y0.view(torch.int16)).sum())
         md = float((real.float() - y0.float()).abs().max()) if neq else 0.0
         print(
-            f"[phi-all] {_PHI_DIRECT_ENV}={_PHI_DIRECT_MODE} self-check {('PASS' if not neq else 'DIFF')} {name} M={v.shape[0]}: {neq}/{y0.numel()} bf16 logits differ from torch.mm(v, phi.t()) (max|d| {md:.3e}); padded tail zero.",
+            (
+                f"[phi-all] {_PHI_DIRECT_ENV}={_PHI_DIRECT_MODE} "
+                f"self-check {('PASS' if not neq else 'DIFF')} {name} "
+                f"M={v.shape[0]}: {neq}/{y0.numel()} bf16 logits differ "
+                f"from torch.mm(v, phi.t()) (max|d| {md:.3e}); padded "
+                f"tail zero."
+            ),
             flush=True,
         )
 
@@ -361,9 +413,13 @@ def _phi_all_finalize(site, R: int) -> None:
                 zin = torch.zeros(m, K, dtype=site.phi.dtype, device=site.phi.device)
                 _phi_all_run(site, zin, tier)
     if not getattr(_phi_all_finalize, "_printed", False):
-        _phi_all_finalize._printed = True
+        _phi_all_finalize.__dict__["_printed"] = True
         print(
-            f"[phi-all] {_PHI_DIRECT_ENV}={_PHI_DIRECT_MODE} armed: tiers {[_phi_tier_name(t) for t in tiers]}; direct tactics precompiled (finalize).",
+            (
+                f"[phi-all] {_PHI_DIRECT_ENV}={_PHI_DIRECT_MODE} armed: "
+                f"tiers {[_phi_tier_name(t) for t in tiers]}; direct "
+                f"tactics precompiled (finalize)."
+            ),
             flush=True,
         )
 
@@ -382,7 +438,12 @@ except ImportError:
     _AGGNORM_FUSED_ENV = False
 if _AGGNORM_FUSED and (not _TRAINER_FUSED):
     raise RuntimeError(
-        "RAON_MHC_AGGNORM_FUSED=1 requires RAON_MHC_TRAINER_FUSED=1: the fused aggregate-norm replaces the trainer-fused site's plain aggregate; there is no aggregate-norm arm on the other engine paths (a silent no-op arm would lie in the parity manifest)"
+        "RAON_MHC_AGGNORM_FUSED=1 requires "
+        "RAON_MHC_TRAINER_FUSED=1: the fused aggregate-norm "
+        "replaces the trainer-fused site's plain aggregate; "
+        "there is no aggregate-norm arm on the other engine "
+        "paths (a silent no-op arm would lie in the parity "
+        "manifest)"
     )
 
 
@@ -709,7 +770,7 @@ def _torch_reduce_hw(T: int) -> tuple[int, int]:
     return (h, 512 // h)
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def _fp32_inv(nc: int) -> float:
     return float(
         torch.tensor(1.0, dtype=torch.float32)
@@ -1188,7 +1249,15 @@ class RaonMHC(nn.Module):
             return
         if old is not None:
             raise RuntimeError(
-                f"mHC refit contract violation: buffer {name!r} would need re-registration after a structure change (old {tuple(getattr(old, 'shape', ()))}/{getattr(old, 'dtype', None)}/{getattr(old, 'device', None)} -> new {tuple(value.shape)}/{value.dtype}/{value.device}). Re-registering leaves stale pointers in captured decode graphs and makes every request return NaN; a graph re-capture path is required first."
+                f"mHC refit contract violation: buffer {name!r} would "
+                f"need re-registration after a structure change (old "
+                f"{tuple(getattr(old, 'shape', ()))}/"
+                f"{getattr(old, 'dtype', None)}/{getattr(old, 'device', None)} "
+                f"-> new "
+                f"{tuple(value.shape)}/{value.dtype}/{value.device}). "
+                f"Re-registering leaves stale pointers in captured "
+                f"decode graphs and makes every request return NaN; a "
+                f"graph re-capture path is required first."
             )
         self.register_buffer(name, value, persistent=False)
 
@@ -1215,13 +1284,16 @@ class RaonMHC(nn.Module):
         self._refit_set_buf("g_eye", ((1.0 - g) * self.eye).detach())
         self._refit_set_buf("g_gate", g.detach().clone())
         self._refit_set_buf("negH0", (-self.H0).detach())
+        rocm_mhc.prepare(self)
         if _PHI_DIRECT and _PHI_DIRECT_MODE != "m32":
             _phi_all_finalize(self, 2 * n + nz)
         elif _PHI_DIRECT:
             R = 2 * n + nz
             if _PHI_DIRECT_N_PAD <= R:
                 raise RuntimeError(
-                    f"{_PHI_DIRECT_ENV}: pad {_PHI_DIRECT_N_PAD} does not exceed the real row count {R}; the pad would truncate phi."
+                    f"{_PHI_DIRECT_ENV}: pad {_PHI_DIRECT_N_PAD} does not "
+                    f"exceed the real row count {R}; the pad would truncate "
+                    f"phi."
                 )
             pp = torch.zeros(
                 _PHI_DIRECT_N_PAD,
@@ -1252,7 +1324,12 @@ class RaonMHC(nn.Module):
                         zin, pp.t(), zout, pdl=False, tactic=self._phi_direct_tactic
                     )
                 print(
-                    f"[va] {_PHI_DIRECT_ENV}=1 armed: phi_padded [{_PHI_DIRECT_N_PAD}, {self.phi.shape[1]}] built, tactic={self._phi_direct_tactic}, direct kernel precompiled (finalize).",
+                    (
+                        f"[va] {_PHI_DIRECT_ENV}=1 armed: phi_padded "
+                        f"[{_PHI_DIRECT_N_PAD}, {self.phi.shape[1]}] built, "
+                        f"tactic={self._phi_direct_tactic}, direct kernel "
+                        f"precompiled (finalize)."
+                    ),
                     flush=True,
                 )
 
@@ -1354,13 +1431,16 @@ class RaonMHC(nn.Module):
             if _sc["bnw_checked"] != _bid:
                 if branch_norm_weight.shape != (C,):
                     raise ValueError(
-                        f"branch norm weight must be ({C},), got {tuple(branch_norm_weight.shape)}"
+                        f"branch norm weight must be ({C},), got "
+                        f"{tuple(branch_norm_weight.shape)}"
                     )
                 if not branch_norm_weight.is_contiguous():
                     raise ValueError("branch norm weight must be contiguous")
                 _sc["bnw_checked"] = _bid
             chunks = _sc["chunks"]
             rstd = _sc["rstd"]
+            if branch_norm_eps is None:
+                raise ValueError("branch_norm_eps is required with branch norm weight")
             _aggregate_norm_fwd_kernel[rows,](
                 s,
                 h_pre,
@@ -1413,7 +1493,10 @@ class RaonMHC(nn.Module):
         T, n, C = s.shape
         v = s.view(T, n * C)
         R = 2 * n + (n - 1) ** 2
-        if _BATCH_INVARIANT:
+        native_mean = None
+        if rocm_mhc.enabled():
+            mm_out, native_mean = rocm_mhc.project(self, v)
+        elif _BATCH_INVARIANT:
             mm_out = matmul_persistent(v, self.phi.t())
         elif _PHI_DIRECT:
             _phi_direct_self_check(self, v)
@@ -1422,13 +1505,16 @@ class RaonMHC(nn.Module):
             mm_out = torch.mm(v, self.phi.t())
         mm_stride = mm_out.shape[1]
         if _HEAD_RMS or _HEAD_CHART or _SPLIT_MAX_T > 0 or _STAGES1:
-            return self._forward_fused_sgl(s, branch, mm_out)
-        sq = torch.empty(T, n * C, device=s.device, dtype=torch.float32)
-        total = T * n * C
-        _mhc_square[triton.cdiv(total, 1024),](
-            s, sq, total, B=1024, enable_fp_fusion=False
-        )
-        mean = sq.mean(-1)
+            return self._forward_fused_sgl(s, branch, mm_out, native_mean)
+        if native_mean is None:
+            sq = torch.empty(T, n * C, device=s.device, dtype=torch.float32)
+            total = T * n * C
+            _mhc_square[triton.cdiv(total, 1024),](
+                s, sq, total, B=1024, enable_fp_fusion=False
+            )
+            mean = sq.mean(-1)
+        else:
+            mean = native_mean
         head = torch.empty(T, 2 * n, device=s.device, dtype=torch.float32)
         z = torch.empty(T, n - 1, n - 1, device=s.device, dtype=torch.float32)
         agg = torch.empty(T, C, device=s.device, dtype=s.dtype)
@@ -1477,7 +1563,11 @@ class RaonMHC(nn.Module):
         return out
 
     def _forward_fused_sgl(
-        self, s: Tensor, branch: Callable[[Tensor], Tensor], mm_out: Tensor
+        self,
+        s: Tensor,
+        branch: Callable[[Tensor], Tensor],
+        mm_out: Tensor,
+        native_mean: Tensor | None = None,
     ) -> Tensor:
         """_forward_fused with the SGLang-port levers (RAON_MHC_STAGES1 /
         HEAD_RMS / HEAD_CHART / SPLIT_MAX_T). Same values as the base site
@@ -1489,11 +1579,13 @@ class RaonMHC(nn.Module):
         NC = n * C
         R = 2 * n + (n - 1) ** 2
         ks = {"num_stages": 1} if _STAGES1 else {}
-        rms_in = _HEAD_RMS and NC % 2048 == 0
+        rms_in = _HEAD_RMS and NC % 2048 == 0 and native_mean is None
         chart_in = _HEAD_CHART and self.Q.dtype == torch.float32
         split = _SPLIT_MAX_T > 0 and T <= _SPLIT_MAX_T
         if rms_in:
             mean = mm_out
+        elif native_mean is not None:
+            mean = native_mean
         else:
             sq = torch.empty(T, NC, device=s.device, dtype=torch.float32)
             total = T * NC
@@ -1549,7 +1641,14 @@ class RaonMHC(nn.Module):
         if not _SGL_ANNOUNCED:
             _SGL_ANNOUNCED = True
             print(
-                f"[mhc-sglang] armed: STAGES1={_STAGES1} HEAD_RMS={_HEAD_RMS}(in-kernel={rms_in}) HEAD_CHART={_HEAD_CHART}(in-kernel={chart_in}) SPLIT_MAX_T={_SPLIT_MAX_T} SPLIT_MIX_BC={_SPLIT_MIX_BC} SPLIT_HEAD_BC={_SPLIT_HEAD_BC} first T={T}",
+                (
+                    f"[mhc-sglang] armed: STAGES1={_STAGES1} "
+                    f"HEAD_RMS={_HEAD_RMS}(in-kernel={rms_in}) "
+                    f"HEAD_CHART={_HEAD_CHART}(in-kernel={chart_in}) "
+                    f"SPLIT_MAX_T={_SPLIT_MAX_T} "
+                    f"SPLIT_MIX_BC={_SPLIT_MIX_BC} "
+                    f"SPLIT_HEAD_BC={_SPLIT_HEAD_BC} first T={T}"
+                ),
                 flush=True,
             )
         if not chart_in:
@@ -1593,7 +1692,7 @@ class RaonMHC(nn.Module):
         aggregate). Only the trainer-fused path realizes them; reaching any
         other path with a weight set would silently skip the branch norm, so
         it raises instead."""
-        n, dt = (self.streams, s.dtype)
+        n = self.streams
         if not hasattr(self, "A_row"):
             self.finalize()
         if (
@@ -1602,12 +1701,20 @@ class RaonMHC(nn.Module):
             and (s.shape[-1] % 16 == 0)
             and (_TRAINER_FUSED_ENV or raon_phase.aligned("mhc.site"))
         ):
+            if rocm_mhc.enabled():
+                raise RuntimeError(
+                    "Native mHC GEMM/statistics cannot be combined with the "
+                    "trainer-fused mHC implementation"
+                )
             return self._forward_trainer_fused(
                 s.contiguous(), branch, branch_norm_weight, branch_norm_eps
             )
         if branch_norm_weight is not None:
             raise RuntimeError(
-                "branch_norm_weight given but the trainer-fused site path is unavailable (RAON_MHC_AGGNORM_FUSED requires the RAON_MHC_TRAINER_FUSED CUDA path); refusing to run with the branch pre-norm silently dropped"
+                "branch_norm_weight given but the trainer-fused site "
+                "path is unavailable (RAON_MHC_AGGNORM_FUSED requires "
+                "the RAON_MHC_TRAINER_FUSED CUDA path); refusing to "
+                "run with the branch pre-norm silently dropped"
             )
         if _FUSED and s.is_cuda and (n == 4) and (s.shape[-1] % 512 == 0):
             if not _CHECK:
@@ -1643,14 +1750,20 @@ class RaonMHC(nn.Module):
     def _forward_torch(self, s: Tensor, branch: Callable[[Tensor], Tensor]) -> Tensor:
         n, dt = (self.streams, s.dtype)
         v = s.reshape(s.shape[0], -1)
-        inv = torch.rsqrt(v.float().pow(2).mean(-1, keepdim=True) + _EPS)
-        if _BATCH_INVARIANT and v.is_cuda:
-            mm = matmul_persistent(v, self.phi.t())
-        elif _PHI_DIRECT and v.is_cuda:
-            _phi_direct_self_check(self, v)
-            mm = _phi_direct_mm(self, v)[:, : self.phi.shape[0]]
+        if rocm_mhc.enabled():
+            mm, mean = rocm_mhc.project(self, v)
+            if mean is None:
+                mean = v.float().pow(2).mean(-1)
+            inv = torch.rsqrt(mean[:, None] + _EPS)
         else:
-            mm = torch.mm(v, self.phi.t())
+            inv = torch.rsqrt(v.float().pow(2).mean(-1, keepdim=True) + _EPS)
+            if _BATCH_INVARIANT and v.is_cuda:
+                mm = matmul_persistent(v, self.phi.t())
+            elif _PHI_DIRECT and v.is_cuda:
+                _phi_direct_self_check(self, v)
+                mm = _phi_direct_mm(self, v)[:, : self.phi.shape[0]]
+            else:
+                mm = torch.mm(v, self.phi.t())
         logits = mm * inv
         pre = self.A_row * logits + self.B_row
         sig = torch.sigmoid(pre[:, : 2 * n])

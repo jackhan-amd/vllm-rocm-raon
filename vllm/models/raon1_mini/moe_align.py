@@ -174,6 +174,15 @@ def combine_unweighted_fp32(
     pre-weighted chain. Same reduction order as ``combine``; no weights."""
     if out_dtype is None:
         out_dtype = expert_out.dtype
+    if (
+        os.environ.get("RAON_MOE_COMBINE_UNW_FUSED", "0") == "flydsl"
+        and expert_out.is_cuda
+    ):
+        if out_dtype != torch.bfloat16:
+            raise ValueError("FlyDSL unweighted combine requires BF16 output")
+        from .rocm_flydsl_combine import combine_unweighted
+
+        return combine_unweighted(expert_out, topk_ids)
     # RAON_MOE_COMBINE_UNW_FUSED (default off): bitwise-identical Triton
     # kernel implementation of the same contract.
     if (
@@ -614,7 +623,7 @@ def install_shared_expert_situ(
     shared.act_fn = SharedSituReference(beta, linear_beta)
     return (
         f"{type(act).__name__} -> moe_align.SharedSituReference "
-        f"(beta={float(beta)}, linear_beta={float(linear_beta)})"
+        f"(beta={shared.act_fn.beta}, linear_beta={shared.act_fn.linear_beta})"
     )
 
 
@@ -720,7 +729,7 @@ def _self_check_trainer_realized() -> None:
     """Fail-closed: the structured chain equals an independent fp64-shaped
     eager oracle on CPU (structure check; dtypes exercised as on GPU)."""
     g = torch.Generator().manual_seed(1)
-    T, K, H, I = 5, 3, 16, 4
+    T, K, H, intermediate = 5, 3, 16, 4
     eo = torch.randn(T, K, H, generator=g, dtype=torch.float32).to(torch.bfloat16)
     ids = torch.stack([torch.randperm(8, generator=g)[:K] for _ in range(T)])
     got = combine_unweighted_fp32(eo, ids)
@@ -734,10 +743,12 @@ def _self_check_trainer_realized() -> None:
             "moe_align.combine_unweighted_fp32 failed its self-check — "
             "refusing to enable RAON_MOE_TRAINER_REALIZED"
         )
-    gu = torch.randn(7, 2 * I, generator=g, dtype=torch.float32).to(torch.bfloat16)
+    gu = torch.randn(7, 2 * intermediate, generator=g, dtype=torch.float32).to(
+        torch.bfloat16
+    )
     s = situ_reference(gu, 4.0, 25.0)
-    gate = gu[..., :I].float()
-    val = gu[..., I:].float()
+    gate = gu[..., :intermediate].float()
+    val = gu[..., intermediate:].float()
     ref_s = (
         (4.0 * torch.tanh(gate / 4.0) * torch.sigmoid(gate))
         * (25.0 * torch.tanh(val / 25.0))

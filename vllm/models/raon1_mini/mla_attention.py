@@ -38,6 +38,12 @@ class MultiHeadLatentAttention(KimiMLAAttention):
         RUNTIME_WITNESS["max_tokens"] = max(
             RUNTIME_WITNESS["max_tokens"], hidden_states.shape[0]
         )
+        if os.environ.get("RAON_ROCM_MLA_SPLIT_GRAPH", "0") == "1":
+            if os.environ.get("RAON_ROCM_MLA_LIVE_METADATA", "0") != "1":
+                raise RuntimeError("Split MLA requires live attention metadata")
+            from .rocm_mla_split import forward
+
+            return forward(self.mla_attn, positions, hidden_states)
         if os.environ.get("RAON_ROCM_MLA_LIVE_METADATA", "0") == "1":
             out = torch.empty_like(hidden_states)
             self._forward_live_metadata(positions, hidden_states, out)

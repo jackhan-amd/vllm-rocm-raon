@@ -21,8 +21,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True)
     parser.add_argument("--tokens", type=int, nargs="+", default=[1, 8, 32])
+    parser.add_argument("--direct", action="store_true")
     args = parser.parse_args()
     os.environ.update(RAON_MOE_BACKEND="flydsl", RAON_MOE_OUTER_GRAPH="1")
+    if args.direct:
+        os.environ.update(
+            RAON_ROCM_MOE_DIRECT_GRAPH="1", RAON_MOE_COMBINE_UNW_FUSED="flydsl"
+        )
     from vllm.models.raon1_mini import model
     from vllm.models.raon1_mini.mxfp8_w8a8_triton import _WQ_CACHE
 
@@ -31,6 +36,7 @@ def main():
         "scope": __doc__,
         "environment": environment(),
         "cases": [],
+        "direct": args.direct,
     }
     free, total = torch.accelerator.get_memory_info()
     if free / total < 0.95:
@@ -79,6 +85,7 @@ def main():
         def __init__(self):
             super().__init__()
             self.layer_idx = 0
+            self._raon_local_graph_world = True
             self.gate = Gate()
             self.shared_experts = Shared()
             self.experts = torch.nn.Module()
@@ -143,6 +150,26 @@ def main():
                         stream=stream,
                         eager_vs_torch_gold=error(eager, expected_gold),
                     )
+                    if args.direct:
+                        model._raon_fp32_combine_moe_forward(module, x)
+                        graph = torch.cuda.CUDAGraph()
+                        with torch.cuda.graph(graph):
+                            captured = model._raon_fp32_combine_moe_forward(module, x)
+                        for replay in range(3):
+                            x.add_(0.125)
+                            expected = model._raon_fp32_combine_moe_impl_eager(
+                                module, x
+                            ).clone()
+                            module.shared_experts.calls.zero_()
+                            graph.replay()
+                            case[f"direct_{replay}"] = error(
+                                captured, expected, 0, 0, 0
+                            )
+                            count = int(module.shared_experts.calls)
+                            case[f"direct_shared_once_{replay}"] = {
+                                "pass": count == 1,
+                                "executions": count,
+                            }
                     for repeat in range(3):
                         x.add_(0.125)
                         expected = model._raon_fp32_combine_moe_impl_eager(

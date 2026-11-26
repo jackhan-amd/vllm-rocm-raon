@@ -24,6 +24,69 @@ Torch/vLLM/native extensions available; no model download is performed.
 
 From the repository root in an installed development environment:
 
+Native mHC and ordered MoE combine candidates (opt-in):
+
+```bash
+.venv/bin/python -m tools.raon_validation.mhc_probe \
+  --model /models/Raon-1-mini --candidate hip --packed --splits 16 \
+  --output evidence/mhc-probe.json
+.venv/bin/python -m tools.raon_validation.mhc_math \
+  --model /models/Raon-1-mini --backend hip --output evidence/mhc-math.json
+.venv/bin/python -m tools.raon_validation.combine_math \
+  --topk 6 --output evidence/combine-math.json
+RAON_MOE_COMBINE_UNW_FUSED=flydsl \
+  .venv/bin/python -m tools.raon_validation.moe_graph_mxfp8 \
+  --output evidence/combine-model-graph.json
+```
+
+`RAON_ROCM_MHC_BACKEND=hip` replaces only the mHC projection and mean-square
+statistics with AITER's native HIP implementation. Raon's gate remains unchanged;
+AITER's different Sinkhorn mHC block is never substituted. `flydsl` selects the
+separate skinny-GEMM candidate. Both retain BF16 parameters and score boundaries.
+The mHC math tool uses real checkpoint weights, independent Torch gate equations,
+changed-input graph replay and in-place refit checks. It reports full-block batch
+identity separately: numerical PASS does not mean every batch is bit-identical.
+
+`RAON_MOE_COMBINE_UNW_FUSED=flydsl` selects a native FlyDSL stable expert-ID sort
+and sequential FP32 sum of already weighted BF16 slots, with one final BF16 cast.
+It applies to the MXFP8 trainer-realized combine caller; the native MXFP4 fused
+MoE reduction remains owned by AITER. Value `1` still selects the older Triton
+candidate. The combine test checks integer-ID types, duplicate/negative IDs,
+cancellation, nonfinite classes, changed-route/input graph replay and batch
+identity. Its graph timings are isolated operation costs, not model throughput.
+Neither option is enabled by the default runtime profile, and these finite checks
+do not establish model accuracy or a speedup for every workload.
+
+`RAON_ROCM_MOE_DIRECT_GRAPH=1` is a separate MXFP8 candidate: it calls the same
+native routed/shared chain inside the enclosing graph, bypassing the per-layer
+eager-break callback and local graph/output copies. It requires the ordered
+FlyDSL combine, breakable graphs, TP1/DP1 without EP and the trainer-realized
+MXFP8 path. Unsupported diagnostic/phase modes raise. Warm packing and JIT first;
+the native adapters refuse cold packing inside capture. Validate changed-input
+replay and one shared execution per replay with:
+
+```bash
+.venv/bin/python -m tools.raon_validation.moe_graph_mxfp8 \
+  --direct --output evidence/moe-direct-graph.json
+```
+
+This does not enable Torch.compile or alter the MXFP4 native runner.
+
+`RAON_ROCM_MLA_SPLIT_GRAPH=1` is another independent candidate, requiring live
+MLA metadata. It captures the existing Q/KV normalization/projections and output
+gate/projection while retaining the live callback for Kimi's existing native
+attention decision and cache owner. No attention kernel is replaced. Its
+partition-only fixture checks exact output versus the upstream Kimi wrapper,
+fresh phase/slot metadata and one cache update per replay:
+
+```bash
+.venv/bin/python -m tools.raon_validation.mla_split_graph \
+  --output evidence/mla-split-graph.json
+```
+
+The fixture substitutes attention math to isolate the execution boundary; it is
+not an additional native MLA kernel gold or model-accuracy test.
+
 Release checkpoint steering tools:
 
 ```bash

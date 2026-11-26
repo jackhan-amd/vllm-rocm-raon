@@ -1,0 +1,22 @@
+# Native opt-in Raon candidates over the immutable, tested ROCm/AITER stack.
+ARG BASE_IMAGE=docker.io/hanjack/vllm-rocm@sha256:9f94e15c16a2774e67ab7e841fd5e91a36f7e63c0d0a37b39227014c4cf1b537
+FROM ${BASE_IMAGE}
+ARG VCS_REF=unknown
+LABEL org.opencontainers.image.source="https://github.com/jackhan-amd/vllm-rocm-raon" \
+  org.opencontainers.image.revision="${VCS_REF}" \
+  ai.raon.native.status="opt-in-candidates"
+COPY vllm/models/raon1_mini/mhc.py \
+  vllm/models/raon1_mini/rocm_mhc.py \
+  vllm/models/raon1_mini/moe_align.py \
+  vllm/models/raon1_mini/rocm_flydsl_combine.py \
+  vllm/models/raon1_mini/model.py \
+  vllm/models/raon1_mini/rocm_moe_direct_graph.py \
+  vllm/models/raon1_mini/mla_attention.py \
+  vllm/models/raon1_mini/rocm_mla_split.py \
+  /usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/
+COPY tools/raon_validation/mhc_probe.py \
+  tools/raon_validation/mhc_math.py \
+  tools/raon_validation/combine_math.py \
+  tools/raon_validation/moe_graph_mxfp8.py \
+  tools/raon_validation/mla_split_graph.py \
+  /opt/raon/tools/raon_validation/
