@@ -1,5 +1,10 @@
 # Raon ROCm correctness diagnostics
 
+For CPU-only warm serving interval analysis, use
+`python -m tools.raon_validation.gap_budget --help`. See the
+[warm decode budget](../../docker/raon/GAP-BUDGET-20261127.md) for coverage gates,
+warmup evidence, profiler overhead and interpretation limits.
+
 Run inside the pinned Raon ROCm environment with one visible GPU. Source
 `docker/raon/runtime-env.sh` before starting Python. Preserve the image's
 `PYTHONPATH`: the ROCm SDK places AMD-SMI there. The tools now refuse an

@@ -1,0 +1,407 @@
+{
+  "date": "2026-11-27",
+  "scope": "MXFP8 warm decode diagnostic; not accuracy or fixed-ISL/OSL benchmark",
+  "source": "216281f592",
+  "target_snapshot": "3f85cd63ea420100a84378f72ae162af86a441fd",
+  "raw_root": "/mnt/hammerspace/jackhan/raon-gap-budget-20261127",
+  "accepted_job": 89682,
+  "job_status": "COMPLETED 0:0",
+  "excluded_job": 89675,
+  "async_scheduling": true,
+  "light_budget": {
+    "status": "PASS",
+    "scope": "Inclusive GPU stream intervals, not kernel-busy union or CU utilization. Child stages overlap parents. Outside-graph time includes necessary logits/sampling work. Window ratios estimate event overhead only where recorded step geometry matches.",
+    "cases": [
+      {
+        "sd": "off",
+        "concurrency": 1,
+        "steps": 64,
+        "compile_clean": true,
+        "matching_step_geometry": true,
+        "control_window_ms": 314.08724,
+        "event_window_ms": 320.43791,
+        "observed_window_ratio": 1.0202194460367124,
+        "event_overhead_percent": 2.021944603671244,
+        "gpu_window_ms": 320.36260986328125,
+        "stage_intervals": {
+          "worker_execute_inclusive": {
+            "count": 64,
+            "union_ms": 290.1250609010458,
+            "summed_ms": 290.1250609010458
+          },
+          "target_full_graph": {
+            "count": 64,
+            "union_ms": 279.1457951068878,
+            "summed_ms": 279.1457951068878
+          },
+          "worker_sample_inclusive": {
+            "count": 64,
+            "union_ms": 29.364590167999268,
+            "summed_ms": 29.364590167999268
+          },
+          "RAON_LOGITS": {
+            "count": 64,
+            "union_ms": 12.581738471984863,
+            "summed_ms": 12.581738471984863
+          },
+          "RAON_SAMPLER": {
+            "count": 64,
+            "union_ms": 13.9350905418396,
+            "summed_ms": 13.9350905418396
+          },
+          "draft_full_graph": {
+            "count": 0,
+            "union_ms": 0,
+            "summed_ms": 0
+          }
+        },
+        "all_graph_union_ms": 279.1457951068878,
+        "outside_graph_intervals_ms": 41.21681475639343,
+        "outside_worker_intervals_ms": 0.8729587942361832,
+        "hypothetical_speedup_removing_all_outside_graph_work": 1.1476533606412058
+      },
+      {
+        "sd": "off",
+        "concurrency": 32,
+        "steps": 64,
+        "compile_clean": true,
+        "matching_step_geometry": true,
+        "control_window_ms": 570.409138,
+        "event_window_ms": 572.934716,
+        "observed_window_ratio": 1.0044276604839384,
+        "event_overhead_percent": 0.44276604839383893,
+        "gpu_window_ms": 572.8936767578125,
+        "stage_intervals": {
+          "worker_execute_inclusive": {
+            "count": 64,
+            "union_ms": 533.9565947968513,
+            "summed_ms": 533.9565947968513
+          },
+          "target_full_graph": {
+            "count": 64,
+            "union_ms": 522.0277177095413,
+            "summed_ms": 522.0277177095413
+          },
+          "worker_sample_inclusive": {
+            "count": 64,
+            "union_ms": 38.05682849884033,
+            "summed_ms": 38.05682849884033
+          },
+          "RAON_LOGITS": {
+            "count": 64,
+            "union_ms": 17.462446212768555,
+            "summed_ms": 17.462446212768555
+          },
+          "RAON_SAMPLER": {
+            "count": 64,
+            "union_ms": 17.665809631347656,
+            "summed_ms": 17.665809631347656
+          },
+          "draft_full_graph": {
+            "count": 0,
+            "union_ms": 0,
+            "summed_ms": 0
+          }
+        },
+        "all_graph_union_ms": 522.0277177095413,
+        "outside_graph_intervals_ms": 50.86595904827118,
+        "outside_worker_intervals_ms": 0.8802534621208906,
+        "hypothetical_speedup_removing_all_outside_graph_work": 1.0974391920633095
+      },
+      {
+        "sd": "on",
+        "concurrency": 1,
+        "steps": 64,
+        "compile_clean": true,
+        "matching_step_geometry": true,
+        "control_window_ms": 522.263637,
+        "event_window_ms": 523.633218,
+        "observed_window_ratio": 1.0026223939462207,
+        "event_overhead_percent": 0.2622393946220658,
+        "gpu_window_ms": 523.5950927734375,
+        "stage_intervals": {
+          "worker_execute_inclusive": {
+            "count": 64,
+            "union_ms": 410.34993701055646,
+            "summed_ms": 410.34993701055646
+          },
+          "target_full_graph": {
+            "count": 64,
+            "union_ms": 384.9994945526123,
+            "summed_ms": 384.9994945526123
+          },
+          "worker_sample_inclusive": {
+            "count": 64,
+            "union_ms": 112.39924764633179,
+            "summed_ms": 112.39924764633179
+          },
+          "RAON_LOGITS": {
+            "count": 64,
+            "union_ms": 12.882385730743408,
+            "summed_ms": 12.882385730743408
+          },
+          "draft_full_graph": {
+            "count": 64,
+            "union_ms": 67.85900020599365,
+            "summed_ms": 67.85900020599365
+          }
+        },
+        "all_graph_union_ms": 452.85849475860596,
+        "outside_graph_intervals_ms": 70.73659801483154,
+        "outside_worker_intervals_ms": 0.8459081165492535,
+        "hypothetical_speedup_removing_all_outside_graph_work": 1.1562002233226019
+      },
+      {
+        "sd": "on",
+        "concurrency": 32,
+        "steps": 64,
+        "compile_clean": true,
+        "matching_step_geometry": false,
+        "control_window_ms": 1345.258108,
+        "event_window_ms": 1345.984203,
+        "observed_window_ratio": 1.000539744005765,
+        "event_overhead_percent": null,
+        "gpu_window_ms": 1345.9500732421875,
+        "stage_intervals": {
+          "worker_execute_inclusive": {
+            "count": 64,
+            "union_ms": 1161.5130463484675,
+            "summed_ms": 1161.5130463484675
+          },
+          "target_full_graph": {
+            "count": 64,
+            "union_ms": 1127.2980335950851,
+            "summed_ms": 1127.2980335950851
+          },
+          "worker_sample_inclusive": {
+            "count": 64,
+            "union_ms": 183.58849716186523,
+            "summed_ms": 183.58849716186523
+          },
+          "RAON_LOGITS": {
+            "count": 64,
+            "union_ms": 18.430233001708984,
+            "summed_ms": 18.430233001708984
+          },
+          "draft_full_graph": {
+            "count": 64,
+            "union_ms": 117.59688377380371,
+            "summed_ms": 117.59688377380371
+          }
+        },
+        "all_graph_union_ms": 1244.8949173688889,
+        "outside_graph_intervals_ms": 101.05515587329865,
+        "outside_worker_intervals_ms": 0.8485297318547964,
+        "hypothetical_speedup_removing_all_outside_graph_work": 1.0811756514251667
+      }
+    ]
+  },
+  "sdk_cases": [
+    {
+      "c": 1,
+      "sd": "off",
+      "coverage": {
+        "steps": 64,
+        "nonempty_forwards": 64,
+        "expected_moe_dispatches_per_stage": 1536,
+        "observed_stage1": 1536,
+        "observed_stage2": 1536,
+        "passed": true
+      },
+      "activity": {
+        "window_ms": 435.232996,
+        "kernel_union_ms": 413.007195,
+        "memcpy_union_ms": 0.0,
+        "exposed_memcpy_ms": 0.0,
+        "copy_kernel_overlap_ms": 0.0,
+        "busy_union_ms": 413.007195,
+        "uncovered_ms": 22.225801,
+        "uncovered_percent": 5.106644304146462,
+        "kernel_records": 68288,
+        "memcpy_records": 0,
+        "summed_kernel_ms": 440.536185
+      },
+      "gap_locations": {
+        "target_full_graph_launches": 64,
+        "target_full_graphs_with_gpu_records": 64,
+        "uncovered_inside_target_full_graph_ms": 17.416715,
+        "uncovered_outside_target_full_graph_ms": 4.809086,
+        "uncovered_between_worker_steps_ms": 12.452786,
+        "note": "Graph envelopes use exact HIP correlation IDs within recorded FULL graph CPU scopes. Between-worker-step gaps can include scheduling, IPC or output readiness; this does not identify one causal component. Between-step and outside-graph values overlap and must not be added."
+      },
+      "cpu_sync_api": {
+        "union_ms": 238.709184,
+        "during_gpu_uncovered_ms": 11.245114,
+        "note": "Includes intentional final boundary drain; overlaps other budgets.",
+        "excluding_final_drain_union_ms": 228.305785
+      },
+      "control_window_ms": 315.551663,
+      "trace_window_ms": 435.252826,
+      "window_overhead_ratio": 1.3793393508434781,
+      "matching_step_schedule": true,
+      "control_tps": 199.5397089518511,
+      "trace_tps": 198.67574246914197,
+      "control_compile_status": "VALID_SINGLE_MEASUREMENT",
+      "trace_compile_status": "VALID_SINGLE_MEASUREMENT",
+      "control_changes": [],
+      "trace_changes": []
+    },
+    {
+      "c": 32,
+      "sd": "off",
+      "coverage": {
+        "steps": 64,
+        "nonempty_forwards": 64,
+        "expected_moe_dispatches_per_stage": 1536,
+        "observed_stage1": 1536,
+        "observed_stage2": 1536,
+        "passed": true
+      },
+      "activity": {
+        "window_ms": 669.910931,
+        "kernel_union_ms": 648.007173,
+        "memcpy_union_ms": 0.0,
+        "exposed_memcpy_ms": 0.0,
+        "copy_kernel_overlap_ms": 0.0,
+        "busy_union_ms": 648.007173,
+        "uncovered_ms": 21.903758,
+        "uncovered_percent": 3.2696522756097557,
+        "kernel_records": 69888,
+        "memcpy_records": 0,
+        "summed_kernel_ms": 674.879207
+      },
+      "gap_locations": {
+        "target_full_graph_launches": 64,
+        "target_full_graphs_with_gpu_records": 64,
+        "uncovered_inside_target_full_graph_ms": 17.24976,
+        "uncovered_outside_target_full_graph_ms": 4.653998,
+        "uncovered_between_worker_steps_ms": 13.951379,
+        "note": "Graph envelopes use exact HIP correlation IDs within recorded FULL graph CPU scopes. Between-worker-step gaps can include scheduling, IPC or output readiness; this does not identify one causal component. Between-step and outside-graph values overlap and must not be added."
+      },
+      "cpu_sync_api": {
+        "union_ms": 422.229138,
+        "during_gpu_uncovered_ms": 12.762504,
+        "note": "Includes intentional final boundary drain; overlaps other budgets.",
+        "excluding_final_drain_union_ms": 405.010075
+      },
+      "control_window_ms": 572.66409,
+      "trace_window_ms": 669.92473,
+      "window_overhead_ratio": 1.1698389015452322,
+      "matching_step_schedule": true,
+      "control_tps": 1685.844226392489,
+      "trace_tps": 1682.2547085252513,
+      "control_compile_status": "VALID_SINGLE_MEASUREMENT",
+      "trace_compile_status": "VALID_SINGLE_MEASUREMENT",
+      "control_changes": [],
+      "trace_changes": []
+    },
+    {
+      "c": 1,
+      "sd": "on",
+      "coverage": {
+        "steps": 64,
+        "nonempty_forwards": 64,
+        "expected_moe_dispatches_per_stage": 1536,
+        "observed_stage1": 1536,
+        "observed_stage2": 1536,
+        "passed": true
+      },
+      "activity": {
+        "window_ms": 678.912829,
+        "kernel_union_ms": 616.608662,
+        "memcpy_union_ms": 1.099529,
+        "exposed_memcpy_ms": 1.099529,
+        "copy_kernel_overlap_ms": 0.0,
+        "busy_union_ms": 617.708191,
+        "uncovered_ms": 61.204638,
+        "uncovered_percent": 9.015095220715,
+        "kernel_records": 83545,
+        "memcpy_records": 16,
+        "summed_kernel_ms": 643.740223
+      },
+      "gap_locations": {
+        "target_full_graph_launches": 126,
+        "target_full_graphs_with_gpu_records": 126,
+        "uncovered_inside_target_full_graph_ms": 16.850968,
+        "uncovered_outside_target_full_graph_ms": 44.35367,
+        "uncovered_between_worker_steps_ms": 8.383941,
+        "note": "Graph envelopes use exact HIP correlation IDs within recorded FULL graph CPU scopes. Between-worker-step gaps can include scheduling, IPC or output readiness; this does not identify one causal component. Between-step and outside-graph values overlap and must not be added."
+      },
+      "cpu_sync_api": {
+        "union_ms": 226.17896,
+        "during_gpu_uncovered_ms": 8.852854,
+        "note": "Includes intentional final boundary drain; overlaps other budgets.",
+        "excluding_final_drain_union_ms": 211.096771
+      },
+      "control_window_ms": 530.918609,
+      "trace_window_ms": 678.928788,
+      "window_overhead_ratio": 1.2787812980953548,
+      "matching_step_schedule": true,
+      "control_tps": 408.51046171837373,
+      "trace_tps": 413.14762200097283,
+      "control_compile_status": "VALID_SINGLE_MEASUREMENT",
+      "trace_compile_status": "VALID_SINGLE_MEASUREMENT",
+      "control_changes": [],
+      "trace_changes": []
+    },
+    {
+      "c": 32,
+      "sd": "on",
+      "coverage": {
+        "steps": 64,
+        "nonempty_forwards": 64,
+        "expected_moe_dispatches_per_stage": 1536,
+        "observed_stage1": 1536,
+        "observed_stage2": 1536,
+        "passed": true
+      },
+      "activity": {
+        "window_ms": 2071.333181,
+        "kernel_union_ms": 1468.451335,
+        "memcpy_union_ms": 9.327955,
+        "exposed_memcpy_ms": 9.327955,
+        "copy_kernel_overlap_ms": 0.0,
+        "busy_union_ms": 1477.77929,
+        "uncovered_ms": 593.553891,
+        "uncovered_percent": 28.655645380693585,
+        "kernel_records": 109419,
+        "memcpy_records": 136,
+        "summed_kernel_ms": 1498.292025
+      },
+      "gap_locations": {
+        "target_full_graph_launches": 103,
+        "target_full_graphs_with_gpu_records": 103,
+        "uncovered_inside_target_full_graph_ms": 13.168292,
+        "uncovered_outside_target_full_graph_ms": 580.385599,
+        "uncovered_between_worker_steps_ms": 8.121919,
+        "note": "Graph envelopes use exact HIP correlation IDs within recorded FULL graph CPU scopes. Between-worker-step gaps can include scheduling, IPC or output readiness; this does not identify one causal component. Between-step and outside-graph values overlap and must not be added."
+      },
+      "cpu_sync_api": {
+        "union_ms": 332.27574,
+        "during_gpu_uncovered_ms": 7.103973,
+        "note": "Includes intentional final boundary drain; overlaps other budgets.",
+        "excluding_final_drain_union_ms": 299.446479
+      },
+      "control_window_ms": 1526.634885,
+      "trace_window_ms": 2071.34948,
+      "window_overhead_ratio": 1.3568073809606414,
+      "matching_step_schedule": false,
+      "control_tps": 2559.5313574797783,
+      "trace_tps": 2529.4055220112646,
+      "control_compile_status": "VALID_SINGLE_MEASUREMENT",
+      "trace_compile_status": "VALID_SINGLE_MEASUREMENT",
+      "control_changes": [],
+      "trace_changes": []
+    }
+  ],
+  "limitations": [
+    "Detailed profiler inflated matching windows by 17-38%; raw idle is instrumented.",
+    "SD-on C32 control geometry differs; paired overhead is unavailable.",
+    "Graph shares are intervals, not CU utilization; nested stages are not additive.",
+    "No inference kernel changed; no accuracy evaluation."
+  ],
+  "sha256": {
+    "low-overhead-validated.json": "fed813f2fbb8986b8654e35db43d0797d4e50ccc2dc76c66d37e0cca4388ab3f",
+    "summary.json": "5d6d0187582bac3930df1c01a307ed51d9c538ea98860f64172c33c638c079c7"
+  }
+}
