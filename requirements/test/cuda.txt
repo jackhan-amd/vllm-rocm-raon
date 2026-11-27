@@ -1011,7 +1011,7 @@ pytokens==0.4.1
     # via black
 pytrec-eval-terrier==0.5.7
     # via mteb
-pytz==2024.2
+pytz==2026.6
     # via
     #   pandas
     #   typepy
