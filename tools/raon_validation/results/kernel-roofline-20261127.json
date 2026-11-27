@@ -1,0 +1,3084 @@
+{
+  "status": "PASS",
+  "job": 89705,
+  "excluded_job": 89704,
+  "scope": "Stateless microkernel diagnostics; not serving throughput or model accuracy.",
+  "image": "docker.io/hanjack/vllm-rocm@sha256:c41349b2bca3335d3a7eacceb6e4d9d21c4fa4602f7d24e454a8ccb9f739c281",
+  "target_snapshot": "3f85cd63ea420100a84378f72ae162af86a441fd",
+  "compute_profiler": "rocm-profiler 10.2.0 / rocprof-compute 3.10.0 / SDK 1.4.2",
+  "raw_root": "/mnt/hammerspace/jackhan/raon-roofline-20261127",
+  "method": "20 warm calls; 512 graph replays in one unprofiled event interval. Separate direct-call counter phase with iteration multiplexing (9 sets); filter kernel iterations 101:200. No attention cache mutation. 100 sampled dispatches per unique kernel name/launch configuration.",
+  "limitations": [
+    "Counter collection serializes streams; counter durations are not unprofiled graph latency.",
+    "Reused synthetic activations and one real mHC site; does not reproduce full-model cache interference.",
+    "RDA cast/logsigmoid/add types can each represent two operations in the original seven-node chain.",
+    "Transcendental SFU throughput is not fully represented by ordinary FLOP roofline.",
+    "Analyzer warns about missing empirical MFMA F6F4 peak; unrelated to the FP32/BF16 paths reported.",
+    "No fusion or tile change implemented; no speedup claimed."
+  ],
+  "cases": [
+    {
+      "case": "mhc-1",
+      "baseline": {
+        "status": "PASS",
+        "part": "mhc",
+        "rows": 1,
+        "phase": "baseline",
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "architecture": "gfx950:sramecc+:xnack-",
+        "scope": "Kernel diagnostic; synthetic activations, real mHC checkpoint weights. Not serving TPS. No RDA cache update.",
+        "activation_shape": [
+          1,
+          4,
+          2560
+        ],
+        "branch": "fixed BF16 tensor; excludes Attention/MoE",
+        "batch_invariant": true,
+        "source": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc_gate.py",
+          "sha256": "1e8b4a15f2dd46fda50ac7538be3ddff15f556d2c0b8a3ce18503fac09484ac3"
+        },
+        "projection": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc.py",
+          "sha256": "a15ff47b4383a67b3956e3faecf0c96f53d35321a299bbd8980422bc7e55eb4a"
+        },
+        "warmup_calls": 20,
+        "graph_replays": 512,
+        "graph_us": 11.88351958990097,
+        "finite": true,
+        "timing": "One post-warmup GPU-event window; no counter profiler attached"
+      },
+      "kernels": [
+        {
+          "label": "finish",
+          "kernel": "finish_0",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 2.1088,
+          "cu_util_percent": 0.017114473578396936,
+          "hbm_GBs": 2.5948406676783002,
+          "hbm_percent_empirical": 0.03735247898580515,
+          "l2_GBs": 1.1532625189681336,
+          "l2_percent_empirical": 0.0033414762944681308,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 1.3960546282245827,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.0011949231538945114,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.0012509351767333167,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.0006348029255064592,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 0.17564414423726202,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.017114473578396936,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 1.3960546282245827,
+              "Peak (Empirical)": 154981.9094998599
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2445751.981357705
+            },
+            "4.1.11": {
+              "Value": 2.5948406676783002,
+              "Peak (Empirical)": 6946.903493779899
+            },
+            "4.1.12": {
+              "Value": 1.1532625189681336,
+              "Peak (Empirical)": 34513.56278891994
+            }
+          }
+        },
+        {
+          "label": "head",
+          "kernel": "head_0",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 3.77925,
+          "cu_util_percent": 0.5268042351849848,
+          "hbm_GBs": 15.012502480650923,
+          "hbm_percent_empirical": 0.2161035127966407,
+          "l2_GBs": 9.991400410134286,
+          "l2_percent_empirical": 0.028949200264372227,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 30.44836938546008,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.013820814518640591,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.05457778726386609,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.0051948305151270895,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 5.373151371460909,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.5268042351849848,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 30.44836938546008,
+              "Peak (Empirical)": 154981.9094998599
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2445751.981357705
+            },
+            "4.1.11": {
+              "Value": 15.012502480650923,
+              "Peak (Empirical)": 6946.903493779899
+            },
+            "4.1.12": {
+              "Value": 9.991400410134286,
+              "Peak (Empirical)": 34513.56278891994
+            }
+          }
+        },
+        {
+          "label": "mix",
+          "kernel": "mix_0",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 3.4276500000000003,
+          "cu_util_percent": 0.4792162407084667,
+          "hbm_GBs": 19.26917859174653,
+          "hbm_percent_empirical": 0.2773779513275191,
+          "l2_GBs": 19.79198576284043,
+          "l2_percent_empirical": 0.05734553075231732,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 26.887225941971906,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.00938309939433064,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.035591066668150706,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.010353764848916569,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 4.915240301822599,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.4792162407084667,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 26.887225941971906,
+              "Peak (Empirical)": 154981.9094998599
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2445751.981357705
+            },
+            "4.1.11": {
+              "Value": 19.26917859174653,
+              "Peak (Empirical)": 6946.903493779899
+            },
+            "4.1.12": {
+              "Value": 19.79198576284043,
+              "Peak (Empirical)": 34513.56278891994
+            }
+          }
+        },
+        {
+          "label": "mHC project",
+          "kernel": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 4.87927,
+          "cu_util_percent": 4.046282078632696,
+          "hbm_GBs": 201.1149372754531,
+          "hbm_percent_empirical": 2.8950299576714555,
+          "l2_GBs": 211.12666443955754,
+          "l2_percent_empirical": 0.611720863855112,
+          "bf16_GFLOPs": 17192.34229710592,
+          "bf16_percent_empirical": 0.7029470865464442,
+          "fp32_valu_GFLOPs": 209.23785730242435,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.32838098175913466,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.801132477446668,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.28829057383518,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.07710196261015402,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 41.269785922627136,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 4.046282078632696,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 209.23785730242435,
+              "Peak (Empirical)": 154981.9094998599
+            },
+            "4.1.6": {
+              "Value": 17192.34229710592,
+              "Peak (Empirical)": 2445751.981357705
+            },
+            "4.1.11": {
+              "Value": 201.1149372754531,
+              "Peak (Empirical)": 6946.903493779899
+            },
+            "4.1.12": {
+              "Value": 211.12666443955754,
+              "Peak (Empirical)": 34513.56278891994
+            }
+          }
+        }
+      ],
+      "empirical_roofline": [
+        {
+          "device": "0",
+          "HBMBw": "6946.903493779899",
+          "HBMBwLow": "6933.9222798994215",
+          "HBMBwHigh": "6959.884707660376",
+          "MALLBw": "8505.228056530003",
+          "MALLBwLow": "8494.32104025418",
+          "MALLBwHigh": "8516.135072805824",
+          "L2Bw": "34513.56278891994",
+          "L2BwLow": "34505.63005225095",
+          "L2BwHigh": "34521.49552558893",
+          "L1Bw": "37899.283905169206",
+          "L1BwLow": "37797.32352761314",
+          "L1BwHigh": "38001.244282725274",
+          "LDSBw": "70472.91705848073",
+          "LDSBwLow": "70381.27770676065",
+          "LDSBwHigh": "70564.5564102008",
+          "FP16Flops": "155670.86761801952",
+          "FP16FlopsLow": "155653.29308328012",
+          "FP16FlopsHigh": "155688.44215275891",
+          "FP32Flops": "154981.9094998599",
+          "FP32FlopsLow": "154958.222021858",
+          "FP32FlopsHigh": "155005.5969778618",
+          "FP64Flops": "77479.52379779598",
+          "FP64FlopsLow": "77468.28146755468",
+          "FP64FlopsHigh": "77490.76612803727",
+          "I8Ops": "64753.317498919285",
+          "I8OpsLow": "64735.1329033515",
+          "I8OpsHigh": "64771.50209448707",
+          "I32Ops": "68750.67864939592",
+          "I32OpsLow": "68739.4230718239",
+          "I32OpsHigh": "68761.93422696795",
+          "I64Ops": "19375.278240024883",
+          "I64OpsLow": "19372.032462517393",
+          "I64OpsHigh": "19378.524017532374",
+          "MFMAF4Flops": "9759166.774073867",
+          "MFMAF4FlopsLow": "9693435.760389514",
+          "MFMAF4FlopsHigh": "9824897.78775822",
+          "MFMAF6Flops": "8521550.401059367",
+          "MFMAF6FlopsLow": "8475656.360168925",
+          "MFMAF6FlopsHigh": "8567444.441949809",
+          "MFMAF6F4Flops": "9779627.995857174",
+          "MFMAF6F4FlopsLow": "9715683.7711567",
+          "MFMAF6F4FlopsHigh": "9843572.220557647",
+          "MFMAMXF8Flops": "4950023.495906504",
+          "MFMAMXF8FlopsLow": "4938294.679768396",
+          "MFMAMXF8FlopsHigh": "4961752.312044612",
+          "MFMAF8Flops": "2457208.8860462373",
+          "MFMAF8FlopsLow": "2446733.7463968606",
+          "MFMAF8FlopsHigh": "2467684.025695614",
+          "MFMAF16Flops": "2222680.420400558",
+          "MFMAF16FlopsLow": "2209723.113749452",
+          "MFMAF16FlopsHigh": "2235637.727051664",
+          "MFMABF16Flops": "2445751.981357705",
+          "MFMABF16FlopsLow": "2431030.6749307066",
+          "MFMABF16FlopsHigh": "2460473.287784703",
+          "MFMAF32Flops": "155169.10134744077",
+          "MFMAF32FlopsLow": "154931.8640650572",
+          "MFMAF32FlopsHigh": "155406.33862982434",
+          "MFMAF64Flops": "77975.53597243367",
+          "MFMAF64FlopsLow": "77909.91018067236",
+          "MFMAF64FlopsHigh": "78041.16176419499",
+          "MFMAI8Ops": "4897285.454573536",
+          "MFMAI8OpsLow": "4871430.1322104605",
+          "MFMAI8OpsHigh": "4923140.776936612"
+        }
+      ]
+    },
+    {
+      "case": "mhc-256",
+      "baseline": {
+        "status": "PASS",
+        "part": "mhc",
+        "rows": 256,
+        "phase": "baseline",
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "architecture": "gfx950:sramecc+:xnack-",
+        "scope": "Kernel diagnostic; synthetic activations, real mHC checkpoint weights. Not serving TPS. No RDA cache update.",
+        "activation_shape": [
+          256,
+          4,
+          2560
+        ],
+        "branch": "fixed BF16 tensor; excludes Attention/MoE",
+        "batch_invariant": true,
+        "source": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc_gate.py",
+          "sha256": "1e8b4a15f2dd46fda50ac7538be3ddff15f556d2c0b8a3ce18503fac09484ac3"
+        },
+        "projection": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc.py",
+          "sha256": "a15ff47b4383a67b3956e3faecf0c96f53d35321a299bbd8980422bc7e55eb4a"
+        },
+        "warmup_calls": 20,
+        "graph_replays": 512,
+        "graph_us": 16.86042919754982,
+        "finite": true,
+        "timing": "One post-warmup GPU-event window; no counter profiler attached"
+      },
+      "kernels": [
+        {
+          "label": "finish",
+          "kernel": "finish_0",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 2.50042,
+          "cu_util_percent": 4.1082766601779115,
+          "hbm_GBs": 279.300277553371,
+          "hbm_percent_empirical": 4.000712169579444,
+          "l2_GBs": 452.12244342950385,
+          "l2_percent_empirical": 1.3041168621638832,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 301.4149622863359,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.28250364440736586,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.2957460027389611,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.15008006109141311,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 41.30581482989639,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 4.1082766601779115,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 301.4149622863359,
+              "Peak (Empirical)": 156067.08581169034
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2464065.4899795745
+            },
+            "4.1.11": {
+              "Value": 279.300277553371,
+              "Peak (Empirical)": 6981.263977876497
+            },
+            "4.1.12": {
+              "Value": 452.12244342950385,
+              "Peak (Empirical)": 34668.85955905134
+            }
+          }
+        },
+        {
+          "label": "head",
+          "kernel": "head_0",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 4.72286,
+          "cu_util_percent": 27.147386864099133,
+          "hbm_GBs": 1409.9659951808862,
+          "hbm_percent_empirical": 20.196428607327324,
+          "l2_GBs": 1734.5422053586174,
+          "l2_percent_empirical": 5.003170647722571,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 6237.413770469589,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 3.2318651404914647,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 12.76249296778764,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 1.2147613753123372,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 1194.1138955016525,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 27.147386864099133,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 6237.413770469589,
+              "Peak (Empirical)": 156067.08581169034
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2464065.4899795745
+            },
+            "4.1.11": {
+              "Value": 1409.9659951808862,
+              "Peak (Empirical)": 6981.263977876497
+            },
+            "4.1.12": {
+              "Value": 1734.5422053586174,
+              "Peak (Empirical)": 34668.85955905134
+            }
+          }
+        },
+        {
+          "label": "mix",
+          "kernel": "mix_0",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 5.29122,
+          "cu_util_percent": 26.976251315531297,
+          "hbm_GBs": 2242.3138709031186,
+          "hbm_percent_empirical": 32.119024262783526,
+          "l2_GBs": 3229.5977109248906,
+          "l2_percent_empirical": 9.315557973356258,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 4458.888498304739,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 2.023642688550618,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 7.675886060019585,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 2.232985035642061,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 1257.9270127034606,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 26.976251315531297,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 4458.888498304739,
+              "Peak (Empirical)": 156067.08581169034
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2464065.4899795745
+            },
+            "4.1.11": {
+              "Value": 2242.3138709031186,
+              "Peak (Empirical)": 6981.263977876497
+            },
+            "4.1.12": {
+              "Value": 3229.5977109248906,
+              "Peak (Empirical)": 34668.85955905134
+            }
+          }
+        },
+        {
+          "label": "mHC project",
+          "kernel": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 6.02325,
+          "cu_util_percent": 17.92202311323213,
+          "hbm_GBs": 2276.4085701241024,
+          "hbm_percent_empirical": 32.60739856475849,
+          "l2_GBs": 2573.2393641306603,
+          "l2_percent_empirical": 7.422336346967719,
+          "bf16_GFLOPs": 55708.18411986884,
+          "bf16_percent_empirical": 2.2608240059532925,
+          "fp32_valu_GFLOPs": 680.0315444319926,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 1.204745177825816,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 2.9057539519376054,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 1.0447654658652064,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.2910055702323791,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 183.12533508505678,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 17.92202311323213,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 680.0315444319926,
+              "Peak (Empirical)": 156067.08581169034
+            },
+            "4.1.6": {
+              "Value": 55708.18411986884,
+              "Peak (Empirical)": 2464065.4899795745
+            },
+            "4.1.11": {
+              "Value": 2276.4085701241024,
+              "Peak (Empirical)": 6981.263977876497
+            },
+            "4.1.12": {
+              "Value": 2573.2393641306603,
+              "Peak (Empirical)": 34668.85955905134
+            }
+          }
+        }
+      ],
+      "empirical_roofline": [
+        {
+          "device": "0",
+          "HBMBw": "6981.263977876497",
+          "HBMBwLow": "6968.7868828542805",
+          "HBMBwHigh": "6993.741072898713",
+          "MALLBw": "8466.374454530896",
+          "MALLBwLow": "8457.579447434724",
+          "MALLBwHigh": "8475.169461627069",
+          "L2Bw": "34668.85955905134",
+          "L2BwLow": "34664.611979538626",
+          "L2BwHigh": "34673.10713856406",
+          "L1Bw": "38130.897544140375",
+          "L1BwLow": "38044.0726428763",
+          "L1BwHigh": "38217.72244540445",
+          "LDSBw": "70133.04516262974",
+          "LDSBwLow": "70057.8171790692",
+          "LDSBwHigh": "70208.27314619029",
+          "FP16Flops": "155646.5519708227",
+          "FP16FlopsLow": "155610.89449683466",
+          "FP16FlopsHigh": "155682.20944481075",
+          "FP32Flops": "156067.08581169034",
+          "FP32FlopsLow": "156042.44839155528",
+          "FP32FlopsHigh": "156091.7232318254",
+          "FP64Flops": "77896.959631095",
+          "FP64FlopsLow": "77886.38559345751",
+          "FP64FlopsHigh": "77907.53366873249",
+          "I8Ops": "65023.1139908466",
+          "I8OpsLow": "65013.084558425435",
+          "I8OpsHigh": "65033.143423267764",
+          "I32Ops": "68994.1981433405",
+          "I32OpsLow": "68968.26228555136",
+          "I32OpsHigh": "69020.13400112964",
+          "I64Ops": "19489.654891520462",
+          "I64OpsLow": "19487.111383620362",
+          "I64OpsHigh": "19492.198399420562",
+          "MFMAF4Flops": "9824571.919531263",
+          "MFMAF4FlopsLow": "9762760.636764556",
+          "MFMAF4FlopsHigh": "9886383.20229797",
+          "MFMAF6Flops": "8716946.601962823",
+          "MFMAF6FlopsLow": "8670616.266836306",
+          "MFMAF6FlopsHigh": "8763276.93708934",
+          "MFMAF6F4Flops": "9838707.046796463",
+          "MFMAF6F4FlopsLow": "9782101.850946896",
+          "MFMAF6F4FlopsHigh": "9895312.242646031",
+          "MFMAMXF8Flops": "4984586.257974851",
+          "MFMAMXF8FlopsLow": "4973466.778957338",
+          "MFMAMXF8FlopsHigh": "4995705.736992364",
+          "MFMAF8Flops": "2476376.14382284",
+          "MFMAF8FlopsLow": "2465350.953352335",
+          "MFMAF8FlopsHigh": "2487401.334293345",
+          "MFMAF16Flops": "2271745.9552377416",
+          "MFMAF16FlopsLow": "2259054.5279260105",
+          "MFMAF16FlopsHigh": "2284437.3825494726",
+          "MFMABF16Flops": "2464065.4899795745",
+          "MFMABF16FlopsLow": "2450977.3244363717",
+          "MFMABF16FlopsHigh": "2477153.6555227772",
+          "MFMAF32Flops": "155711.30255692787",
+          "MFMAF32FlopsLow": "155464.69821632202",
+          "MFMAF32FlopsHigh": "155957.9068975337",
+          "MFMAF64Flops": "77959.95506628112",
+          "MFMAF64FlopsLow": "77891.40841678042",
+          "MFMAF64FlopsHigh": "78028.50171578182",
+          "MFMAI8Ops": "4929525.721562605",
+          "MFMAI8OpsLow": "4905420.565004893",
+          "MFMAI8OpsHigh": "4953630.878120318"
+        }
+      ]
+    },
+    {
+      "case": "mhc-32",
+      "baseline": {
+        "status": "PASS",
+        "part": "mhc",
+        "rows": 32,
+        "phase": "baseline",
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "architecture": "gfx950:sramecc+:xnack-",
+        "scope": "Kernel diagnostic; synthetic activations, real mHC checkpoint weights. Not serving TPS. No RDA cache update.",
+        "activation_shape": [
+          32,
+          4,
+          2560
+        ],
+        "branch": "fixed BF16 tensor; excludes Attention/MoE",
+        "batch_invariant": true,
+        "source": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc_gate.py",
+          "sha256": "1e8b4a15f2dd46fda50ac7538be3ddff15f556d2c0b8a3ce18503fac09484ac3"
+        },
+        "projection": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc.py",
+          "sha256": "a15ff47b4383a67b3956e3faecf0c96f53d35321a299bbd8980422bc7e55eb4a"
+        },
+        "warmup_calls": 20,
+        "graph_replays": 512,
+        "graph_us": 12.693916447460651,
+        "finite": true,
+        "timing": "One post-warmup GPU-event window; no counter profiler attached"
+      },
+      "kernels": [
+        {
+          "label": "finish",
+          "kernel": "finish_0",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 2.39962,
+          "cu_util_percent": 0.5667654644901773,
+          "hbm_GBs": 43.10015752494145,
+          "hbm_percent_empirical": 0.619590127291249,
+          "l2_GBs": 58.88932414298931,
+          "l2_percent_empirical": 0.1711075344020953,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 39.25954942865954,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.03874681655549761,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.04056307358153656,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.020584246295108105,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 5.653373642938156,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.5667654644901773,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 39.25954942865954,
+              "Peak (Empirical)": 155251.53269559506
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2442646.453484585
+            },
+            "4.1.11": {
+              "Value": 43.10015752494145,
+              "Peak (Empirical)": 6956.236974492895
+            },
+            "4.1.12": {
+              "Value": 58.88932414298931,
+              "Peak (Empirical)": 34416.55818884161
+            }
+          }
+        },
+        {
+          "label": "head",
+          "kernel": "head_0",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 3.8624,
+          "cu_util_percent": 14.253479024300585,
+          "hbm_GBs": 222.70091135045567,
+          "hbm_percent_empirical": 3.201456652023998,
+          "l2_GBs": 304.092792046396,
+          "l2_percent_empirical": 0.8835653768103624,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 953.3719966859984,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.448573984863282,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 1.77139889150187,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.168605534913809,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 161.89376238099325,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 14.253479024300585,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 953.3719966859984,
+              "Peak (Empirical)": 155251.53269559506
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2442646.453484585
+            },
+            "4.1.11": {
+              "Value": 222.70091135045567,
+              "Peak (Empirical)": 6956.236974492895
+            },
+            "4.1.12": {
+              "Value": 304.092792046396,
+              "Peak (Empirical)": 34416.55818884161
+            }
+          }
+        },
+        {
+          "label": "mix",
+          "kernel": "mix_0",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 3.4656100000000003,
+          "cu_util_percent": 13.060566097667452,
+          "hbm_GBs": 432.7226664281324,
+          "hbm_percent_empirical": 6.220642971405925,
+          "l2_GBs": 628.7701155063611,
+          "l2_percent_empirical": 1.8269407186399547,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 850.9670736176315,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.30653868148199825,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 1.1627329297593036,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.3382495795663429,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 151.6727976517023,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 13.060566097667452,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 850.9670736176315,
+              "Peak (Empirical)": 155251.53269559506
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2442646.453484585
+            },
+            "4.1.11": {
+              "Value": 432.7226664281324,
+              "Peak (Empirical)": 6956.236974492895
+            },
+            "4.1.12": {
+              "Value": 628.7701155063611,
+              "Peak (Empirical)": 34416.55818884161
+            }
+          }
+        },
+        {
+          "label": "mHC project",
+          "kernel": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 5.63408,
+          "cu_util_percent": 4.279445207430514,
+          "hbm_GBs": 390.84565359384317,
+          "hbm_percent_empirical": 5.618636268818826,
+          "l2_GBs": 431.1135092153466,
+          "l2_percent_empirical": 1.252633999163578,
+          "bf16_GFLOPs": 14889.046658904383,
+          "bf16_percent_empirical": 0.6095457096406336,
+          "fp32_valu_GFLOPs": 181.38755573225797,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.30945959645623106,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.7520882815514139,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.270565767393426,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.0741306605634921,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 43.877837188571405,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 4.279445207430514,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 181.38755573225797,
+              "Peak (Empirical)": 155251.53269559506
+            },
+            "4.1.6": {
+              "Value": 14889.046658904383,
+              "Peak (Empirical)": 2442646.453484585
+            },
+            "4.1.11": {
+              "Value": 390.84565359384317,
+              "Peak (Empirical)": 6956.236974492895
+            },
+            "4.1.12": {
+              "Value": 431.1135092153466,
+              "Peak (Empirical)": 34416.55818884161
+            }
+          }
+        }
+      ],
+      "empirical_roofline": [
+        {
+          "device": "0",
+          "HBMBw": "6956.236974492895",
+          "HBMBwLow": "6944.14933083387",
+          "HBMBwHigh": "6968.324618151919",
+          "MALLBw": "8707.222817209395",
+          "MALLBwLow": "8701.700350472938",
+          "MALLBwHigh": "8712.745283945851",
+          "L2Bw": "34416.55818884161",
+          "L2BwLow": "34408.90789158592",
+          "L2BwHigh": "34424.208486097305",
+          "L1Bw": "38059.798125821355",
+          "L1BwLow": "37972.58937845404",
+          "L1BwHigh": "38147.00687318867",
+          "LDSBw": "70458.6127252144",
+          "LDSBwLow": "70340.44491700972",
+          "LDSBwHigh": "70576.78053341909",
+          "FP16Flops": "155119.49491300544",
+          "FP16FlopsLow": "155104.62760471494",
+          "FP16FlopsHigh": "155134.36222129595",
+          "FP32Flops": "155251.53269559506",
+          "FP32FlopsLow": "155226.8278492896",
+          "FP32FlopsHigh": "155276.2375419005",
+          "FP64Flops": "77660.50646088473",
+          "FP64FlopsLow": "77645.17943252841",
+          "FP64FlopsHigh": "77675.83348924105",
+          "I8Ops": "64805.390436078254",
+          "I8OpsLow": "64794.459739785234",
+          "I8OpsHigh": "64816.321132371275",
+          "I32Ops": "68344.44684784261",
+          "I32OpsLow": "68309.81841704957",
+          "I32OpsHigh": "68379.07527863566",
+          "I64Ops": "19364.29412387328",
+          "I64OpsLow": "19361.481657268083",
+          "I64OpsHigh": "19367.106590478474",
+          "MFMAF4Flops": "9715740.90372939",
+          "MFMAF4FlopsLow": "9653569.277835969",
+          "MFMAF4FlopsHigh": "9777912.529622812",
+          "MFMAF6Flops": "8645135.047899919",
+          "MFMAF6FlopsLow": "8599034.756683793",
+          "MFMAF6FlopsHigh": "8691235.339116044",
+          "MFMAF6F4Flops": "9737006.57629397",
+          "MFMAF6F4FlopsLow": "9679942.511773564",
+          "MFMAF6F4FlopsHigh": "9794070.640814375",
+          "MFMAMXF8Flops": "4950751.503584718",
+          "MFMAMXF8FlopsLow": "4937567.358239942",
+          "MFMAMXF8FlopsHigh": "4963935.648929494",
+          "MFMAF8Flops": "2455593.8133399924",
+          "MFMAF8FlopsLow": "2445573.296839422",
+          "MFMAF8FlopsHigh": "2465614.329840563",
+          "MFMAF16Flops": "2253937.2922556493",
+          "MFMAF16FlopsLow": "2239484.5472140447",
+          "MFMAF16FlopsHigh": "2268390.037297254",
+          "MFMABF16Flops": "2442646.4534845855",
+          "MFMABF16FlopsLow": "2428913.4635645226",
+          "MFMABF16FlopsHigh": "2456379.4434046485",
+          "MFMAF32Flops": "155108.31750885802",
+          "MFMAF32FlopsLow": "154885.25581018976",
+          "MFMAF32FlopsHigh": "155331.37920752628",
+          "MFMAF64Flops": "77631.44709861044",
+          "MFMAF64FlopsLow": "77572.99588328337",
+          "MFMAF64FlopsHigh": "77689.89831393752",
+          "MFMAI8Ops": "4905435.631798936",
+          "MFMAI8OpsLow": "4882738.142776638",
+          "MFMAI8OpsHigh": "4928133.120821234"
+        }
+      ]
+    },
+    {
+      "case": "mhc-8",
+      "baseline": {
+        "status": "PASS",
+        "part": "mhc",
+        "rows": 8,
+        "phase": "baseline",
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "architecture": "gfx950:sramecc+:xnack-",
+        "scope": "Kernel diagnostic; synthetic activations, real mHC checkpoint weights. Not serving TPS. No RDA cache update.",
+        "activation_shape": [
+          8,
+          4,
+          2560
+        ],
+        "branch": "fixed BF16 tensor; excludes Attention/MoE",
+        "batch_invariant": true,
+        "source": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc_gate.py",
+          "sha256": "1e8b4a15f2dd46fda50ac7538be3ddff15f556d2c0b8a3ce18503fac09484ac3"
+        },
+        "projection": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc.py",
+          "sha256": "a15ff47b4383a67b3956e3faecf0c96f53d35321a299bbd8980422bc7e55eb4a"
+        },
+        "warmup_calls": 20,
+        "graph_replays": 512,
+        "graph_us": 12.724152766168118,
+        "finite": true,
+        "timing": "One post-warmup GPU-event window; no counter profiler attached"
+      },
+      "kernels": [
+        {
+          "label": "finish",
+          "kernel": "finish_0",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 2.41562,
+          "cu_util_percent": 0.1292570395412354,
+          "hbm_GBs": 16.426424686001937,
+          "hbm_percent_empirical": 0.2356319638840527,
+          "l2_GBs": 9.53792401122693,
+          "l2_percent_empirical": 0.027580988218728123,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 9.749877878143085,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.008768855436923293,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.009179895535529073,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.0046584544508655,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 1.3344093449692391,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.1292570395412354,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 9.749877878143085,
+              "Peak (Empirical)": 155114.15786977176
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2447160.942954747
+            },
+            "4.1.11": {
+              "Value": 16.426424686001937,
+              "Peak (Empirical)": 6971.220888387146
+            },
+            "4.1.12": {
+              "Value": 9.53792401122693,
+              "Peak (Empirical)": 34581.516570716856
+            }
+          }
+        },
+        {
+          "label": "head",
+          "kernel": "head_0",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 3.9520399999999998,
+          "cu_util_percent": 3.656635702059674,
+          "hbm_GBs": 60.50141192902906,
+          "hbm_percent_empirical": 0.8678739764194533,
+          "l2_GBs": 77.01946336575541,
+          "l2_percent_empirical": 0.2227185820733334,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 232.93691359399196,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.10234729119252879,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.40416494108975404,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.03846928346447718,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 37.88662636732182,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 3.656635702059674,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 232.93691359399196,
+              "Peak (Empirical)": 155114.15786977176
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2447160.942954747
+            },
+            "4.1.11": {
+              "Value": 60.50141192902906,
+              "Peak (Empirical)": 6971.220888387146
+            },
+            "4.1.12": {
+              "Value": 77.01946336575541,
+              "Peak (Empirical)": 34581.516570716856
+            }
+          }
+        },
+        {
+          "label": "mix",
+          "kernel": "mix_0",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 3.42761,
+          "cu_util_percent": 3.6156894074248824,
+          "hbm_GBs": 113.52516768243761,
+          "hbm_percent_empirical": 1.6284832958248532,
+          "l2_GBs": 159.83148607922138,
+          "l2_percent_empirical": 0.4621876132944512,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 215.1003177140923,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.07404252798552238,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.28085096822094696,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.08170209984609367,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 37.67412423008537,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 3.6156894074248824,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 215.1003177140923,
+              "Peak (Empirical)": 155114.15786977176
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2447160.942954747
+            },
+            "4.1.11": {
+              "Value": 113.52516768243761,
+              "Peak (Empirical)": 6971.220888387146
+            },
+            "4.1.12": {
+              "Value": 159.83148607922138,
+              "Peak (Empirical)": 34581.516570716856
+            }
+          }
+        },
+        {
+          "label": "mHC project",
+          "kernel": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 4.97485,
+          "cu_util_percent": 3.8765740933395683,
+          "hbm_GBs": 252.63098987909183,
+          "hbm_percent_empirical": 3.6239131412394574,
+          "l2_GBs": 270.46765229102385,
+          "l2_percent_empirical": 0.7821162259842938,
+          "bf16_GFLOPs": 16862.032021065963,
+          "bf16_percent_empirical": 0.6890446690729886,
+          "fp32_valu_GFLOPs": 205.2178457641939,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.3096796425693708,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.7555078797114211,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.2718723885382679,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.0737281278663421,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 39.92507061035691,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 3.8765740933395683,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 205.2178457641939,
+              "Peak (Empirical)": 155114.15786977176
+            },
+            "4.1.6": {
+              "Value": 16862.032021065963,
+              "Peak (Empirical)": 2447160.942954747
+            },
+            "4.1.11": {
+              "Value": 252.63098987909183,
+              "Peak (Empirical)": 6971.220888387146
+            },
+            "4.1.12": {
+              "Value": 270.46765229102385,
+              "Peak (Empirical)": 34581.516570716856
+            }
+          }
+        }
+      ],
+      "empirical_roofline": [
+        {
+          "device": "0",
+          "HBMBw": "6971.220888387146",
+          "HBMBwLow": "6958.7234337436485",
+          "HBMBwHigh": "6983.718343030644",
+          "MALLBw": "8692.500155942309",
+          "MALLBwLow": "8685.218942485937",
+          "MALLBwHigh": "8699.78136939868",
+          "L2Bw": "34581.516570716856",
+          "L2BwLow": "34576.66772178075",
+          "L2BwHigh": "34586.36541965296",
+          "L1Bw": "38095.616052289806",
+          "L1BwLow": "38003.850407804646",
+          "L1BwHigh": "38187.381696774966",
+          "LDSBw": "70236.3629334991",
+          "LDSBwLow": "70094.11525118598",
+          "LDSBwHigh": "70378.61061581221",
+          "FP16Flops": "155666.30358826148",
+          "FP16FlopsLow": "155648.19654402515",
+          "FP16FlopsHigh": "155684.4106324978",
+          "FP32Flops": "155114.15786977176",
+          "FP32FlopsLow": "155074.47782547033",
+          "FP32FlopsHigh": "155153.8379140732",
+          "FP64Flops": "77716.30836070892",
+          "FP64FlopsLow": "77708.6052899671",
+          "FP64FlopsHigh": "77724.01143145074",
+          "I8Ops": "64753.651312813054",
+          "I8OpsLow": "64741.25458129417",
+          "I8OpsHigh": "64766.04804433194",
+          "I32Ops": "68626.13518006318",
+          "I32OpsLow": "68611.88978155398",
+          "I32OpsHigh": "68640.38057857238",
+          "I64Ops": "19362.957094866157",
+          "I64OpsLow": "19358.72802251105",
+          "I64OpsHigh": "19367.18616722126",
+          "MFMAF4Flops": "9733796.88656116",
+          "MFMAF4FlopsLow": "9671339.465084346",
+          "MFMAF4FlopsHigh": "9796254.308037976",
+          "MFMAF6Flops": "8510751.228734834",
+          "MFMAF6FlopsLow": "8466433.377266355",
+          "MFMAF6FlopsHigh": "8555069.080203313",
+          "MFMAF6F4Flops": "9759352.299432017",
+          "MFMAF6F4FlopsLow": "9701859.979510432",
+          "MFMAF6F4FlopsHigh": "9816844.619353602",
+          "MFMAMXF8Flops": "4953158.528214047",
+          "MFMAMXF8FlopsLow": "4942500.202638289",
+          "MFMAMXF8FlopsHigh": "4963816.8537898045",
+          "MFMAF8Flops": "2454967.2401487706",
+          "MFMAF8FlopsLow": "2444433.1434746794",
+          "MFMAF8FlopsHigh": "2465501.336822862",
+          "MFMAF16Flops": "2221179.503853882",
+          "MFMAF16FlopsLow": "2208129.4124072213",
+          "MFMAF16FlopsHigh": "2234229.595300543",
+          "MFMABF16Flops": "2447160.942954747",
+          "MFMABF16FlopsLow": "2434818.9123300645",
+          "MFMABF16FlopsHigh": "2459502.9735794296",
+          "MFMAF32Flops": "154876.64825026158",
+          "MFMAF32FlopsLow": "154672.94630816637",
+          "MFMAF32FlopsHigh": "155080.3501923568",
+          "MFMAF64Flops": "77756.12392350618",
+          "MFMAF64FlopsLow": "77697.76175872167",
+          "MFMAF64FlopsHigh": "77814.4860882907",
+          "MFMAI8Ops": "4906782.039015607",
+          "MFMAI8OpsLow": "4880436.238019329",
+          "MFMAI8OpsHigh": "4933127.840011885"
+        }
+      ]
+    },
+    {
+      "case": "rda-1",
+      "baseline": {
+        "status": "PASS",
+        "part": "rda",
+        "rows": 1,
+        "phase": "baseline",
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "architecture": "gfx950:sramecc+:xnack-",
+        "scope": "Kernel diagnostic; synthetic activations, real mHC checkpoint weights. Not serving TPS. No RDA cache update.",
+        "beta_shape": [
+          1,
+          1,
+          40
+        ],
+        "beta_stride": [
+          20656,
+          20656,
+          1
+        ],
+        "delta_stride": [
+          40,
+          40,
+          1
+        ],
+        "source": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/kda.py",
+          "sha256": "3295c61d258e61aa380b6f38bcaef22bcc5805e5a3d46b9051a8eb895edbe041"
+        },
+        "warmup_calls": 20,
+        "graph_replays": 512,
+        "graph_us": 14.176818542182446,
+        "finite": true,
+        "timing": "One post-warmup GPU-event window; no counter profiler attached"
+      },
+      "kernels": [
+        {
+          "label": "add/sub",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 1.68801,
+          "cu_util_percent": 0.044349195751399645,
+          "hbm_GBs": 2.0663384695588296,
+          "hbm_percent_empirical": 0.02967631630413225,
+          "l2_GBs": 0.5308025426389654,
+          "l2_percent_empirical": 0.001544182372491886,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 1.2132629546033495,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.0019802991601503735,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.002752615832609019,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 5.9408974804511204e-05,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 0.45498339590444986,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.044349195751399645,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 1.2132629546033495,
+              "Peak (Empirical)": 154670.95153950443
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2444658.684728589
+            },
+            "4.1.11": {
+              "Value": 2.0663384695588296,
+              "Peak (Empirical)": 6962.921032322009
+            },
+            "4.1.12": {
+              "Value": 0.5308025426389654,
+              "Peak (Empirical)": 34374.34282988194
+            }
+          }
+        },
+        {
+          "label": "cast",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul> >(int, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 1.7388,
+          "cu_util_percent": 0.05696325094881665,
+          "hbm_GBs": 1.8900391074304117,
+          "hbm_percent_empirical": 0.027144342132516153,
+          "l2_GBs": 0.2944559466298597,
+          "l2_percent_empirical": 0.0008566154939662914,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 0.0,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.003313370057843489,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.00434879820091958,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 4.1417125723043616e-05,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 0.5832167468855647,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.05696325094881665,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 0.0,
+              "Peak (Empirical)": 154670.95153950443
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2444658.684728589
+            },
+            "4.1.11": {
+              "Value": 1.8900391074304117,
+              "Peak (Empirical)": 6962.921032322009
+            },
+            "4.1.12": {
+              "Value": 0.2944559466298597,
+              "Peak (Empirical)": 34374.34282988194
+            }
+          }
+        },
+        {
+          "label": "exp",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::exp_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::exp_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 1.55081,
+          "cu_util_percent": 0.05120913494675646,
+          "hbm_GBs": 2.4414596243253524,
+          "hbm_percent_empirical": 0.035063727033411,
+          "l2_GBs": 0.4126875632733862,
+          "l2_percent_empirical": 0.001200568590695014,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 0.33015005061870895,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.002124940527422087,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.0024254371676635943,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 4.292809146307247e-05,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 0.5205615598790898,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.05120913494675646,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 0.33015005061870895,
+              "Peak (Empirical)": 154670.95153950443
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2444658.684728589
+            },
+            "4.1.11": {
+              "Value": 2.4414596243253524,
+              "Peak (Empirical)": 6962.921032322009
+            },
+            "4.1.12": {
+              "Value": 0.4126875632733862,
+              "Peak (Empirical)": 34374.34282988194
+            }
+          }
+        },
+        {
+          "label": "logsigmoid",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 2.4284299999999996,
+          "cu_util_percent": 0.0729466041500722,
+          "hbm_GBs": 2.9648785429269116,
+          "hbm_percent_empirical": 0.04258095889877094,
+          "l2_GBs": 0.263544759371281,
+          "l2_percent_empirical": 0.0007666903209628173,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 2.63544759371281,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.0025289105048919244,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.004299147858316272,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 3.612729292702749e-05,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 0.7408469624750144,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.0729466041500722,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 2.63544759371281,
+              "Peak (Empirical)": 154670.95153950443
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2444658.684728589
+            },
+            "4.1.11": {
+              "Value": 2.9648785429269116,
+              "Peak (Empirical)": 6962.921032322009
+            },
+            "4.1.12": {
+              "Value": 0.263544759371281,
+              "Peak (Empirical)": 34374.34282988194
+            }
+          }
+        }
+      ],
+      "empirical_roofline": [
+        {
+          "device": "0",
+          "HBMBw": "6962.921032322009",
+          "HBMBwLow": "6951.0013139723815",
+          "HBMBwHigh": "6974.840750671636",
+          "MALLBw": "8714.374738456985",
+          "MALLBwLow": "8707.935019564633",
+          "MALLBwHigh": "8720.814457349337",
+          "L2Bw": "34374.34282988194",
+          "L2BwLow": "34367.07883015464",
+          "L2BwHigh": "34381.60682960924",
+          "L1Bw": "37769.678500752074",
+          "L1BwLow": "37679.97588049896",
+          "L1BwHigh": "37859.381121005186",
+          "LDSBw": "73243.14478935754",
+          "LDSBwLow": "73129.29650885896",
+          "LDSBwHigh": "73356.99306985612",
+          "FP16Flops": "155133.6012106329",
+          "FP16FlopsLow": "155111.2466844811",
+          "FP16FlopsHigh": "155155.95573678473",
+          "FP32Flops": "154670.95153950443",
+          "FP32FlopsLow": "154641.31216159914",
+          "FP32FlopsHigh": "154700.59091740972",
+          "FP64Flops": "77115.31416625423",
+          "FP64FlopsLow": "77098.51579586674",
+          "FP64FlopsHigh": "77132.11253664173",
+          "I8Ops": "64507.95972604761",
+          "I8OpsLow": "64429.75672422581",
+          "I8OpsHigh": "64586.16272786941",
+          "I32Ops": "68554.65215098244",
+          "I32OpsLow": "68542.33602505561",
+          "I32OpsHigh": "68566.96827690926",
+          "I64Ops": "19319.26722751146",
+          "I64OpsLow": "19315.988612217603",
+          "I64OpsHigh": "19322.545842805317",
+          "MFMAF4Flops": "9728277.718321722",
+          "MFMAF4FlopsLow": "9665494.62512813",
+          "MFMAF4FlopsHigh": "9791060.811515315",
+          "MFMAF6Flops": "8665658.23672793",
+          "MFMAF6FlopsLow": "8620570.904280232",
+          "MFMAF6FlopsHigh": "8710745.569175629",
+          "MFMAF6F4Flops": "9767657.523955988",
+          "MFMAF6F4FlopsLow": "9714421.130206427",
+          "MFMAF6F4FlopsHigh": "9820893.917705549",
+          "MFMAMXF8Flops": "4929735.959902056",
+          "MFMAMXF8FlopsLow": "4920745.121985289",
+          "MFMAMXF8FlopsHigh": "4938726.797818822",
+          "MFMAF8Flops": "2454305.3635825957",
+          "MFMAF8FlopsLow": "2445205.68545508",
+          "MFMAF8FlopsHigh": "2463405.0417101113",
+          "MFMAF16Flops": "2259104.2541546724",
+          "MFMAF16FlopsLow": "2246322.5044827242",
+          "MFMAF16FlopsHigh": "2271886.0038266205",
+          "MFMABF16Flops": "2444658.684728589",
+          "MFMABF16FlopsLow": "2433667.2567510824",
+          "MFMABF16FlopsHigh": "2455650.1127060954",
+          "MFMAF32Flops": "154254.18088962632",
+          "MFMAF32FlopsLow": "154052.0696735773",
+          "MFMAF32FlopsHigh": "154456.29210567535",
+          "MFMAF64Flops": "77649.49703634268",
+          "MFMAF64FlopsLow": "77588.85112792178",
+          "MFMAF64FlopsHigh": "77710.14294476359",
+          "MFMAI8Ops": "4886828.562350187",
+          "MFMAI8OpsLow": "4863975.391435667",
+          "MFMAI8OpsHigh": "4909681.733264708"
+        }
+      ]
+    },
+    {
+      "case": "rda-256",
+      "baseline": {
+        "status": "PASS",
+        "part": "rda",
+        "rows": 256,
+        "phase": "baseline",
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "architecture": "gfx950:sramecc+:xnack-",
+        "scope": "Kernel diagnostic; synthetic activations, real mHC checkpoint weights. Not serving TPS. No RDA cache update.",
+        "beta_shape": [
+          1,
+          256,
+          40
+        ],
+        "beta_stride": [
+          5287936,
+          20656,
+          1
+        ],
+        "delta_stride": [
+          10240,
+          40,
+          1
+        ],
+        "source": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/kda.py",
+          "sha256": "3295c61d258e61aa380b6f38bcaef22bcc5805e5a3d46b9051a8eb895edbe041"
+        },
+        "warmup_calls": 20,
+        "graph_replays": 512,
+        "graph_us": 16.32472686469555,
+        "finite": true,
+        "timing": "One post-warmup GPU-event window; no counter profiler attached"
+      },
+      "kernels": [
+        {
+          "label": "cast (strided)",
+          "kernel": "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl_nocast<at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1})",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 3.70282,
+          "cu_util_percent": 0.9629579690897774,
+          "hbm_GBs": 36.06436175671515,
+          "hbm_percent_empirical": 0.517324766112373,
+          "l2_GBs": 35.95097790332773,
+          "l2_percent_empirical": 0.10386374784530594,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 0.0,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.0360830951359792,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.039752562437943194,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.004892623069285316,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 9.67304146096856,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.9629579690897774,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 0.0,
+              "Peak (Empirical)": 155077.93726149818
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2455332.434384723
+            },
+            "4.1.11": {
+              "Value": 36.06436175671515,
+              "Peak (Empirical)": 6971.319395306366
+            },
+            "4.1.12": {
+              "Value": 35.95097790332773,
+              "Peak (Empirical)": 34613.59583988141
+            }
+          }
+        },
+        {
+          "label": "add/sub",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 1.886,
+          "cu_util_percent": 0.4906032920084116,
+          "hbm_GBs": 72.14965005302227,
+          "hbm_percent_empirical": 1.0349497126985607,
+          "l2_GBs": 86.87168610816543,
+          "l2_percent_empirical": 0.2509756181068966,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 5.42948038176034,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.015548466560472714,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.002332269984070907,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.002332269984070907,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 4.979911629979334,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.4906032920084116,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 5.42948038176034,
+              "Peak (Empirical)": 155077.93726149818
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2455332.434384723
+            },
+            "4.1.11": {
+              "Value": 72.14965005302227,
+              "Peak (Empirical)": 6971.319395306366
+            },
+            "4.1.12": {
+              "Value": 86.87168610816543,
+              "Peak (Empirical)": 34613.59583988141
+            }
+          }
+        },
+        {
+          "label": "cast",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul> >(int, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 2.0644099999999996,
+          "cu_util_percent": 0.24942024152392214,
+          "hbm_GBs": 34.907794478809926,
+          "hbm_percent_empirical": 0.500734401902638,
+          "l2_GBs": 49.602549881079824,
+          "l2_percent_empirical": 0.14330366053424679,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 0.0,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.006022397309765364,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.004959621313924418,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.001417034661121262,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 2.4333165027403183,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.24942024152392214,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 0.0,
+              "Peak (Empirical)": 155077.93726149818
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2455332.434384723
+            },
+            "4.1.11": {
+              "Value": 34.907794478809926,
+              "Peak (Empirical)": 6971.319395306366
+            },
+            "4.1.12": {
+              "Value": 49.602549881079824,
+              "Peak (Empirical)": 34613.59583988141
+            }
+          }
+        },
+        {
+          "label": "exp",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::exp_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::exp_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 1.97001,
+          "cu_util_percent": 0.46300943656566235,
+          "hbm_GBs": 51.932650088070616,
+          "hbm_percent_empirical": 0.7449472207949002,
+          "l2_GBs": 62.375317891787354,
+          "l2_percent_empirical": 0.1802046750078453,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 41.58354526119157,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.01413425711267062,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.04314667960709979,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.0014878165381758549,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 4.620098366097731,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.46300943656566235,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 41.58354526119157,
+              "Peak (Empirical)": 155077.93726149818
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2455332.434384723
+            },
+            "4.1.11": {
+              "Value": 51.932650088070616,
+              "Peak (Empirical)": 6971.319395306366
+            },
+            "4.1.12": {
+              "Value": 62.375317891787354,
+              "Peak (Empirical)": 34613.59583988141
+            }
+          }
+        },
+        {
+          "label": "logsigmoid",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 2.97283,
+          "cu_util_percent": 0.813080382324955,
+          "hbm_GBs": 39.26763387075615,
+          "hbm_percent_empirical": 0.5632740611080619,
+          "l2_GBs": 41.33435144290121,
+          "l2_percent_empirical": 0.11941651954945465,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 385.7872801337446,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.01498408117275478,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.32313496789940743,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.0013029635802395462,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 8.120399255142628,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.813080382324955,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 385.7872801337446,
+              "Peak (Empirical)": 155077.93726149818
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2455332.434384723
+            },
+            "4.1.11": {
+              "Value": 39.26763387075615,
+              "Peak (Empirical)": 6971.319395306366
+            },
+            "4.1.12": {
+              "Value": 41.33435144290121,
+              "Peak (Empirical)": 34613.59583988141
+            }
+          }
+        }
+      ],
+      "empirical_roofline": [
+        {
+          "device": "0",
+          "HBMBw": "6971.319395306366",
+          "HBMBwLow": "6959.339448095126",
+          "HBMBwHigh": "6983.2993425176055",
+          "MALLBw": "8712.07238377317",
+          "MALLBwLow": "8705.90665719359",
+          "MALLBwHigh": "8718.23811035275",
+          "L2Bw": "34613.59583988141",
+          "L2BwLow": "34605.5848511247",
+          "L2BwHigh": "34621.60682863812",
+          "L1Bw": "38023.01952802816",
+          "L1BwLow": "37934.12683287345",
+          "L1BwHigh": "38111.91222318287",
+          "LDSBw": "73616.04974296012",
+          "LDSBwLow": "73503.64229365817",
+          "LDSBwHigh": "73728.45719226208",
+          "FP16Flops": "155251.24170572765",
+          "FP16FlopsLow": "155232.3823847687",
+          "FP16FlopsHigh": "155270.1010266866",
+          "FP32Flops": "155077.93726149818",
+          "FP32FlopsLow": "155055.42516637756",
+          "FP32FlopsHigh": "155100.4493566188",
+          "FP64Flops": "77294.39498289293",
+          "FP64FlopsLow": "77281.23101873767",
+          "FP64FlopsHigh": "77307.5589470482",
+          "I8Ops": "64632.47003254351",
+          "I8OpsLow": "64574.314951064",
+          "I8OpsHigh": "64690.62511402302",
+          "I32Ops": "68731.0785729424",
+          "I32OpsLow": "68711.90376532605",
+          "I32OpsHigh": "68750.25338055874",
+          "I64Ops": "19352.85719466405",
+          "I64OpsLow": "19349.165028523137",
+          "I64OpsHigh": "19356.549360804966",
+          "MFMAF4Flops": "9789062.318945354",
+          "MFMAF4FlopsLow": "9730420.085998638",
+          "MFMAF4FlopsHigh": "9847704.55189207",
+          "MFMAF6Flops": "8890804.802819028",
+          "MFMAF6FlopsLow": "8838345.526773935",
+          "MFMAF6FlopsHigh": "8943264.078864122",
+          "MFMAF6F4Flops": "9808024.777887983",
+          "MFMAF6F4FlopsLow": "9754966.279406045",
+          "MFMAF6F4FlopsHigh": "9861083.276369922",
+          "MFMAMXF8Flops": "4950990.562225206",
+          "MFMAMXF8FlopsLow": "4941355.448348856",
+          "MFMAMXF8FlopsHigh": "4960625.676101556",
+          "MFMAF8Flops": "2463733.375128804",
+          "MFMAF8FlopsLow": "2454174.622207617",
+          "MFMAF8FlopsHigh": "2473292.1280499906",
+          "MFMAF16Flops": "2320960.4526446545",
+          "MFMAF16FlopsLow": "2307451.906785656",
+          "MFMAF16FlopsHigh": "2334468.998503653",
+          "MFMABF16Flops": "2455332.434384723",
+          "MFMABF16FlopsLow": "2443276.6174774636",
+          "MFMABF16FlopsHigh": "2467388.251291983",
+          "MFMAF32Flops": "154926.93818829936",
+          "MFMAF32FlopsLow": "154705.77938383544",
+          "MFMAF32FlopsHigh": "155148.09699276328",
+          "MFMAF64Flops": "77711.38052111198",
+          "MFMAF64FlopsLow": "77649.34890259396",
+          "MFMAF64FlopsHigh": "77773.41213962999",
+          "MFMAI8Ops": "4875644.92419359",
+          "MFMAI8OpsLow": "4842183.389331745",
+          "MFMAI8OpsHigh": "4909106.459055435"
+        }
+      ]
+    },
+    {
+      "case": "rda-32",
+      "baseline": {
+        "status": "PASS",
+        "part": "rda",
+        "rows": 32,
+        "phase": "baseline",
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "architecture": "gfx950:sramecc+:xnack-",
+        "scope": "Kernel diagnostic; synthetic activations, real mHC checkpoint weights. Not serving TPS. No RDA cache update.",
+        "beta_shape": [
+          1,
+          32,
+          40
+        ],
+        "beta_stride": [
+          660992,
+          20656,
+          1
+        ],
+        "delta_stride": [
+          1280,
+          40,
+          1
+        ],
+        "source": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/kda.py",
+          "sha256": "3295c61d258e61aa380b6f38bcaef22bcc5805e5a3d46b9051a8eb895edbe041"
+        },
+        "warmup_calls": 20,
+        "graph_replays": 512,
+        "graph_us": 15.864485874772072,
+        "finite": true,
+        "timing": "One post-warmup GPU-event window; no counter profiler attached"
+      },
+      "kernels": [
+        {
+          "label": "cast (strided)",
+          "kernel": "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl_nocast<at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1})",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 3.3740300000000003,
+          "cu_util_percent": 0.15611277925869477,
+          "hbm_GBs": 8.023639386727444,
+          "hbm_percent_empirical": 0.11506801273800107,
+          "l2_GBs": 4.931787802716633,
+          "l2_percent_empirical": 0.014287153982337892,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 0.0,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.005591164913042408,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.00572670830487374,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.0006777169591566555,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 1.581583621760635,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.15611277925869477,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 0.0,
+              "Peak (Empirical)": 154211.07000120054
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2443460.191170934
+            },
+            "4.1.11": {
+              "Value": 8.023639386727444,
+              "Peak (Empirical)": 6972.9538173189
+            },
+            "4.1.12": {
+              "Value": 4.931787802716633,
+              "Peak (Empirical)": 34519.03583326268
+            }
+          }
+        },
+        {
+          "label": "add/sub",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 1.76521,
+          "cu_util_percent": 0.10504977566855299,
+          "hbm_GBs": 10.822508370108938,
+          "hbm_percent_empirical": 0.15520694175872501,
+          "l2_GBs": 11.602019023232364,
+          "l2_percent_empirical": 0.03361049560965029,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 1.7403028534848546,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.003812682275866982,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.003643229730272894,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.0005083576367822643,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 1.1345479646614172,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.10504977566855299,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 1.7403028534848546,
+              "Peak (Empirical)": 154211.07000120054
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2443460.191170934
+            },
+            "4.1.11": {
+              "Value": 10.822508370108938,
+              "Peak (Empirical)": 6972.9538173189
+            },
+            "4.1.12": {
+              "Value": 11.602019023232364,
+              "Peak (Empirical)": 34519.03583326268
+            }
+          }
+        },
+        {
+          "label": "cast",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul> >(int, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 3.27602,
+          "cu_util_percent": 0.10869589380588349,
+          "hbm_GBs": 3.379710746576639,
+          "hbm_percent_empirical": 0.048468853159221656,
+          "l2_GBs": 3.907180053845825,
+          "l2_percent_empirical": 0.011318914215097663,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 0.0,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.00281394193419563,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.006331369351940168,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.0007034854835489075,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 1.0959407874580132,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.10869589380588349,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 0.0,
+              "Peak (Empirical)": 154211.07000120054
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2443460.191170934
+            },
+            "4.1.11": {
+              "Value": 3.379710746576639,
+              "Peak (Empirical)": 6972.9538173189
+            },
+            "4.1.12": {
+              "Value": 3.907180053845825,
+              "Peak (Empirical)": 34519.03583326268
+            }
+          }
+        },
+        {
+          "label": "exp",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::exp_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::exp_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 1.70122,
+          "cu_util_percent": 0.10235232399844085,
+          "hbm_GBs": 9.517875407060815,
+          "hbm_percent_empirical": 0.13649703778936598,
+          "l2_GBs": 9.028814615393658,
+          "l2_percent_empirical": 0.026156045200698964,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 6.0192097435957725,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.003942437667489322,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.008741927001824149,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.0003428206667382019,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 1.0827011663101902,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.10235232399844085,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 6.0192097435957725,
+              "Peak (Empirical)": 154211.07000120054
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2443460.191170934
+            },
+            "4.1.11": {
+              "Value": 9.517875407060815,
+              "Peak (Empirical)": 6972.9538173189
+            },
+            "4.1.12": {
+              "Value": 9.028814615393658,
+              "Peak (Empirical)": 34519.03583326268
+            }
+          }
+        },
+        {
+          "label": "logsigmoid",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 3.35127,
+          "cu_util_percent": 0.19843967886115857,
+          "hbm_GBs": 6.3402829375132415,
+          "hbm_percent_empirical": 0.09092678803874653,
+          "l2_GBs": 4.583337063262584,
+          "l2_percent_empirical": 0.013277708813773015,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 41.86114517779827,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.004407826912130467,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.0453868427358434,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.00027548918200815417,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 2.0460797531264303,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.19843967886115857,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 41.86114517779827,
+              "Peak (Empirical)": 154211.07000120054
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2443460.191170934
+            },
+            "4.1.11": {
+              "Value": 6.3402829375132415,
+              "Peak (Empirical)": 6972.9538173189
+            },
+            "4.1.12": {
+              "Value": 4.583337063262584,
+              "Peak (Empirical)": 34519.03583326268
+            }
+          }
+        }
+      ],
+      "empirical_roofline": [
+        {
+          "device": "0",
+          "HBMBw": "6972.9538173189",
+          "HBMBwLow": "6963.087178038579",
+          "HBMBwHigh": "6982.820456599222",
+          "MALLBw": "8693.949735284921",
+          "MALLBwLow": "8686.06777998316",
+          "MALLBwHigh": "8701.831690586683",
+          "L2Bw": "34519.03583326268",
+          "L2BwLow": "34509.349839174676",
+          "L2BwHigh": "34528.72182735068",
+          "L1Bw": "38047.740145273645",
+          "L1BwLow": "37977.59733518002",
+          "L1BwHigh": "38117.88295536727",
+          "LDSBw": "73508.68282549924",
+          "LDSBwLow": "73416.3681152955",
+          "LDSBwHigh": "73600.99753570299",
+          "FP16Flops": "155612.8888995241",
+          "FP16FlopsLow": "155597.65518073185",
+          "FP16FlopsHigh": "155628.12261831638",
+          "FP32Flops": "154211.07000120054",
+          "FP32FlopsLow": "154161.61650315372",
+          "FP32FlopsHigh": "154260.52349924736",
+          "FP64Flops": "77452.76594193141",
+          "FP64FlopsLow": "77439.06516667157",
+          "FP64FlopsHigh": "77466.46671719126",
+          "I8Ops": "64731.944814030445",
+          "I8OpsLow": "64719.49857485019",
+          "I8OpsHigh": "64744.3910532107",
+          "I32Ops": "68491.08525232387",
+          "I32OpsLow": "68479.3263268239",
+          "I32OpsHigh": "68502.84417782385",
+          "I64Ops": "19294.463760255763",
+          "I64OpsLow": "19287.938722020117",
+          "I64OpsHigh": "19300.98879849141",
+          "MFMAF4Flops": "9738721.89531719",
+          "MFMAF4FlopsLow": "9671517.965674285",
+          "MFMAF4FlopsHigh": "9805925.824960094",
+          "MFMAF6Flops": "8486386.763548093",
+          "MFMAF6FlopsLow": "8442266.696168246",
+          "MFMAF6FlopsHigh": "8530506.83092794",
+          "MFMAF6F4Flops": "9773002.472109914",
+          "MFMAF6F4FlopsLow": "9712217.822006984",
+          "MFMAF6F4FlopsHigh": "9833787.122212844",
+          "MFMAMXF8Flops": "4941409.498375439",
+          "MFMAMXF8FlopsLow": "4930012.872355585",
+          "MFMAMXF8FlopsHigh": "4952806.124395293",
+          "MFMAF8Flops": "2450603.646807384",
+          "MFMAF8FlopsLow": "2439289.8964580507",
+          "MFMAF8FlopsHigh": "2461917.3971567177",
+          "MFMAF16Flops": "2214031.9227381554",
+          "MFMAF16FlopsLow": "2202049.809534238",
+          "MFMAF16FlopsHigh": "2226014.0359420725",
+          "MFMABF16Flops": "2443460.191170934",
+          "MFMABF16FlopsLow": "2429443.64734807",
+          "MFMABF16FlopsHigh": "2457476.734993798",
+          "MFMAF32Flops": "155174.12917496005",
+          "MFMAF32FlopsLow": "154912.38302989668",
+          "MFMAF32FlopsHigh": "155435.87532002342",
+          "MFMAF64Flops": "77883.45461345545",
+          "MFMAF64FlopsLow": "77818.62541888512",
+          "MFMAF64FlopsHigh": "77948.2838080258",
+          "MFMAI8Ops": "4890369.066672353",
+          "MFMAI8OpsLow": "4865933.0987511305",
+          "MFMAI8OpsHigh": "4914805.034593576"
+        }
+      ]
+    },
+    {
+      "case": "rda-8",
+      "baseline": {
+        "status": "PASS",
+        "part": "rda",
+        "rows": 8,
+        "phase": "baseline",
+        "torch": "2.14.0+rocm10.2.0",
+        "hip": "7.17.26434",
+        "gpu": "AMD Instinct MI355X",
+        "architecture": "gfx950:sramecc+:xnack-",
+        "scope": "Kernel diagnostic; synthetic activations, real mHC checkpoint weights. Not serving TPS. No RDA cache update.",
+        "beta_shape": [
+          1,
+          8,
+          40
+        ],
+        "beta_stride": [
+          165248,
+          20656,
+          1
+        ],
+        "delta_stride": [
+          320,
+          40,
+          1
+        ],
+        "source": {
+          "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/kda.py",
+          "sha256": "3295c61d258e61aa380b6f38bcaef22bcc5805e5a3d46b9051a8eb895edbe041"
+        },
+        "warmup_calls": 20,
+        "graph_replays": 512,
+        "graph_us": 14.591898769140244,
+        "finite": true,
+        "timing": "One post-warmup GPU-event window; no counter profiler attached"
+      },
+      "kernels": [
+        {
+          "label": "cast (strided)",
+          "kernel": "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl_nocast<at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1})",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 2.88925,
+          "cu_util_percent": 0.04342716581484305,
+          "hbm_GBs": 2.990395431340313,
+          "hbm_percent_empirical": 0.04294226882550268,
+          "l2_GBs": 1.4176689452280002,
+          "l2_percent_empirical": 0.004086408806236255,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 0.0,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.0016023306268736484,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.0014482603742896436,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.00015407025258400465,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 0.43431935829863055,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.04342716581484305,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 0.0,
+              "Peak (Empirical)": 155442.31037770837
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2462045.07721853
+            },
+            "4.1.11": {
+              "Value": 2.990395431340313,
+              "Peak (Empirical)": 6963.757419273497
+            },
+            "4.1.12": {
+              "Value": 1.4176689452280002,
+              "Peak (Empirical)": 34692.29370944238
+            }
+          }
+        },
+        {
+          "label": "add/sub",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 1.5996,
+          "cu_util_percent": 0.045942409417912645,
+          "hbm_GBs": 3.952588147036759,
+          "hbm_percent_empirical": 0.056759417496325106,
+          "l2_GBs": 3.2008002000500126,
+          "l2_percent_empirical": 0.009226257066937128,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 1.280320080020005,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.0018827776036585049,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.0032007219262194585,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.00028241664054877577,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 0.4637197491863087,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.045942409417912645,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 1.280320080020005,
+              "Peak (Empirical)": 155442.31037770837
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2462045.07721853
+            },
+            "4.1.11": {
+              "Value": 3.952588147036759,
+              "Peak (Empirical)": 6963.757419273497
+            },
+            "4.1.12": {
+              "Value": 3.2008002000500126,
+              "Peak (Empirical)": 34692.29370944238
+            }
+          }
+        },
+        {
+          "label": "cast",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul> >(int, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 2.12321,
+          "cu_util_percent": 0.05033630917476287,
+          "hbm_GBs": 2.503982177928702,
+          "hbm_percent_empirical": 0.035957343531215845,
+          "l2_GBs": 1.5071519067826546,
+          "l2_percent_empirical": 0.004344342058802659,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 0.0,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.002086084618184141,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.003090012840685259,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.0001303802886365088,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 0.5188856786828061,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.05033630917476287,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 0.0,
+              "Peak (Empirical)": 155442.31037770837
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2462045.07721853
+            },
+            "4.1.11": {
+              "Value": 2.503982177928702,
+              "Peak (Empirical)": 6963.757419273497
+            },
+            "4.1.12": {
+              "Value": 1.5071519067826546,
+              "Peak (Empirical)": 34692.29370944238
+            }
+          }
+        },
+        {
+          "label": "exp",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::exp_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::exp_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 1.814,
+          "cu_util_percent": 0.051856439978586764,
+          "hbm_GBs": 3.4123925027563398,
+          "hbm_percent_empirical": 0.04900217364424423,
+          "l2_GBs": 2.116868798235943,
+          "l2_percent_empirical": 0.006101841567367406,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 1.4112458654906284,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.0019788247637789525,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.003547622774702807,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.00017827250124134708,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 0.5293961941758916,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.051856439978586764,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 1.4112458654906284,
+              "Peak (Empirical)": 155442.31037770837
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2462045.07721853
+            },
+            "4.1.11": {
+              "Value": 3.4123925027563398,
+              "Peak (Empirical)": 6963.757419273497
+            },
+            "4.1.12": {
+              "Value": 2.116868798235943,
+              "Peak (Empirical)": 34692.29370944238
+            }
+          }
+        },
+        {
+          "label": "logsigmoid",
+          "kernel": "void at::native::vectorized_elementwise_kernel<4, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+          "counter_dispatches": 100,
+          "serialized_profile_us": 3.03242,
+          "cu_util_percent": 0.10084226579186059,
+          "hbm_GBs": 3.102472612632815,
+          "hbm_percent_empirical": 0.044551704286053144,
+          "l2_GBs": 1.2663153520950263,
+          "l2_percent_empirical": 0.003650134415155048,
+          "bf16_GFLOPs": 0.0,
+          "bf16_percent_empirical": 0.0,
+          "fp32_valu_GFLOPs": 10.552627934125221,
+          "metrics": {
+            "2.1.9": {
+              "Avg": 0.002827379363349915,
+              "Peak": 100.0
+            },
+            "2.1.10": {
+              "Avg": 0.012969780916762109,
+              "Peak": 100.0
+            },
+            "2.1.11": {
+              "Avg": 0.0,
+              "Peak": 100.0
+            },
+            "2.1.12": {
+              "Avg": 0.00016438252112499504,
+              "Peak": 100.0
+            },
+            "2.1.16": {
+              "Avg": 1.0087340510160234,
+              "Peak": 8192.0
+            },
+            "2.1.32": {
+              "Avg": 0.10084226579186059,
+              "Peak": 100.0
+            },
+            "4.1.1": {
+              "Value": 10.552627934125221,
+              "Peak (Empirical)": 155442.31037770837
+            },
+            "4.1.6": {
+              "Value": 0.0,
+              "Peak (Empirical)": 2462045.07721853
+            },
+            "4.1.11": {
+              "Value": 3.102472612632815,
+              "Peak (Empirical)": 6963.757419273497
+            },
+            "4.1.12": {
+              "Value": 1.2663153520950263,
+              "Peak (Empirical)": 34692.29370944238
+            }
+          }
+        }
+      ],
+      "empirical_roofline": [
+        {
+          "device": "0",
+          "HBMBw": "6963.757419273497",
+          "HBMBwLow": "6952.088233268366",
+          "HBMBwHigh": "6975.426605278629",
+          "MALLBw": "8453.76267826526",
+          "MALLBwLow": "8444.350580644166",
+          "MALLBwHigh": "8463.174775886355",
+          "L2Bw": "34692.29370944238",
+          "L2BwLow": "34686.497489926005",
+          "L2BwHigh": "34698.08992895876",
+          "L1Bw": "38087.92874398819",
+          "L1BwLow": "37992.89428480261",
+          "L1BwHigh": "38182.963203173764",
+          "LDSBw": "73666.54382964857",
+          "LDSBwLow": "73566.59661626874",
+          "LDSBwHigh": "73766.49104302839",
+          "FP16Flops": "155640.96494133578",
+          "FP16FlopsLow": "155614.96613929",
+          "FP16FlopsHigh": "155666.96374338158",
+          "FP32Flops": "155442.31037770835",
+          "FP32FlopsLow": "155416.07548456782",
+          "FP32FlopsHigh": "155468.54527084887",
+          "FP64Flops": "77625.45590743449",
+          "FP64FlopsLow": "77614.41402258548",
+          "FP64FlopsHigh": "77636.4977922835",
+          "I8Ops": "64783.741029537094",
+          "I8OpsLow": "64765.32544653345",
+          "I8OpsHigh": "64802.15661254074",
+          "I32Ops": "68734.29808864834",
+          "I32OpsLow": "68722.2029161105",
+          "I32OpsHigh": "68746.39326118618",
+          "I64Ops": "19391.719966240384",
+          "I64OpsLow": "19388.657558739793",
+          "I64OpsHigh": "19394.782373740974",
+          "MFMAF4Flops": "9712739.938152172",
+          "MFMAF4FlopsLow": "9646831.704210317",
+          "MFMAF4FlopsHigh": "9778648.172094027",
+          "MFMAF6Flops": "8476344.183287218",
+          "MFMAF6FlopsLow": "8435483.468136614",
+          "MFMAF6FlopsHigh": "8517204.898437822",
+          "MFMAF6F4Flops": "9811302.955550687",
+          "MFMAF6F4FlopsLow": "9753836.992123071",
+          "MFMAF6F4FlopsHigh": "9868768.918978304",
+          "MFMAMXF8Flops": "4955039.266889822",
+          "MFMAMXF8FlopsLow": "4942537.70496677",
+          "MFMAMXF8FlopsHigh": "4967540.828812874",
+          "MFMAF8Flops": "2461994.782033297",
+          "MFMAF8FlopsLow": "2449713.1047314727",
+          "MFMAF8FlopsHigh": "2474276.459335121",
+          "MFMAF16Flops": "2213500.7163685374",
+          "MFMAF16FlopsLow": "2201399.179167933",
+          "MFMAF16FlopsHigh": "2225602.253569142",
+          "MFMABF16Flops": "2462045.07721853",
+          "MFMABF16FlopsLow": "2449050.917872027",
+          "MFMABF16FlopsHigh": "2475039.2365650325",
+          "MFMAF32Flops": "155501.7368976172",
+          "MFMAF32FlopsLow": "155290.7405692933",
+          "MFMAF32FlopsHigh": "155712.7332259411",
+          "MFMAF64Flops": "77925.54406238538",
+          "MFMAF64FlopsLow": "77756.98711557427",
+          "MFMAF64FlopsHigh": "78094.10100919649",
+          "MFMAI8Ops": "4927234.559338777",
+          "MFMAI8OpsLow": "4902180.206234109",
+          "MFMAI8OpsHigh": "4952288.912443446"
+        }
+      ]
+    }
+  ],
+  "artifact_sha256": {
+    "runs/89705/rda-1/baseline.log": "2b2b7d5a03cc04ac2258a125133dbf5c6e32ec34fb105a57a1d01e79b8d591e4",
+    "runs/89705/rda-1/baseline.json": "8058bb2bdad6fc5c54cacd13c9dcbe2d4d5126ea427c605c6d6e9a25de0416b4",
+    "runs/89705/rda-1/counter-argv.json": "f49e4e98bc4f08acee8c299a83c190e10ecc1629131a428d9016e868b45a8d34",
+    "runs/89705/rda-1/counter.log": "3ed563b86025cde411dc39631f89ed8d005a9cb994b9ae2f2e33c42afb6fc454",
+    "runs/89705/rda-1/workload-counters.json": "0c98c547c3d7f116e8b9d12e8a2d72db2d5c01bf29b520f66e374b8e6cdd115b",
+    "runs/89705/rda-1/analyze-argv.json": "48db51c07941e20246caff2c8d65fe933ab7a4c6f268b779032d471c6e06912a",
+    "runs/89705/rda-1/analyze.log": "dfb8dbec2f558b5d9cc76a225fe1d26389eaff203a3cb94538a7ce65fc16c5a7",
+    "runs/89705/rda-1/roofline-view.log": "6744dbc702b97213a421211b21093021ff6c7edf5994bb95178492b1b0850df7",
+    "runs/89705/rda-1/counters/profiling_config.yaml": "cacab43caff25821b7c1a9cf9decf25cefb9ebbc0c212d73f64a5afe44ee53ac",
+    "runs/89705/rda-1/counters/sysinfo.csv": "5b85637e48f191aef3ae9fe70f29b9329223409c9083c95d91c7223a4af24653",
+    "runs/89705/rda-1/counters/kernel_symbols_pmc_perf_0.csv.gz": "f414f83eb162a507bd18651de93e23622da83f653e7b367f82faa4a3c9417153",
+    "runs/89705/rda-1/counters/results_pmc_perf_0.csv.gz": "6411e9e2909c9fab8fe570690e36534267b55e2b01a3b4fb72bd779fd14c6440",
+    "runs/89705/rda-1/counters/roofline.csv": "0bd287555859283eed26bcaa3ee1ae6e831efcd5a2ac0a62584cfe9424646b56",
+    "runs/89705/rda-1/counters/pmc_dispatch_info.csv": "3e422191b9d5d496a2b5c1b39b4beac293067925e30681915fc3ad2e8fe0ff01",
+    "runs/89705/rda-1/counters/pmc_kernel_top.csv": "a83b2c96b04d84df6cd45d128594d7e5ec8e5b00f85656bcb53c0923a8e991a7",
+    "runs/89705/rda-1/counters/empirRoof_gpu-0.html": "1801c528eb023c3cea4d305bf0e30f67143d367c4860ebe220b35229352ac3a4",
+    "runs/89705/rda-1/analysis/kernel.csv": "d2c0516db7ae12ae816c57f5f6e973ae3ae08c05ebc30acc0831e4ccdd68db28",
+    "runs/89705/rda-1/analysis/kernel_metric.csv": "99a6ab6671be76e9c653d7c1ba9265e23107635bad00bc69e1a39f565ce0c060",
+    "runs/89705/rda-1/analysis/workload_metric.csv": "b93c0cdbae42a619a9a8f11d01f2f4feb3e354ae1b8fd998e2da758856184dbb",
+    "runs/89705/rda-1/analysis/pc_sampling_summary.csv": "dd63385e0e4990e01b66197f494ae7a623bc13ef0033482abf2a80c07cbc0609",
+    "runs/89705/rda-1/analysis/source_lines.csv": "e22f281ddb7d6fc7970e9d8f0c7af6331c9e553835962f9dbb14acbd8c9a3005",
+    "runs/89705/rda-1/counters/perfmon/pmc_perf_SQ_IFETCH_LEVEL_ACCUM.yaml": "8019320619d0b5d68dbfe61919e94454617f27e95cda862cebf932c45727ba16",
+    "runs/89705/rda-1/counters/perfmon/pmc_perf_SQ_LEVEL_WAVES_ACCUM.yaml": "161cf84f279d4bf767b192143dd7abdae89f4bae104c755d2047318f969c8eda",
+    "runs/89705/rda-1/counters/perfmon/pmc_perf_0.yaml": "8d213c6fa53e4388afd2627c58dcb56b5275e75f1664bd0bf598a952db2f91a0",
+    "runs/89705/rda-1/counters/perfmon/pmc_perf_1.yaml": "fa714f350f4dbe2d31a1e2244a8ce6aceb1109ad3d9f5aeab6bcc066ef4899e5",
+    "runs/89705/rda-1/counters/perfmon/pmc_perf_2.yaml": "501385406751cc1b40d128df833e270c949983ffe5e9bc3fc7db66427b7aad37",
+    "runs/89705/rda-1/counters/perfmon/pmc_perf_3.yaml": "bfdf34a847fd741a10301cef8923d398e7063dde76e089662f0ce2b04e490932",
+    "runs/89705/rda-1/counters/perfmon/pmc_perf_4.yaml": "7e8c6a0c698241ce5dddf6ac70e82b219f62f764d910a7582112b8d2fc7abe85",
+    "runs/89705/rda-1/counters/perfmon/pmc_perf_5.yaml": "64f7b1b05f0d4b366e0aa2f718e93df9a315a4a95155e90927eee4167da970ac",
+    "runs/89705/rda-1/counters/perfmon/pmc_perf_6.yaml": "a5dc3461ed7c87ec795cafab75fdc2c4a768783ddf9ccc43f45e87aa879f43b2",
+    "runs/89705/rda-32/baseline.log": "b46ad89101cfd581c120e385310eafc829f849e009937dc079e03cfadaae6f8a",
+    "runs/89705/rda-32/baseline.json": "73163aa784937ea135a6265b0cfbcfaacfeed28da3a294d9ec61567645b33350",
+    "runs/89705/rda-32/counter-argv.json": "879547e1f626041fa4a7f03dbaad1222b2360c86ff2737ead94e38b55c742d82",
+    "runs/89705/rda-32/counter.log": "1d4afe071bfc2c2493fc0039294e78cd800c0c2033b28ce04f690b2f81a2c873",
+    "runs/89705/rda-32/workload-counters.json": "64c34c618fa94bd7bfdd8c5949dc552f0e3de6ecf47f50e1123f55168b85908e",
+    "runs/89705/rda-32/analyze-argv.json": "4ba0b280c44cd6d3d6edc582e6c32c52be1a849e4cfab69ccb976c57c60be874",
+    "runs/89705/rda-32/analyze.log": "dfb8dbec2f558b5d9cc76a225fe1d26389eaff203a3cb94538a7ce65fc16c5a7",
+    "runs/89705/rda-32/roofline-view.log": "1ca5eaec74c3634ddca43759783e94e52ddae0ed0a82cbe8642c09ec8f98dffc",
+    "runs/89705/rda-32/counters/profiling_config.yaml": "df961b388314580a3279018be3a0a23aa04b3bafe2d67b3afa2281dcf1d90725",
+    "runs/89705/rda-32/counters/sysinfo.csv": "8e5fa58afc732929657f292a523775f9641851df2ceca460155d599d1663c43a",
+    "runs/89705/rda-32/counters/kernel_symbols_pmc_perf_0.csv.gz": "2dfe70577c2f16bb8f33d724f617d51b9a6fc32e796b16dfa33500c30ddd1a9b",
+    "runs/89705/rda-32/counters/results_pmc_perf_0.csv.gz": "49e7135a8893cf04b44c50276418c6b84370384cd75bdf7b149aa760faadde4f",
+    "runs/89705/rda-32/counters/roofline.csv": "b1fef2992309a4297042504a643ff81b838540c7ff13dd7663de4ed7868d695a",
+    "runs/89705/rda-32/counters/pmc_dispatch_info.csv": "fdaba94c94fafde91874dd040d6bd14ca41a38dffb5c8f312562ea9bbf728f58",
+    "runs/89705/rda-32/counters/pmc_kernel_top.csv": "c2271d1c46cac5be6bf09f6600088a382e0ca38a6ed4ad82e908cb5bfb46b22c",
+    "runs/89705/rda-32/counters/empirRoof_gpu-0.html": "cf140eba2eaacf92fe6ec265e273f1ff93a0b992ccb11fc4e9fc8ad6f5d46d21",
+    "runs/89705/rda-32/analysis/kernel.csv": "c3c38421ed8b9ce0db462e289af6335a4cb02390afe24018b7422e3ce7358900",
+    "runs/89705/rda-32/analysis/kernel_metric.csv": "0165aca60a263c6d6c5a1c9f77190fa2c1c6f1d47df8ed9a9c005aa68dc173cc",
+    "runs/89705/rda-32/analysis/workload_metric.csv": "6dfd22611db51c6d036c7361edea06a93b45d20e9ffbff15ea8e9182efab020d",
+    "runs/89705/rda-32/analysis/pc_sampling_summary.csv": "dd63385e0e4990e01b66197f494ae7a623bc13ef0033482abf2a80c07cbc0609",
+    "runs/89705/rda-32/analysis/source_lines.csv": "e22f281ddb7d6fc7970e9d8f0c7af6331c9e553835962f9dbb14acbd8c9a3005",
+    "runs/89705/rda-32/counters/perfmon/pmc_perf_SQ_IFETCH_LEVEL_ACCUM.yaml": "8019320619d0b5d68dbfe61919e94454617f27e95cda862cebf932c45727ba16",
+    "runs/89705/rda-32/counters/perfmon/pmc_perf_SQ_LEVEL_WAVES_ACCUM.yaml": "161cf84f279d4bf767b192143dd7abdae89f4bae104c755d2047318f969c8eda",
+    "runs/89705/rda-32/counters/perfmon/pmc_perf_0.yaml": "8d213c6fa53e4388afd2627c58dcb56b5275e75f1664bd0bf598a952db2f91a0",
+    "runs/89705/rda-32/counters/perfmon/pmc_perf_1.yaml": "fa714f350f4dbe2d31a1e2244a8ce6aceb1109ad3d9f5aeab6bcc066ef4899e5",
+    "runs/89705/rda-32/counters/perfmon/pmc_perf_2.yaml": "501385406751cc1b40d128df833e270c949983ffe5e9bc3fc7db66427b7aad37",
+    "runs/89705/rda-32/counters/perfmon/pmc_perf_3.yaml": "bfdf34a847fd741a10301cef8923d398e7063dde76e089662f0ce2b04e490932",
+    "runs/89705/rda-32/counters/perfmon/pmc_perf_4.yaml": "7e8c6a0c698241ce5dddf6ac70e82b219f62f764d910a7582112b8d2fc7abe85",
+    "runs/89705/rda-32/counters/perfmon/pmc_perf_5.yaml": "64f7b1b05f0d4b366e0aa2f718e93df9a315a4a95155e90927eee4167da970ac",
+    "runs/89705/rda-32/counters/perfmon/pmc_perf_6.yaml": "a5dc3461ed7c87ec795cafab75fdc2c4a768783ddf9ccc43f45e87aa879f43b2",
+    "runs/89705/mhc-1/baseline.log": "bad8b84226c69bc9ecf2539c8b4bb0ecd8e57e8b0ae2ebadc34bb5d1caf3f068",
+    "runs/89705/mhc-1/baseline.json": "1ee2d4f44d2984e2f2004ab71ef24c544a5d5bb4641a22f2c7ac32adf0ba9946",
+    "runs/89705/mhc-1/counter-argv.json": "9e546ccff11bbf4786ca68eade27f703aaf12778d6988635ccb1262725fe8f37",
+    "runs/89705/mhc-1/counter.log": "6635d0ea38030654fc5672629b4478cb6982f69d5e382847c057c98445d0de54",
+    "runs/89705/mhc-1/workload-counters.json": "5b978436c77c95515308bf40b62cf8ff3a776257a4022da689b703f86f4d3c67",
+    "runs/89705/mhc-1/analyze-argv.json": "2c760588165c2f7a3df2a93f2e0600d0bb1e4edf7af9315f71bfa944dcaf1a0f",
+    "runs/89705/mhc-1/analyze.log": "dfb8dbec2f558b5d9cc76a225fe1d26389eaff203a3cb94538a7ce65fc16c5a7",
+    "runs/89705/mhc-1/roofline-view.log": "242e421ce4658e88b7e54b188536a1c6784b9b78c34ba9d1f0d044d0e37549f4",
+    "runs/89705/mhc-1/counters/profiling_config.yaml": "5b27659e9843d25aaa2f24e2c011e55171b7962412d4f6ea304de799cf029acf",
+    "runs/89705/mhc-1/counters/sysinfo.csv": "41c92305f4a47520227c0ea2afdd08272c3429277206d46d8968914a911f9047",
+    "runs/89705/mhc-1/counters/kernel_symbols_pmc_perf_0.csv.gz": "e04ce3d2674319c4ae2627cabfb3de047686c9e81a0c10fda5e472bdf88444a5",
+    "runs/89705/mhc-1/counters/results_pmc_perf_0.csv.gz": "a273514d5308966dfc2e879623e0696af8e13bed6af825c4f00c3e0b80397167",
+    "runs/89705/mhc-1/counters/roofline.csv": "738fd0489f1c8d18787a7e52b21f007ff0cde69728794ca2f4ed3c67f75e8956",
+    "runs/89705/mhc-1/counters/pmc_dispatch_info.csv": "8a39334d667565f08f9ae737a661aaa1320616e6f8478fdeeecb2aea6e4f3947",
+    "runs/89705/mhc-1/counters/pmc_kernel_top.csv": "8ba814cb210663cbddcd475d1ddb6d7674bcf529aba5bbf164abc66b979748b5",
+    "runs/89705/mhc-1/counters/empirRoof_gpu-0.html": "864ba95d9161a367e4330299895eac7651a5e22dc0a529231a2e44c8312d0ac3",
+    "runs/89705/mhc-1/analysis/kernel.csv": "4a68450406f2516f36ac6116613e219c293f3f189e77742e59da5b8763816042",
+    "runs/89705/mhc-1/analysis/kernel_metric.csv": "d6791e568deb9161edf6351b894def42c67c8ad88f074d2a7f8305c5911a3997",
+    "runs/89705/mhc-1/analysis/workload_metric.csv": "150cb81d863573f6235be0355a31104b6e1d4817d8a7555038c2e4c42aa82171",
+    "runs/89705/mhc-1/analysis/pc_sampling_summary.csv": "dd63385e0e4990e01b66197f494ae7a623bc13ef0033482abf2a80c07cbc0609",
+    "runs/89705/mhc-1/analysis/source_lines.csv": "e22f281ddb7d6fc7970e9d8f0c7af6331c9e553835962f9dbb14acbd8c9a3005",
+    "runs/89705/mhc-1/counters/perfmon/pmc_perf_SQ_IFETCH_LEVEL_ACCUM.yaml": "8019320619d0b5d68dbfe61919e94454617f27e95cda862cebf932c45727ba16",
+    "runs/89705/mhc-1/counters/perfmon/pmc_perf_SQ_LEVEL_WAVES_ACCUM.yaml": "161cf84f279d4bf767b192143dd7abdae89f4bae104c755d2047318f969c8eda",
+    "runs/89705/mhc-1/counters/perfmon/pmc_perf_0.yaml": "8d213c6fa53e4388afd2627c58dcb56b5275e75f1664bd0bf598a952db2f91a0",
+    "runs/89705/mhc-1/counters/perfmon/pmc_perf_1.yaml": "fa714f350f4dbe2d31a1e2244a8ce6aceb1109ad3d9f5aeab6bcc066ef4899e5",
+    "runs/89705/mhc-1/counters/perfmon/pmc_perf_2.yaml": "501385406751cc1b40d128df833e270c949983ffe5e9bc3fc7db66427b7aad37",
+    "runs/89705/mhc-1/counters/perfmon/pmc_perf_3.yaml": "bfdf34a847fd741a10301cef8923d398e7063dde76e089662f0ce2b04e490932",
+    "runs/89705/mhc-1/counters/perfmon/pmc_perf_4.yaml": "7e8c6a0c698241ce5dddf6ac70e82b219f62f764d910a7582112b8d2fc7abe85",
+    "runs/89705/mhc-1/counters/perfmon/pmc_perf_5.yaml": "64f7b1b05f0d4b366e0aa2f718e93df9a315a4a95155e90927eee4167da970ac",
+    "runs/89705/mhc-1/counters/perfmon/pmc_perf_6.yaml": "a5dc3461ed7c87ec795cafab75fdc2c4a768783ddf9ccc43f45e87aa879f43b2",
+    "runs/89705/mhc-32/baseline.log": "27376843aaaebb0115784be311586c41534ea2da4835a5ce6942cf72f3467628",
+    "runs/89705/mhc-32/baseline.json": "aaf39e94ede272b30cc09953b6e02b0867ceb10d7afb07aa08f4921008ffa52a",
+    "runs/89705/mhc-32/counter-argv.json": "c41bd52ac1f9f20d782848946067dcafee35a3d05505654905900fab7629e275",
+    "runs/89705/mhc-32/counter.log": "582ccaf591f615d72beab93e90981421e73e42ea1b4f3064e641506d093fed3f",
+    "runs/89705/mhc-32/workload-counters.json": "f16e6354aa50b4bd52a7df9496b925893a30e366eb0626b1f81b3c9f55556e5e",
+    "runs/89705/mhc-32/analyze-argv.json": "569ff5c6803f09e381feb9dae1d063037ea3d7687327e9c48e25f0b8ba05908a",
+    "runs/89705/mhc-32/analyze.log": "dfb8dbec2f558b5d9cc76a225fe1d26389eaff203a3cb94538a7ce65fc16c5a7",
+    "runs/89705/mhc-32/roofline-view.log": "4c35c1987245d7730c43195634dbbd6c334590356224ff44aefa5838a3fcf0e5",
+    "runs/89705/mhc-32/counters/profiling_config.yaml": "2801308913d43a5228c1a599307196abb4cf96d9000a496adb3967f2f302463c",
+    "runs/89705/mhc-32/counters/sysinfo.csv": "14e5aa8cb8f2d88dede3ebc808ac72795110ec0e57571513472172526073072d",
+    "runs/89705/mhc-32/counters/kernel_symbols_pmc_perf_0.csv.gz": "7181e901f42e237b9b75ee3cc6262eabc3d2eec84c7eeb330d753f6786ea7517",
+    "runs/89705/mhc-32/counters/results_pmc_perf_0.csv.gz": "7aafa5c248c572abc625940a25d9341c655cf4b6681c937f7ff922ead87942aa",
+    "runs/89705/mhc-32/counters/roofline.csv": "a586b69372d8cb07d1f6e1db10d53bb281485f25a6e90ec619b2badb4d6391d2",
+    "runs/89705/mhc-32/counters/pmc_dispatch_info.csv": "8a39334d667565f08f9ae737a661aaa1320616e6f8478fdeeecb2aea6e4f3947",
+    "runs/89705/mhc-32/counters/pmc_kernel_top.csv": "b5bd1749bc5be0ad20044844aaca431eecc8893f6c2c073778ab00900ad11365",
+    "runs/89705/mhc-32/counters/empirRoof_gpu-0.html": "5a0301f1e163d3f88878c33c644b3ba0fc581d762bac9e986dc8e08bc063c431",
+    "runs/89705/mhc-32/analysis/kernel.csv": "34a0634c584377d39b8bc1f06b772f502e96fd99b4633d8c427ec5323dbaa17f",
+    "runs/89705/mhc-32/analysis/kernel_metric.csv": "6a3a1ef8cd9990813f06ec5f935b3182a7d255a1e0d1eb0b0d296c4a94b82183",
+    "runs/89705/mhc-32/analysis/workload_metric.csv": "862c74205a8f31022384ecfe964360a38dcef894f57dda7e6c379e37ee0b8e2d",
+    "runs/89705/mhc-32/analysis/pc_sampling_summary.csv": "dd63385e0e4990e01b66197f494ae7a623bc13ef0033482abf2a80c07cbc0609",
+    "runs/89705/mhc-32/analysis/source_lines.csv": "e22f281ddb7d6fc7970e9d8f0c7af6331c9e553835962f9dbb14acbd8c9a3005",
+    "runs/89705/mhc-32/counters/perfmon/pmc_perf_SQ_IFETCH_LEVEL_ACCUM.yaml": "8019320619d0b5d68dbfe61919e94454617f27e95cda862cebf932c45727ba16",
+    "runs/89705/mhc-32/counters/perfmon/pmc_perf_SQ_LEVEL_WAVES_ACCUM.yaml": "161cf84f279d4bf767b192143dd7abdae89f4bae104c755d2047318f969c8eda",
+    "runs/89705/mhc-32/counters/perfmon/pmc_perf_0.yaml": "8d213c6fa53e4388afd2627c58dcb56b5275e75f1664bd0bf598a952db2f91a0",
+    "runs/89705/mhc-32/counters/perfmon/pmc_perf_1.yaml": "fa714f350f4dbe2d31a1e2244a8ce6aceb1109ad3d9f5aeab6bcc066ef4899e5",
+    "runs/89705/mhc-32/counters/perfmon/pmc_perf_2.yaml": "501385406751cc1b40d128df833e270c949983ffe5e9bc3fc7db66427b7aad37",
+    "runs/89705/mhc-32/counters/perfmon/pmc_perf_3.yaml": "bfdf34a847fd741a10301cef8923d398e7063dde76e089662f0ce2b04e490932",
+    "runs/89705/mhc-32/counters/perfmon/pmc_perf_4.yaml": "7e8c6a0c698241ce5dddf6ac70e82b219f62f764d910a7582112b8d2fc7abe85",
+    "runs/89705/mhc-32/counters/perfmon/pmc_perf_5.yaml": "64f7b1b05f0d4b366e0aa2f718e93df9a315a4a95155e90927eee4167da970ac",
+    "runs/89705/mhc-32/counters/perfmon/pmc_perf_6.yaml": "a5dc3461ed7c87ec795cafab75fdc2c4a768783ddf9ccc43f45e87aa879f43b2",
+    "runs/89705/rda-8/baseline.log": "225e38d6381322a98e6a58355e4819bb283f208076fd083fe2118894782685c0",
+    "runs/89705/rda-8/baseline.json": "63086aa0d57064066416289fa0606fcd606b618297bd7d842b9ca0f5420beb55",
+    "runs/89705/rda-8/counter-argv.json": "6b3732bf2bf0b9af66c7c56b044de472a2d898b65ac3aabb28e045d2f56016bd",
+    "runs/89705/rda-8/counter.log": "174cb2b6241424043d1852037235bc62b86bc9622d10f45b94498f7f7232bae4",
+    "runs/89705/rda-8/workload-counters.json": "614e058e10648040c6582a5805c3951ff753688a67691b405a6513237b825935",
+    "runs/89705/rda-8/analyze-argv.json": "899f734715ee962d8d4f91285e89b6bea4161ec39300c11398578aed2dcd9465",
+    "runs/89705/rda-8/analyze.log": "dfb8dbec2f558b5d9cc76a225fe1d26389eaff203a3cb94538a7ce65fc16c5a7",
+    "runs/89705/rda-8/counters/profiling_config.yaml": "95b4e2b9185bd98d57912f389c230f0df30c8a552cc493dd7c4971edf2e01f3b",
+    "runs/89705/rda-8/counters/sysinfo.csv": "b64081d604fbeac10cb7aaaaf516d9fa905d854aeb83fe4fb601a1e41768bfe3",
+    "runs/89705/rda-8/counters/kernel_symbols_pmc_perf_0.csv.gz": "2dfe70577c2f16bb8f33d724f617d51b9a6fc32e796b16dfa33500c30ddd1a9b",
+    "runs/89705/rda-8/counters/results_pmc_perf_0.csv.gz": "f78a842182e728da50080569daa74bd7492cfc394c44e6bce9c1f989bd84f4ff",
+    "runs/89705/rda-8/counters/roofline.csv": "abb1d73db76934cd2f67a3cd9b04b627777ca180beabe0fd206843afcd3ea98a",
+    "runs/89705/rda-8/analysis/kernel.csv": "f30081c05c12c3b6c60445b7d716d4d4c3a015e0b091e817cda11ef713bb0661",
+    "runs/89705/rda-8/analysis/kernel_metric.csv": "1f3b150657f49e04a73e5cbf0b40fc3b8e4bcdef0af3c5bde7830771a0a098f3",
+    "runs/89705/rda-8/analysis/workload_metric.csv": "ae73a75710e3a3d0bfbc247bcf4a4808e83b2d43da795136ce957ae1142dfee1",
+    "runs/89705/rda-8/analysis/pc_sampling_summary.csv": "dd63385e0e4990e01b66197f494ae7a623bc13ef0033482abf2a80c07cbc0609",
+    "runs/89705/rda-8/analysis/source_lines.csv": "e22f281ddb7d6fc7970e9d8f0c7af6331c9e553835962f9dbb14acbd8c9a3005",
+    "runs/89705/rda-8/counters/perfmon/pmc_perf_SQ_IFETCH_LEVEL_ACCUM.yaml": "8019320619d0b5d68dbfe61919e94454617f27e95cda862cebf932c45727ba16",
+    "runs/89705/rda-8/counters/perfmon/pmc_perf_SQ_LEVEL_WAVES_ACCUM.yaml": "161cf84f279d4bf767b192143dd7abdae89f4bae104c755d2047318f969c8eda",
+    "runs/89705/rda-8/counters/perfmon/pmc_perf_0.yaml": "8d213c6fa53e4388afd2627c58dcb56b5275e75f1664bd0bf598a952db2f91a0",
+    "runs/89705/rda-8/counters/perfmon/pmc_perf_1.yaml": "fa714f350f4dbe2d31a1e2244a8ce6aceb1109ad3d9f5aeab6bcc066ef4899e5",
+    "runs/89705/rda-8/counters/perfmon/pmc_perf_2.yaml": "501385406751cc1b40d128df833e270c949983ffe5e9bc3fc7db66427b7aad37",
+    "runs/89705/rda-8/counters/perfmon/pmc_perf_3.yaml": "bfdf34a847fd741a10301cef8923d398e7063dde76e089662f0ce2b04e490932",
+    "runs/89705/rda-8/counters/perfmon/pmc_perf_4.yaml": "7e8c6a0c698241ce5dddf6ac70e82b219f62f764d910a7582112b8d2fc7abe85",
+    "runs/89705/rda-8/counters/perfmon/pmc_perf_5.yaml": "64f7b1b05f0d4b366e0aa2f718e93df9a315a4a95155e90927eee4167da970ac",
+    "runs/89705/rda-8/counters/perfmon/pmc_perf_6.yaml": "a5dc3461ed7c87ec795cafab75fdc2c4a768783ddf9ccc43f45e87aa879f43b2",
+    "runs/89705/rda-256/baseline.log": "81a6368972adbe511819e040fee8c1c99e27b29f95f4869d255fbbb245a99a8d",
+    "runs/89705/rda-256/baseline.json": "7a8e3d953581672460b14e2ed49338e5a9d8ab47d37b64d7cd402865db28d755",
+    "runs/89705/rda-256/counter-argv.json": "9a0034e40bd2571ee8e66f8381ae06d212125258ecc641c5c80919000bdc07be",
+    "runs/89705/rda-256/counter.log": "23e345f7d6ee8a122166a59365367c31881b432767da043fbdfdb79a8acda932",
+    "runs/89705/rda-256/workload-counters.json": "b146f81d9d9d3471e7dd984af40d86cd20d6b78a419f1e4b7531c66c958c09f3",
+    "runs/89705/rda-256/analyze-argv.json": "2c387392fe44a00afcb959e476e2818da14d9dfcaacbdba5b708e104e3803113",
+    "runs/89705/rda-256/analyze.log": "dfb8dbec2f558b5d9cc76a225fe1d26389eaff203a3cb94538a7ce65fc16c5a7",
+    "runs/89705/rda-256/counters/profiling_config.yaml": "3cf5710231c85806c7d733b322a68a98702738167124384179afae4913350c50",
+    "runs/89705/rda-256/counters/sysinfo.csv": "5eb74323ca45401de595a62d3e25095955b84ebe8ff6e97851b80639be32426e",
+    "runs/89705/rda-256/counters/kernel_symbols_pmc_perf_0.csv.gz": "f414f83eb162a507bd18651de93e23622da83f653e7b367f82faa4a3c9417153",
+    "runs/89705/rda-256/counters/results_pmc_perf_0.csv.gz": "40c84b3846b047be05324abbee204cc826c3cc6127511acaab5c303e9193bb9b",
+    "runs/89705/rda-256/counters/roofline.csv": "8d1892817924c538d0e0c8de6e7ccaa04f2ed9e01f238aa9f7cf87713fd04bdb",
+    "runs/89705/rda-256/analysis/kernel.csv": "97db76f2bcfa362a84d7877dcf3f6d66a9465de6fe9e84d11c3f2ab74b4bfe15",
+    "runs/89705/rda-256/analysis/kernel_metric.csv": "99a839de49f3ed793ca7388d71f39e2ba7eddb7b1a97bb2d443d8a114c0b46f7",
+    "runs/89705/rda-256/analysis/workload_metric.csv": "16ae1509007d9bf32a46a98b20ad2449a7f56399a91f3820fe909a445b81cf56",
+    "runs/89705/rda-256/analysis/pc_sampling_summary.csv": "dd63385e0e4990e01b66197f494ae7a623bc13ef0033482abf2a80c07cbc0609",
+    "runs/89705/rda-256/analysis/source_lines.csv": "e22f281ddb7d6fc7970e9d8f0c7af6331c9e553835962f9dbb14acbd8c9a3005",
+    "runs/89705/rda-256/counters/perfmon/pmc_perf_SQ_IFETCH_LEVEL_ACCUM.yaml": "8019320619d0b5d68dbfe61919e94454617f27e95cda862cebf932c45727ba16",
+    "runs/89705/rda-256/counters/perfmon/pmc_perf_SQ_LEVEL_WAVES_ACCUM.yaml": "161cf84f279d4bf767b192143dd7abdae89f4bae104c755d2047318f969c8eda",
+    "runs/89705/rda-256/counters/perfmon/pmc_perf_0.yaml": "8d213c6fa53e4388afd2627c58dcb56b5275e75f1664bd0bf598a952db2f91a0",
+    "runs/89705/rda-256/counters/perfmon/pmc_perf_1.yaml": "fa714f350f4dbe2d31a1e2244a8ce6aceb1109ad3d9f5aeab6bcc066ef4899e5",
+    "runs/89705/rda-256/counters/perfmon/pmc_perf_2.yaml": "501385406751cc1b40d128df833e270c949983ffe5e9bc3fc7db66427b7aad37",
+    "runs/89705/rda-256/counters/perfmon/pmc_perf_3.yaml": "bfdf34a847fd741a10301cef8923d398e7063dde76e089662f0ce2b04e490932",
+    "runs/89705/rda-256/counters/perfmon/pmc_perf_4.yaml": "7e8c6a0c698241ce5dddf6ac70e82b219f62f764d910a7582112b8d2fc7abe85",
+    "runs/89705/rda-256/counters/perfmon/pmc_perf_5.yaml": "64f7b1b05f0d4b366e0aa2f718e93df9a315a4a95155e90927eee4167da970ac",
+    "runs/89705/rda-256/counters/perfmon/pmc_perf_6.yaml": "a5dc3461ed7c87ec795cafab75fdc2c4a768783ddf9ccc43f45e87aa879f43b2",
+    "runs/89705/mhc-8/baseline.log": "9af45400f3e3e1033367ec0b4caf62b4333545fb6e18dfe5db6536cf7564db36",
+    "runs/89705/mhc-8/baseline.json": "11a8acefbadd8623ed5d5bcb63b06588cd519a1e370881fc325368ea3085c69c",
+    "runs/89705/mhc-8/counter-argv.json": "9db2e498bd830af50d5c7901d87f48eca06020a272a13ec4ae77838f8479dd06",
+    "runs/89705/mhc-8/counter.log": "7bec07fd619a751e010adb33d2163c16398007266e89c80389cc50c206a99cad",
+    "runs/89705/mhc-8/workload-counters.json": "741c7b46a43429469dd328e1d5de07ce7ee1112d16e68450012ac5a0592c7e98",
+    "runs/89705/mhc-8/analyze-argv.json": "ccf1e71bfc7f635f9dc7a31afb06b081426e5a47187fd4e954ccf0e64d3edb66",
+    "runs/89705/mhc-8/analyze.log": "dfb8dbec2f558b5d9cc76a225fe1d26389eaff203a3cb94538a7ce65fc16c5a7",
+    "runs/89705/mhc-8/counters/profiling_config.yaml": "307f29bf8d50e9d38ddd8c648c52641a78c90ccb64677a23825ea6922c0a8f3f",
+    "runs/89705/mhc-8/counters/sysinfo.csv": "fb08e99606dd90ccd1d66997a22e0c7070e262217d6454d80928b26f976f550d",
+    "runs/89705/mhc-8/counters/kernel_symbols_pmc_perf_0.csv.gz": "7181e901f42e237b9b75ee3cc6262eabc3d2eec84c7eeb330d753f6786ea7517",
+    "runs/89705/mhc-8/counters/results_pmc_perf_0.csv.gz": "485a55ae8e0207b9cf2d49e14444e1b667480b96fe3b7229111d29c11f602de2",
+    "runs/89705/mhc-8/counters/roofline.csv": "6cf0dee9be2c8a8f604768741ddc243a6772e3a4a301d280c58c4a46b4c8708a",
+    "runs/89705/mhc-8/analysis/kernel.csv": "f9184e26c613cfea8316b2caaf65f06a801aa2900ae346c647f56c68140bd84c",
+    "runs/89705/mhc-8/analysis/kernel_metric.csv": "4d5c0213b03c8d8156c32152da3e2f0df9cedac4dfa667b4afad3c45802f3b37",
+    "runs/89705/mhc-8/analysis/workload_metric.csv": "498c6d26df4fb7aebd93cfa8120c1ddbdfdfd6e26d4439aeec8c8d85c16a755f",
+    "runs/89705/mhc-8/analysis/pc_sampling_summary.csv": "dd63385e0e4990e01b66197f494ae7a623bc13ef0033482abf2a80c07cbc0609",
+    "runs/89705/mhc-8/analysis/source_lines.csv": "e22f281ddb7d6fc7970e9d8f0c7af6331c9e553835962f9dbb14acbd8c9a3005",
+    "runs/89705/mhc-8/counters/perfmon/pmc_perf_SQ_IFETCH_LEVEL_ACCUM.yaml": "8019320619d0b5d68dbfe61919e94454617f27e95cda862cebf932c45727ba16",
+    "runs/89705/mhc-8/counters/perfmon/pmc_perf_SQ_LEVEL_WAVES_ACCUM.yaml": "161cf84f279d4bf767b192143dd7abdae89f4bae104c755d2047318f969c8eda",
+    "runs/89705/mhc-8/counters/perfmon/pmc_perf_0.yaml": "8d213c6fa53e4388afd2627c58dcb56b5275e75f1664bd0bf598a952db2f91a0",
+    "runs/89705/mhc-8/counters/perfmon/pmc_perf_1.yaml": "fa714f350f4dbe2d31a1e2244a8ce6aceb1109ad3d9f5aeab6bcc066ef4899e5",
+    "runs/89705/mhc-8/counters/perfmon/pmc_perf_2.yaml": "501385406751cc1b40d128df833e270c949983ffe5e9bc3fc7db66427b7aad37",
+    "runs/89705/mhc-8/counters/perfmon/pmc_perf_3.yaml": "bfdf34a847fd741a10301cef8923d398e7063dde76e089662f0ce2b04e490932",
+    "runs/89705/mhc-8/counters/perfmon/pmc_perf_4.yaml": "7e8c6a0c698241ce5dddf6ac70e82b219f62f764d910a7582112b8d2fc7abe85",
+    "runs/89705/mhc-8/counters/perfmon/pmc_perf_5.yaml": "64f7b1b05f0d4b366e0aa2f718e93df9a315a4a95155e90927eee4167da970ac",
+    "runs/89705/mhc-8/counters/perfmon/pmc_perf_6.yaml": "a5dc3461ed7c87ec795cafab75fdc2c4a768783ddf9ccc43f45e87aa879f43b2",
+    "runs/89705/mhc-256/baseline.log": "d0548119551225e3f8c1011f97923bd02106be539defab4c5617aeaa480775f5",
+    "runs/89705/mhc-256/baseline.json": "352184e6b7f71f5f9ab3f736b31c8cd67716035a15f32f8c12e4af7a242d2761",
+    "runs/89705/mhc-256/counter-argv.json": "3fb94da010dde4e175b4245c30e4ea801ab59b9c27e42183affdd3180b34655c",
+    "runs/89705/mhc-256/counter.log": "ea137a3191cb06788ae83e413aaac41b61a4934ae099671c7fbf8ea80c8fe0d0",
+    "runs/89705/mhc-256/workload-counters.json": "be03be83f410fe706145f307c360950ce73fc020c0b6b73bc4d1ba0ae338492a",
+    "runs/89705/mhc-256/analyze-argv.json": "08ac7cd4eb90320e5487a2137243950bf463f8207d97f5469d5018eae0709b7e",
+    "runs/89705/mhc-256/analyze.log": "dfb8dbec2f558b5d9cc76a225fe1d26389eaff203a3cb94538a7ce65fc16c5a7",
+    "runs/89705/mhc-256/counters/profiling_config.yaml": "22f07d14296f9b05a9cc1d17921f9253e690a7a80ed4995fabddbe6dc4bd6910",
+    "runs/89705/mhc-256/counters/sysinfo.csv": "558e8283dd34f995d7693aa40987e701ddf97c0b4a89233ba17b36ca1e4b03dd",
+    "runs/89705/mhc-256/counters/kernel_symbols_pmc_perf_0.csv.gz": "e04ce3d2674319c4ae2627cabfb3de047686c9e81a0c10fda5e472bdf88444a5",
+    "runs/89705/mhc-256/counters/results_pmc_perf_0.csv.gz": "21fd493389801fb10d679420c6d203890a00f5ede60e15bfbd59bfa48a258a06",
+    "runs/89705/mhc-256/counters/roofline.csv": "832023775f23536771ea9aa4503bb323fc2fb6afe3d02c94a2fec0746322d47c",
+    "runs/89705/mhc-256/analysis/kernel.csv": "76f182bda5d00cb2ea766d79f7c16344a8cdd208df73060eb7d0131c6e93841b",
+    "runs/89705/mhc-256/analysis/kernel_metric.csv": "e17d2e51f5c4621d1df91b0a4bd50ad959e089ed183f07a86e097e2355673511",
+    "runs/89705/mhc-256/analysis/workload_metric.csv": "fdd93bc429c1c253cd075f88fef1edb94bfb810fe8f37714b3a5732684eca82b",
+    "runs/89705/mhc-256/analysis/pc_sampling_summary.csv": "dd63385e0e4990e01b66197f494ae7a623bc13ef0033482abf2a80c07cbc0609",
+    "runs/89705/mhc-256/analysis/source_lines.csv": "e22f281ddb7d6fc7970e9d8f0c7af6331c9e553835962f9dbb14acbd8c9a3005",
+    "runs/89705/mhc-256/counters/perfmon/pmc_perf_SQ_IFETCH_LEVEL_ACCUM.yaml": "8019320619d0b5d68dbfe61919e94454617f27e95cda862cebf932c45727ba16",
+    "runs/89705/mhc-256/counters/perfmon/pmc_perf_SQ_LEVEL_WAVES_ACCUM.yaml": "161cf84f279d4bf767b192143dd7abdae89f4bae104c755d2047318f969c8eda",
+    "runs/89705/mhc-256/counters/perfmon/pmc_perf_0.yaml": "8d213c6fa53e4388afd2627c58dcb56b5275e75f1664bd0bf598a952db2f91a0",
+    "runs/89705/mhc-256/counters/perfmon/pmc_perf_1.yaml": "fa714f350f4dbe2d31a1e2244a8ce6aceb1109ad3d9f5aeab6bcc066ef4899e5",
+    "runs/89705/mhc-256/counters/perfmon/pmc_perf_2.yaml": "501385406751cc1b40d128df833e270c949983ffe5e9bc3fc7db66427b7aad37",
+    "runs/89705/mhc-256/counters/perfmon/pmc_perf_3.yaml": "bfdf34a847fd741a10301cef8923d398e7063dde76e089662f0ce2b04e490932",
+    "runs/89705/mhc-256/counters/perfmon/pmc_perf_4.yaml": "7e8c6a0c698241ce5dddf6ac70e82b219f62f764d910a7582112b8d2fc7abe85",
+    "runs/89705/mhc-256/counters/perfmon/pmc_perf_5.yaml": "64f7b1b05f0d4b366e0aa2f718e93df9a315a4a95155e90927eee4167da970ac",
+    "runs/89705/mhc-256/counters/perfmon/pmc_perf_6.yaml": "a5dc3461ed7c87ec795cafab75fdc2c4a768783ddf9ccc43f45e87aa879f43b2",
+    "roof-host.py": "35c0f46070e5be70fc3631abedd733eb508a5fe5543847403de5853af6be255d",
+    "probe-roof.sh": "c55bf3b241395e47572da0d4c59764b57818d6686454642a4a88cb04e4a6495a",
+    "roof-job.sbatch": "227b4a63ade392bc787acc2b90e2e78924dac46095899d4a2b7aa8a5e903a501",
+    "roof-workload.py": "eada5397b9e45ad9c3b950a4615d7a2885271dcb3eef3cf2f7b0aeb12ad1f6a1",
+    "roof-controller.py": "7ea976c9b65e35f60df9087c62fdeacb920e14a6694acfdf51e5adc6cdfb7de9",
+    "run-roof.sh": "fdbf6ca2af3df665cc284646604a5d5617d79042c0855615efbe66e6135078c6",
+    "setup-roof.sh": "7e07412a634d92011db0574563347a45d674f86fd93e385e5cbdeb0dfe300786",
+    "setup-roof-profile-only.sh": "ab1b04abaf497d4f1e190b9e602e0e2e7094db3dc301ed38df239caee2554eb7",
+    "counter-config.json": "1fab297fcd4ceeb2403029c85ea45e9882fc9d63349f822049d0a90ab3adb391",
+    "setup-roof-analyze.sh": "8be11fe5634ed13654756aee1fce6fecbc92e25950f1702bebc1ed05d4b9b1f0",
+    "inspect-roof-processes.py": "70860fd9b0abb28b310112ccb838c68e08e7f43cffb47588786e8b56393aa0f0",
+    "setup-roof-pinned.sh": "6d8b0b46567e8813441d9a27348a77dad3719485ea3394ad2559e7eced48be64",
+    "read-roof-raw.py": "3df1a6484682bcea55446c36ed123c1a3a1846244d7771410ca5055291225b66",
+    "check-roof-env.py": "c7cc763a0ad30c7757f750a17a8e524ce4981ae0c44f72b6d543f66133d7a2d6",
+    "analyze-roof.py": "9201652779953ec0794a51d00ee15afb751a5978c1cb0d1fa9c32f2b36b66531",
+    "read-roof-metrics.py": "f1c56165c650c2978eecc1bbd52aa18454b4ba88a5f8157f0f6c649fae94df14",
+    "render-native-roof.py": "baa906f96bc790be0e22b38a640dc1d9961ab39273d5455a13fcbb7bae8b32b4",
+    "save-roof-source.py": "c2ffbb656969485c3faf5640cb2919dfdb8d5cb556449e7c73e1d32ec456744d",
+    "finish-roof-artifacts.py": "4e83ef7400e4dc5e92e87b5722145cb21a4d6ccd82c3a4acf8fbfc0dfcc6dd6f"
+  },
+  "job_status": {
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "00:29:29",
+    "cleanup_exit": 0
+  },
+  "source_note": "Workspace commit is recorded separately from the pinned image. Component file hashes below are the runtime source identity.",
+  "workspace_commit": "8a540c051c",
+  "component_source_match": "PASS: kda.py, rocm_mhc.py and rocm_mhc_gate.py match workspace after CRLF normalization",
+  "local_bundle_sha256": "a7023cb78971924d27e53ed38cd277659ba91ae1aec64d3451f7db0ca2c58fa3"
+}

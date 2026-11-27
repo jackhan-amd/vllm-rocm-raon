@@ -4,6 +4,9 @@ For CPU-only warm serving interval analysis, use
 `python -m tools.raon_validation.gap_budget --help`. See the
 [warm decode budget](../../docker/raon/GAP-BUDGET-20261127.md) for coverage gates,
 warmup evidence, profiler overhead and interpretation limits.
+The [RDA/mHC hardware-counter report](../../docker/raon/KERNEL-ROOFLINE-20261127.md)
+records native roofline results, diagnostic commands and reviewed fusion/tile
+candidates. Counter-profile durations are separate from graph replay timings.
 
 Run inside the pinned Raon ROCm environment with one visible GPU. Source
 `docker/raon/runtime-env.sh` before starting Python. Preserve the image's
