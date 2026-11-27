@@ -185,6 +185,18 @@ def prepare_branch(site, s):
     mix_one = mhc._FIXED_MIX_ONE if mhc._BATCH_INVARIANT else rows == 1
     # Keep the chart's rounding schedule independent of speculative batch size.
     chart_fma = False if mhc._BATCH_INVARIANT else rows >= 5
+    project_head = os.environ.get("RAON_ROCM_MHC_PROJECT_HEAD", "legacy")
+    if project_head not in ("legacy", "hip_single_cta"):
+        raise ValueError(f"Unknown mHC project/head backend: {project_head}")
+    if project_head == "hip_single_cta":
+        if not mhc._BATCH_INVARIANT or agg_tree or chart_fma:
+            raise ValueError(
+                "HIP project/head requires the fixed Raon arithmetic schedule"
+            )
+        from .rocm_mhc_project_head import forward as project_head_forward
+
+        aggregate, coeff = project_head_forward(site, s)
+        return aggregate, coeff, _create(agg_tree, mix_one, chart_fma, False)[1]
     fuse_finish = os.environ.get("RAON_ROCM_MHC_FUSE_FINISH_HEAD", "0") == "1"
     launch_head, launch_mix = _create(agg_tree, mix_one, chart_fma, fuse_finish)
     scores, mean = rocm_mhc.project(site, s.view(rows, -1), defer_finish=fuse_finish)
@@ -232,9 +244,15 @@ def forward(site, s, branch):
     )
     if not _ANNOUNCED and not torch.cuda.is_current_stream_capturing():
         fused = os.environ.get("RAON_ROCM_MHC_FUSE_FINISH_HEAD", "0")
+        project_head = os.environ.get("RAON_ROCM_MHC_PROJECT_HEAD", "legacy")
+        realization = (
+            "gate=hip_single_cta projection=hip_single_cta "
+            "finisher=hip_single_cta mix=flydsl"
+            if project_head == "hip_single_cta"
+            else "gate=flydsl projection=hip finisher=flydsl mix=flydsl"
+        )
         print(
-            "RAON_ROCM_MHC_GATE LAUNCHED gate=flydsl projection=hip "
-            "finisher=flydsl dtype=bf16 chart=raon "
+            f"RAON_ROCM_MHC_GATE LAUNCHED {realization} dtype=bf16 chart=raon "
             f"finish_head_fused={fused}",
             flush=True,
         )

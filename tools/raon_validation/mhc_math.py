@@ -37,6 +37,150 @@ def reference(site, s, branch=lambda value: value, *, intermediates=False):
     return output.to(s.dtype), aggregate
 
 
+def component_events(site, value, branch, calls):
+    """Instrument a disposable block graph with external device event nodes."""
+    from vllm.models.raon1_mini import rocm_mhc
+
+    events = [
+        [torch.cuda.Event(enable_timing=True, external=True) for _ in range(5)]
+        for _ in range(calls)
+    ]
+    original = rocm_mhc.project
+    active = events[0]
+
+    def project(*args, **kwargs):
+        active[0].record()
+        output = original(*args, **kwargs)
+        active[1].record()
+        return output
+
+    def timed_branch(x):
+        active[2].record()
+        output = branch(x)
+        active[3].record()
+        return output
+
+    for _ in range(3):
+        site(value, branch)
+    graph = torch.cuda.CUDAGraph()
+    try:
+        # This isolated diagnostic process restores the function after capture.
+        rocm_mhc.project = project
+        with torch.cuda.graph(graph):
+            for active in events:
+                site(value, timed_branch)
+                active[4].record()
+    finally:
+        rocm_mhc.project = original
+    for _ in range(10):
+        graph.replay()
+    torch.accelerator.synchronize()
+    graph.replay()
+    torch.accelerator.synchronize()
+    names = ("project", "head_after_project", "synthetic_branch", "mix_after_branch")
+    rows = [
+        {
+            name + "_us": markers[i].elapsed_time(markers[i + 1]) * 1000
+            for i, name in enumerate(names)
+        }
+        for markers in events
+    ]
+    return dict(
+        scope="External device-event intervals inside an instrumented block graph",
+        caveat="Intervals include marker/scheduling effects, not just kernel work",
+        warmup_replays=10,
+        calls_per_graph=calls,
+        samples=rows,
+        mean_us={name: sum(row[name] for row in rows) / calls for name in rows[0]},
+    )
+
+
+def component_graphs(site, value, branch, replays):
+    """Hot-buffer stage graphs; no event nodes inside the captured work."""
+    from aiter.ops.flydsl.kernels.tensor_shim import _run_compiled
+
+    from vllm.models.raon1_mini import rocm_mhc, rocm_mhc_gate
+
+    project = rocm_mhc.project
+    partial, squares = project(site, value.view(value.shape[0], -1), defer_finish=True)
+    aggregate, coeff, launch_mix = rocm_mhc_gate.prepare_branch(site, value)
+    y = branch(aggregate).contiguous()
+    output = torch.empty_like(value)
+    expected = site(value, branch)
+
+    def project_only():
+        return project(site, value.view(value.shape[0], -1), defer_finish=True)
+
+    def head_only():
+        # Only this disposable process is patched, and only while recording.
+        rocm_mhc.project = lambda *args, **kwargs: (partial, squares)
+        try:
+            return rocm_mhc_gate.prepare_branch(site, value)
+        finally:
+            rocm_mhc.project = project
+
+    def mix_only():
+        _run_compiled(
+            launch_mix,
+            value.view(-1),
+            y.view(-1),
+            coeff.view(-1),
+            output.view(-1),
+            value.shape[0],
+            torch.cuda.current_stream(value.device).cuda_stream,
+        )
+
+    head_value, head_coeff, _ = head_only()
+    mix_only()
+    checks = dict(
+        head_aggregate_exact=torch.equal(head_value, aggregate),
+        head_coefficients_exact=torch.equal(head_coeff, coeff),
+        mix_output_exact=torch.equal(output, expected),
+    )
+    if not all(checks.values()):
+        raise RuntimeError(f"Stage fixture differs from native block: {checks}")
+    records = []
+    calls = 32
+    for name, launch in (
+        ("project", project_only),
+        ("head", head_only),
+        ("mix", mix_only),
+        ("whole_synthetic_block", lambda: site(value, branch)),
+    ):
+        for _ in range(3):
+            launch()
+        graph = torch.cuda.CUDAGraph()
+        with torch.cuda.graph(graph):
+            for _ in range(calls):
+                launch()
+        for _ in range(10):
+            graph.replay()
+        torch.accelerator.synchronize()
+        start = torch.cuda.Event(enable_timing=True)
+        end = torch.cuda.Event(enable_timing=True)
+        start.record()
+        for _ in range(replays):
+            graph.replay()
+        end.record()
+        end.synchronize()
+        records.append(
+            dict(
+                stage=name, us_per_call=start.elapsed_time(end) * 1000 / calls / replays
+            )
+        )
+    return dict(
+        scope="Separate hot-buffer stage graphs; includes device graph dispatch",
+        caveat="Stage graphs and sums are not a decomposition of a live model graph",
+        rows=value.shape[0],
+        calls_per_graph=calls,
+        replays=replays,
+        warmup_direct=3,
+        warmup_replays=10,
+        fixture_checks=checks,
+        stages=records,
+    )
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", type=Path, required=True)
@@ -45,9 +189,22 @@ def main():
     parser.add_argument("--finisher", choices=["torch", "flydsl"], default="torch")
     parser.add_argument("--gate", choices=["legacy", "flydsl"], default="legacy")
     parser.add_argument("--fuse-finish-head", action="store_true")
+    parser.add_argument("--project-head-hip", action="store_true")
     parser.add_argument("--branch", choices=["identity", "affine"], default="identity")
     parser.add_argument("--batch-invariant", choices=["0", "1"], default="1")
     parser.add_argument("--profile", help="Optional GPU trace path, after gold passes")
+    parser.add_argument(
+        "--profile-graph",
+        action="store_true",
+        help="Profile one warmed captured replay, instead of a direct block call",
+    )
+    parser.add_argument("--component-event-calls", type=int, default=0)
+    parser.add_argument("--component-graph-replays", type=int, default=0)
+    parser.add_argument(
+        "--external-graph-replay",
+        action="store_true",
+        help="End with one warmed graph replay for an external ROCm collector",
+    )
     parser.add_argument(
         "--timing-replays",
         type=int,
@@ -60,6 +217,12 @@ def main():
     )
     parser.add_argument("--scales", nargs="+", type=float, default=[0.125, 1.0, 8.0])
     args = parser.parse_args()
+    if args.profile_graph and not args.profile:
+        parser.error("--profile-graph requires --profile")
+    if not 0 <= args.component_event_calls <= 32:
+        parser.error("Use 0..32 component event calls")
+    if not 0 <= args.component_graph_replays <= 10000:
+        parser.error("Use 0..10000 component graph replays")
     if args.finisher == "flydsl" and args.backend != "hip":
         parser.error("The FlyDSL finisher requires the HIP mHC backend")
     if args.gate == "flydsl" and (args.backend, args.finisher) != ("hip", "flydsl"):
@@ -70,6 +233,14 @@ def main():
     if args.fuse_finish_head and args.gate != "flydsl":
         parser.error("Fused finish/head requires the native FlyDSL gate")
     os.environ["RAON_ROCM_MHC_FUSE_FINISH_HEAD"] = str(int(args.fuse_finish_head))
+    if args.project_head_hip and not args.fuse_finish_head:
+        parser.error("HIP project/head comparison requires --fuse-finish-head")
+    if args.project_head_hip and (
+        args.component_event_calls or args.component_graph_replays
+    ):
+        parser.error("Separate-stage diagnostics do not apply to a fused project/head")
+    project_head_backend = "hip_single_cta" if args.project_head_hip else "legacy"
+    os.environ["RAON_ROCM_MHC_PROJECT_HEAD"] = project_head_backend
     os.environ["RAON_BATCH_INVARIANT"] = args.batch_invariant
 
     def branch_fn(value):
@@ -86,6 +257,7 @@ def main():
         result["finisher"] = args.finisher
         result["gate"] = args.gate
         result["fuse_finish_head"] = args.fuse_finish_head
+        result["project_head_hip"] = args.project_head_hip
         result["branch"] = args.branch
         result["batch_invariant"] = args.batch_invariant
         result["gate_source"] = provenance(rocm_mhc_gate.forward)
@@ -143,10 +315,14 @@ def main():
                             fusion_checks = {}
                             if args.fuse_finish_head:
                                 os.environ["RAON_ROCM_MHC_FUSE_FINISH_HEAD"] = "0"
+                                os.environ["RAON_ROCM_MHC_PROJECT_HEAD"] = "legacy"
                                 try:
                                     unfused_native = site(s, branch_fn)
                                 finally:
                                     os.environ["RAON_ROCM_MHC_FUSE_FINISH_HEAD"] = "1"
+                                    os.environ["RAON_ROCM_MHC_PROJECT_HEAD"] = (
+                                        project_head_backend
+                                    )
                                 fusion_checks = dict(
                                     finish_head_vs_unfused_native=error(
                                         actual, unfused_native
@@ -292,9 +468,17 @@ def main():
                         backends = ["legacy", "flydsl"]
                         if args.fuse_finish_head:
                             backends.append("flydsl_finish_head")
+                        if args.project_head_hip:
+                            backends.append("hip_project_head")
                         for backend in backends:
                             fused = backend == "flydsl_finish_head"
-                            rocm_mhc_gate._BACKEND = "flydsl" if fused else backend
+                            prototype = backend == "hip_project_head"
+                            rocm_mhc_gate._BACKEND = (
+                                "flydsl" if fused or prototype else backend
+                            )
+                            os.environ["RAON_ROCM_MHC_PROJECT_HEAD"] = (
+                                "hip_single_cta" if prototype else "legacy"
+                            )
                             os.environ["RAON_ROCM_MHC_FUSE_FINISH_HEAD"] = str(
                                 int(fused)
                             )
@@ -323,6 +507,7 @@ def main():
                         os.environ["RAON_ROCM_MHC_FUSE_FINISH_HEAD"] = str(
                             int(args.fuse_finish_head)
                         )
+                        os.environ["RAON_ROCM_MHC_PROJECT_HEAD"] = project_head_backend
                     record["speedup"] = (
                         record["legacy_graph_us"] / record["flydsl_graph_us"]
                     )
@@ -331,15 +516,68 @@ def main():
                             record["flydsl_graph_us"]
                             / record["flydsl_finish_head_graph_us"]
                         )
+                    if args.project_head_hip:
+                        record["project_head_speedup"] = (
+                            record["flydsl_finish_head_graph_us"]
+                            / record["hip_project_head_graph_us"]
+                        )
                     result["timing"].append(record)
+        if result["status"] == "PASS" and args.component_graph_replays:
+            if args.gate != "flydsl" or not args.fuse_finish_head:
+                raise ValueError("Stage graphs require the native fused finish/head")
+            result["component_graphs"] = component_graphs(
+                site, s, branch_fn, args.component_graph_replays
+            )
+        if result["status"] == "PASS" and args.component_event_calls:
+            if args.gate != "flydsl":
+                raise ValueError("Component events require the native FlyDSL gate")
+            result["component_events"] = component_events(
+                site, s, branch_fn, args.component_event_calls
+            )
+        if result["status"] == "PASS" and args.external_graph_replay:
+            if args.profile:
+                raise ValueError("External collection cannot nest the Torch profiler")
+            site(s, branch_fn)
+            external_graph = torch.cuda.CUDAGraph()
+            with torch.cuda.graph(external_graph):
+                site(s, branch_fn)
+            for _ in range(10):
+                external_graph.replay()
+            torch.accelerator.synchronize()
+            print("RAON_MHC_EXTERNAL_GRAPH_REPLAY_BEGIN", flush=True)
+            external_graph.replay()
+            torch.accelerator.synchronize()
+            print("RAON_MHC_EXTERNAL_GRAPH_REPLAY_END", flush=True)
+            result["external_graph_replay"] = dict(
+                rows=s.shape[0], branch=args.branch, warmup_replays=10
+            )
         if result["status"] == "PASS" and args.profile:
+            profile_graph = None
+            if args.profile_graph:
+                site(s, branch_fn)
+                profile_graph = torch.cuda.CUDAGraph()
+                with torch.cuda.graph(profile_graph):
+                    site(s, branch_fn)
+                for _ in range(10):
+                    profile_graph.replay()
+                torch.accelerator.synchronize()
+            result["profile_scope"] = (
+                "One warmed captured mHC block replay; profiler-instrumented"
+                if profile_graph is not None
+                else "One direct mHC block call; profiler-instrumented, not graph"
+            )
+            result["profile_rows"] = s.shape[0]
+            result["profile_branch"] = args.branch
             with torch.profiler.profile(
                 activities=[
                     torch.profiler.ProfilerActivity.CPU,
                     torch.profiler.ProfilerActivity.CUDA,
                 ]
             ) as p:
-                site(s, branch_fn)
+                if profile_graph is None:
+                    site(s, branch_fn)
+                else:
+                    profile_graph.replay()
                 torch.accelerator.synchronize()
             p.export_chrome_trace(args.profile)
     except Exception:

@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "date": "2026-11-27",
+  "job": "89711",
+  "node": "TheraC80",
+  "gpu_index": 7,
+  "verdict": "REJECTED_PERFORMANCE",
+  "gold_status": "PASS",
+  "environment": {
+    "torch": "2.14.0+rocm10.2.0",
+    "hip": "7.17.26434",
+    "gpu": "AMD Instinct MI355X",
+    "architecture": "gfx950:sramecc+:xnack-",
+    "visible_devices": "7",
+    "job": "89711",
+    "python": "/opt/raon/.venv/bin/python",
+    "pythonpath": "/work:/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+    "platform": "RocmPlatform"
+  },
+  "opt_in": "RAON_ROCM_MHC_PROJECT_HEAD=hip_single_cta",
+  "default": "legacy",
+  "compiled_module": "11dcd38253488c9b9f46",
+  "hip_source_sha256": "1c8f3e625b7a27d2a169493fc468930c41fe4feb7023a6a83fe0561c31ab7768",
+  "build_method": "Direct hipcc, no hipify, gfx950, -ffp-contract=off",
+  "backend": "One CTA/token; scalar FP32 reductions, no MFMA; FlyDSL mix unchanged",
+  "model_layers": [
+    0,
+    12,
+    24
+  ],
+  "sites": [
+    "self_attn",
+    "mlp"
+  ],
+  "rows": [
+    1,
+    8,
+    32
+  ],
+  "scales": [
+    0.125,
+    1,
+    8
+  ],
+  "branch": "Synthetic BF16 affine; no attention or MoE",
+  "gold_cases": 54,
+  "refit_cases": 6,
+  "exact_native_comparison": 25,
+  "batch_invariant_cases": 54,
+  "timing": [
+    {
+      "rows": 1,
+      "replays": 500,
+      "legacy_graph_us": 21.279190063476562,
+      "flydsl_graph_us": 15.784272193908691,
+      "flydsl_finish_head_graph_us": 14.194343566894531,
+      "hip_project_head_graph_us": 45.589534759521484,
+      "speedup": 1.3481261474753594,
+      "finish_head_speedup": 1.1120114233899727,
+      "project_head_speedup": 0.3113509194986906
+    },
+    {
+      "rows": 8,
+      "replays": 500,
+      "legacy_graph_us": 25.557788848876953,
+      "flydsl_graph_us": 16.189477920532227,
+      "flydsl_finish_head_graph_us": 15.073466300964355,
+      "hip_project_head_graph_us": 46.11432647705078,
+      "speedup": 1.5786666484447538,
+      "finish_head_speedup": 1.0740381540174653,
+      "project_head_speedup": 0.32687165686927694
+    },
+    {
+      "rows": 32,
+      "replays": 500,
+      "legacy_graph_us": 28.099157333374023,
+      "flydsl_graph_us": 16.402915954589844,
+      "flydsl_finish_head_graph_us": 15.55778980255127,
+      "hip_project_head_graph_us": 46.32032775878906,
+      "speedup": 1.7130586665910064,
+      "finish_head_speedup": 1.0543217361054709,
+      "project_head_speedup": 0.33587391444136
+    }
+  ],
+  "timing_scope": "One captured mHC block, last selected layer's MLP site; warmup/compilation excluded, GPU event time, not serving TPS",
+  "warmup_direct": 3,
+  "warmup_replays": 10,
+  "replays": 500,
+  "windows_per_condition": 1,
+  "gpu_kernels": [
+    {
+      "name": "(anonymous namespace)::mhc_project_head_single_cta(__hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, float const*, float const*, float const*, float const*, __hip_bfloat16*, float*) [clone .kd]",
+      "duration_us": 43.199
+    },
+    {
+      "name": "void at::native::vectorized_elementwise_kernel<8, at::native::AUnaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul> >(int, at::native::AUnaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul>) [clone .kd]",
+      "duration_us": 2.919
+    },
+    {
+      "name": "void at::native::vectorized_elementwise_kernel<8, at::native::CUDAFunctorOnSelf_add<c10::BFloat16>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<c10::BFloat16>, std::array<char*, 2ul>) [clone .kd]",
+      "duration_us": 2.639
+    },
+    {
+      "name": "mix_0.kd",
+      "duration_us": 4.279
+    }
+  ],
+  "raw_root": "/mnt/hammerspace/jackhan/raon-native-mixed-20261127/mhc",
+  "final_archive_sha256": "909555671fa91863a415b43e66b8dd62472d925bb28445ed6ef695bca95198fd",
+  "raw_gold_sha256": "a2a5aa5a3f096f44903438d293856136003311cb00c8a42f42650b256f681fd4",
+  "raw_profile_sha256": "a0321eb2304ba9bb27d2a9b25dc20dddd1900cb67f478b7c2424b49579b81a81",
+  "notes": [
+    "Native GPU kernel witness: mhc_project_head_single_cta.",
+    "16 sequential K=640 segment reductions preserve a fixed cross-batch schedule, not AITER MFMA accumulation identity.",
+    "BF16 score seam and FMA aggregate preserved; Torch gold tolerances unchanged.",
+    "25/54 outputs exactly match unfused native; all checks pass declared BF16 tolerance.",
+    "Single CTA low parallelism and loss of MFMA are plausible causes, not counter-proven attribution.",
+    "No default change or model benchmark; this candidate is not a recommended optimization."
+  ]
+}

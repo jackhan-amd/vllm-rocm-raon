@@ -12,6 +12,9 @@ original reduction order and the BF16 score rounding boundary. This removes
 the separate FlyDSL finish launch and its compact score/mean intermediates.
 The branch still separates head/aggregate from residual mix; no cross-branch
 fusion or elimination of mHC math is claimed.
+The [latency and next-fusion analysis](MHC-LATENCY-AND-NEXT-FUSION-20261127.md)
+separates direct-call profiler gaps from graph execution and explains the
+remaining project/head reduction boundary.
 
 ## What the CUDA names mean
 

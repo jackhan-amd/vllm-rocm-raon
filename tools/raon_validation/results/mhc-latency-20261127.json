@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "trace_sha256": "a93d3b07dac0988eaa83e291089bfc194810d8a5bdf6da53e605706c94555163",
+  "capture_kind": "direct",
+  "rows": 256,
+  "branch": "affine",
+  "graph_launch_count": 0,
+  "kernels": [
+    {
+      "stage": "project",
+      "name": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int) [clone .kd]",
+      "gpu_duration_us": 6.439,
+      "gap_before_us": 0
+    },
+    {
+      "stage": "head",
+      "name": "head_0.kd",
+      "gpu_duration_us": 4.759,
+      "gap_before_us": 68.12109375
+    },
+    {
+      "stage": "synthetic_affine_branch",
+      "name": "void at::native::vectorized_elementwise_kernel<8, at::native::AUnaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul> >(int, at::native::AUnaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul>) [clone .kd]",
+      "gpu_duration_us": 3.039,
+      "gap_before_us": 33.0810546875
+    },
+    {
+      "stage": "synthetic_affine_branch",
+      "name": "void at::native::vectorized_elementwise_kernel<8, at::native::CUDAFunctorOnSelf_add<c10::BFloat16>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<c10::BFloat16>, std::array<char*, 2ul>) [clone .kd]",
+      "gpu_duration_us": 2.959,
+      "gap_before_us": 42.201171875
+    },
+    {
+      "stage": "mix",
+      "name": "mix_0.kd",
+      "gpu_duration_us": 3.959,
+      "gap_before_us": 27.7607421875
+    }
+  ],
+  "gpu_duration_sum_us": 21.155,
+  "gpu_first_to_last_span_us": 192.3193359375,
+  "gap_sum_us": 171.1640625,
+  "caveats": [
+    "Profiler-instrumented durations are not unprofiled event timings.",
+    "GPU intervals alone do not distinguish queue launch latency from work.",
+    "Direct-call CPU gaps cannot be attributed to captured graph replay.",
+    "An affine branch is not real attention or MoE serving work.",
+    "No bandwidth/occupancy/roofline conclusion without hardware counters."
+  ]
+}

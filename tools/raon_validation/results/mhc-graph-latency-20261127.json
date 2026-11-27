@@ -1,0 +1,541 @@
+{
+  "schema": 1,
+  "date": "2026-11-27",
+  "job": "89711",
+  "node": "TheraC80",
+  "gpu_index": 7,
+  "environment": {
+    "torch": "2.14.0+rocm10.2.0",
+    "hip": "7.17.26434",
+    "gpu": "AMD Instinct MI355X",
+    "architecture": "gfx950:sramecc+:xnack-",
+    "visible_devices": "7",
+    "job": "89711",
+    "python": "/opt/raon/.venv/bin/python",
+    "pythonpath": "/work:/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+    "platform": "RocmPlatform"
+  },
+  "native_source": {
+    "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc.py",
+    "sha256": "ad2b8aae3146c231f668e493757c608f908c53a50d3199c32f80caec8464accb"
+  },
+  "gate_source": {
+    "file": "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc_gate.py",
+    "sha256": "f3ac3d13c4744aeb2cab38f5d6c8d9fff6aae95b913bb371a72ae1fb2f43b4a3"
+  },
+  "model_layer": 24,
+  "sites": [
+    "self_attn",
+    "mlp"
+  ],
+  "scale": 1,
+  "branch": "synthetic BF16 affine; not attention or MoE",
+  "raw_root": "/mnt/hammerspace/jackhan/raon-native-mixed-20261127/mhc",
+  "torch_graph_profiler": {
+    "graph_launch_seen": true,
+    "gpu_kernel_events": 0,
+    "verdict": "UNSUPPORTED: no kernel latency conclusion"
+  },
+  "methods": [
+    {
+      "rows": 1,
+      "native_collector_gold_cases": 2,
+      "native_collector_refit_cases": 2,
+      "native_graph": {
+        "schema": 1,
+        "trace_sha256": "00dc50997f5f566de777d236f01decdb5021a539a58301e980607082c7c5a8f5",
+        "capture_kind": "graph",
+        "native_graph_evidence": {
+          "graph_exec_id": 5,
+          "launch_correlation_id": 29230,
+          "kernel_dispatch_count": 5,
+          "graph_node_ids": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "launch_cpu_duration_us": 5.689,
+          "first_gpu_start_after_launch_begin_us": 9.261
+        },
+        "rows": 1,
+        "branch": "affine",
+        "graph_launch_count": 1,
+        "kernels": [
+          {
+            "stage": "project",
+            "name": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int) [clone .kd]",
+            "gpu_duration_us": 5.6,
+            "gap_before_us": 0
+          },
+          {
+            "stage": "head",
+            "name": "head_0.kd",
+            "gpu_duration_us": 4.64,
+            "gap_before_us": 1.7763568394002505e-15
+          },
+          {
+            "stage": "synthetic_affine_branch",
+            "name": "void at::native::vectorized_elementwise_kernel<8, at::native::AUnaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul> >(int, at::native::AUnaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul>) [clone .kd]",
+            "gpu_duration_us": 4.48,
+            "gap_before_us": 0.0
+          },
+          {
+            "stage": "synthetic_affine_branch",
+            "name": "void at::native::vectorized_elementwise_kernel<8, at::native::CUDAFunctorOnSelf_add<c10::BFloat16>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<c10::BFloat16>, std::array<char*, 2ul>) [clone .kd]",
+            "gpu_duration_us": 4.68,
+            "gap_before_us": 0.0
+          },
+          {
+            "stage": "mix",
+            "name": "mix_0.kd",
+            "gpu_duration_us": 4.04,
+            "gap_before_us": 0.0
+          }
+        ],
+        "gpu_duration_sum_us": 23.439999999999998,
+        "gpu_first_to_last_span_us": 23.44,
+        "gap_sum_us": 1.7763568394002505e-15,
+        "caveats": [
+          "Profiler-instrumented durations are not unprofiled event timings.",
+          "GPU intervals alone do not distinguish queue launch latency from work.",
+          "Direct-call CPU gaps cannot be attributed to captured graph replay.",
+          "An affine branch is not real attention or MoE serving work.",
+          "No bandwidth/occupancy/roofline conclusion without hardware counters."
+        ]
+      },
+      "separate_stage_graphs": {
+        "scope": "Separate hot-buffer stage graphs; includes device graph dispatch",
+        "caveat": "Stage graphs and sums are not a decomposition of a live model graph",
+        "rows": 1,
+        "calls_per_graph": 32,
+        "replays": 500,
+        "warmup_direct": 3,
+        "warmup_replays": 10,
+        "fixture_checks": {
+          "head_aggregate_exact": true,
+          "head_coefficients_exact": true,
+          "mix_output_exact": true
+        },
+        "stages": [
+          {
+            "stage": "project",
+            "us_per_call": 4.003382682800293
+          },
+          {
+            "stage": "head",
+            "us_per_call": 2.465564489364624
+          },
+          {
+            "stage": "mix",
+            "us_per_call": 2.3883237838745117
+          },
+          {
+            "stage": "whole_synthetic_block",
+            "us_per_call": 13.366287231445312
+          }
+        ]
+      },
+      "external_event_nodes": {
+        "scope": "External device-event intervals inside an instrumented block graph",
+        "caveat": "Intervals include marker/scheduling effects, not just kernel work",
+        "warmup_replays": 10,
+        "calls_per_graph": 8,
+        "samples": [
+          {
+            "project_us": 10.080000385642052,
+            "head_after_project_us": 8.87999963015318,
+            "synthetic_branch_us": 9.960000403225422,
+            "mix_after_branch_us": 9.080000221729279
+          },
+          {
+            "project_us": 10.320000350475311,
+            "head_after_project_us": 8.87999963015318,
+            "synthetic_branch_us": 9.759999811649323,
+            "mix_after_branch_us": 9.119999594986439
+          },
+          {
+            "project_us": 10.119999758899212,
+            "head_after_project_us": 8.87999963015318,
+            "synthetic_branch_us": 9.840999729931355,
+            "mix_after_branch_us": 8.999999612569809
+          },
+          {
+            "project_us": 10.160000063478947,
+            "head_after_project_us": 8.72000027447939,
+            "synthetic_branch_us": 9.720000438392162,
+            "mix_after_branch_us": 8.919999934732914
+          },
+          {
+            "project_us": 10.239999741315842,
+            "head_after_project_us": 8.799999952316284,
+            "synthetic_branch_us": 9.759999811649323,
+            "mix_after_branch_us": 8.919999934732914
+          },
+          {
+            "project_us": 10.359999723732471,
+            "head_after_project_us": 8.840000256896019,
+            "synthetic_branch_us": 9.920000098645687,
+            "mix_after_branch_us": 9.119999594986439
+          },
+          {
+            "project_us": 10.119999758899212,
+            "head_after_project_us": 8.801000192761421,
+            "synthetic_branch_us": 9.840000420808792,
+            "mix_after_branch_us": 9.039999917149544
+          },
+          {
+            "project_us": 10.080000385642052,
+            "head_after_project_us": 8.72000027447939,
+            "synthetic_branch_us": 9.840000420808792,
+            "mix_after_branch_us": 8.960000239312649
+          }
+        ],
+        "mean_us": {
+          "project_us": 10.185000021010637,
+          "head_after_project_us": 8.815124980174005,
+          "synthetic_branch_us": 9.830125141888857,
+          "mix_after_branch_us": 9.019999881274998
+        }
+      }
+    },
+    {
+      "rows": 32,
+      "native_collector_gold_cases": 2,
+      "native_collector_refit_cases": 2,
+      "native_graph": {
+        "schema": 1,
+        "trace_sha256": "1956946d05f04e8f4edbc41403d6af6f9dc42fa28246f01a7303ede8e54e9c7b",
+        "capture_kind": "graph",
+        "native_graph_evidence": {
+          "graph_exec_id": 5,
+          "launch_correlation_id": 29574,
+          "kernel_dispatch_count": 5,
+          "graph_node_ids": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "launch_cpu_duration_us": 5.04,
+          "first_gpu_start_after_launch_begin_us": 8.756
+        },
+        "rows": 32,
+        "branch": "affine",
+        "graph_launch_count": 1,
+        "kernels": [
+          {
+            "stage": "project",
+            "name": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int) [clone .kd]",
+            "gpu_duration_us": 5.521,
+            "gap_before_us": 0
+          },
+          {
+            "stage": "head",
+            "name": "head_0.kd",
+            "gpu_duration_us": 4.76,
+            "gap_before_us": 0
+          },
+          {
+            "stage": "synthetic_affine_branch",
+            "name": "void at::native::vectorized_elementwise_kernel<8, at::native::AUnaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul> >(int, at::native::AUnaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul>) [clone .kd]",
+            "gpu_duration_us": 4.68,
+            "gap_before_us": 0.0
+          },
+          {
+            "stage": "synthetic_affine_branch",
+            "name": "void at::native::vectorized_elementwise_kernel<8, at::native::CUDAFunctorOnSelf_add<c10::BFloat16>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<c10::BFloat16>, std::array<char*, 2ul>) [clone .kd]",
+            "gpu_duration_us": 4.6,
+            "gap_before_us": 0.0
+          },
+          {
+            "stage": "mix",
+            "name": "mix_0.kd",
+            "gpu_duration_us": 4.08,
+            "gap_before_us": 0.0
+          }
+        ],
+        "gpu_duration_sum_us": 23.641,
+        "gpu_first_to_last_span_us": 23.641,
+        "gap_sum_us": 0.0,
+        "caveats": [
+          "Profiler-instrumented durations are not unprofiled event timings.",
+          "GPU intervals alone do not distinguish queue launch latency from work.",
+          "Direct-call CPU gaps cannot be attributed to captured graph replay.",
+          "An affine branch is not real attention or MoE serving work.",
+          "No bandwidth/occupancy/roofline conclusion without hardware counters."
+        ]
+      },
+      "separate_stage_graphs": {
+        "scope": "Separate hot-buffer stage graphs; includes device graph dispatch",
+        "caveat": "Stage graphs and sums are not a decomposition of a live model graph",
+        "rows": 8,
+        "calls_per_graph": 32,
+        "replays": 500,
+        "warmup_direct": 3,
+        "warmup_replays": 10,
+        "fixture_checks": {
+          "head_aggregate_exact": true,
+          "head_coefficients_exact": true,
+          "mix_output_exact": true
+        },
+        "stages": [
+          {
+            "stage": "project",
+            "us_per_call": 4.02339506149292
+          },
+          {
+            "stage": "head",
+            "us_per_call": 2.7950916290283203
+          },
+          {
+            "stage": "mix",
+            "us_per_call": 2.4143240451812744
+          },
+          {
+            "stage": "whole_synthetic_block",
+            "us_per_call": 14.242136001586914
+          }
+        ]
+      },
+      "external_event_nodes": {
+        "scope": "External device-event intervals inside an instrumented block graph",
+        "caveat": "Intervals include marker/scheduling effects, not just kernel work",
+        "warmup_replays": 10,
+        "calls_per_graph": 8,
+        "samples": [
+          {
+            "project_us": 10.200000368058681,
+            "head_after_project_us": 9.639999829232693,
+            "synthetic_branch_us": 9.920000098645687,
+            "mix_after_branch_us": 9.200000204145908
+          },
+          {
+            "project_us": 10.239999741315842,
+            "head_after_project_us": 9.64100006967783,
+            "synthetic_branch_us": 9.960000403225422,
+            "mix_after_branch_us": 8.919999934732914
+          },
+          {
+            "project_us": 10.080000385642052,
+            "head_after_project_us": 9.680000133812428,
+            "synthetic_branch_us": 9.960000403225422,
+            "mix_after_branch_us": 8.960000239312649
+          },
+          {
+            "project_us": 10.040000081062317,
+            "head_after_project_us": 9.560000151395798,
+            "synthetic_branch_us": 9.999999776482582,
+            "mix_after_branch_us": 8.999999612569809
+          },
+          {
+            "project_us": 10.119999758899212,
+            "head_after_project_us": 9.680000133812428,
+            "synthetic_branch_us": 9.960000403225422,
+            "mix_after_branch_us": 9.080999530851841
+          },
+          {
+            "project_us": 10.280000045895576,
+            "head_after_project_us": 9.720000438392162,
+            "synthetic_branch_us": 10.080000385642052,
+            "mix_after_branch_us": 9.320000186562538
+          },
+          {
+            "project_us": 10.160000063478947,
+            "head_after_project_us": 9.920000098645687,
+            "synthetic_branch_us": 9.920000098645687,
+            "mix_after_branch_us": 9.080000221729279
+          },
+          {
+            "project_us": 10.83999965339899,
+            "head_after_project_us": 9.519999846816063,
+            "synthetic_branch_us": 10.080000385642052,
+            "mix_after_branch_us": 9.039999917149544
+          }
+        ],
+        "mean_us": {
+          "project_us": 10.245000012218952,
+          "head_after_project_us": 9.670125087723136,
+          "synthetic_branch_us": 9.98500024434179,
+          "mix_after_branch_us": 9.07512498088181
+        }
+      }
+    },
+    {
+      "rows": 256,
+      "native_collector_gold_cases": 2,
+      "native_collector_refit_cases": 2,
+      "native_graph": {
+        "schema": 1,
+        "trace_sha256": "49c141471446fdf7d38b81cfa30ccd494c8bbee5ab9987587ceed5ad245ad0c7",
+        "capture_kind": "graph",
+        "native_graph_evidence": {
+          "graph_exec_id": 5,
+          "launch_correlation_id": 29741,
+          "kernel_dispatch_count": 5,
+          "graph_node_ids": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "launch_cpu_duration_us": 12.75,
+          "first_gpu_start_after_launch_begin_us": 16.556
+        },
+        "rows": 256,
+        "branch": "affine",
+        "graph_launch_count": 1,
+        "kernels": [
+          {
+            "stage": "project",
+            "name": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int) [clone .kd]",
+            "gpu_duration_us": 5.68,
+            "gap_before_us": 0
+          },
+          {
+            "stage": "head",
+            "name": "head_0.kd",
+            "gpu_duration_us": 4.64,
+            "gap_before_us": 0.0
+          },
+          {
+            "stage": "synthetic_affine_branch",
+            "name": "void at::native::vectorized_elementwise_kernel<8, at::native::AUnaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul> >(int, at::native::AUnaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 2ul>) [clone .kd]",
+            "gpu_duration_us": 4.68,
+            "gap_before_us": 0.0
+          },
+          {
+            "stage": "synthetic_affine_branch",
+            "name": "void at::native::vectorized_elementwise_kernel<8, at::native::CUDAFunctorOnSelf_add<c10::BFloat16>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<c10::BFloat16>, std::array<char*, 2ul>) [clone .kd]",
+            "gpu_duration_us": 4.68,
+            "gap_before_us": 0.0
+          },
+          {
+            "stage": "mix",
+            "name": "mix_0.kd",
+            "gpu_duration_us": 4.08,
+            "gap_before_us": 0
+          }
+        ],
+        "gpu_duration_sum_us": 23.759999999999998,
+        "gpu_first_to_last_span_us": 23.759999999999994,
+        "gap_sum_us": 0.0,
+        "caveats": [
+          "Profiler-instrumented durations are not unprofiled event timings.",
+          "GPU intervals alone do not distinguish queue launch latency from work.",
+          "Direct-call CPU gaps cannot be attributed to captured graph replay.",
+          "An affine branch is not real attention or MoE serving work.",
+          "No bandwidth/occupancy/roofline conclusion without hardware counters."
+        ]
+      },
+      "separate_stage_graphs": {
+        "scope": "Separate hot-buffer stage graphs; includes device graph dispatch",
+        "caveat": "Stage graphs and sums are not a decomposition of a live model graph",
+        "rows": 8,
+        "calls_per_graph": 32,
+        "replays": 500,
+        "warmup_direct": 3,
+        "warmup_replays": 10,
+        "fixture_checks": {
+          "head_aggregate_exact": true,
+          "head_coefficients_exact": true,
+          "mix_output_exact": true
+        },
+        "stages": [
+          {
+            "stage": "project",
+            "us_per_call": 4.021203517913818
+          },
+          {
+            "stage": "head",
+            "us_per_call": 2.7827847003936768
+          },
+          {
+            "stage": "mix",
+            "us_per_call": 2.4231295585632324
+          },
+          {
+            "stage": "whole_synthetic_block",
+            "us_per_call": 14.060357093811035
+          }
+        ]
+      },
+      "external_event_nodes": {
+        "scope": "External device-event intervals inside an instrumented block graph",
+        "caveat": "Intervals include marker/scheduling effects, not just kernel work",
+        "warmup_replays": 10,
+        "calls_per_graph": 8,
+        "samples": [
+          {
+            "project_us": 10.160000063478947,
+            "head_after_project_us": 9.720000438392162,
+            "synthetic_branch_us": 9.999999776482582,
+            "mix_after_branch_us": 9.039999917149544
+          },
+          {
+            "project_us": 10.080000385642052,
+            "head_after_project_us": 9.800000116229057,
+            "synthetic_branch_us": 9.800000116229057,
+            "mix_after_branch_us": 8.999999612569809
+          },
+          {
+            "project_us": 10.160000063478947,
+            "head_after_project_us": 9.720999747514725,
+            "synthetic_branch_us": 9.879999794065952,
+            "mix_after_branch_us": 8.999999612569809
+          },
+          {
+            "project_us": 10.160000063478947,
+            "head_after_project_us": 9.440000168979168,
+            "synthetic_branch_us": 9.800000116229057,
+            "mix_after_branch_us": 8.999999612569809
+          },
+          {
+            "project_us": 10.119999758899212,
+            "head_after_project_us": 9.599999524652958,
+            "synthetic_branch_us": 9.800000116229057,
+            "mix_after_branch_us": 9.159999899566174
+          },
+          {
+            "project_us": 10.200000368058681,
+            "head_after_project_us": 9.759999811649323,
+            "synthetic_branch_us": 9.801000356674194,
+            "mix_after_branch_us": 9.080000221729279
+          },
+          {
+            "project_us": 9.999999776482582,
+            "head_after_project_us": 9.680000133812428,
+            "synthetic_branch_us": 9.840000420808792,
+            "mix_after_branch_us": 9.080000221729279
+          },
+          {
+            "project_us": 10.160000063478947,
+            "head_after_project_us": 9.599999524652958,
+            "synthetic_branch_us": 9.920000098645687,
+            "mix_after_branch_us": 9.039999917149544
+          }
+        ],
+        "mean_us": {
+          "project_us": 10.13000006787479,
+          "head_after_project_us": 9.665124933235347,
+          "synthetic_branch_us": 9.855125099420547,
+          "mix_after_branch_us": 9.049999876879156
+        }
+      }
+    }
+  ],
+  "notes": [
+    "No new kernel or default enabled.",
+    "Separate stage graphs use 32 calls and 500 replays in one timing window; fixed input buffers.",
+    "Head stage fixes native project partials only inside an isolated diagnostic process; coefficients/aggregate/mix checked exactly.",
+    "All separate-stage fixtures passed native output identity checks before timing.",
+    "Native collector joins final launch correlation ID and graph_exec_id to exactly five dispatches.",
+    "Recorded zero inter-node gaps do not imply zero device scheduling cost inside intervals.",
+    "Native collector and external event nodes inflate times relative to unprofiled graphs.",
+    "Do not compare historical one-call graph windows with 32-call stage windows as an optimization gain.",
+    "No full-model latency, bandwidth, roofline, or accuracy claim."
+  ]
+}
