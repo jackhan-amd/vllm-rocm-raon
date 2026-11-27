@@ -7,6 +7,9 @@ warmup evidence, profiler overhead and interpretation limits.
 The [RDA/mHC hardware-counter report](../../docker/raon/KERNEL-ROOFLINE-20261127.md)
 records native roofline results, diagnostic commands and reviewed fusion/tile
 candidates. Counter-profile durations are separate from graph replay timings.
+The [RDA native-port audit](../../docker/raon/RDA-NATIVE-PORT-AND-BUDGET-20261127.md)
+tracks full-model costs, mixed-batch native coverage and pending HIP port/gold
+acceptance work separately from the gate-only counter experiment.
 
 Run inside the pinned Raon ROCm environment with one visible GPU. Source
 `docker/raon/runtime-env.sh` before starting Python. Preserve the image's

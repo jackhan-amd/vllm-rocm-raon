@@ -1,0 +1,898 @@
+{
+  "source_audit": {
+    "status": "SOURCE_AUDIT_ONLY",
+    "upstream_ref": "7dcdc8a35f1d76a03fa74af6c022ff6be0ef3bf0",
+    "files": [
+      {
+        "path": "vllm/models/raon1_mini/kda_sgl_fused_kernel.cu",
+        "sha256": "eb92d01a03c0ad6810fbfc83be736c48e71aa3fdbcdcf1671b7289fdbd051683",
+        "bytes": 48975
+      },
+      {
+        "path": "vllm/models/raon1_mini/kda_sgl_fused_bf16_kernel.cu",
+        "sha256": "743a78a986cbe035556ef1ca80470cac87627b17973c645ebf606488fb8b3295",
+        "bytes": 49989
+      },
+      {
+        "path": "vllm/models/raon1_mini/kda_sgl_fused_spec_kernel.cu",
+        "sha256": "3d62d9082e35102eb37318b32e7ba16cfc970509afb8046e0dc71f8d1a31e186",
+        "bytes": 25586
+      },
+      {
+        "path": "vllm/models/raon1_mini/kda_sgl_fused.py",
+        "sha256": "3a3f3b352284caa9fd0246ac79b46f499352a23fb51a9aa0201ec42d812a8222",
+        "bytes": 13205
+      },
+      {
+        "path": "vllm/models/raon1_mini/kda_sgl_fused_spec.py",
+        "sha256": "5361d103b629bb03919923c3644c6e6d868d7a46a0f8ad8c763c4525a79dce91",
+        "bytes": 10904
+      },
+      {
+        "path": "vllm/models/kimi_k3/amd/ops/kda_decode.py",
+        "sha256": "c8ea9c799983682eb7de89890961b730bf0f821aa80a46175b947d0c95ceb55d",
+        "bytes": 3484
+      },
+      {
+        "path": "csrc/libtorch_stable/kimi_k3/fused_kda_decode_kernel_rocm.cu",
+        "sha256": "001637dfaed9aa9019dcd0de0123901b995c66451dd18c9d862e3b932cc354d2",
+        "bytes": 32169
+      }
+    ],
+    "state_address_mapping": [
+      {
+        "schedule": "current_flydsl",
+        "per_float4_instruction_128B_segments": [
+          4,
+          4
+        ],
+        "note": "Address arithmetic only. Cache merging and actual HBM transactions are unmeasured."
+      },
+      {
+        "schedule": "kimi_hip",
+        "per_float4_instruction_128B_segments": [
+          2,
+          2
+        ],
+        "note": "Address arithmetic only. Cache merging and actual HBM transactions are unmeasured."
+      }
+    ],
+    "runtime_changes": false,
+    "gpu_allocation": false,
+    "pending": [
+      "HIP AR RDA derivative",
+      "HIP SD RDA derivative",
+      "mixed-batch native coverage",
+      "RDA core hardware counters",
+      "RDA gate fusion",
+      "mHC tile64/128 comparison",
+      "mHC finish-head fusion",
+      "MoE small-M expert-chain work"
+    ]
+  },
+  "graph_budget": {
+    "status": "PASS",
+    "scope": "Instrumented elapsed target FULL-graph partition, not unprofiled percentages. Branches include their input norm and projection work, exclude mHC wrappers. RDA kernel subsets are nested and must not be added to the branch budget. SD-on excludes fragmented steps (C1 2/64, C32 25/64).",
+    "cases": [
+      {
+        "sd": "off",
+        "c": 1,
+        "included_full_graphs": 64,
+        "graph_mean_ms": 6.02968675,
+        "additive_parts_ms": {
+          "prefix_suffix_inter_site_gap_ns": 0.02992175,
+          "rda_branch_ns": 2.1650238125,
+          "mhc_wrapper_ns": 1.003674671875,
+          "dense_mlp_branch_ns": 0.0704449375,
+          "moe_branch_ns": 2.06965121875,
+          "mla_branch_ns": 0.690970359375
+        },
+        "rda_kernel_subsets_ms": {
+          "input_norm": 0.094498859375,
+          "projections": 0.765953953125,
+          "ratio_gate": 0.600457828125,
+          "bf16_fills": 0.17475596875,
+          "index_and_other": 0.25732825,
+          "conv": 0.085615703125,
+          "recurrence": 0.09567640625,
+          "gated_norm": 0.090355828125
+        },
+        "additive_parts_percent": {
+          "prefix_suffix_inter_site_gap_ns": 0.49624053853212197,
+          "rda_branch_ns": 35.90607443247363,
+          "mhc_wrapper_ns": 16.645552472108108,
+          "dense_mlp_branch_ns": 1.1683017778659897,
+          "moe_branch_ns": 34.32435721059638,
+          "mla_branch_ns": 11.459473568423766
+        }
+      },
+      {
+        "sd": "off",
+        "c": 32,
+        "included_full_graphs": 64,
+        "graph_mean_ms": 9.558686828125,
+        "additive_parts_ms": {
+          "prefix_suffix_inter_site_gap_ns": 0.031844734375,
+          "rda_branch_ns": 2.9924955625,
+          "mhc_wrapper_ns": 1.02319284375,
+          "dense_mlp_branch_ns": 0.0720744375,
+          "moe_branch_ns": 4.67707628125,
+          "mla_branch_ns": 0.76200296875
+        },
+        "rda_kernel_subsets_ms": {
+          "input_norm": 0.0937201875,
+          "projections": 0.82160628125,
+          "index_and_other": 0.343463546875,
+          "ratio_gate": 0.605029921875,
+          "bf16_fills": 0.180715984375,
+          "conv": 0.091373578125,
+          "recurrence": 0.765711875,
+          "gated_norm": 0.090876359375
+        },
+        "additive_parts_percent": {
+          "prefix_suffix_inter_site_gap_ns": 0.33314967785430166,
+          "rda_branch_ns": 31.30655513992813,
+          "mhc_wrapper_ns": 10.704324371621935,
+          "dense_mlp_branch_ns": 0.7540202832875725,
+          "moe_branch_ns": 48.93011315621729,
+          "mla_branch_ns": 7.971837371090773
+        }
+      },
+      {
+        "sd": "on",
+        "c": 1,
+        "included_full_graphs": 62,
+        "graph_mean_ms": 7.412317274193549,
+        "additive_parts_ms": {
+          "prefix_suffix_inter_site_gap_ns": 0.057512161290322585,
+          "rda_branch_ns": 2.677969919354839,
+          "mhc_wrapper_ns": 1.0008935322580645,
+          "dense_mlp_branch_ns": 0.07144654838709677,
+          "moe_branch_ns": 2.7873713064516132,
+          "mla_branch_ns": 0.8171238064516129
+        },
+        "rda_kernel_subsets_ms": {
+          "input_norm": 0.09313487096774194,
+          "projections": 0.8169946612903225,
+          "index_and_other": 0.3537273387096774,
+          "ratio_gate": 0.5869943387096774,
+          "bf16_fills": 0.17521770967741937,
+          "conv": 0.08636409677419354,
+          "recurrence": 0.4728623064516129,
+          "gated_norm": 0.09259175806451614
+        },
+        "additive_parts_percent": {
+          "prefix_suffix_inter_site_gap_ns": 0.7758998861335147,
+          "rda_branch_ns": 36.12864668756639,
+          "mhc_wrapper_ns": 13.503112390274207,
+          "dense_mlp_branch_ns": 0.9638895064009531,
+          "moe_branch_ns": 37.6045871128051,
+          "mla_branch_ns": 11.02386441681984
+        }
+      },
+      {
+        "sd": "on",
+        "c": 32,
+        "included_full_graphs": 39,
+        "graph_mean_ms": 18.750631205128204,
+        "additive_parts_ms": {
+          "prefix_suffix_inter_site_gap_ns": 0.06393910256410257,
+          "rda_branch_ns": 8.209404307692308,
+          "mhc_wrapper_ns": 1.1614181794871794,
+          "dense_mlp_branch_ns": 0.09596284615384616,
+          "moe_branch_ns": 7.895310179487179,
+          "mla_branch_ns": 1.3245965897435898
+        },
+        "rda_kernel_subsets_ms": {
+          "input_norm": 0.09332489743589743,
+          "projections": 1.5927452051282052,
+          "index_and_other": 0.3523588205128205,
+          "ratio_gate": 0.6054094102564103,
+          "bf16_fills": 0.17977897435897436,
+          "conv": 0.1628864871794872,
+          "recurrence": 5.125899871794872,
+          "gated_norm": 0.09698858974358975
+        },
+        "additive_parts_percent": {
+          "prefix_suffix_inter_site_gap_ns": 0.34099706758999954,
+          "rda_branch_ns": 43.78201575127282,
+          "mhc_wrapper_ns": 6.19402177335522,
+          "dense_mlp_branch_ns": 0.5117846172965143,
+          "moe_branch_ns": 42.1069034589505,
+          "mla_branch_ns": 7.064277331534948
+        }
+      }
+    ]
+  },
+  "kernel_counts": [
+    {
+      "sd": "off",
+      "c": 1,
+      "kernels": [
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+          "calls": 2304,
+          "sum_ms": 10.693091,
+          "union_ms": 10.693091
+        },
+        {
+          "name": "recurrence_0",
+          "calls": 1152,
+          "sum_ms": 6.12329,
+          "union_ms": 6.12329
+        },
+        {
+          "name": "norm_0",
+          "calls": 1152,
+          "sum_ms": 5.782773,
+          "union_ms": 5.782773
+        },
+        {
+          "name": "update_kernel_0",
+          "calls": 1152,
+          "sum_ms": 5.479405,
+          "union_ms": 5.479405
+        },
+        {
+          "name": "_post_update_kernel",
+          "calls": 64,
+          "sum_ms": 0.316042,
+          "union_ms": 0.316042
+        }
+      ]
+    },
+    {
+      "sd": "off",
+      "c": 32,
+      "kernels": [
+        {
+          "name": "recurrence_0",
+          "calls": 1152,
+          "sum_ms": 49.00556,
+          "union_ms": 49.00556
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+          "calls": 2304,
+          "sum_ms": 10.717881,
+          "union_ms": 10.717881
+        },
+        {
+          "name": "update_kernel_0",
+          "calls": 1152,
+          "sum_ms": 5.847909,
+          "union_ms": 5.847909
+        },
+        {
+          "name": "norm_0",
+          "calls": 1152,
+          "sum_ms": 5.816087,
+          "union_ms": 5.816087
+        },
+        {
+          "name": "_post_update_kernel",
+          "calls": 64,
+          "sum_ms": 0.294721,
+          "union_ms": 0.294721
+        }
+      ]
+    },
+    {
+      "sd": "on",
+      "c": 1,
+      "kernels": [
+        {
+          "name": "recurrence_0",
+          "calls": 1116,
+          "sum_ms": 29.317463,
+          "union_ms": 29.317463
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+          "calls": 2304,
+          "sum_ms": 10.432151,
+          "union_ms": 10.432151
+        },
+        {
+          "name": "_dflash2_grouped_conv_kernel",
+          "calls": 1280,
+          "sum_ms": 6.403014,
+          "union_ms": 6.403014
+        },
+        {
+          "name": "norm_0",
+          "calls": 1116,
+          "sum_ms": 5.740689,
+          "union_ms": 5.740689
+        },
+        {
+          "name": "update_kernel_0",
+          "calls": 1116,
+          "sum_ms": 5.354574,
+          "union_ms": 5.354574
+        },
+        {
+          "name": "void (anonymous namespace)::kda_chunk_prologue<1024, false>((anonymous namespace)::PrologueParams)",
+          "calls": 36,
+          "sum_ms": 0.743288,
+          "union_ms": 0.743288
+        },
+        {
+          "name": "_causal_conv1d_fwd_kernel",
+          "calls": 108,
+          "sum_ms": 0.608448,
+          "union_ms": 0.608448
+        },
+        {
+          "name": "_post_update_kernel",
+          "calls": 64,
+          "sum_ms": 0.315084,
+          "union_ms": 0.315084
+        },
+        {
+          "name": "void (anonymous namespace)::kda_chunk_fused<16, 2, true, true, 2>((anonymous namespace)::Params)",
+          "calls": 36,
+          "sum_ms": 0.27432,
+          "union_ms": 0.27432
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<8, at::native::ConvertToFloat8E4M3fnOp<c10::BFloat16>, std::array<char*, 2ul> >(int, at::native::ConvertToFloat8E4M3fnOp<c10::BFloat16>, std::array<char*, 2ul>)",
+          "calls": 42,
+          "sum_ms": 0.215001,
+          "union_ms": 0.215001
+        },
+        {
+          "name": "layer_norm_gated_fwd_kernel",
+          "calls": 36,
+          "sum_ms": 0.136882,
+          "union_ms": 0.136882
+        }
+      ]
+    },
+    {
+      "sd": "on",
+      "c": 32,
+      "kernels": [
+        {
+          "name": "recurrence_0",
+          "calls": 702,
+          "sum_ms": 199.910095,
+          "union_ms": 199.910095
+        },
+        {
+          "name": "fused_recurrent_kda_fwd_kernel",
+          "calls": 450,
+          "sum_ms": 58.239349,
+          "union_ms": 58.239349
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+          "calls": 2304,
+          "sum_ms": 10.642612,
+          "union_ms": 10.642612
+        },
+        {
+          "name": "void (anonymous namespace)::kda_chunk_prologue<1024, false>((anonymous namespace)::PrologueParams)",
+          "calls": 450,
+          "sum_ms": 9.624735,
+          "union_ms": 9.624735
+        },
+        {
+          "name": "_causal_conv1d_fwd_kernel",
+          "calls": 1350,
+          "sum_ms": 9.390683,
+          "union_ms": 9.390428
+        },
+        {
+          "name": "_dflash2_grouped_conv_kernel",
+          "calls": 1280,
+          "sum_ms": 6.611139,
+          "union_ms": 6.611139
+        },
+        {
+          "name": "update_kernel_0",
+          "calls": 702,
+          "sum_ms": 6.352573,
+          "union_ms": 6.352573
+        },
+        {
+          "name": "_causal_conv1d_update_kernel",
+          "calls": 450,
+          "sum_ms": 5.258478,
+          "union_ms": 5.258478
+        },
+        {
+          "name": "norm_0",
+          "calls": 702,
+          "sum_ms": 3.782555,
+          "union_ms": 3.782555
+        },
+        {
+          "name": "void (anonymous namespace)::kda_chunk_fused<16, 2, true, true, 2>((anonymous namespace)::Params)",
+          "calls": 360,
+          "sum_ms": 2.819905,
+          "union_ms": 2.819905
+        },
+        {
+          "name": "layer_norm_gated_fwd_kernel",
+          "calls": 450,
+          "sum_ms": 2.61014,
+          "union_ms": 2.61014
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<8, at::native::ConvertToFloat8E4M3fnOp<c10::BFloat16>, std::array<char*, 2ul> >(int, at::native::ConvertToFloat8E4M3fnOp<c10::BFloat16>, std::array<char*, 2ul>)",
+          "calls": 357,
+          "sum_ms": 1.895693,
+          "union_ms": 1.895693
+        },
+        {
+          "name": "void (anonymous namespace)::kda_chunk_fused<16, 4, true, true, 2>((anonymous namespace)::Params)",
+          "calls": 90,
+          "sum_ms": 0.863807,
+          "union_ms": 0.863807
+        },
+        {
+          "name": "_post_update_kernel",
+          "calls": 64,
+          "sum_ms": 0.454725,
+          "union_ms": 0.454725
+        }
+      ]
+    }
+  ],
+  "step_coverage": [
+    {
+      "sd": "on",
+      "c": 1,
+      "step_count": 64,
+      "unmatched": {},
+      "mixed_prefill_triton_steps": [],
+      "steps": {
+        "0": {
+          "native_recurrence": 18
+        },
+        "1": {
+          "native_recurrence": 18
+        },
+        "2": {
+          "native_recurrence": 18
+        },
+        "3": {
+          "native_recurrence": 18
+        },
+        "4": {
+          "native_recurrence": 18
+        },
+        "5": {
+          "native_recurrence": 18
+        },
+        "6": {
+          "native_recurrence": 18
+        },
+        "7": {
+          "native_recurrence": 18
+        },
+        "8": {
+          "native_recurrence": 18
+        },
+        "9": {
+          "native_recurrence": 18
+        },
+        "10": {
+          "native_recurrence": 18
+        },
+        "11": {
+          "native_recurrence": 18
+        },
+        "12": {
+          "native_recurrence": 18
+        },
+        "13": {
+          "native_recurrence": 18
+        },
+        "14": {
+          "native_recurrence": 18
+        },
+        "15": {
+          "native_recurrence": 18
+        },
+        "16": {
+          "native_recurrence": 18
+        },
+        "17": {
+          "native_recurrence": 18
+        },
+        "18": {
+          "native_recurrence": 18
+        },
+        "19": {
+          "native_recurrence": 18
+        },
+        "20": {
+          "native_recurrence": 18
+        },
+        "21": {
+          "native_recurrence": 18
+        },
+        "22": {
+          "native_recurrence": 18
+        },
+        "23": {
+          "native_recurrence": 18
+        },
+        "24": {
+          "native_recurrence": 18
+        },
+        "25": {
+          "native_recurrence": 18
+        },
+        "26": {
+          "native_recurrence": 18
+        },
+        "27": {
+          "hip_prefill_prologue": 18
+        },
+        "28": {
+          "native_recurrence": 18
+        },
+        "29": {
+          "native_recurrence": 18
+        },
+        "30": {
+          "native_recurrence": 18
+        },
+        "31": {
+          "native_recurrence": 18
+        },
+        "32": {
+          "native_recurrence": 18
+        },
+        "33": {
+          "native_recurrence": 18
+        },
+        "34": {
+          "native_recurrence": 18
+        },
+        "35": {
+          "native_recurrence": 18
+        },
+        "36": {
+          "native_recurrence": 18
+        },
+        "37": {
+          "native_recurrence": 18
+        },
+        "38": {
+          "native_recurrence": 18
+        },
+        "39": {
+          "native_recurrence": 18
+        },
+        "40": {
+          "native_recurrence": 18
+        },
+        "41": {
+          "native_recurrence": 18
+        },
+        "42": {
+          "native_recurrence": 18
+        },
+        "43": {
+          "native_recurrence": 18
+        },
+        "44": {
+          "native_recurrence": 18
+        },
+        "45": {
+          "native_recurrence": 18
+        },
+        "46": {
+          "native_recurrence": 18
+        },
+        "47": {
+          "native_recurrence": 18
+        },
+        "48": {
+          "hip_prefill_prologue": 18
+        },
+        "49": {
+          "native_recurrence": 18
+        },
+        "50": {
+          "native_recurrence": 18
+        },
+        "51": {
+          "native_recurrence": 18
+        },
+        "52": {
+          "native_recurrence": 18
+        },
+        "53": {
+          "native_recurrence": 18
+        },
+        "54": {
+          "native_recurrence": 18
+        },
+        "55": {
+          "native_recurrence": 18
+        },
+        "56": {
+          "native_recurrence": 18
+        },
+        "57": {
+          "native_recurrence": 18
+        },
+        "58": {
+          "native_recurrence": 18
+        },
+        "59": {
+          "native_recurrence": 18
+        },
+        "60": {
+          "native_recurrence": 18
+        },
+        "61": {
+          "native_recurrence": 18
+        },
+        "62": {
+          "native_recurrence": 18
+        },
+        "63": {
+          "native_recurrence": 18
+        }
+      }
+    },
+    {
+      "sd": "on",
+      "c": 32,
+      "step_count": 64,
+      "unmatched": {},
+      "mixed_prefill_triton_steps": [
+        14,
+        17,
+        19,
+        21,
+        23,
+        24,
+        26,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        38,
+        40,
+        43,
+        44,
+        51,
+        53,
+        54,
+        55,
+        57,
+        58,
+        59,
+        61
+      ],
+      "steps": {
+        "0": {
+          "native_recurrence": 18
+        },
+        "1": {
+          "native_recurrence": 18
+        },
+        "2": {
+          "native_recurrence": 18
+        },
+        "3": {
+          "native_recurrence": 18
+        },
+        "4": {
+          "native_recurrence": 18
+        },
+        "5": {
+          "native_recurrence": 18
+        },
+        "6": {
+          "native_recurrence": 18
+        },
+        "7": {
+          "native_recurrence": 18
+        },
+        "8": {
+          "native_recurrence": 18
+        },
+        "9": {
+          "native_recurrence": 18
+        },
+        "10": {
+          "native_recurrence": 18
+        },
+        "11": {
+          "native_recurrence": 18
+        },
+        "12": {
+          "native_recurrence": 18
+        },
+        "13": {
+          "native_recurrence": 18
+        },
+        "14": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "15": {
+          "native_recurrence": 18
+        },
+        "16": {
+          "native_recurrence": 18
+        },
+        "17": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "18": {
+          "native_recurrence": 18
+        },
+        "19": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "20": {
+          "native_recurrence": 18
+        },
+        "21": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "22": {
+          "native_recurrence": 18
+        },
+        "23": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "24": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "25": {
+          "native_recurrence": 18
+        },
+        "26": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "27": {
+          "native_recurrence": 18
+        },
+        "28": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "29": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "30": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "31": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "32": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "33": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "34": {
+          "native_recurrence": 18
+        },
+        "35": {
+          "native_recurrence": 18
+        },
+        "36": {
+          "native_recurrence": 18
+        },
+        "37": {
+          "native_recurrence": 18
+        },
+        "38": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "39": {
+          "native_recurrence": 18
+        },
+        "40": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "41": {
+          "native_recurrence": 18
+        },
+        "42": {
+          "native_recurrence": 18
+        },
+        "43": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "44": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "45": {
+          "native_recurrence": 18
+        },
+        "46": {
+          "native_recurrence": 18
+        },
+        "47": {
+          "native_recurrence": 18
+        },
+        "48": {
+          "native_recurrence": 18
+        },
+        "49": {
+          "native_recurrence": 18
+        },
+        "50": {
+          "native_recurrence": 18
+        },
+        "51": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "52": {
+          "native_recurrence": 18
+        },
+        "53": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "54": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "55": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "56": {
+          "native_recurrence": 18
+        },
+        "57": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "58": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "59": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "60": {
+          "native_recurrence": 18
+        },
+        "61": {
+          "triton_recurrence": 18,
+          "hip_prefill_prologue": 18
+        },
+        "62": {
+          "native_recurrence": 18
+        },
+        "63": {
+          "native_recurrence": 18
+        }
+      }
+    }
+  ]
+}

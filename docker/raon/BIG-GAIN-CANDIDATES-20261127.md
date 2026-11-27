@@ -5,6 +5,11 @@ The first target is a native **small-batch MoE schedule**, followed by the
 The new evidence does not support spending the next iteration primarily on
 projection dispatch, sampling, or additional N-tile sweeps.
 
+The [RDA native-port audit](RDA-NATIVE-PORT-AND-BUDGET-20261127.md) adds a complete
+graph budget, pinned CUDA AR/SD references, HIP port requirements and a measured
+mixed-batch native-coverage gap. The gate-only roofline must not be applied to
+the recurrence kernel. All earlier fusion/tile tasks remain pending.
+
 ## First iteration: executed results
 
 Slurm 89601 added opt-in native FlyDSL route packing plus BF16 probability
