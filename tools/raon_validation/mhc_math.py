@@ -44,6 +44,7 @@ def main():
     parser.add_argument("--backend", choices=["hip", "flydsl"], default="hip")
     parser.add_argument("--finisher", choices=["torch", "flydsl"], default="torch")
     parser.add_argument("--gate", choices=["legacy", "flydsl"], default="legacy")
+    parser.add_argument("--fuse-finish-head", action="store_true")
     parser.add_argument("--branch", choices=["identity", "affine"], default="identity")
     parser.add_argument("--batch-invariant", choices=["0", "1"], default="1")
     parser.add_argument("--profile", help="Optional GPU trace path, after gold passes")
@@ -66,6 +67,9 @@ def main():
     os.environ["RAON_ROCM_MHC_BACKEND"] = args.backend
     os.environ["RAON_ROCM_MHC_FINISHER"] = args.finisher
     os.environ["RAON_ROCM_MHC_GATE"] = args.gate
+    if args.fuse_finish_head and args.gate != "flydsl":
+        parser.error("Fused finish/head requires the native FlyDSL gate")
+    os.environ["RAON_ROCM_MHC_FUSE_FINISH_HEAD"] = str(int(args.fuse_finish_head))
     os.environ["RAON_BATCH_INVARIANT"] = args.batch_invariant
 
     def branch_fn(value):
@@ -81,6 +85,7 @@ def main():
         result["backend"] = args.backend
         result["finisher"] = args.finisher
         result["gate"] = args.gate
+        result["fuse_finish_head"] = args.fuse_finish_head
         result["branch"] = args.branch
         result["batch_invariant"] = args.batch_invariant
         result["gate_source"] = provenance(rocm_mhc_gate.forward)
@@ -135,6 +140,21 @@ def main():
                                 return branch_fn(value)
 
                             actual = site(s, branch)
+                            fusion_checks = {}
+                            if args.fuse_finish_head:
+                                os.environ["RAON_ROCM_MHC_FUSE_FINISH_HEAD"] = "0"
+                                try:
+                                    unfused_native = site(s, branch_fn)
+                                finally:
+                                    os.environ["RAON_ROCM_MHC_FUSE_FINISH_HEAD"] = "1"
+                                fusion_checks = dict(
+                                    finish_head_vs_unfused_native=error(
+                                        actual, unfused_native
+                                    ),
+                                    finish_head_exact=torch.equal(
+                                        actual, unfused_native
+                                    ),
+                                )
                             gold, gold_aggregate = reference(site, s, branch_fn)
                             # Same native HIP projection/finisher, old head/chart/mix.
                             rocm_mhc_gate._BACKEND = "legacy"
@@ -177,6 +197,7 @@ def main():
                                 changed_input_replay=error(replayed, replay_gold),
                                 exact_repeat=torch.equal(actual, repeat),
                                 full_block_batch_invariant=torch.equal(actual[:1], one),
+                                **fusion_checks,
                                 **intermediate,
                             )
                             result["cases"].append(case)
@@ -268,8 +289,15 @@ def main():
                     value = inputs[:rows].clone()
                     record = dict(rows=rows, replays=args.timing_replays)
                     try:
-                        for backend in ("legacy", "flydsl"):
-                            rocm_mhc_gate._BACKEND = backend
+                        backends = ["legacy", "flydsl"]
+                        if args.fuse_finish_head:
+                            backends.append("flydsl_finish_head")
+                        for backend in backends:
+                            fused = backend == "flydsl_finish_head"
+                            rocm_mhc_gate._BACKEND = "flydsl" if fused else backend
+                            os.environ["RAON_ROCM_MHC_FUSE_FINISH_HEAD"] = str(
+                                int(fused)
+                            )
                             for _ in range(3):
                                 site(value, branch_fn)
                             graph = torch.cuda.CUDAGraph()
@@ -292,9 +320,17 @@ def main():
                             )
                     finally:
                         rocm_mhc_gate._BACKEND = args.gate
+                        os.environ["RAON_ROCM_MHC_FUSE_FINISH_HEAD"] = str(
+                            int(args.fuse_finish_head)
+                        )
                     record["speedup"] = (
                         record["legacy_graph_us"] / record["flydsl_graph_us"]
                     )
+                    if args.fuse_finish_head:
+                        record["finish_head_speedup"] = (
+                            record["flydsl_graph_us"]
+                            / record["flydsl_finish_head_graph_us"]
+                        )
                     result["timing"].append(record)
         if result["status"] == "PASS" and args.profile:
             with torch.profiler.profile(

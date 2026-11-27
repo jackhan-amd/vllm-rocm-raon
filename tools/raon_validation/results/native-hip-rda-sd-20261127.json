@@ -1,0 +1,499 @@
+{
+  "schema": 1,
+  "job": "89710",
+  "node": "TheraC80",
+  "gpu": "MI355X",
+  "image_digest": "sha256:c41349b2bca3335d3a7eacceb6e4d9d21c4fa4602f7d24e454a8ccb9f739c281",
+  "backend": "hip_rda",
+  "sd_module": "raon_hip_rda_37aff1e929c21ec289d3",
+  "build": "hipcc, native HIP; no hipify",
+  "raw_archive_sha256": "0540295bc743d25dc2ef216028ad1b9ebcb36a759ac144ff175015a4899000f5",
+  "runtime_sources": {
+    "rocm_aiter_decode.py": "68ffa0604be4548983baf16caf025e6cd1d7c4a4387c961579048ea807e070a2",
+    "rocm_aiter_rda_kernel.py": "43910e7b9bf93924f80e44d994788437be32b25f2b2c6f29776fad48f1562a5d",
+    "rocm_flydsl_decode.py": "e923fcc0d3ac2d97628caefec6b60195038f381df6edd3bd4e709f380cf177a0",
+    "rocm_flydsl_rda.py": "48efe9844995f5200a5ed723f21cc63c22683e828e948051bacbcde2399b9d74",
+    "rocm_hip_rda.py": "376dbbd126db3855cc43635c184766d47c4e867946bcb270675631c46df0bb6f",
+    "rocm_hip_rda_ar.hip": "939ef3c9aa5a21b144a06ba5379c6c4a6e25983f49f303efe8ad486b7e397ae0",
+    "rocm_hip_rda_sd.hip": "21704d2f9fbf70be41fe16d5ab5dee30fdb744abf8b40d135a7631b7f79e88a6"
+  },
+  "gold": [
+    {
+      "file": "results-r1/batch-1.json",
+      "sha256": "2c720de8cd4c9559b73cfecb08038c43d18902517178bc00c4e355bbe3d91ca0",
+      "status": "PASS",
+      "cases": 17,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002983778044439948,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016626609718425553,
+          "max_abs": 0.00014852732419967651
+        }
+      }
+    },
+    {
+      "file": "results-r1/batch-16.json",
+      "sha256": "b9ba90bc1f393b79b48ca3c4dfd5c8130af89de84ab1e8ab79011075281078ce",
+      "status": "PASS",
+      "cases": 17,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0029257030328764767,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016419064586140732,
+          "max_abs": 0.0002791117876768112
+        }
+      }
+    },
+    {
+      "file": "results-r1/batch-2.json",
+      "sha256": "38f6c1e916fd66c600144bd463d1bf20dfedda8421063f57845d6f1847c93e13",
+      "status": "PASS",
+      "cases": 17,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.00296609832215365,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016296986086746716,
+          "max_abs": 0.0002290979027748108
+        }
+      }
+    },
+    {
+      "file": "results-r1/batch-3.json",
+      "sha256": "55b0a16caaa42e813d09ce1120c72374538bdaf67cec7ce9c2469fd157386c0a",
+      "status": "PASS",
+      "cases": 17,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0029670080134483,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016448776655395567,
+          "max_abs": 0.0002137608826160431
+        }
+      }
+    },
+    {
+      "file": "results-r1/batch-32.json",
+      "sha256": "b963faa388dc9c47e810d7a538d9c01be505310d02248977d4782d6a27e6e5d1",
+      "status": "PASS",
+      "cases": 17,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0029491934487323765,
+          "max_abs": 0.015625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016422464305259872,
+          "max_abs": 0.0002968311309814453
+        }
+      }
+    },
+    {
+      "file": "results-r1/batch-4.json",
+      "sha256": "81acb065a4cc56b9eb185c087896bca9c4febdcd4e4e0924205e0ca172cd16f2",
+      "status": "PASS",
+      "cases": 17,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002984159613317666,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016487840889219453,
+          "max_abs": 0.00023179501295089722
+        }
+      }
+    },
+    {
+      "file": "results-r1/batch-8.json",
+      "sha256": "031df06761efb7f4a047d81cfe587a3ca77c850dfc296a71e36089d92f6f014e",
+      "status": "PASS",
+      "cases": 17,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0029542522478605603,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.001645459643881174,
+          "max_abs": 0.00029565393924713135
+        }
+      }
+    }
+  ],
+  "final_python_cache_gold": [
+    {
+      "file": "results-r2/batch-1.json",
+      "sha256": "33799b98126a8f671e889f866a2e004f969e0a247111f2b4f36360424499502c",
+      "status": "PASS",
+      "cases": 17,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002983778044439948,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016626609718425553,
+          "max_abs": 0.00014852732419967651
+        }
+      }
+    },
+    {
+      "file": "results-r2/batch-32.json",
+      "sha256": "3555475eacf466aed4beb9189b2f1ef2e0c61c82356f0dc27097a169c6eb7023",
+      "status": "PASS",
+      "cases": 17,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0029491934487323765,
+          "max_abs": 0.015625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016422464305259872,
+          "max_abs": 0.0002968311309814453
+        }
+      }
+    }
+  ],
+  "diagnostics": [
+    {
+      "file": "diagnostics/batch-1.json",
+      "sha256": "f107c33b7ea00f6c21411a10cbcc414adb959a70284dc946db110689027f3c29",
+      "status": "PASS",
+      "cases": 17,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002983778044439948,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016626609718425553,
+          "max_abs": 0.00014852732419967651
+        }
+      },
+      "decode_diagnostics": [
+        {
+          "backend": "flydsl",
+          "kind": "ar",
+          "length": 1,
+          "gpu_kernel_names": [
+            "norm_0.kd",
+            "recurrence_0.kd",
+            "update_kernel_0.kd",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul> >(int, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul> >(int, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 15.872260332107544,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "ar",
+          "length": 1,
+          "gpu_kernel_names": [
+            "void (anonymous namespace)::raon_rda_ar_fusion_kernel<true, 3, 1, 40, true, true, true>(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, float const*, float const*, float const*, __hip_bfloat16*, __hip_bfloat16*, __hip_bfloat16*, float const*, __hip_bfloat16 const*, float const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, int const*, float*, __hip_bfloat16*, float, float, float, (anonymous namespace)::KdaDecodeStrides) [clone .kd]"
+          ],
+          "microseconds_per_call": 4.823346138000488,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "flydsl",
+          "kind": "sd",
+          "length": 2,
+          "gpu_kernel_names": [
+            "norm_0.kd",
+            "recurrence_0.kd",
+            "update_kernel_0.kd",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul> >(int, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul> >(int, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 19.18784499168396,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "sd",
+          "length": 2,
+          "gpu_kernel_names": [
+            "(anonymous namespace)::sd_conv(__hip_bfloat16 const*, float const*, __hip_bfloat16*, int const*, int const*, int const*, __hip_bfloat16*, int, int, long, long, long, long) [clone .kd]",
+            "(anonymous namespace)::sd_norm(__hip_bfloat16 const*, __hip_bfloat16 const*, float const*, __hip_bfloat16*, long, float) [clone .kd]",
+            "(anonymous namespace)::sd_recurrence(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16*, int, int, long, long, long, float) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 16.081098318099976,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "flydsl",
+          "kind": "sd",
+          "length": 4,
+          "gpu_kernel_names": [
+            "norm_0.kd",
+            "recurrence_0.kd",
+            "update_kernel_0.kd",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul> >(int, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul> >(int, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 24.878075122833252,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "sd",
+          "length": 4,
+          "gpu_kernel_names": [
+            "(anonymous namespace)::sd_conv(__hip_bfloat16 const*, float const*, __hip_bfloat16*, int const*, int const*, int const*, __hip_bfloat16*, int, int, long, long, long, long) [clone .kd]",
+            "(anonymous namespace)::sd_norm(__hip_bfloat16 const*, __hip_bfloat16 const*, float const*, __hip_bfloat16*, long, float) [clone .kd]",
+            "(anonymous namespace)::sd_recurrence(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16*, int, int, long, long, long, float) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 25.766441822052002,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "flydsl",
+          "kind": "sd",
+          "length": 8,
+          "gpu_kernel_names": [
+            "norm_0.kd",
+            "recurrence_0.kd",
+            "update_kernel_0.kd",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul> >(int, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul> >(int, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 36.561291217803955,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "sd",
+          "length": 8,
+          "gpu_kernel_names": [
+            "(anonymous namespace)::sd_conv(__hip_bfloat16 const*, float const*, __hip_bfloat16*, int const*, int const*, int const*, __hip_bfloat16*, int, int, long, long, long, long) [clone .kd]",
+            "(anonymous namespace)::sd_norm(__hip_bfloat16 const*, __hip_bfloat16 const*, float const*, __hip_bfloat16*, long, float) [clone .kd]",
+            "(anonymous namespace)::sd_recurrence(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16*, int, int, long, long, long, float) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 35.79267501831055,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        }
+      ]
+    },
+    {
+      "file": "diagnostics-r1/batch-32.json",
+      "sha256": "7369a77bf0a4821d7191decb455507121f144518c7d7cc63755c14e81f038a08",
+      "status": "PASS",
+      "cases": 17,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0029491934487323765,
+          "max_abs": 0.015625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016422464305259872,
+          "max_abs": 0.0002968311309814453
+        }
+      },
+      "decode_diagnostics": [
+        {
+          "backend": "flydsl",
+          "kind": "ar",
+          "length": 1,
+          "gpu_kernel_names": [
+            "norm_0.kd",
+            "recurrence_0.kd",
+            "update_kernel_0.kd",
+            "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul> >(int, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 52.57526397705078,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "ar",
+          "length": 1,
+          "gpu_kernel_names": [
+            "void (anonymous namespace)::raon_rda_ar_fusion_kernel<true, 3, 1, 40, true, true, true>(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, float const*, float const*, float const*, __hip_bfloat16*, __hip_bfloat16*, __hip_bfloat16*, float const*, __hip_bfloat16 const*, float const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, int const*, float*, __hip_bfloat16*, float, float, float, (anonymous namespace)::KdaDecodeStrides) [clone .kd]"
+          ],
+          "microseconds_per_call": 29.579734802246094,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "flydsl",
+          "kind": "sd",
+          "length": 2,
+          "gpu_kernel_names": [
+            "norm_0.kd",
+            "recurrence_0.kd",
+            "update_kernel_0.kd",
+            "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+            "void at::native::elementwise_kernel_manual_unroll<128, 8, at::native::gpu_kernel_impl_nocast<at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}>(at::TensorIteratorBase&, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}>(at::TensorIteratorBase&, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 88.36491584777832,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "sd",
+          "length": 2,
+          "gpu_kernel_names": [
+            "(anonymous namespace)::sd_conv(__hip_bfloat16 const*, float const*, __hip_bfloat16*, int const*, int const*, int const*, __hip_bfloat16*, int, int, long, long, long, long) [clone .kd]",
+            "(anonymous namespace)::sd_norm(__hip_bfloat16 const*, __hip_bfloat16 const*, float const*, __hip_bfloat16*, long, float) [clone .kd]",
+            "(anonymous namespace)::sd_recurrence(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16*, int, int, long, long, long, float) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 61.52048110961914,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "flydsl",
+          "kind": "sd",
+          "length": 4,
+          "gpu_kernel_names": [
+            "norm_0.kd",
+            "recurrence_0.kd",
+            "update_kernel_0.kd",
+            "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+            "void at::native::elementwise_kernel_manual_unroll<128, 8, at::native::gpu_kernel_impl_nocast<at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}>(at::TensorIteratorBase&, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}>(at::TensorIteratorBase&, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 163.76314163208008,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "sd",
+          "length": 4,
+          "gpu_kernel_names": [
+            "(anonymous namespace)::sd_conv(__hip_bfloat16 const*, float const*, __hip_bfloat16*, int const*, int const*, int const*, __hip_bfloat16*, int, int, long, long, long, long) [clone .kd]",
+            "(anonymous namespace)::sd_norm(__hip_bfloat16 const*, __hip_bfloat16 const*, float const*, __hip_bfloat16*, long, float) [clone .kd]",
+            "(anonymous namespace)::sd_recurrence(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16*, int, int, long, long, long, float) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 102.71191596984863,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "flydsl",
+          "kind": "sd",
+          "length": 8,
+          "gpu_kernel_names": [
+            "norm_0.kd",
+            "recurrence_0.kd",
+            "update_kernel_0.kd",
+            "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+            "void at::native::elementwise_kernel_manual_unroll<128, 8, at::native::gpu_kernel_impl_nocast<at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}>(at::TensorIteratorBase&, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}>(at::TensorIteratorBase&, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 321.08020782470703,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "sd",
+          "length": 8,
+          "gpu_kernel_names": [
+            "(anonymous namespace)::sd_conv(__hip_bfloat16 const*, float const*, __hip_bfloat16*, int const*, int const*, int const*, __hip_bfloat16*, int, int, long, long, long, long) [clone .kd]",
+            "(anonymous namespace)::sd_norm(__hip_bfloat16 const*, __hip_bfloat16 const*, float const*, __hip_bfloat16*, long, float) [clone .kd]",
+            "(anonymous namespace)::sd_recurrence(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16*, int, int, long, long, long, float) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 182.40474700927734,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Pure SD finite fixtures; ragged/NULL suffix and mixed-batch native integration pending",
+    "Native AR requires three-tap pool, not expanded speculative AR pools",
+    "No model accuracy or full-model throughput claim",
+    "Original simultaneous and one short sequential profiler runs returned no GPU events; errors preserved separately",
+    "Final Python staging cache lifetime change followed by representative batch1/32 gold; timings predate that change",
+    "Host collect_exit reflects first diagnostic errors; corrected gold and diagnostics are recorded separately"
+  ]
+}

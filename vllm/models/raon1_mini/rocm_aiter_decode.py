@@ -94,12 +94,21 @@ def try_forward(layer, m, inputs, out):
         if tokens != batch:
             raise ValueError("Normal fused decode needs one token per request")
     output = out.view(-1, h * d)[:tokens]
-    if getattr(layer, "rocm_decode_backend", "") == "hip_rda_ar":
-        if spec:
+    if getattr(layer, "rocm_decode_backend", "") in ("hip_rda_ar", "hip_rda"):
+        if spec and layer.rocm_decode_backend == "hip_rda_ar":
             raise RuntimeError("Experimental HIP RDA AR does not support SD")
         from .rocm_hip_rda import forward as hip_forward
 
-        hip_forward(layer, inputs, output, conv, state, weight, indices)
+        hip_forward(
+            layer,
+            inputs,
+            output,
+            conv,
+            state,
+            weight,
+            indices,
+            metadata=m if spec else None,
+        )
         return True
     if not output.is_contiguous():
         raise ValueError("Fused RDA output must be contiguous")

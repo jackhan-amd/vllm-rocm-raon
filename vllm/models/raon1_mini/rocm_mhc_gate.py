@@ -18,7 +18,7 @@ def enabled():
 
 
 @cache
-def _create(agg_tree: bool, mix_one: bool, chart_fma: bool):
+def _create(agg_tree: bool, mix_one: bool, chart_fma: bool, fuse_finish: bool):
     import flydsl.compiler as flyc
     import flydsl.expr as fx
     from flydsl.expr import range_constexpr
@@ -37,14 +37,28 @@ def _create(agg_tree: bool, mix_one: bool, chart_fma: bool):
         gate: fx.Tensor,
         coeff: fx.Tensor,
         aggregate: fx.Tensor,
+        rows: fx.Int32,
     ):
         row = fx.Int64(fx.block_idx.x)
         tile = fx.Int64(fx.block_idx.y)
         tid = fx.Int64(fx.thread_idx.x)
         lane = tid % 64
         r = (lane < 17).select(lane, fx.Int64(0))
-        inverse = fx.rsqrt(mean[row] + fx.Float32(1e-5))
-        pre = a[r] * (scores[row * 17 + r].to(fx.Float32) * inverse) + b[r]
+        score = fx.Float32(0.0)
+        square_mean = fx.Float32(0.0)
+        if fuse_finish:
+            total = fx.Float32(0.0)
+            for split in range_constexpr(16):
+                score = score + scores[(split * fx.Int64(rows) + row) * 32 + r]
+                total = total + mean[split * fx.Int64(rows) + row]
+            # Preserve the separately launched finisher's BF16 score seam.
+            score = score.to(fx.BFloat16).to(fx.Float32)
+            square_mean = total / fx.Float32(10240.0)
+        else:
+            score = scores[row * 17 + r].to(fx.Float32)
+            square_mean = mean[row]
+        inverse = fx.rsqrt(square_mean + fx.Float32(1e-5))
+        pre = a[r] * (score * inverse) + b[r]
         sig = fx.Float32(1.0) / (fx.Float32(1.0) + fx.exp(-pre))
         # All lanes participate in the shuffles, including lanes >= 17.
         p0 = fx.gpu.shuffle_idx(sig, 0, 64)
@@ -132,9 +146,9 @@ def _create(agg_tree: bool, mix_one: bool, chart_fma: bool):
         rows: fx.Int32,
         stream: fx.Stream,
     ):
-        head(s, scores, mean, a, b, q, h0, neg_h0, eye, gate, coeff, aggregate).launch(
-            grid=(rows, 10), block=(128,), stream=stream
-        )
+        head(
+            s, scores, mean, a, b, q, h0, neg_h0, eye, gate, coeff, aggregate, rows
+        ).launch(grid=(rows, 10), block=(128,), stream=stream)
 
     @flyc.jit
     def launch_mix(
@@ -171,8 +185,9 @@ def prepare_branch(site, s):
     mix_one = mhc._FIXED_MIX_ONE if mhc._BATCH_INVARIANT else rows == 1
     # Keep the chart's rounding schedule independent of speculative batch size.
     chart_fma = False if mhc._BATCH_INVARIANT else rows >= 5
-    launch_head, launch_mix = _create(agg_tree, mix_one, chart_fma)
-    scores, mean = rocm_mhc.project(site, s.view(rows, -1))
+    fuse_finish = os.environ.get("RAON_ROCM_MHC_FUSE_FINISH_HEAD", "0") == "1"
+    launch_head, launch_mix = _create(agg_tree, mix_one, chart_fma, fuse_finish)
+    scores, mean = rocm_mhc.project(site, s.view(rows, -1), defer_finish=fuse_finish)
     coeff = torch.empty((rows, 20), dtype=torch.float32, device=s.device)
     aggregate = torch.empty((rows, 2560), dtype=s.dtype, device=s.device)
     stream = torch.cuda.current_stream(s.device).cuda_stream
@@ -180,7 +195,7 @@ def prepare_branch(site, s):
         launch_head,
         s.view(-1),
         scores.view(-1),
-        mean,
+        mean.view(-1),
         site.A_row.view(-1),
         site.B_row.view(-1),
         site.Q.view(-1),
@@ -216,9 +231,11 @@ def forward(site, s, branch):
         torch.cuda.current_stream(s.device).cuda_stream,
     )
     if not _ANNOUNCED and not torch.cuda.is_current_stream_capturing():
+        fused = os.environ.get("RAON_ROCM_MHC_FUSE_FINISH_HEAD", "0")
         print(
             "RAON_ROCM_MHC_GATE LAUNCHED gate=flydsl projection=hip "
-            "finisher=flydsl dtype=bf16 chart=raon",
+            "finisher=flydsl dtype=bf16 chart=raon "
+            f"finish_head_fused={fused}",
             flush=True,
         )
         _ANNOUNCED = True

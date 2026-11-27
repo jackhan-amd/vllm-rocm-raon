@@ -602,4 +602,6 @@ void forward(torch::Tensor x, torch::Tensor weight, torch::Tensor conv,
 #undef RUN
   TORCH_CHECK(hipGetLastError() == hipSuccess, "Native RDA HIP launch failed");
 }
+#ifndef RAON_RDA_NO_MODULE
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("forward", &forward); }
+#endif

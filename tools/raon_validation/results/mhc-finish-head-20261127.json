@@ -1,0 +1,144 @@
+{
+    "schema":  1,
+    "date":  "2026-11-27",
+    "job":  "89710",
+    "node":  "TheraC80",
+    "gpu_index":  7,
+    "status":  "PASS",
+    "environment":  {
+                        "torch":  "2.14.0+rocm10.2.0",
+                        "hip":  "7.17.26434",
+                        "gpu":  "AMD Instinct MI355X",
+                        "architecture":  "gfx950:sramecc+:xnack-",
+                        "visible_devices":  "7",
+                        "job":  "89710",
+                        "python":  "/opt/raon/.venv/bin/python",
+                        "pythonpath":  "/work:/usr/local/lib/python3.14/dist-packages/_rocm_sdk_core/share/amd_smi",
+                        "platform":  "RocmPlatform"
+                    },
+    "native_source":  {
+                          "file":  "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc.py",
+                          "sha256":  "ad2b8aae3146c231f668e493757c608f908c53a50d3199c32f80caec8464accb"
+                      },
+    "gate_source":  {
+                        "file":  "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc_gate.py",
+                        "sha256":  "f3ac3d13c4744aeb2cab38f5d6c8d9fff6aae95b913bb371a72ae1fb2f43b4a3"
+                    },
+    "finisher_source":  {
+                            "file":  "/usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/rocm_mhc_finish.py",
+                            "sha256":  "bf86679c1079827ef31aba2c445e9cbdd2fe5e03d716fb5bb8fdac3673a77cbb"
+                        },
+    "flag":  "RAON_ROCM_MHC_FUSE_FINISH_HEAD=1",
+    "default":  "off",
+    "real_layers":  [
+                        0,
+                        12,
+                        24
+                    ],
+    "sites":  [
+                  "self_attn",
+                  "mlp"
+              ],
+    "rows":  [
+                 1,
+                 8,
+                 32,
+                 64,
+                 256
+             ],
+    "scales":  [
+                   0.125,
+                   1,
+                   8
+               ],
+    "branch":  "affine: BF16 multiply 0.75 then add 0.125",
+    "gold_cases":  90,
+    "refit_cases":  6,
+    "exact_fused_vs_unfused_native":  90,
+    "timing":  [
+                   {
+                       "rows":  1,
+                       "replays":  500,
+                       "legacy_graph_us":  21.31766128540039,
+                       "flydsl_graph_us":  16.080347061157227,
+                       "flydsl_finish_head_graph_us":  14.388655662536621,
+                       "speedup":  1.3256965912691103,
+                       "finish_head_speedup":  1.1175711920763536
+                   },
+                   {
+                       "rows":  8,
+                       "replays":  500,
+                       "legacy_graph_us":  25.65281105041504,
+                       "flydsl_graph_us":  16.189228057861328,
+                       "flydsl_finish_head_graph_us":  15.05770206451416,
+                       "speedup":  1.584560484213964,
+                       "finish_head_speedup":  1.0751459942891144
+                   },
+                   {
+                       "rows":  32,
+                       "replays":  500,
+                       "legacy_graph_us":  28.179309844970703,
+                       "flydsl_graph_us":  16.50339126586914,
+                       "flydsl_finish_head_graph_us":  15.54482364654541,
+                       "speedup":  1.707486018540242,
+                       "finish_head_speedup":  1.061664747128653
+                   },
+                   {
+                       "rows":  64,
+                       "replays":  500,
+                       "legacy_graph_us":  29.691959381103516,
+                       "flydsl_graph_us":  17.161956787109375,
+                       "flydsl_finish_head_graph_us":  16.68011474609375,
+                       "speedup":  1.7301033762889806,
+                       "finish_head_speedup":  1.0288872138081944
+                   },
+                   {
+                       "rows":  256,
+                       "replays":  500,
+                       "legacy_graph_us":  33.11582565307617,
+                       "flydsl_graph_us":  21.285741806030273,
+                       "flydsl_finish_head_graph_us":  19.941495895385742,
+                       "speedup":  1.5557750326415414,
+                       "finish_head_speedup":  1.0674094821018707
+                   }
+               ],
+    "timing_scope":  "One captured mHC block, last selected layer\u0027s MLP site; warmup/compilation excluded, GPU event time, not serving TPS",
+    "warmup_calls":  3,
+    "warmup_replays":  10,
+    "timing_windows_per_condition":  1,
+    "gpu_kernel_witness":  [
+                               {
+                                   "count":  1,
+                                   "name":  "void aiter::mhc_pre_gemm_sqrsum_kernel\u003cstd::bfloat16_t, 4, 64, 16, 128, true, false\u003e(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int) [clone .kd]"
+                               },
+                               {
+                                   "count":  1,
+                                   "name":  "mix_0.kd"
+                               },
+                               {
+                                   "count":  1,
+                                   "name":  "void at::native::vectorized_elementwise_kernel\u003c8, at::native::CUDAFunctorOnSelf_add\u003cc10::BFloat16\u003e, std::array\u003cchar*, 2ul\u003e \u003e(int, at::native::CUDAFunctorOnSelf_add\u003cc10::BFloat16\u003e, std::array\u003cchar*, 2ul\u003e) [clone .kd]"
+                               },
+                               {
+                                   "count":  1,
+                                   "name":  "void at::native::vectorized_elementwise_kernel\u003c8, at::native::AUnaryFunctor\u003cc10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor\u003cfloat\u003e \u003e, std::array\u003cchar*, 2ul\u003e \u003e(int, at::native::AUnaryFunctor\u003cc10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor\u003cfloat\u003e \u003e, std::array\u003cchar*, 2ul\u003e) [clone .kd]"
+                               },
+                               {
+                                   "count":  1,
+                                   "name":  "head_0.kd"
+                               }
+                           ],
+    "raw_root":  "/mnt/hammerspace/jackhan/raon-hip-rda-sd-20261127/mhc",
+    "raw_files":  {
+                      "fused-math.json":  "fee89c725ccaa5e47e7d4bef5727e07d7b6be455fc753b80a9b46f10130d9ecb",
+                      "unfused-math.json":  "4220303ef3c8bc9bbab41b9b23d353c4e6f4023820915a678c1946cc385b2ef8",
+                      "fused-profile.json":  "a93d3b07dac0988eaa83e291089bfc194810d8a5bdf6da53e605706c94555163"
+                  },
+    "notes":  [
+                  "Torch is_cuda and torch.cuda refer to HIP on ROCm; mhc.py contains no PTX/inline_asm/SM capability check. Trainer-fused uses Triton and is a separate numerical path, not an enabled native HIP/FlyDSL kernel.",
+                  "Independent Torch gold uses existing 1% relative RMS and 2% relative peak plus 1e-5 absolute screen; thresholds unchanged.",
+                  "All 90 candidate outputs bit-identical to unfused native outputs. Gold, changed-input graph replay and refit checks passed.",
+                  "Initial JIT scope declaration and 2D partial-square flattening defects fixed before final results.",
+                  "No full-model throughput/accuracy claim; default runtime unchanged; no further tile candidates tested."
+              ]
+}

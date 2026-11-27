@@ -49,7 +49,7 @@ def main():
     p.add_argument("--conv-weight-fp32", action="store_true")
     p.add_argument(
         "--decode-backend",
-        choices=["aiter_triton", "flydsl", "hip_rda_ar"],
+        choices=["aiter_triton", "flydsl", "hip_rda_ar", "hip_rda"],
         default="aiter_triton",
         help="Candidate backend for the aiter-rda operation/graph diagnostic",
     )

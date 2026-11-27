@@ -44,7 +44,7 @@ def prepare(site):
         site._refit_set_buf("_rocm_mhc_packed", mhc_shuffle_fn(padded.float()))
 
 
-def project(site, x):
+def project(site, x, *, defer_finish=False):
     """Return compact BF16 scores and optional FP32 mean-square statistics."""
     if not enabled():
         raise RuntimeError("Native mHC project called with legacy backend")
@@ -75,6 +75,8 @@ def project(site, x):
             128,
             w_preshuffle_bf16=1,
         )
+        if defer_finish:
+            return partial, squares
         finisher = os.environ.get("RAON_ROCM_MHC_FINISHER", "torch")
         if finisher == "flydsl":
             from .rocm_mhc_finish import reduce
@@ -86,6 +88,8 @@ def project(site, x):
         else:
             raise ValueError(f"Unknown native mHC finisher: {finisher}")
     else:
+        if defer_finish:
+            raise ValueError("Deferred mHC finish requires native HIP projection")
         from aiter.ops.flydsl.gemm_kernels import flydsl_hgemm
 
         # One fixed tile preserves per-row arithmetic across decode batches.

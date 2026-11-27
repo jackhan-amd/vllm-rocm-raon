@@ -1,5 +1,15 @@
 # Raon ROCm correctness diagnostics
 
+The [native HIP SD experiment](../../docker/raon/NATIVE-HIP-RDA-SD-20261127.md)
+adds pure SD gold and native-kernel timing with `--decode-backend hip_rda`.
+Expanded-pool AR and mixed-batch native coverage remain pending; this selector
+is experimental and defaults remain unchanged.
+
+The [native mHC finish/head experiment](../../docker/raon/MHC-FINISH-HEAD-20261127.md)
+adds `mhc_math --fuse-finish-head` for real-weight Torch gold, refit/replay,
+direct comparison with the unfused native chain and warmed block graph timing.
+The runtime switch is opt-in and remains off by default.
+
 For CPU-only warm serving interval analysis, use
 `python -m tools.raon_validation.gap_budget --help`. See the
 [warm decode budget](../../docker/raon/GAP-BUDGET-20261127.md) for coverage gates,

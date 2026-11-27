@@ -229,11 +229,11 @@ def run(args, result):
                     },
                 )
             )
-        if not spec and (
-            getattr(args, "decode_timing_replays", 0)
-            or getattr(args, "decode_kernel_witness", False)
+        if getattr(args, "decode_timing_replays", 0) or getattr(
+            args, "decode_kernel_witness", False
         ):
-            result["ar_diagnostics"] = []
+            if not spec:
+                result["ar_diagnostics"] = []
             for backend in dict.fromkeys(("flydsl", args.decode_backend)):
                 bench_layer, _, _ = fixture(True, backend=backend)
                 bench_out = torch.empty_like(actual)
@@ -246,7 +246,11 @@ def run(args, result):
                 # All updates below belong to disposable fixture pools.
                 launch()
                 torch.accelerator.synchronize()
-                row = {"backend": backend}
+                row = {
+                    "backend": backend,
+                    "kind": "sd" if spec else "ar",
+                    "length": length,
+                }
                 if getattr(args, "decode_kernel_witness", False):
                     with torch.profiler.profile(
                         activities=[
@@ -254,7 +258,8 @@ def run(args, result):
                             torch.profiler.ProfilerActivity.CUDA,
                         ]
                     ) as prof:
-                        launch()
+                        for _ in range(32):
+                            launch()
                         torch.accelerator.synchronize()
                     row["gpu_kernel_names"] = sorted(
                         {
@@ -291,6 +296,8 @@ def run(args, result):
                         replays=replays,
                         calls_per_graph=calls,
                         warmup_replays=20,
-                        scope="AR conv/recurrence/norm; excludes ratio/projections",
+                        scope="decode conv/recurrence/norm; excludes ratio/projections",
                     )
-                result["ar_diagnostics"].append(row)
+                result.setdefault("decode_diagnostics", []).append(row)
+                if not spec:
+                    result["ar_diagnostics"].append(row)

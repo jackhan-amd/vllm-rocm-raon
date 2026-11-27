@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
-"""Experimental AR-only RDA HIP derivative; compile directly without hipify."""
+"""Experimental pure AR/SD native RDA; compile directly without hipify."""
 
 import functools
 import hashlib
@@ -16,7 +16,7 @@ from filelock import FileLock
 
 
 @functools.cache
-def load():
+def load(kind="ar"):
     if not torch.version.hip:
         raise RuntimeError("Native RDA requires ROCm")
     from vllm.platforms.rocm import on_gfx950
@@ -27,9 +27,11 @@ def load():
         raise RuntimeError("Compile native RDA before graph capture")
     from torch.utils.cpp_extension import include_paths, library_paths
 
-    source = Path(__file__).with_name("rocm_hip_rda_ar.hip")
+    source = Path(__file__).with_name(f"rocm_hip_rda_{kind}.hip")
     identity = hashlib.sha256(
-        source.read_bytes() + torch.__version__.encode()
+        source.read_bytes()
+        + Path(__file__).with_name("rocm_hip_rda_ar.hip").read_bytes()
+        + torch.__version__.encode()
     ).hexdigest()[:20]
     root = Path(os.environ.get("RAON_HIP_RDA_BUILD_DIR", "/tmp/raon-hip-rda"))
     root = root / identity
@@ -86,21 +88,44 @@ def load():
     return module
 
 
-def forward(layer, inputs, output, conv, state, weight, indices):
+def forward(layer, inputs, output, conv, state, weight, indices, metadata=None):
     from .mxfp8_flydsl import _identity
 
     if layer.local_num_heads != 40:
         raise ValueError("Experimental HIP RDA requires 40 heads")
-    key = (_identity(layer.conv1d.weight), _identity(layer.o_norm.weight))
-    prepared = getattr(layer, "_raon_hip_rda_prepared", None)
+    spec = metadata is not None
+    key = (_identity(layer.conv1d.weight), _identity(layer.o_norm.weight), spec)
+    cache_name = "_raon_hip_rda_prepared_sd" if spec else "_raon_hip_rda_prepared_ar"
+    prepared = getattr(layer, cache_name, None)
     if prepared is None or prepared[0] != key:
         if torch.cuda.is_current_stream_capturing():
             raise RuntimeError("Prepare native RDA weights before capture")
         packed = weight.view(3, 5120, 4).transpose(1, 2).float().contiguous()
         norm = layer.o_norm.weight.float().contiguous()
-        prepared = (key, packed, norm, load())
-        layer._raon_hip_rda_prepared = prepared
+        prepared = (key, packed, norm, load("sd" if spec else "ar"))
+        setattr(layer, cache_name, prepared)
     raw, gate, out_gate, beta, ratio = inputs
+    if spec:
+        prepared[3].forward_sd(
+            raw,
+            prepared[1],
+            conv,
+            gate,
+            beta,
+            ratio,
+            layer.A_log,
+            layer.dt_bias,
+            indices.contiguous(),
+            metadata.num_accepted_tokens[: indices.shape[0]],
+            metadata.spec_query_start_loc[: indices.shape[0] + 1],
+            state,
+            out_gate,
+            prepared[2],
+            output,
+            float(layer.gate_lower_bound),
+            float(layer.o_norm.eps),
+        )
+        return
     prepared[3].forward(
         raw,
         prepared[1],
