@@ -1,0 +1,696 @@
+{
+  "schema": 1,
+  "date": "2026-11-27",
+  "job": "89709",
+  "node": "TheraC80",
+  "gpu": "AMD Instinct MI355X",
+  "architecture": "gfx950",
+  "torch": "2.14.0+rocm10.2.0",
+  "image_digest": "sha256:c41349b2bca3335d3a7eacceb6e4d9d21c4fa4602f7d24e454a8ccb9f739c281",
+  "backend": "hip_rda_ar",
+  "compile_module": "raon_hip_rda_97b3de3b80811d7d3c8b",
+  "build_method": "direct hipcc; no hipify",
+  "runtime_source_sha256": {
+    "rocm_aiter_decode.py": "4736b7bc96987be975a249b95dff933ca74aab185bc36ea6470fd1574c1ad53e",
+    "rocm_aiter_rda_kernel.py": "43910e7b9bf93924f80e44d994788437be32b25f2b2c6f29776fad48f1562a5d",
+    "rocm_flydsl_decode.py": "c5f4a288d2f33125937352f5c0554d9b727fbe36a70c2c1c70faf15ff4298183",
+    "rocm_flydsl_rda.py": "48efe9844995f5200a5ed723f21cc63c22683e828e948051bacbcde2399b9d74",
+    "rocm_hip_rda.py": "dd930dfc845bbee0e938f5de4506521eb44c9a3c939f48ed974a74448dae1aa0",
+    "rocm_hip_rda_ar.hip": "9180c80cbed326fb6d0c4e1aa34c0cfb92a032900174b0c863e41e975f7e92ee"
+  },
+  "raw_root": "/mnt/hammerspace/jackhan/raon-hip-rda-20261127",
+  "raw_archive_sha256": "0e7a665a28d85cda4f62fcd3aaad4cee5107c78c49679a57b3285c61df868015",
+  "limitations": [
+    "AR only; pure SD raises, mixed/prefill retains existing path",
+    "First eight-batch run preceded NULL correction; final-source checks are separately listed",
+    "Timings are single-layer warmed graph adapter costs, excluding ratio and projections",
+    "No full-model speed or model accuracy claim; no MXFP4/MXFP8 MoE packing change",
+    "Initial slot-zero probe failed against legacy due to incorrect live-zero assumption; corrected to NULL and rechecked"
+  ],
+  "initial_eight_batch_gold": [
+    {
+      "file": "results/batch-1.json",
+      "sha256": "e965dc0faeebba670b8f517323c42c93f651be248e7ebd2a6053b105f8273d70",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002691536731574033,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014661658256403158,
+          "max_abs": 8.814781904220581e-05
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.0056410144452698555,
+          "max_abs": 0.00390625
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.003443191602823735,
+          "max_abs": 0.00025255046784877777
+        }
+      }
+    },
+    {
+      "file": "results/batch-16.json",
+      "sha256": "ee0ee672f5289a278c0b41e562b63147740ee7e60f8786ea83f6055b4a230bbc",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0026991337451141395,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014768356182206092,
+          "max_abs": 0.00015470758080482483
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.005060644719195199,
+          "max_abs": 0.0078125
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.003468992640727531,
+          "max_abs": 0.0004062894731760025
+        }
+      }
+    },
+    {
+      "file": "results/batch-2.json",
+      "sha256": "b167fc597647019d881a3b1e75159ac40e1e056df954caff909ab8ea84117164",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002584573172638611,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014500271123049958,
+          "max_abs": 8.178502321243286e-05
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.004992906368892674,
+          "max_abs": 0.00390625
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.0034218821565052794,
+          "max_abs": 0.00029825419187545776
+        }
+      }
+    },
+    {
+      "file": "results/batch-3.json",
+      "sha256": "bdebf4f0a5635efcfd6e7d0192e5e65d4b1f047030206fea3a70a478b2c16085",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002676634935531057,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.001505932573149297,
+          "max_abs": 0.00012478232383728027
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.004945155747531686,
+          "max_abs": 0.0078125
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.003496217257317563,
+          "max_abs": 0.0004894845187664032
+        }
+      }
+    },
+    {
+      "file": "results/batch-32.json",
+      "sha256": "05dfa2a40a3012ee8ab94a28ed38baec0aef75a97e427d94de6d8b0762a06d0d",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002682231543811207,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014814125022637116,
+          "max_abs": 0.00020875036716461182
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.005100820508824174,
+          "max_abs": 0.0078125
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.003461019633526717,
+          "max_abs": 0.0004264954477548599
+        }
+      }
+    },
+    {
+      "file": "results/batch-4.json",
+      "sha256": "0f75767c64029e7cd99bff17a94f443ad48b2655583cb50a1d28480b72f9376d",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0024618621620250748,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014668468121916609,
+          "max_abs": 0.0001655183732509613
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.005087183125420414,
+          "max_abs": 0.0048828125
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.003446990617956924,
+          "max_abs": 0.00034838542342185974
+        }
+      }
+    },
+    {
+      "file": "results/batch-64.json",
+      "sha256": "cd12966810b4ae92e5e15a4daf0476fa33ce8630df3f85ac3d88e5ed00d554db",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0027170219407489146,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014933364283443529,
+          "max_abs": 0.00015321746468544006
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.005088281304428029,
+          "max_abs": 0.0078125
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.003481742080511763,
+          "max_abs": 0.0005330853164196014
+        }
+      }
+    },
+    {
+      "file": "results/batch-8.json",
+      "sha256": "5d066f51e2fd2fc5a8691a382f33b758f6dca5bc2106078f7caf7de73111fffb",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0026816696770312945,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014730032231935173,
+          "max_abs": 0.00011900067329406738
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.005114691158895434,
+          "max_abs": 0.0078125
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.0034923892512592277,
+          "max_abs": 0.0003942809998989105
+        }
+      }
+    }
+  ],
+  "final_source_timing_gold": [
+    {
+      "file": "results/final-ar/flydsl-b1-pad1.json",
+      "sha256": "07301796261a5262a8162b0d59abe4d0adf9ca330e35e85277b278a38a7292c1",
+      "status": "PASS",
+      "cases": 15,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0029839464263839138,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016626614648082736,
+          "max_abs": 0.00014852732419967651
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.00566529616142153,
+          "max_abs": 0.01171875
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.0038709589430978406,
+          "max_abs": 0.0005290843546390533
+        }
+      }
+    },
+    {
+      "file": "results/final-ar/flydsl-b32-pad1.json",
+      "sha256": "d1e10c72cbbfba44cc5640893723caa3adb01618ae83a1ef85df4ae6ad8a60a3",
+      "status": "PASS",
+      "cases": 15,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002949264391927126,
+          "max_abs": 0.015625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016422644878947665,
+          "max_abs": 0.0002968311309814453
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.005384418780028224,
+          "max_abs": 0.015625
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.0038319951062997194,
+          "max_abs": 0.0008709989488124847
+        }
+      }
+    },
+    {
+      "file": "results/final-ar/hip_rda_ar-b1-pad0.json",
+      "sha256": "550c7d13486e78dd61e9a431f971b7fd5c09219b2b7dbcd479f3ca2a2960dc30",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002691536731574033,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014661658256403158,
+          "max_abs": 8.814781904220581e-05
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.0056410144452698555,
+          "max_abs": 0.00390625
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.003443191602823735,
+          "max_abs": 0.00025255046784877777
+        }
+      },
+      "ar_diagnostics": [
+        {
+          "backend": "flydsl",
+          "gpu_kernel_names": [
+            "norm_0.kd",
+            "recurrence_0.kd",
+            "update_kernel_0.kd",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul> >(int, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul> >(int, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 15.997074842453003,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "AR conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda_ar",
+          "gpu_kernel_names": [
+            "void (anonymous namespace)::raon_rda_ar_fusion_kernel<true, 3, 1, 40, true, true, true>(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, float const*, float const*, float const*, __hip_bfloat16*, __hip_bfloat16*, __hip_bfloat16*, float const*, __hip_bfloat16 const*, float const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, int const*, float*, __hip_bfloat16*, float, float, float, (anonymous namespace)::KdaDecodeStrides) [clone .kd]"
+          ],
+          "microseconds_per_call": 4.783225059509277,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "AR conv/recurrence/norm; excludes ratio/projections"
+        }
+      ]
+    },
+    {
+      "file": "results/final-ar/hip_rda_ar-b1-pad1.json",
+      "sha256": "776ee935c9d66c26c439d42def1ad588fa03552a136287e00245daf175b6b399",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0,
+          "max_abs": 0.0
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0,
+          "max_abs": 0
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.0,
+          "max_abs": 0.0
+        },
+        "state_vs_existing": {
+          "relative_rms": 0,
+          "max_abs": 0
+        }
+      }
+    },
+    {
+      "file": "results/final-ar/hip_rda_ar-b3-pad1.json",
+      "sha256": "2a1d80217c4123e6aa78cdfdb9e9ab80f1fd801cba2c66ceeeb2e9d3ac678ba7",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0025780026622660573,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0015049765251889612,
+          "max_abs": 0.0001016668975353241
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.004628504918370093,
+          "max_abs": 0.00390625
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.0034930866070996113,
+          "max_abs": 0.00034838542342185974
+        }
+      }
+    },
+    {
+      "file": "results/final-ar/hip_rda_ar-b32-pad0.json",
+      "sha256": "5b769100a2091d5451318f37a223ddcb8f1c6839f5c641baddad3dc4354816e9",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002682231543811207,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014814125022637116,
+          "max_abs": 0.00020875036716461182
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.005100820508824174,
+          "max_abs": 0.0078125
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.003461019633526717,
+          "max_abs": 0.0004264954477548599
+        }
+      },
+      "ar_diagnostics": [
+        {
+          "backend": "flydsl",
+          "gpu_kernel_names": [
+            "norm_0.kd",
+            "recurrence_0.kd",
+            "update_kernel_0.kd",
+            "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}>(at::TensorIteratorBase&, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul> >(int, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+          ],
+          "microseconds_per_call": 53.40785026550293,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "AR conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda_ar",
+          "gpu_kernel_names": [
+            "void (anonymous namespace)::raon_rda_ar_fusion_kernel<true, 3, 1, 40, true, true, true>(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, float const*, float const*, float const*, __hip_bfloat16*, __hip_bfloat16*, __hip_bfloat16*, float const*, __hip_bfloat16 const*, float const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, int const*, float*, __hip_bfloat16*, float, float, float, (anonymous namespace)::KdaDecodeStrides) [clone .kd]"
+          ],
+          "microseconds_per_call": 30.18681764602661,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "AR conv/recurrence/norm; excludes ratio/projections"
+        }
+      ]
+    },
+    {
+      "file": "results/final-ar/hip_rda_ar-b32-pad1.json",
+      "sha256": "1e7c739b4565ddba3917d984053b757af32cdd0d0b84696922b322be6879d91f",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002683512285716516,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014814207881877809,
+          "max_abs": 0.00020875036716461182
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.0051048923906132845,
+          "max_abs": 0.0078125
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.003453866080246334,
+          "max_abs": 0.0004264954477548599
+        }
+      }
+    },
+    {
+      "file": "results/final-ar/hip_rda_ar-b64-pad1.json",
+      "sha256": "0cda1fe4a7d84d365b1832d7d64cd11b0d985e598fa2ebeafc67850d65d891a4",
+      "status": "PASS",
+      "cases": 1,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002717367884263074,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014933221462577662,
+          "max_abs": 0.00015321746468544006
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.00509493934359141,
+          "max_abs": 0.0078125
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.0034805670654792396,
+          "max_abs": 0.0005330853164196014
+        }
+      }
+    }
+  ],
+  "changed_input_graph_replay": [
+    {
+      "file": "results/replay-ar/flydsl-b1-pad1.json",
+      "sha256": "0936b627676d5f6ddd37298c8bd864b31104f64877c38a9415bd72d489a1bd26",
+      "status": "PASS",
+      "cases": 17,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0029839464263839138,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016626614648082736,
+          "max_abs": 0.00014852732419967651
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.00566529616142153,
+          "max_abs": 0.01171875
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.0038709589430978406,
+          "max_abs": 0.0005290843546390533
+        }
+      }
+    },
+    {
+      "file": "results/replay-ar/flydsl-b32-pad1.json",
+      "sha256": "9012efb6fc8f44dfe97316b1c35b7095e2bd5a0235c936c7b21335b1b3c63663",
+      "status": "PASS",
+      "cases": 17,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002949264391927126,
+          "max_abs": 0.015625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016422644878947665,
+          "max_abs": 0.0002968311309814453
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.005384418780028224,
+          "max_abs": 0.015625
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.0038319951062997194,
+          "max_abs": 0.0008709989488124847
+        }
+      }
+    },
+    {
+      "file": "results/replay-ar/hip_rda_ar-b1-pad0.json",
+      "sha256": "f5841f54a699f527228740bf06bb07fa6957bb020cbf76442b9a33d0c4dcafc3",
+      "status": "PASS",
+      "cases": 3,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0027551195802968647,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014902718402057698,
+          "max_abs": 9.093433618545532e-05
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.0063847539867620765,
+          "max_abs": 0.00390625
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.003505804346771602,
+          "max_abs": 0.00025977566838264465
+        }
+      }
+    },
+    {
+      "file": "results/replay-ar/hip_rda_ar-b1-pad1.json",
+      "sha256": "ed8323805d6aa1ee3fce0cf65e86e2601d68ca3b95c66d883e7213806932579b",
+      "status": "PASS",
+      "cases": 3,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0,
+          "max_abs": 0.0
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0,
+          "max_abs": 0
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.0,
+          "max_abs": 0.0
+        },
+        "state_vs_existing": {
+          "relative_rms": 0,
+          "max_abs": 0
+        }
+      }
+    },
+    {
+      "file": "results/replay-ar/hip_rda_ar-b3-pad1.json",
+      "sha256": "f41e9edc50cb74f8776d56f77841038aedda8d2b56206bdac1a8233ccf5f1850",
+      "status": "PASS",
+      "cases": 3,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002682714322347752,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0015049765251889612,
+          "max_abs": 0.0001348741352558136
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.005387517687757462,
+          "max_abs": 0.0078125
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.0034930866070996113,
+          "max_abs": 0.00034838542342185974
+        }
+      }
+    },
+    {
+      "file": "results/replay-ar/hip_rda_ar-b32-pad0.json",
+      "sha256": "18bcb08a8d8420e67559b584b97ad3332b1485d04c083fb3ecc831036936f705",
+      "status": "PASS",
+      "cases": 3,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0027015261949714,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014878224225201963,
+          "max_abs": 0.00020875036716461182
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.005100820508824174,
+          "max_abs": 0.009765625
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.0034846502943084463,
+          "max_abs": 0.0006393194198608398
+        }
+      }
+    },
+    {
+      "file": "results/replay-ar/hip_rda_ar-b32-pad1.json",
+      "sha256": "d33a0137c8006a5f835c983d50c81de5de1ce68a3383e02a93267bd0ad894619",
+      "status": "PASS",
+      "cases": 3,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002699605946529005,
+          "max_abs": 0.00390625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014821161290332443,
+          "max_abs": 0.00020875036716461182
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.0051048923906132845,
+          "max_abs": 0.009765625
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.0034831718248506524,
+          "max_abs": 0.0006393194198608398
+        }
+      }
+    },
+    {
+      "file": "results/replay-ar/hip_rda_ar-b64-pad1.json",
+      "sha256": "c8e6c91437b8c302637a2d0b4a2debda7fb898f3e9468d55c5dede22b95ca73a",
+      "status": "PASS",
+      "cases": 3,
+      "failed_checks": [],
+      "maximum_errors": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002717367884263074,
+          "max_abs": 0.015625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0014935608800615027,
+          "max_abs": 0.000194549560546875
+        },
+        "output_vs_existing": {
+          "relative_rms": 0.005154648213743811,
+          "max_abs": 0.01171875
+        },
+        "state_vs_existing": {
+          "relative_rms": 0.0034975557601973134,
+          "max_abs": 0.0006297603249549866
+        }
+      }
+    }
+  ]
+}

@@ -141,7 +141,7 @@ def create_recurrence(
                     )
                 else:
                     write_slot = read_slot
-                live = live & (tok < eos) & (write_slot >= (1 if speculative else 0))
+                live = live & (tok < eos) & (write_slot > 0)
                 # A NULL/PAD suffix must neither load past packed inputs nor
                 # advance the held state. Token zero is live somewhere because
                 # the host rejects an entirely empty packed batch.
@@ -234,7 +234,7 @@ def create_recurrence(
                 if live:
                     store_step()
 
-        if acceptance_valid & (read_slot >= (1 if speculative else 0)):
+        if acceptance_valid & (read_slot > 0):
             do_sequence()
 
     @flyc.jit

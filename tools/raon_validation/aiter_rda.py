@@ -3,8 +3,9 @@
 """Selected ROCm RDA candidate vs the existing chain and independent Torch gold.
 
 Checks AR and SD lengths 2/4/8, all accepted counts, reordered state slots,
-entire conv/recurrent pools and stateful HIP graph capture/replay. No model
-download, serving endpoint or throughput measurement is performed.
+entire conv/recurrent pools and stateful HIP graph capture/replay. Optional
+AR diagnostics record native kernel names and warmed isolated graph timing.
+No model download, serving endpoint or token throughput measurement is performed.
 """
 
 from types import MethodType, SimpleNamespace
@@ -45,7 +46,10 @@ def run(args, result):
     def random(*shape):
         return (torch.randn(*shape, device="cuda") * 0.2).bfloat16()
 
-    for spec, length in [(False, 1), *[(True, k + 1) for k in args.draft_counts]]:
+    schedules = [(False, 1)]
+    if not getattr(args, "decode_ar_only", False):
+        schedules += [(True, k + 1) for k in args.draft_counts]
+    for spec, length in schedules:
         tokens, channels = batch * length, 3 * h * d
         slots = tokens + 5
         history_len = length + 2 if spec else 3
@@ -68,6 +72,10 @@ def run(args, result):
         inputs = (raw, g, out_gate, beta, ratio)
         indices = torch.arange(1, tokens + 1, device="cuda").int().view(batch, length)
         indices = indices.roll(1, 0).contiguous()
+        if not spec and getattr(args, "decode_ar_padding", False):
+            indices[0, 0] = 0
+            if batch > 1:
+                indices[-1, 0] = -1
         cu = torch.arange(0, tokens + 1, length, device="cuda", dtype=torch.int32)
         metadata = SimpleNamespace(
             num_prefills=0,
@@ -94,6 +102,7 @@ def run(args, result):
             a_log=a_log,
             dt_bias=dt_bias,
             norm=norm,
+            backend=None,
         ):
             conv = initial_conv.clone()
             state = initial_state.clone()
@@ -107,7 +116,9 @@ def run(args, result):
                 kda_sgl_fused=False,
                 kda_sgl_fused_spec=False,
                 rocm_aiter_fused_decode=fused,
-                rocm_decode_backend=args.decode_backend if fused else "legacy",
+                rocm_decode_backend=(backend or args.decode_backend)
+                if fused
+                else "legacy",
                 _raon_decode_graph_local=True,
                 conv1d=SimpleNamespace(weight=weight, bias=None),
                 A_log=a_log,
@@ -127,7 +138,7 @@ def run(args, result):
             return layer, conv, state
 
         graph_layer, graph_conv, graph_state = fixture(True)
-        for accepted in range(1, length + 1) if spec else (1,):
+        for accepted in range(1, length + 1) if spec else (1, 1, 1):
             if spec:
                 metadata.num_accepted_tokens.fill_(accepted)
             indices.copy_(indices.roll(1, 0))
@@ -139,12 +150,14 @@ def run(args, result):
             old._forward_step(metadata, *inputs, old_out)
             assert rocm_aiter_decode.try_forward(fused, metadata, inputs, actual)
 
-            gold_out = torch.empty_like(actual)
+            gold_out = torch.zeros_like(actual)
             gold_state, gold_conv = initial_state.clone(), initial_conv.clone()
             for n in range(batch):
                 offset = accepted - 1 if spec else 0
                 conv_slot = int(indices[n, 0])
                 state_slot = int(indices[n, offset])
+                if not spec and conv_slot <= 0:
+                    continue
                 history = (
                     initial_conv[conv_slot : conv_slot + 1, :, offset : offset + 3]
                     if spec
@@ -182,6 +195,7 @@ def run(args, result):
             graph_out = torch.empty_like(actual)
             assert rocm_kda_graph.try_forward(graph_layer, metadata, inputs, graph_out)
             written = indices.flatten().long()
+            written = written[written > 0]
             untouched = torch.ones(slots, device="cuda", dtype=torch.bool)
             untouched[written] = False
             result["cases"].append(
@@ -190,11 +204,13 @@ def run(args, result):
                     length=length,
                     accepted=accepted,
                     output_vs_existing=error(actual, old_out),
-                    state_vs_existing=error(fused_state[written], old_state[written]),
+                    state_vs_existing=error(fused_state[written], old_state[written])
+                    if written.numel()
+                    else {"pass": bool(torch.equal(fused_state, old_state))},
                     output_vs_torch_gold=error(actual, gold_out),
-                    state_vs_torch_gold=error(
-                        fused_state[written], gold_state[written]
-                    ),
+                    state_vs_torch_gold=error(fused_state[written], gold_state[written])
+                    if written.numel()
+                    else {"pass": bool(torch.equal(fused_state, gold_state))},
                     untouched_recurrent_exact={
                         "pass": bool(
                             torch.equal(
@@ -213,3 +229,68 @@ def run(args, result):
                     },
                 )
             )
+        if not spec and (
+            getattr(args, "decode_timing_replays", 0)
+            or getattr(args, "decode_kernel_witness", False)
+        ):
+            result["ar_diagnostics"] = []
+            for backend in dict.fromkeys(("flydsl", args.decode_backend)):
+                bench_layer, _, _ = fixture(True, backend=backend)
+                bench_out = torch.empty_like(actual)
+
+                def launch(
+                    layer=bench_layer, output=bench_out, meta=metadata, data=inputs
+                ):
+                    assert rocm_aiter_decode.try_forward(layer, meta, data, output)
+
+                # All updates below belong to disposable fixture pools.
+                launch()
+                torch.accelerator.synchronize()
+                row = {"backend": backend}
+                if getattr(args, "decode_kernel_witness", False):
+                    with torch.profiler.profile(
+                        activities=[
+                            torch.profiler.ProfilerActivity.CPU,
+                            torch.profiler.ProfilerActivity.CUDA,
+                        ]
+                    ) as prof:
+                        launch()
+                        torch.accelerator.synchronize()
+                    row["gpu_kernel_names"] = sorted(
+                        {
+                            event.name
+                            for event in prof.events()
+                            if event.device_type == torch.autograd.DeviceType.CUDA
+                        }
+                    )
+                    if not row["gpu_kernel_names"]:
+                        raise RuntimeError("No GPU kernel witness recorded")
+                replays = getattr(args, "decode_timing_replays", 0)
+                if replays:
+                    if replays < 1 or replays > 10000:
+                        raise ValueError("Use 1..10000 decode timing replays")
+                    calls = 32
+                    graph = torch.cuda.CUDAGraph()
+                    with torch.cuda.graph(graph):
+                        for _ in range(calls):
+                            launch()
+                    for _ in range(20):
+                        graph.replay()
+                    torch.accelerator.synchronize()
+                    start = torch.cuda.Event(enable_timing=True)
+                    end = torch.cuda.Event(enable_timing=True)
+                    start.record()
+                    for _ in range(replays):
+                        graph.replay()
+                    end.record()
+                    end.synchronize()
+                    row.update(
+                        microseconds_per_call=start.elapsed_time(end)
+                        * 1000
+                        / (calls * replays),
+                        replays=replays,
+                        calls_per_graph=calls,
+                        warmup_replays=20,
+                        scope="AR conv/recurrence/norm; excludes ratio/projections",
+                    )
+                result["ar_diagnostics"].append(row)

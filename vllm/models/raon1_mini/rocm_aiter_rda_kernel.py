@@ -164,9 +164,8 @@ def fused_rda_conv_recurrent_norm_kernel(
             tl.int64
         )
         conv_state_idx = state_idx
-        # Normal decode keeps zero-based slots valid; only PAD_SLOT_ID (< 0)
-        # is skipped.
-        if state_idx < 0:
+        # The vLLM block allocator reserves zero as NULL_BLOCK_ID for AR too.
+        if state_idx <= 0:
             return
     tl.assume(state_idx >= 0)
     tl.assume(conv_state_idx >= 0)

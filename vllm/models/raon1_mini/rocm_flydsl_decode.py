@@ -17,7 +17,7 @@ def resolve_backend():
             if os.environ.get("RAON_ROCM_KDA_FUSED_DECODE", "0") == "1"
             else "legacy"
         )
-    if selected not in ("legacy", "aiter_triton", "flydsl"):
+    if selected not in ("legacy", "aiter_triton", "flydsl", "hip_rda_ar"):
         raise ValueError(f"Unknown ROCm Raon decode backend: {selected}")
     return selected
 
@@ -72,12 +72,9 @@ def forward(layer, m, inputs, output, conv, state, weight, indices, accepted, cu
     ):
         raise ValueError("Unsupported FlyDSL Raon gate/norm dtype or layout")
     steps = indices.shape[1] if spec else 1
-    # The FlyDSL conv wrapper's sentinel is a concrete cache row. Map PAD to
-    # NULL for SD; AR keeps physical row zero valid and maps PAD to -1.
+    # vLLM reserves physical row zero for NULL in both AR and SD graph padding.
     conv_indices = indices[:, 0] if spec else indices
-    conv_indices = torch.where(
-        conv_indices >= (1 if spec else 0), conv_indices, 0 if spec else -1
-    ).contiguous()
+    conv_indices = torch.where(conv_indices > 0, conv_indices, 0).contiguous()
     packed = torch.empty((tokens, 3 * heads * 128), device=raw.device, dtype=raw.dtype)
     causal_conv1d_update_flydsl(
         raw[:tokens],
@@ -89,7 +86,7 @@ def forward(layer, m, inputs, output, conv, state, weight, indices, accepted, cu
         num_accepted_tokens=accepted if spec else None,
         query_start_loc=cu,
         max_query_len=steps,
-        null_block_id=0 if spec else -1,
+        null_block_id=0,
         validate_data=True,
         out=packed,
     )

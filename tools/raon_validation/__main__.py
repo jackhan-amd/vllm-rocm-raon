@@ -49,10 +49,14 @@ def main():
     p.add_argument("--conv-weight-fp32", action="store_true")
     p.add_argument(
         "--decode-backend",
-        choices=["aiter_triton", "flydsl"],
+        choices=["aiter_triton", "flydsl", "hip_rda_ar"],
         default="aiter_triton",
         help="Candidate backend for the aiter-rda operation/graph diagnostic",
     )
+    p.add_argument("--decode-ar-only", action="store_true")
+    p.add_argument("--decode-ar-padding", action="store_true")
+    p.add_argument("--decode-timing-replays", type=int, default=0)
+    p.add_argument("--decode-kernel-witness", action="store_true")
     p.add_argument("--samples", type=int, default=65536)
     p.add_argument("--scratch-poison", action="store_true")
     p.add_argument(

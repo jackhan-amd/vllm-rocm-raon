@@ -10,6 +10,11 @@ candidates. Counter-profile durations are separate from graph replay timings.
 The [RDA native-port audit](../../docker/raon/RDA-NATIVE-PORT-AND-BUDGET-20261127.md)
 tracks full-model costs, mixed-batch native coverage and pending HIP port/gold
 acceptance work separately from the gate-only counter experiment.
+The [native HIP AR prototype](../../docker/raon/NATIVE-HIP-RDA-AR-20261127.md)
+adds `--decode-backend hip_rda_ar --decode-ar-only`, NULL/padding checks with
+`--decode-ar-padding`, optional profiler witnesses with `--decode-kernel-witness`,
+and warmed isolated graph timing with `--decode-timing-replays 100`. Its SD and
+mixed-batch native support remain pending; defaults are unchanged.
 
 Run inside the pinned Raon ROCm environment with one visible GPU. Source
 `docker/raon/runtime-env.sh` before starting Python. Preserve the image's

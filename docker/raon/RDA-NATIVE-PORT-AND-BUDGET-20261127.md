@@ -114,8 +114,9 @@ translation or silent Triton substitute.
    frontend where viable. Keep conv output, scaled V and recurrence-output BF16
    boundaries required by the current model. Keep the original KDA API behavior
    unchanged; expose the RDA contract separately rather than overloading beta.
-   Adapt AR slot-zero validity and negative padding: the Kimi kernel currently
-   treats slot zero as NULL, whereas the active RDA AR path permits it.
+   Preserve NULL/padding semantics. A subsequent GPU boundary check confirmed
+   that vLLM reserves slot zero as NULL for AR too; the earlier FlyDSL candidate's
+   treatment of it as live was a defect, corrected with the native AR prototype.
 2. **SD native HIP RDA operation.** Port the CUDA SD cache protocol, including
    all accepted counts and each candidate's FP32 state. Start with one CTA/head
    to avoid assuming CUDA cluster primitives exist on AMD. Compare that with
@@ -161,12 +162,13 @@ eight initial-state reads that it never made.
 
 ## Implementation and acceptance tasks retained
 
-All rows below remain work to execute; this source audit does not mark them done.
+The native AR prototype now has finite gold and isolated timing evidence; SD,
+mixed-batch coverage and whole-model acceptance remain work to execute.
 
 | Task | Current status | Acceptance evidence |
 | --- | --- | --- |
 | RDA recurrence/conv/norm hardware counters | Pending; previous roofline was gate-only | Real shapes, FP32 state, cache-regime notes, roofline and transaction metrics |
-| Native HIP AR RDA derivative | Port sources and semantic differences identified | Independent Torch output/state gold, native kernel witness, changed-input/state graph replay |
+| Native HIP AR RDA derivative | [Opt-in prototype tested](NATIVE-HIP-RDA-AR-20261127.md); whole-model acceptance pending | Independent Torch output/state gold, native kernel witness, changed-input/state graph replay |
 | Native HIP SD RDA derivative | CUDA SD reference and AMD scheduling alternatives identified | All accepted counts, ragged queries, reordered slots, NULL/PAD and every checkpoint |
 | Mixed prefill/SD native path | Gap reproduced in 25 C32 steps | Mixed-batch native witnesses, exact single cache advance, correct scatter and graph metadata refresh |
 | RDA gate fusion and safe initialization removal | Retained | Stable extreme-value gold, BF16 seams, complete write coverage |
