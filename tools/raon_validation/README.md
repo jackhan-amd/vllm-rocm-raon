@@ -1,5 +1,12 @@
 # Raon ROCm correctness diagnostics
 
+The [mixed RDA and shape dispatcher](../../docker/raon/NATIVE-RDA-MIXED-AND-DISPATCH-20261127.md)
+adds `hip_rda_fused_sd`, `hip_rda_vsplit_sd` and `hip_rda_auto_sd`. Use
+`--decode-ar-history 10`, `--decode-mixed --decode-mixed-prefill 129`,
+`--decode-spec-ragged` or `--decode-spec-null` for separate boundary fixtures.
+Mixed integration references the existing implementation; pure component gold
+uses independent Torch equations. These diagnostics do not measure model TPS.
+
 The [native HIP SD experiment](../../docker/raon/NATIVE-HIP-RDA-SD-20261127.md)
 adds pure SD gold and native-kernel timing with `--decode-backend hip_rda`.
 Expanded-pool AR and mixed-batch native coverage remain pending; this selector

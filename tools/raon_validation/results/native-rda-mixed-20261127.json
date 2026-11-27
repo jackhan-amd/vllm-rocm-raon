@@ -1,0 +1,975 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "job": "89711",
+  "node": "TheraC80",
+  "gpu": "MI355X",
+  "image_digest": "sha256:c41349b2bca3335d3a7eacceb6e4d9d21c4fa4602f7d24e454a8ccb9f739c281",
+  "raw_root": "/mnt/hammerspace/jackhan/raon-native-mixed-20261127",
+  "raw_archive_sha256": "170df1fc485efc31bae7848528b6456989a13cf717da1f7c5d05afb29272e796",
+  "runtime_source_sha256": {
+    "rocm_aiter_decode.py": "959c6952382f98e1904cb30e5d2bc8bd0d76062b547739e86da9177e77b4acff",
+    "rocm_aiter_rda_kernel.py": "43910e7b9bf93924f80e44d994788437be32b25f2b2c6f29776fad48f1562a5d",
+    "rocm_flydsl_decode.py": "17bf0b4539d4fa72efbace084bfd396bc8747ab7556378112789e5e5259e3cc2",
+    "rocm_flydsl_rda.py": "48efe9844995f5200a5ed723f21cc63c22683e828e948051bacbcde2399b9d74",
+    "rocm_hip_rda.py": "7f8b19e21ff94612b0f3cd7761a1c317503321a91d20d147ead32c98936ff0ef",
+    "rocm_hip_rda_ar.hip": "6d7115bc736a9ba20f7a84d1100d53465ba4e9d4df505feee215622c2e09562c",
+    "rocm_hip_rda_sd.hip": "21704d2f9fbf70be41fe16d5ab5dee30fdb744abf8b40d135a7631b7f79e88a6",
+    "rocm_hip_rda_sd_fused.hip": "e3980f1ceea3f1d91b6fd1bc2476e775ba0a57b56d46b5b09c19c1b1e549da22",
+    "rocm_hip_rda_sd_vsplit.hip": "2b987895210c32cc790e9c604738c88209f0e68fc89ad053551e471c76cd2031"
+  },
+  "auto_vsplit_full_shapes": [
+    [
+      1,
+      4
+    ],
+    [
+      1,
+      8
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      8
+    ],
+    [
+      4,
+      8
+    ]
+  ],
+  "checks": {
+    "results-r1": [
+      {
+        "file": "results-r1/ar-b1-h10.json",
+        "sha256": "e12269ae2570351f0bde8535ffc429be5daedd6d92250b3ffcff84429ee2585a",
+        "status": "PASS",
+        "cases": 3,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005279873203769317,
+            "max_abs": 0.0048828125
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.003411347316361195,
+            "max_abs": 0.00032551027834415436
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.0027087579676325965,
+            "max_abs": 0.00390625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0014771432868252255,
+            "max_abs": 9.343214333057404e-05
+          }
+        }
+      },
+      {
+        "file": "results-r1/ar-b1-h4.json",
+        "sha256": "f8b364f1f6345219a2e76d52da2123fbf51d77156c7eb1bcfb7b1209e443dce8",
+        "status": "PASS",
+        "cases": 3,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.004871276601214236,
+            "max_abs": 0.00390625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.003447438386859936,
+            "max_abs": 0.00027006492018699646
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002873657589524401,
+            "max_abs": 0.00390625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0014552943032209603,
+            "max_abs": 8.955970406532288e-05
+          }
+        }
+      },
+      {
+        "file": "results-r1/ar-b1-h6.json",
+        "sha256": "d233cdb961dd041e510cfd6b860e2e0353714dd3006a231e7651f1bff2ea43e4",
+        "status": "PASS",
+        "cases": 3,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005420133437351937,
+            "max_abs": 0.00390625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.003429437944089067,
+            "max_abs": 0.00035524554550647736
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002728047393255487,
+            "max_abs": 0.00390625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0014768187626313686,
+            "max_abs": 8.124113082885742e-05
+          }
+        }
+      },
+      {
+        "file": "results-r1/ar-b32-h4.json",
+        "sha256": "db4d3fd2f1f7b0bade394c7b662b0b7717b5c46f5c2c3e0f78a44ec7fd12fb60",
+        "status": "PASS",
+        "cases": 3,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005149410964117423,
+            "max_abs": 0.01171875
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.003470712687394669,
+            "max_abs": 0.0006180703639984131
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002719492408173054,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0014891279135952672,
+            "max_abs": 0.0002453625202178955
+          }
+        }
+      },
+      {
+        "file": "results-r1/ar-b32-h6.json",
+        "sha256": "b6a1d0951f842b9b855d1ba2946d64fddba3b86f288df827b3cd9d4ec557eeca",
+        "status": "PASS",
+        "cases": 3,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005118252156070423,
+            "max_abs": 0.01171875
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.003486298473502348,
+            "max_abs": 0.0005527548491954803
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.0027371251673866275,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0014909776577758267,
+            "max_abs": 0.0001750364899635315
+          }
+        }
+      }
+    ],
+    "results-r2": [
+      {
+        "file": "results-r2/ar-b32-h10.json",
+        "sha256": "23e48e0eb544e6f1a8652cfe09d7c2efd767962da0bad7db94ea3184dcdb3e44",
+        "status": "PASS",
+        "cases": 3,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005093628370364693,
+            "max_abs": 0.01171875
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.003485549984177411,
+            "max_abs": 0.0005999282002449036
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002728754354751834,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0014842204548709069,
+            "max_abs": 0.0002163127064704895
+          }
+        }
+      },
+      {
+        "file": "results-r2/mixed-sd-ar-b32.json",
+        "sha256": "425e688e118be78762b166cef74271413a41937ba844041e980cd47f19446e52",
+        "status": "PASS",
+        "cases": 25,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005384298496194476,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.003832000545283156,
+            "max_abs": 0.0008709989488124847
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.0029491934487323765,
+            "max_abs": 0.015625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016422464305259872,
+            "max_abs": 0.0002968311309814453
+          }
+        }
+      },
+      {
+        "file": "results-r2/mixed-sd-ar-b4.json",
+        "sha256": "3ffa14cc7acaf027ae341bdfdaa4c9ef6c412fa7628b198c08a94fb15d02ee20",
+        "status": "PASS",
+        "cases": 25,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005496144353949044,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038479485181505523,
+            "max_abs": 0.000976651906967163
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002984159613317666,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016487840889219453,
+            "max_abs": 0.00023179501295089722
+          }
+        }
+      }
+    ],
+    "results-prefill": [
+      {
+        "file": "results-prefill/mixed-sd-ar-b4.json",
+        "sha256": "020df678b7afa795870d9e9132d2cf4c24758877f1b8eed6658b879a7339606c",
+        "status": "PASS",
+        "cases": 25,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005496144353949044,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038479485181505523,
+            "max_abs": 0.0007640793919563293
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002984159613317666,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016487840889219453,
+            "max_abs": 0.00023179501295089722
+          }
+        }
+      }
+    ],
+    "results-prefill-matrix": [
+      {
+        "file": "results-prefill-matrix/mixed-b32-prefill129.json",
+        "sha256": "294be42787978db37609d698db49dfd4d6d33f957b0a321040cc50e19688486d",
+        "status": "PASS",
+        "cases": 25,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005384298496194476,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.003832000545283156,
+            "max_abs": 0.0008709989488124847
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.0029491934487323765,
+            "max_abs": 0.015625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016422464305259872,
+            "max_abs": 0.0002968311309814453
+          }
+        }
+      },
+      {
+        "file": "results-prefill-matrix/mixed-b32-prefill257.json",
+        "sha256": "0872c481a5cd6c803feed65b9b0b7cb0a76ffd7a82bc83d5415de28ab7287b24",
+        "status": "PASS",
+        "cases": 25,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005384298496194476,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.003832000545283156,
+            "max_abs": 0.0008709989488124847
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.0029491934487323765,
+            "max_abs": 0.015625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016422464305259872,
+            "max_abs": 0.0002968311309814453
+          }
+        }
+      },
+      {
+        "file": "results-prefill-matrix/mixed-b32-prefill3.json",
+        "sha256": "256447022d33b17f0a06eb787794a22ad70703436c7692ec87d9a78abfb056a7",
+        "status": "PASS",
+        "cases": 25,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005384298496194476,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.003832000545283156,
+            "max_abs": 0.0008709989488124847
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.0029491934487323765,
+            "max_abs": 0.015625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016422464305259872,
+            "max_abs": 0.0002968311309814453
+          }
+        }
+      },
+      {
+        "file": "results-prefill-matrix/mixed-b4-prefill129.json",
+        "sha256": "5e91824ae6afd0ea8eac6824dec5dac37a4ffb615dd5f1cca04abd60001c4e14",
+        "status": "PASS",
+        "cases": 25,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005496144353949044,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038479485181505523,
+            "max_abs": 0.0007640793919563293
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002984159613317666,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016487840889219453,
+            "max_abs": 0.00023179501295089722
+          }
+        }
+      },
+      {
+        "file": "results-prefill-matrix/mixed-b4-prefill257.json",
+        "sha256": "6a28f7c0e64f1584418b1148be30038b6f5e73ba137f1449cf1f0f4ca3983946",
+        "status": "PASS",
+        "cases": 25,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005496144353949044,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038479485181505523,
+            "max_abs": 0.0007640793919563293
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002984159613317666,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016487840889219453,
+            "max_abs": 0.00023179501295089722
+          }
+        }
+      },
+      {
+        "file": "results-prefill-matrix/mixed-b4-prefill3.json",
+        "sha256": "8a8c0cc32ad430cbf6dc90a7b38693832bea2d8edf49abd15300bc18f1db5d14",
+        "status": "PASS",
+        "cases": 25,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005496144353949044,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038479485181505523,
+            "max_abs": 0.0007640793919563293
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002984159613317666,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016487840889219453,
+            "max_abs": 0.00023179501295089722
+          }
+        }
+      }
+    ],
+    "results-fused-wiring": [
+      {
+        "file": "results-fused-wiring/mixed-sd-ar-b4.json",
+        "sha256": "f4a6b35bec83f9bda99e4542c1218468f2dc578f3cda2f58c1a639fe5b868263",
+        "status": "PASS",
+        "cases": 25,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005496144353949044,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038479485181505523,
+            "max_abs": 0.000976651906967163
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002984159613317666,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016487840889219453,
+            "max_abs": 0.00023179501295089722
+          }
+        }
+      }
+    ],
+    "results-mixed-witness": [
+      {
+        "file": "results-mixed-witness/mixed-sd-ar-b4.json",
+        "sha256": "09e95faaffe6e39f256041eb0608f7998b46de6217a9c015e9433c740f3ea142",
+        "status": "PASS",
+        "cases": 25,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005496144353949044,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038479485181505523,
+            "max_abs": 0.0007640793919563293
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002984159613317666,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016487840889219453,
+            "max_abs": 0.00023179501295089722
+          }
+        },
+        "mixed_kernel_witness": {
+          "scope": "direct diagnostic; no latency claim",
+          "kernels": [
+            "(anonymous namespace)::sd_conv_recurrence_norm(__hip_bfloat16 const*, float const*, __hip_bfloat16*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16 const*, float const*, __hip_bfloat16*, int, int, long, long, long, long, long, long, long, long, float, float) [clone .kd]",
+            "__amd_rocclr_copyBuffer.kd",
+            "_causal_conv1d_fwd_kernel.kd",
+            "_gather_initial_states_kernel.kd",
+            "void (anonymous namespace)::kda_chunk_fused<16, 4, true, true, 2>((anonymous namespace)::Params) [clone .kd]",
+            "void (anonymous namespace)::kda_chunk_prologue<1024, false>((anonymous namespace)::PrologueParams) [clone .kd]",
+            "void at::native::(anonymous namespace)::indexSelectSmallIndex<c10::BFloat16, long, unsigned int, 2, 2, -2>(at::cuda::detail::TensorInfo<c10::BFloat16, unsigned int>, at::cuda::detail::TensorInfo<c10::BFloat16 const, unsigned int>, at::cuda::detail::TensorInfo<long const, unsigned int>, int, int, unsigned int, long) [clone .kd]",
+            "void at::native::(anonymous namespace)::indexSelectSmallIndex<float, long, unsigned int, 2, 2, -2>(at::cuda::detail::TensorInfo<float, unsigned int>, at::cuda::detail::TensorInfo<float const, unsigned int>, at::cuda::detail::TensorInfo<long const, unsigned int>, int, int, unsigned int, long) [clone .kd]",
+            "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int, bool)#2}>(int, at::native::gpu_kernel_impl<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int, bool)#2}) [clone .kd]",
+            "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int, bool)#1}) [clone .kd]",
+            "void at::native::index_elementwise_kernel<128, 4, at::native::gpu_index_kernel<at::native::index_put_kernel_impl<at::native::OpaqueType<4> >(at::TensorIterator&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1}>(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>, at::native::index_put_kernel_impl<at::native::OpaqueType<4> >(at::TensorIterator&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1} const&, bool)::{lambda(int)#1}>(long, at::native::gpu_index_kernel<at::native::index_put_kernel_impl<at::native::OpaqueType<4> >(at::TensorIterator&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1}>(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>, at::native::index_put_kernel_impl<at::native::OpaqueType<4> >(at::TensorIterator&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1} const&, bool)::{lambda(int)#1}) [clone .kd]",
+            "void at::native::index_elementwise_kernel<128, 4, at::native::index_copy_kernel_impl<at::native::OpaqueType<2> >(at::TensorIterator&, long, long, long)::{lambda(int)#1}>(long, at::native::index_copy_kernel_impl<at::native::OpaqueType<2> >(at::TensorIterator&, long, long, long)::{lambda(int)#1}) [clone .kd]",
+            "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::pow_tensor_scalar_kernel_impl<float, float>(at::TensorIteratorBase&, float)::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::(anonymous namespace)::pow_tensor_scalar_kernel_impl<float, float>(at::TensorIteratorBase&, float)::{lambda(float)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 3ul> >(int, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> >, std::array<char*, 3ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctorOnSelf_add<float>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<float>, std::array<char*, 2ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::bfloat16_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::bfloat16_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(float)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul> >(int, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::rsqrt_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::rsqrt_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "void at::native::vectorized_elementwise_kernel<4, at::native::sigmoid_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::sigmoid_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>) [clone .kd]",
+            "void at::native::vectorized_gather_kernel<16, long>(char*, char*, long*, int, long, long, long, long, bool) [clone .kd]"
+          ],
+          "prefill_tokens": 129,
+          "backend": "hip_rda_fused_sd"
+        }
+      }
+    ],
+    "results-ragged": [
+      {
+        "file": "results-ragged/hip_rda-b32.json",
+        "sha256": "f02138e2ca81a148070c1872c0c88713b6434ab9f1f1536c574c8c56fca8e800",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005393555189552329,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0034846502943084463,
+            "max_abs": 0.0008709989488124847
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002928641219892632,
+            "max_abs": 0.015625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0014878224225201963,
+            "max_abs": 0.0002711862325668335
+          }
+        }
+      },
+      {
+        "file": "results-ragged/hip_rda-b4.json",
+        "sha256": "1f128411479d8a416088758a00b26ef95e838c9e6f8204bd8d145b96c7e7ee61",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005496144353949044,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0034472182576416365,
+            "max_abs": 0.0007590427994728088
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002899144702316775,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.001491754836580186,
+            "max_abs": 0.0002266913652420044
+          }
+        }
+      },
+      {
+        "file": "results-ragged/hip_rda_fused_sd-b32.json",
+        "sha256": "5449ee50de4a6aff72ff32682031aac838dc75198edab7b87663b6b2b6104544",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005393555189552329,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0034846502943084463,
+            "max_abs": 0.0008709989488124847
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002928641219892632,
+            "max_abs": 0.015625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0014878224225201963,
+            "max_abs": 0.0002711862325668335
+          }
+        }
+      },
+      {
+        "file": "results-ragged/hip_rda_fused_sd-b4.json",
+        "sha256": "3ea291a66891bf4228f961642c2da14801bffddc5dbf072c9b0f13006e1e6055",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005496144353949044,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0034472182576416365,
+            "max_abs": 0.0007590427994728088
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002899144702316775,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.001491754836580186,
+            "max_abs": 0.0002266913652420044
+          }
+        }
+      },
+      {
+        "file": "results-ragged/hip_rda_vsplit_sd-b32.json",
+        "sha256": "1018d77b817391ef763b9e4c0ceb7805c4de9541c5f75290e4b92f338211b5bc",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005393459774352797,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0034846502943084463,
+            "max_abs": 0.0008709989488124847
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002928637493002249,
+            "max_abs": 0.015625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0014878224225201963,
+            "max_abs": 0.0002711862325668335
+          }
+        }
+      },
+      {
+        "file": "results-ragged/hip_rda_vsplit_sd-b4.json",
+        "sha256": "324a5418e99894431cfdf235a0cb525e3f24f03c1530064719f1efe90828765a",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005496144353949044,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0034472182576416365,
+            "max_abs": 0.0007590427994728088
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.0028991443475021505,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.001491754836580186,
+            "max_abs": 0.0002266913652420044
+          }
+        }
+      }
+    ],
+    "results-auto": [
+      {
+        "file": "results-auto/auto-gpu1-b1.json",
+        "sha256": "56a60839c368612bace3d6b70cc7886c95787a0d12746476115189e86983cccd",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.0063847539867620765,
+            "max_abs": 0.01171875
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038709582215763956,
+            "max_abs": 0.0005290843546390533
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002983778044439948,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016626609718425553,
+            "max_abs": 0.00014852732419967651
+          }
+        }
+      },
+      {
+        "file": "results-auto/auto-gpu2-b2.json",
+        "sha256": "0b357cb4b5df3e14da1865a2fccd20f26547fdf84f93160701393bbe749c0d7c",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.0056657413998784205,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038407226083713,
+            "max_abs": 0.0006312578916549683
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.0029660263715002187,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016296986086746716,
+            "max_abs": 0.0002290979027748108
+          }
+        }
+      },
+      {
+        "file": "results-auto/auto-gpu3-b4.json",
+        "sha256": "4190cfe0bae8d051aca86f2a423a7575d5820ca3be8e3f966965f55539bcd4ac",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005496144353949044,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038479485181505523,
+            "max_abs": 0.0007590427994728088
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002984159613317666,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016487840889219453,
+            "max_abs": 0.00023179501295089722
+          }
+        }
+      },
+      {
+        "file": "results-auto/auto-gpu4-b8.json",
+        "sha256": "1115a9c87118bc00ee9d7c780155f96816e4a69289de256e1d22a73393dff07b",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005383840337351169,
+            "max_abs": 0.01171875
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038321392448736535,
+            "max_abs": 0.000882275402545929
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.0029542522478605603,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.001645459643881174,
+            "max_abs": 0.00029565393924713135
+          }
+        }
+      },
+      {
+        "file": "results-auto/auto-gpu5-b32.json",
+        "sha256": "a01bc730b7f001606d9918b7f38e476a233c2c7cc2f8c41db30179859283f14c",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005393555189552329,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0034846502943084463,
+            "max_abs": 0.0008709989488124847
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002928641219892632,
+            "max_abs": 0.015625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0014878224225201963,
+            "max_abs": 0.0002711862325668335
+          }
+        }
+      },
+      {
+        "file": "results-auto/auto-gpu6-b4.json",
+        "sha256": "e6509e80e231029393819ec94f3e3b383812ca4ccdce5807b48d969458cc3c6f",
+        "status": "PASS",
+        "cases": 25,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005496144353949044,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038479485181505523,
+            "max_abs": 0.0007640793919563293
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002984159613317666,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016487840889219453,
+            "max_abs": 0.00023179501295089722
+          }
+        }
+      }
+    ],
+    "results-null": [
+      {
+        "file": "results-null/hip_rda_auto_sd-b32.json",
+        "sha256": "ded5d811287f0f11ea32e62fe123cc130e13380eac590fcebbe839631cfdf09f",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005381952976370318,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038331871717206586,
+            "max_abs": 0.0008709989488124847
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.0029482844303355083,
+            "max_abs": 0.015625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016418357190942211,
+            "max_abs": 0.0002968311309814453
+          }
+        }
+      },
+      {
+        "file": "results-null/hip_rda_auto_sd-b4.json",
+        "sha256": "c92ebb4ba176ff4e4d534493ca4bb29482776c846e0cf1ccb04fd3994335ebe1",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005537472248769933,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.00386103938692889,
+            "max_abs": 0.0007590427994728088
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.003013209110789026,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016484315391976,
+            "max_abs": 0.00023179501295089722
+          }
+        }
+      },
+      {
+        "file": "results-null/hip_rda_fused_sd-b32.json",
+        "sha256": "85b66681712586484a1e4a2e645ae515de142db42a534400e632a0aad7cba0e8",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005381952976370318,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038331871717206586,
+            "max_abs": 0.0008709989488124847
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.0029482844303355083,
+            "max_abs": 0.015625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016418357190942211,
+            "max_abs": 0.0002968311309814453
+          }
+        }
+      },
+      {
+        "file": "results-null/hip_rda_fused_sd-b4.json",
+        "sha256": "87b328f59b8172966d00dca69852fb678fdb7eb7e6e7ad3c1490ae8a4305d604",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.00553747009031023,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.00386103938692889,
+            "max_abs": 0.0007590427994728088
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.003013209110789026,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016484315391976,
+            "max_abs": 0.00023179501295089722
+          }
+        }
+      },
+      {
+        "file": "results-null/hip_rda_vsplit_sd-b32.json",
+        "sha256": "3b502c39d70e094ff2e528c22ef8f95aa6f2025f8b590cb09eeb4bdf41f3774f",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005381960170449826,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.0038331871717206586,
+            "max_abs": 0.0008709989488124847
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.002948331796315839,
+            "max_abs": 0.015625
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016418357190942211,
+            "max_abs": 0.0002968311309814453
+          }
+        }
+      },
+      {
+        "file": "results-null/hip_rda_vsplit_sd-b4.json",
+        "sha256": "35c03d8d411805daa019bba82923f81ef39902ce7d1525bb382602bc80848db7",
+        "status": "PASS",
+        "cases": 17,
+        "failed": [],
+        "maximum_errors": {
+          "output_vs_existing": {
+            "relative_rms": 0.005537472248769933,
+            "max_abs": 0.015625
+          },
+          "state_vs_existing": {
+            "relative_rms": 0.00386103938692889,
+            "max_abs": 0.0007590427994728088
+          },
+          "output_vs_torch_gold": {
+            "relative_rms": 0.003013209110789026,
+            "max_abs": 0.0078125
+          },
+          "state_vs_torch_gold": {
+            "relative_rms": 0.0016484315391976,
+            "max_abs": 0.00023179501295089722
+          }
+        }
+      }
+    ]
+  },
+  "limitations": [
+    "Finite component and integration fixtures; no actual-checkpoint generation/runner integration or model throughput/accuracy for this revision",
+    "Mixed reference is existing mixed implementation; pure components have independent Torch gold",
+    "Initial incorrect expanded AR last-tap/full-shift candidate failed; first-three-tap/tail-preserving correction is recorded separately",
+    "First mixed warmup required outside enclosing capture; persistent proxies retain staging buffers",
+    "Gather/scatter and existing prefill conv frontend remain; native prefill recurrence witnessed",
+    "Original host collect_exit reflects initial failed attempt, not final corrected checks",
+    "No defaults changed; auto measured exact full shapes only, otherwise fused native HIP"
+  ]
+}

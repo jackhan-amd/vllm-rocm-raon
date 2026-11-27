@@ -534,12 +534,13 @@ void forward(torch::Tensor x, torch::Tensor weight, torch::Tensor conv,
                   weight.sizes() == at::IntArrayRef({3, 4, P}),
               "FP32 [3,4,P] weights required");
   TORCH_CHECK(conv.scalar_type() == at::kBFloat16 && conv.dim() == 3 &&
-                  conv.size(1) == 3 * P && conv.size(2) == 3,
+                  conv.size(1) == 3 * P && conv.size(2) >= 3,
               "AR conv pool required");
-  bool ds = conv.stride(1) == 3 && conv.stride(2) == 1;
+  const int history = conv.size(2);
+  bool ds = conv.stride(1) == history && conv.stride(2) == 1;
   TORCH_CHECK(ds || (conv.stride(1) == 1 && conv.stride(2) == 3 * P),
               "Conv layout unsupported");
-  TORCH_CHECK(conv.stride(0) >= 9 * P, "Conv slot stride too small");
+  TORCH_CHECK(conv.stride(0) >= 3 * history * P, "Conv slot stride too small");
   TORCH_CHECK(gate.scalar_type() == at::kBFloat16 && gate.is_contiguous() &&
                   gate.sizes() == at::IntArrayRef({1, B, H, D}),
               "Gate shape invalid");
@@ -595,7 +596,22 @@ void forward(torch::Tensor x, torch::Tensor weight, torch::Tensor conv,
       indices.data_ptr<int>(), state.data_ptr<float>(), out.data_ptr(), B,  \
       lower_bound, 0.08838834764831845f, eps, strides, stream)
   if (ds) {
-    RUN(3, 1);
+    switch (history) {
+      case 3:
+        RUN(3, 1);
+        break;
+      case 4:
+        RUN(4, 1);
+        break;
+      case 6:
+        RUN(6, 1);
+        break;
+      case 10:
+        RUN(10, 1);
+        break;
+      default:
+        TORCH_CHECK(false, "Unsupported AR expanded conv history");
+    }
   } else {
     RUN(1, 3 * P);
   }

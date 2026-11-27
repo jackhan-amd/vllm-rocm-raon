@@ -1,0 +1,458 @@
+{
+  "schema": 1,
+  "job": "89711",
+  "node": "TheraC80",
+  "gpu": "AMD Instinct MI355X",
+  "device_index": 0,
+  "backend": "private load(sd_fused) substitution for hip_rda SD only",
+  "raw_root": "/mnt/hammerspace/jackhan/raon-native-mixed-20261127/sd-fused",
+  "raw_archive_sha256": "5ab8753a925923b93ecf3fb3dd6d49b846fccac3434d1100085c057c02302cbc",
+  "initial_snapshot_sha256": {
+    "rocm_hip_rda_ar.hip": "5db08f3ffc27af38b772c8db666bf70aa34da6e57a87229768e454fb10a6c11e",
+    "rocm_hip_rda_sd_fused.hip": "e3980f1ceea3f1d91b6fd1bc2476e775ba0a57b56d46b5b09c19c1b1e549da22",
+    "rocm_hip_rda.py": "433674e60df7f77e35cf70d2144a30ee22aa35c3ef5ce151d33d8b5488d28f49"
+  },
+  "final_compiled_resources": {
+    "module": "55743662c0b57f2ce5fd",
+    "source_sha256": {
+      "rocm_hip_rda_ar.hip": "6d7115bc736a9ba20f7a84d1100d53465ba4e9d4df505feee215622c2e09562c",
+      "rocm_hip_rda_sd_fused.hip": "e3980f1ceea3f1d91b6fd1bc2476e775ba0a57b56d46b5b09c19c1b1e549da22",
+      "rocm_hip_rda.py": "433674e60df7f77e35cf70d2144a30ee22aa35c3ef5ce151d33d8b5488d28f49"
+    },
+    "torch": "2.14.0+rocm10.2.0",
+    "resource": {
+      ".agpr_count": 0,
+      ".group_segment_fixed_size": 2832,
+      ".kernarg_segment_align": 8,
+      ".kernarg_segment_size": 200,
+      ".language": "OpenCL C",
+      ".language_version": [
+        2,
+        0
+      ],
+      ".max_flat_workgroup_size": 256,
+      ".name": "_ZN12_GLOBAL__N_123sd_conv_recurrence_normEPK14__hip_bfloat16PKfPS0_S2_S2_S4_S4_S4_PKiS7_S7_PfS2_S4_S5_iillllllllff",
+      ".private_segment_fixed_size": 0,
+      ".sgpr_count": 87,
+      ".sgpr_spill_count": 0,
+      ".symbol": "_ZN12_GLOBAL__N_123sd_conv_recurrence_normEPK14__hip_bfloat16PKfPS0_S2_S2_S4_S4_S4_PKiS7_S7_PfS2_S4_S5_iillllllllff.kd",
+      ".uniform_work_group_size": 1,
+      ".uses_dynamic_stack": false,
+      ".vgpr_count": 190,
+      ".vgpr_spill_count": 0,
+      ".wavefront_size": 64
+    },
+    "compute_units": 256
+  },
+  "initial_gold": [
+    {
+      "file": "sd-fused/gold-b1.json",
+      "sha256": "c9c940902a2b52f04c23ba6327d52b98b2eb8fe7225009cd872b8edfa3c86380",
+      "status": "PASS",
+      "case_count": 17,
+      "maximum_gold_error": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002983778044439948,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016626609718425553,
+          "max_abs": 0.00014852732419967651
+        }
+      }
+    },
+    {
+      "file": "sd-fused/gold-b16.json",
+      "sha256": "ab38510fc1a1d91675bf7e5fbadc990b32a547b9614b2ab0273f0ba459053c61",
+      "status": "PASS",
+      "case_count": 17,
+      "maximum_gold_error": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0029257030328764767,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016419064586140732,
+          "max_abs": 0.0002791117876768112
+        }
+      }
+    },
+    {
+      "file": "sd-fused/gold-b2.json",
+      "sha256": "1fa94ae39a57136a8196316a9ae57a99404c3bbea20be49e67508e15cc841736",
+      "status": "PASS",
+      "case_count": 17,
+      "maximum_gold_error": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.00296609832215365,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016296986086746716,
+          "max_abs": 0.0002290979027748108
+        }
+      }
+    },
+    {
+      "file": "sd-fused/gold-b32.json",
+      "sha256": "0811210e61c74860e0d6ff6328ecec16742b69f3f11cd3f95d3ec0e9f7b66f8e",
+      "status": "PASS",
+      "case_count": 17,
+      "maximum_gold_error": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0029491934487323765,
+          "max_abs": 0.015625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016422464305259872,
+          "max_abs": 0.0002968311309814453
+        }
+      }
+    },
+    {
+      "file": "sd-fused/gold-b4.json",
+      "sha256": "c31947241146e96dc966da75d5d61d414dab8459eb8a83273a31e491ffde5101",
+      "status": "PASS",
+      "case_count": 17,
+      "maximum_gold_error": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002984159613317666,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016487840889219453,
+          "max_abs": 0.00023179501295089722
+        }
+      }
+    },
+    {
+      "file": "sd-fused/gold-b8.json",
+      "sha256": "7afeca31b30eecdf80916bbfa962a1b92e4cd41de7930429f39d8c39ceacf319",
+      "status": "PASS",
+      "case_count": 17,
+      "maximum_gold_error": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0029542522478605603,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.001645459643881174,
+          "max_abs": 0.00029565393924713135
+        }
+      }
+    }
+  ],
+  "final_helper_gold_and_timing": [
+    {
+      "file": "sd-fused/timing-b1.json",
+      "sha256": "1eabfcb290c55949cf1f2205e8b289cf472933db1ad2285727b20dfcabe60e14",
+      "status": "PASS",
+      "case_count": 17,
+      "maximum_gold_error": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.002983778044439948,
+          "max_abs": 0.0078125
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016626609718425553,
+          "max_abs": 0.00014852732419967651
+        }
+      },
+      "decode_diagnostics": [
+        {
+          "backend": "flydsl",
+          "kind": "ar",
+          "length": 1,
+          "microseconds_per_call": 16.022114753723145,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "ar",
+          "length": 1,
+          "microseconds_per_call": 4.783909320831299,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "flydsl",
+          "kind": "sd",
+          "length": 2,
+          "microseconds_per_call": 18.93123507499695,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "sd",
+          "length": 2,
+          "microseconds_per_call": 8.770887851715088,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "flydsl",
+          "kind": "sd",
+          "length": 4,
+          "microseconds_per_call": 24.96286630630493,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "sd",
+          "length": 4,
+          "microseconds_per_call": 15.246758460998535,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "flydsl",
+          "kind": "sd",
+          "length": 8,
+          "microseconds_per_call": 36.709136962890625,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "sd",
+          "length": 8,
+          "microseconds_per_call": 27.507760524749756,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        }
+      ]
+    },
+    {
+      "file": "sd-fused/timing-b32.json",
+      "sha256": "b0d79195c91856feaf3429d60818742200b464bc58ca0db8053d46b11dfc20a8",
+      "status": "PASS",
+      "case_count": 17,
+      "maximum_gold_error": {
+        "output_vs_torch_gold": {
+          "relative_rms": 0.0029491934487323765,
+          "max_abs": 0.015625
+        },
+        "state_vs_torch_gold": {
+          "relative_rms": 0.0016422464305259872,
+          "max_abs": 0.0002968311309814453
+        }
+      },
+      "decode_diagnostics": [
+        {
+          "backend": "flydsl",
+          "kind": "ar",
+          "length": 1,
+          "microseconds_per_call": 52.5126838684082,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "ar",
+          "length": 1,
+          "microseconds_per_call": 29.473519325256348,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "flydsl",
+          "kind": "sd",
+          "length": 2,
+          "microseconds_per_call": 88.31729888916016,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "sd",
+          "length": 2,
+          "microseconds_per_call": 52.89623260498047,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "flydsl",
+          "kind": "sd",
+          "length": 4,
+          "microseconds_per_call": 163.41934204101562,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "sd",
+          "length": 4,
+          "microseconds_per_call": 88.7382698059082,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "flydsl",
+          "kind": "sd",
+          "length": 8,
+          "microseconds_per_call": 320.4972457885742,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        },
+        {
+          "backend": "hip_rda",
+          "kind": "sd",
+          "length": 8,
+          "microseconds_per_call": 148.16146850585938,
+          "replays": 100,
+          "calls_per_graph": 32,
+          "warmup_replays": 20,
+          "scope": "decode conv/recurrence/norm; excludes ratio/projections"
+        }
+      ]
+    }
+  ],
+  "final_helper_witness": {
+    "file": "sd-fused/witness-b1.json",
+    "sha256": "7ffe1773cf643ba28f1a564e26661da9a63bfa17d891e6990bf41d7f417dae62",
+    "status": "PASS",
+    "case_count": 17,
+    "maximum_gold_error": {
+      "output_vs_torch_gold": {
+        "relative_rms": 0.002983778044439948,
+        "max_abs": 0.0078125
+      },
+      "state_vs_torch_gold": {
+        "relative_rms": 0.0016626609718425553,
+        "max_abs": 0.00014852732419967651
+      }
+    },
+    "decode_diagnostics": [
+      {
+        "backend": "flydsl",
+        "kind": "ar",
+        "length": 1,
+        "gpu_kernel_names": [
+          "norm_0.kd",
+          "recurrence_0.kd",
+          "update_kernel_0.kd",
+          "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul> >(int, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul>) [clone .kd]",
+          "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+          "void at::native::vectorized_elementwise_kernel<4, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul> >(int, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul>) [clone .kd]",
+          "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+        ]
+      },
+      {
+        "backend": "hip_rda",
+        "kind": "ar",
+        "length": 1,
+        "gpu_kernel_names": [
+          "void (anonymous namespace)::raon_rda_ar_fusion_kernel<true, 3, 1, 40, true, true, true>(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, float const*, float const*, float const*, __hip_bfloat16*, __hip_bfloat16*, __hip_bfloat16*, float const*, __hip_bfloat16 const*, float const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, int const*, float*, __hip_bfloat16*, float, float, float, (anonymous namespace)::KdaDecodeStrides) [clone .kd]"
+        ]
+      },
+      {
+        "backend": "flydsl",
+        "kind": "sd",
+        "length": 2,
+        "gpu_kernel_names": [
+          "norm_0.kd",
+          "recurrence_0.kd",
+          "update_kernel_0.kd",
+          "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul> >(int, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul>) [clone .kd]",
+          "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+          "void at::native::vectorized_elementwise_kernel<4, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul> >(int, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul>) [clone .kd]",
+          "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+        ]
+      },
+      {
+        "backend": "hip_rda",
+        "kind": "sd",
+        "length": 2,
+        "gpu_kernel_names": [
+          "(anonymous namespace)::sd_conv_recurrence_norm(__hip_bfloat16 const*, float const*, __hip_bfloat16*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16 const*, float const*, __hip_bfloat16*, int, int, long, long, long, long, long, long, long, long, float, float) [clone .kd]"
+        ]
+      },
+      {
+        "backend": "flydsl",
+        "kind": "sd",
+        "length": 4,
+        "gpu_kernel_names": [
+          "norm_0.kd",
+          "recurrence_0.kd",
+          "update_kernel_0.kd",
+          "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul> >(int, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul>) [clone .kd]",
+          "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+          "void at::native::vectorized_elementwise_kernel<4, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul> >(int, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul>) [clone .kd]",
+          "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+        ]
+      },
+      {
+        "backend": "hip_rda",
+        "kind": "sd",
+        "length": 4,
+        "gpu_kernel_names": [
+          "(anonymous namespace)::sd_conv_recurrence_norm(__hip_bfloat16 const*, float const*, __hip_bfloat16*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16 const*, float const*, __hip_bfloat16*, int, int, long, long, long, long, long, long, long, long, float, float) [clone .kd]"
+        ]
+      },
+      {
+        "backend": "flydsl",
+        "kind": "sd",
+        "length": 8,
+        "gpu_kernel_names": [
+          "norm_0.kd",
+          "recurrence_0.kd",
+          "update_kernel_0.kd",
+          "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul> >(int, at::native::(anonymous namespace)::where_kernel_impl(at::TensorIterator&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(bool, unsigned int, unsigned int)#1}, std::array<char*, 4ul>) [clone .kd]",
+          "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul> >(int, at::native::FillFunctor<int>, std::array<char*, 1ul>) [clone .kd]",
+          "void at::native::vectorized_elementwise_kernel<4, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul> >(int, at::native::compare_scalar_kernel<int>(at::TensorIteratorBase&, at::native::(anonymous namespace)::OpType, int)::{lambda(int)#1}, std::array<char*, 2ul>) [clone .kd]",
+          "void at::native::vectorized_elementwise_kernel<8, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul> >(int, at::native::FillFunctor<c10::BFloat16>, std::array<char*, 1ul>) [clone .kd]"
+        ]
+      },
+      {
+        "backend": "hip_rda",
+        "kind": "sd",
+        "length": 8,
+        "gpu_kernel_names": [
+          "(anonymous namespace)::sd_conv_recurrence_norm(__hip_bfloat16 const*, float const*, __hip_bfloat16*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16 const*, float const*, __hip_bfloat16*, int, int, long, long, long, long, long, long, long, long, float, float) [clone .kd]"
+        ]
+      }
+    ]
+  },
+  "limitations": [
+    "Initial six-batch gold used previous expanded AR helper; final helper retested in batch1/32 and witness",
+    "Private compile source snapshot and loader substitution; production selector acceptance is separate",
+    "No full-model TPS or model accuracy result",
+    "Ragged/NULL suffix and shared-layer mixed-mode acceptance not covered by this standalone finite fixture",
+    "B1 40 CTAs / 256 CUs is a parallelism upper-bound argument, not measured CU busy",
+    "No spill in compiler metadata; occupancy, memory transactions and barrier cost require separate measurement",
+    "One setup attempt dropped image PYTHONPATH and failed platform preflight before any timing; error log retained"
+  ]
+}

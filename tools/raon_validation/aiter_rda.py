@@ -8,6 +8,7 @@ AR diagnostics record native kernel names and warmed isolated graph timing.
 No model download, serving endpoint or token throughput measurement is performed.
 """
 
+import copy
 from types import MethodType, SimpleNamespace
 
 import torch
@@ -52,7 +53,7 @@ def run(args, result):
     for spec, length in schedules:
         tokens, channels = batch * length, 3 * h * d
         slots = tokens + 5
-        history_len = length + 2 if spec else 3
+        history_len = length + 2 if spec else args.decode_ar_history
         initial_conv = random(slots, channels, history_len)
         initial_state = torch.randn(slots, h, d, d, device="cuda") * 0.01
         weight = random(channels, 1, 4)
@@ -72,11 +73,32 @@ def run(args, result):
         inputs = (raw, g, out_gate, beta, ratio)
         indices = torch.arange(1, tokens + 1, device="cuda").int().view(batch, length)
         indices = indices.roll(1, 0).contiguous()
+        if spec and getattr(args, "decode_spec_null", False):
+            indices[-1].zero_()
         if not spec and getattr(args, "decode_ar_padding", False):
             indices[0, 0] = 0
             if batch > 1:
                 indices[-1, 0] = -1
         cu = torch.arange(0, tokens + 1, length, device="cuda", dtype=torch.int32)
+        if spec and getattr(args, "decode_spec_ragged", False):
+            if getattr(args, "decode_mixed", False):
+                raise ValueError("Run ragged pure-SD and mixed fixtures separately")
+            spans = [1 + n % length for n in range(batch)]
+            picked = torch.tensor(
+                [n * length + t for n, span in enumerate(spans) for t in range(span)],
+                device="cuda",
+                dtype=torch.long,
+            )
+            raw, out_gate = raw[picked], out_gate[picked]
+            g, beta, delta = (value[:, picked] for value in (g, beta, delta))
+            ratio = compute_rda_value_ratio(beta, delta)
+            inputs = (raw, g, out_gate, beta, ratio)
+            tokens = picked.numel()
+            cu = (
+                torch.tensor([0] + spans, device="cuda", dtype=torch.int32)
+                .cumsum(0)
+                .int()
+            )
         metadata = SimpleNamespace(
             num_prefills=0,
             num_decodes=0 if spec else batch,
@@ -156,17 +178,17 @@ def run(args, result):
                 offset = accepted - 1 if spec else 0
                 conv_slot = int(indices[n, 0])
                 state_slot = int(indices[n, offset])
-                if not spec and conv_slot <= 0:
+                if conv_slot <= 0 or state_slot <= 0:
                     continue
                 history = (
                     initial_conv[conv_slot : conv_slot + 1, :, offset : offset + 3]
                     if spec
-                    else initial_conv[conv_slot : conv_slot + 1]
+                    else initial_conv[conv_slot : conv_slot + 1, :, :3]
                 )
-                lo, hi = n * length, (n + 1) * length
+                lo, hi = int(cu[n]), int(cu[n + 1])
                 convolved, _ = convolution(raw[None, lo:hi], history, weight[:, 0])
                 q, k, v = [
-                    part.view(1, length, h, d) for part in convolved.chunk(3, -1)
+                    part.view(1, hi - lo, h, d) for part in convolved.chunk(3, -1)
                 ]
                 value, states = rda(
                     q,
@@ -180,13 +202,13 @@ def run(args, result):
                     initial_state[state_slot : state_slot + 1],
                 )
                 gold_out[:, lo:hi] = norm(value.bfloat16(), out_gate[lo:hi])
-                for token in range(length):
+                for token in range(hi - lo):
                     gold_state[indices[n, token]] = states[0, token]
                 if spec:
                     gold_conv[conv_slot, :, :2] = history[0, :, 1:]
-                    gold_conv[conv_slot, :, 2 : 2 + length] = raw[lo:hi].T
+                    gold_conv[conv_slot, :, 2 : 2 + hi - lo] = raw[lo:hi].T
                 else:
-                    gold_conv[conv_slot] = torch.cat(
+                    gold_conv[conv_slot, :, :3] = torch.cat(
                         [history[0, :, 1:], raw[lo:hi].T], -1
                     )
 
@@ -229,6 +251,127 @@ def run(args, result):
                     },
                 )
             )
+        if spec and length == 8 and getattr(args, "decode_mixed", False):
+            if batch < 2:
+                raise ValueError("Mixed validation needs at least two requests")
+            source_ids = torch.cat(
+                (
+                    torch.arange(8, device="cuda"),
+                    torch.arange(8, tokens, 8, device="cuda"),
+                )
+            ).long()
+            prefill = getattr(args, "decode_mixed_prefill", 0)
+            if prefill:
+                if not 1 <= prefill <= 512 or batch < 3:
+                    raise ValueError("Use 1..512 prefill tokens and batch >=3")
+                source_ids = torch.cat(
+                    (
+                        source_ids,
+                        tokens
+                        - length
+                        + (torch.arange(1, prefill, device="cuda") % length),
+                    )
+                )
+            order = torch.arange(source_ids.numel(), device="cuda").roll(3)
+            source_ids = source_ids[order]
+            inverse = order.argsort()
+            mixed = copy.copy(metadata)
+            mixed.num_spec_decodes, mixed.num_decodes = 1, batch - 1
+            if prefill:
+                from vllm.v1.attention.backends.utils import (
+                    compute_causal_conv1d_metadata,
+                )
+
+                mixed.num_prefills, mixed.num_decodes = 1, batch - 2
+                mixed.has_initial_state = torch.ones(
+                    batch - 1, dtype=torch.bool, device="cuda"
+                )
+                mixed.has_initial_state[-1] = False
+            mixed.num_actual_tokens = source_ids.numel()
+            mixed.spec_token_indx = inverse[:8].contiguous()
+            mixed.non_spec_token_indx = inverse[8:].contiguous()
+            mixed.spec_state_indices_tensor = indices[:1]
+            mixed.non_spec_state_indices_tensor = indices[1:, 0]
+            mixed.spec_query_start_loc = cu[:2]
+            mixed.non_spec_query_start_loc = torch.arange(
+                batch, device="cuda", dtype=torch.int32
+            )
+            if prefill:
+                mixed.non_spec_query_start_loc[-1] = batch - 2 + prefill
+                mixed.nums_dict, mixed.batch_ptr, mixed.token_chunk_offset_ptr = (
+                    compute_causal_conv1d_metadata(
+                        mixed.non_spec_query_start_loc.cpu(), device=raw.device
+                    )
+                )
+            mixed.num_accepted_tokens = metadata.num_accepted_tokens[:1]
+            data = tuple(
+                value.index_select(axis, source_ids)
+                for value, axis in zip(inputs, (0, 1, 0, 1, 1))
+            )
+            captured_layer, captured_conv, captured_state = fixture(True)
+            captured_out = torch.empty(
+                (1, source_ids.numel(), h, d), dtype=torch.bfloat16, device="cuda"
+            )
+            captured_layer._forward_step(mixed, *data, captured_out)
+            captured_conv.copy_(initial_conv)
+            captured_state.copy_(initial_state)
+            graph = torch.cuda.CUDAGraph()
+            with torch.cuda.graph(graph):
+                captured_layer._forward_step(mixed, *data, captured_out)
+            for accepted in range(1, 9):
+                mixed.num_accepted_tokens.fill_(accepted)
+                if prefill:
+                    mixed.has_initial_state[-1] = accepted % 2 == 0
+                data[0].add_(0.01)
+                indices.copy_(indices.roll(1, 0))
+                old, old_conv, old_state = fixture(False)
+                native, native_conv, native_state = fixture(True)
+                expected = torch.zeros_like(captured_out)
+                actual = torch.empty_like(expected)
+                old._forward_step(mixed, *data, expected)
+                native._forward_step(mixed, *data, actual)
+                captured_conv.copy_(initial_conv)
+                captured_state.copy_(initial_state)
+                graph.replay()
+                result["cases"].append(
+                    dict(
+                        kind="mixed_sd_prefill" if prefill else "mixed_sd_ar",
+                        accepted=accepted,
+                        output_vs_existing=error(actual, expected),
+                        state_vs_existing=error(native_state, old_state),
+                        conv_exact={"pass": bool(torch.equal(native_conv, old_conv))},
+                        graph_output_exact=error(captured_out, actual, 0, 0, 0),
+                        graph_state_exact=error(captured_state, native_state, 0, 0, 0),
+                        graph_conv_exact={
+                            "pass": bool(torch.equal(captured_conv, native_conv))
+                        },
+                    )
+                )
+            if getattr(args, "decode_kernel_witness", False):
+                with torch.profiler.profile(
+                    activities=[
+                        torch.profiler.ProfilerActivity.CPU,
+                        torch.profiler.ProfilerActivity.CUDA,
+                    ]
+                ) as prof:
+                    for _ in range(32):
+                        captured_layer._forward_step(mixed, *data, captured_out)
+                    torch.accelerator.synchronize()
+                names = sorted(
+                    {
+                        event.name
+                        for event in prof.events()
+                        if event.device_type == torch.autograd.DeviceType.CUDA
+                    }
+                )
+                if not names:
+                    raise RuntimeError("No mixed GPU kernel witness recorded")
+                result["mixed_kernel_witness"] = dict(
+                    scope="direct diagnostic; no latency claim",
+                    kernels=names,
+                    prefill_tokens=prefill,
+                    backend=args.decode_backend,
+                )
         if getattr(args, "decode_timing_replays", 0) or getattr(
             args, "decode_kernel_witness", False
         ):

@@ -7,14 +7,72 @@ three-kernel chain, while hip_rda_ar selects the experimental Kimi HIP AR
 derivative. MoE backend selection is independent.
 """
 
+import copy
+
 import torch
 
 _ANNOUNCED = set()
 
 
+def _mixed_native(layer, m, inputs, out):
+    """Keep native SD/AR sub-batches and existing HIP prefill ownership separate."""
+    spec_ids, other_ids = m.spec_token_indx, m.non_spec_token_indx
+    if spec_ids is None or other_ids is None:
+        raise ValueError("Mixed native RDA requires packed token mappings")
+    x, gate, out_gate, beta, ratio = inputs
+    for speculative, ids in ((True, spec_ids), (False, other_ids)):
+        if ids.numel() == 0:
+            continue
+        metadata = copy.copy(m)
+        metadata.num_actual_tokens = ids.numel()
+        metadata.spec_token_indx = metadata.non_spec_token_indx = None
+        if speculative:
+            metadata.num_prefills = metadata.num_decodes = 0
+        else:
+            metadata.num_spec_decodes = 0
+        # A persistent proxy owns staged weight buffers referenced by graphs.
+        name = "_raon_native_mixed_spec" if speculative else "_raon_native_mixed_other"
+        proxy = getattr(layer, name, None)
+        if proxy is None:
+            if torch.cuda.is_current_stream_capturing():
+                raise RuntimeError("Warm mixed native RDA before graph capture")
+            proxy = copy.copy(layer)
+            # nn.Module shallow copies share _modules. Registering this proxy
+            # as a child would introduce a module cycle.
+            object.__setattr__(layer, name, proxy)
+        proxy.kv_cache = layer.kv_cache
+        proxy.rocm_decode_backend = layer.rocm_decode_backend
+        proxy.rocm_aiter_fused_decode = metadata.num_prefills == 0
+        selected = (
+            x.index_select(0, ids),
+            gate.index_select(1, ids),
+            out_gate.index_select(0, ids),
+            beta.index_select(1, ids),
+            ratio.index_select(1, ids),
+        )
+        value = torch.empty(
+            (1, ids.numel(), layer.local_num_heads, layer.head_dim),
+            device=x.device,
+            dtype=x.dtype,
+        )
+        # Both branches return normalized outputs. Do not norm after scatter.
+        from .kda import RaonKDAAttention
+
+        RaonKDAAttention._forward_step(proxy, metadata, *selected, value)
+        out.index_copy_(1, ids, value)
+    return True
+
+
 def try_forward(layer, m, inputs, out):
     x, gate, out_gate, beta, ratio = inputs
     if m.num_prefills or (m.num_decodes and m.num_spec_decodes):
+        if m.num_spec_decodes and getattr(layer, "rocm_decode_backend", "") in (
+            "hip_rda",
+            "hip_rda_fused_sd",
+            "hip_rda_vsplit_sd",
+            "hip_rda_auto_sd",
+        ):
+            return _mixed_native(layer, m, inputs, out)
         if "mixed" not in _ANNOUNCED:
             _ANNOUNCED.add("mixed")
             print(
@@ -94,7 +152,13 @@ def try_forward(layer, m, inputs, out):
         if tokens != batch:
             raise ValueError("Normal fused decode needs one token per request")
     output = out.view(-1, h * d)[:tokens]
-    if getattr(layer, "rocm_decode_backend", "") in ("hip_rda_ar", "hip_rda"):
+    if getattr(layer, "rocm_decode_backend", "") in (
+        "hip_rda_ar",
+        "hip_rda",
+        "hip_rda_fused_sd",
+        "hip_rda_vsplit_sd",
+        "hip_rda_auto_sd",
+    ):
         if spec and layer.rocm_decode_backend == "hip_rda_ar":
             raise RuntimeError("Experimental HIP RDA AR does not support SD")
         from .rocm_hip_rda import forward as hip_forward

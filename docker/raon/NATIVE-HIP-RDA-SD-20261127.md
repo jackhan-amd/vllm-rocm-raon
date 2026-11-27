@@ -1,5 +1,9 @@
 # Experimental native HIP RDA SD
 
+Subsequent [mixed wiring and shape dispatch](NATIVE-RDA-MIXED-AND-DISPATCH-20261127.md)
+adds expanded-pool AR and native mixed coverage. The limitations below describe
+this initial SD prototype; full-model acceptance remains pending.
+
 `RAON_ROCM_KDA_DECODE_BACKEND=hip_rda` adds pure speculative decode to the
 opt-in native AR prototype. The SD operation uses three native HIP kernels:
 conv with accepted-history rollback, recurrence retaining FP32 state across

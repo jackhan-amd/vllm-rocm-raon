@@ -17,7 +17,16 @@ def resolve_backend():
             if os.environ.get("RAON_ROCM_KDA_FUSED_DECODE", "0") == "1"
             else "legacy"
         )
-    if selected not in ("legacy", "aiter_triton", "flydsl", "hip_rda_ar", "hip_rda"):
+    if selected not in (
+        "legacy",
+        "aiter_triton",
+        "flydsl",
+        "hip_rda_ar",
+        "hip_rda",
+        "hip_rda_fused_sd",
+        "hip_rda_vsplit_sd",
+        "hip_rda_auto_sd",
+    ):
         raise ValueError(f"Unknown ROCm Raon decode backend: {selected}")
     return selected
 

@@ -14,6 +14,8 @@ from pathlib import Path
 import torch
 from filelock import FileLock
 
+_VSPLIT_FULL_SHAPES = {(1, 4), (1, 8), (2, 4), (2, 8), (4, 8)}
+
 
 @functools.cache
 def load(kind="ar"):
@@ -94,15 +96,26 @@ def forward(layer, inputs, output, conv, state, weight, indices, metadata=None):
     if layer.local_num_heads != 40:
         raise ValueError("Experimental HIP RDA requires 40 heads")
     spec = metadata is not None
-    key = (_identity(layer.conv1d.weight), _identity(layer.o_norm.weight), spec)
-    cache_name = "_raon_hip_rda_prepared_sd" if spec else "_raon_hip_rda_prepared_ar"
+    kind = "ar"
+    if spec:
+        kind = "sd_fused" if layer.rocm_decode_backend == "hip_rda_fused_sd" else "sd"
+        if layer.rocm_decode_backend == "hip_rda_vsplit_sd":
+            kind = "sd_vsplit"
+        if layer.rocm_decode_backend == "hip_rda_auto_sd":
+            shape = tuple(indices.shape)
+            # Timings cover these full uniform requests only. Keep unmeasured
+            # and ragged shapes on the fused native kernel.
+            full = metadata.num_actual_tokens == indices.numel()
+            kind = "sd_vsplit" if full and shape in _VSPLIT_FULL_SHAPES else "sd_fused"
+    key = (_identity(layer.conv1d.weight), _identity(layer.o_norm.weight), kind)
+    cache_name = "_raon_hip_rda_prepared_" + kind
     prepared = getattr(layer, cache_name, None)
     if prepared is None or prepared[0] != key:
         if torch.cuda.is_current_stream_capturing():
             raise RuntimeError("Prepare native RDA weights before capture")
         packed = weight.view(3, 5120, 4).transpose(1, 2).float().contiguous()
         norm = layer.o_norm.weight.float().contiguous()
-        prepared = (key, packed, norm, load("sd" if spec else "ar"))
+        prepared = (key, packed, norm, load(kind))
         setattr(layer, cache_name, prepared)
     raw, gate, out_gate, beta, ratio = inputs
     if spec:
@@ -135,7 +148,7 @@ def forward(layer, inputs, output, conv, state, weight, indices, metadata=None):
         ratio,
         layer.A_log,
         layer.dt_bias,
-        indices,
+        indices.contiguous(),
         state,
         out_gate,
         prepared[2],
