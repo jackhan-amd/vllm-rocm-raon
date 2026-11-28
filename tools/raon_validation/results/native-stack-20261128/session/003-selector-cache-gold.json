@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "cases": 12,
+  "records": [
+    {
+      "k": 64,
+      "batch": 1,
+      "replay": 0,
+      "status": "PASS"
+    },
+    {
+      "k": 64,
+      "batch": 1,
+      "replay": 1,
+      "status": "PASS"
+    },
+    {
+      "k": 64,
+      "batch": 1,
+      "replay": 2,
+      "status": "PASS"
+    },
+    {
+      "k": 64,
+      "batch": 1,
+      "replay": 3,
+      "status": "PASS"
+    },
+    {
+      "k": 64,
+      "batch": 3,
+      "replay": 0,
+      "status": "PASS"
+    },
+    {
+      "k": 64,
+      "batch": 3,
+      "replay": 1,
+      "status": "PASS"
+    },
+    {
+      "k": 64,
+      "batch": 3,
+      "replay": 2,
+      "status": "PASS"
+    },
+    {
+      "k": 64,
+      "batch": 3,
+      "replay": 3,
+      "status": "PASS"
+    },
+    {
+      "k": 64,
+      "batch": 8,
+      "replay": 0,
+      "status": "PASS"
+    },
+    {
+      "k": 64,
+      "batch": 8,
+      "replay": 1,
+      "status": "PASS"
+    },
+    {
+      "k": 64,
+      "batch": 8,
+      "replay": 2,
+      "status": "PASS"
+    },
+    {
+      "k": 64,
+      "batch": 8,
+      "replay": 3,
+      "status": "PASS"
+    }
+  ],
+  "limitation": "Realized chain and cached q equal independent Torch indexing/softmax; RNG distribution separately validated by prior Monte Carlo. Not a target accuracy test."
+}

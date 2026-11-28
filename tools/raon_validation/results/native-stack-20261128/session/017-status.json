@@ -1,0 +1,177 @@
+{
+  "status": "REVIEW_REQUIRED",
+  "cases": [
+    {
+      "rank": 0,
+      "dataset": "humaneval",
+      "sd": "off",
+      "c": 1,
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "single_measurement": true,
+      "output_tps": 270.53084004145364,
+      "errors": [],
+      "client_exit": 0,
+      "owned_api_stopped": true
+    },
+    {
+      "rank": 1,
+      "dataset": "math500",
+      "sd": "off",
+      "c": 1,
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "single_measurement": true,
+      "output_tps": 271.63732631813264,
+      "errors": [],
+      "client_exit": 0,
+      "owned_api_stopped": true
+    },
+    {
+      "rank": 2,
+      "dataset": "mt-bench",
+      "sd": "off",
+      "c": 1,
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "single_measurement": true,
+      "output_tps": 269.86342741098156,
+      "errors": [],
+      "client_exit": 0,
+      "owned_api_stopped": true
+    },
+    {
+      "rank": 3,
+      "dataset": "humaneval",
+      "sd": "on",
+      "c": 1,
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "single_measurement": true,
+      "output_tps": 419.4388564619159,
+      "errors": [],
+      "client_exit": 0,
+      "owned_api_stopped": true
+    },
+    {
+      "rank": 4,
+      "dataset": "math500",
+      "sd": "on",
+      "c": 1,
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "single_measurement": true,
+      "output_tps": 567.871363260094,
+      "errors": [],
+      "client_exit": 0,
+      "owned_api_stopped": true
+    },
+    {
+      "rank": 5,
+      "dataset": "mt-bench",
+      "sd": "on",
+      "c": 1,
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "single_measurement": true,
+      "output_tps": 366.4731197640398,
+      "errors": [],
+      "client_exit": 0,
+      "owned_api_stopped": true
+    },
+    {
+      "rank": 6,
+      "dataset": "humaneval",
+      "sd": "on",
+      "c": 8,
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "single_measurement": true,
+      "output_tps": 1797.5465753954293,
+      "errors": [],
+      "client_exit": 0,
+      "owned_api_stopped": true
+    },
+    {
+      "rank": 7,
+      "dataset": "mt-bench",
+      "sd": "on",
+      "c": 8,
+      "status": "FAILED_RETAINED",
+      "single_measurement": true,
+      "output_tps": null,
+      "errors": [
+        "Compilation/capture detected inside measured server-log interval"
+      ],
+      "client_exit": 2,
+      "owned_api_stopped": true
+    }
+  ],
+  "gold": [
+    {
+      "rank": 0,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 1,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 2,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 3,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 5,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 6,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 7,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 4,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    }
+  ]
+}

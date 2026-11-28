@@ -1,0 +1,217 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "rows": 16,
+      "layout": "compact",
+      "scale": 0.125,
+      "checkpoint_weight": "model.layers.8.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 7.360630652444642e-08,
+        "relative_rms": 7.166076741723863e-08,
+        "peak": 4.76837158203125e-07,
+        "relative_peak": 1.747352716950003e-07,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 7.360630652444642e-08,
+        "relative_rms": 7.166076741723863e-08,
+        "peak": 4.76837158203125e-07,
+        "relative_peak": 1.747352716950003e-07,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 16,
+      "layout": "compact",
+      "scale": 1.0,
+      "checkpoint_weight": "model.layers.8.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 9.793611378503182e-07,
+        "relative_rms": 8.583087752105262e-08,
+        "peak": 2.288818359375e-05,
+        "relative_peak": 9.738540951019164e-08,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 1.1380156067130847e-06,
+        "relative_rms": 9.973530130924831e-08,
+        "peak": 2.288818359375e-05,
+        "relative_peak": 9.738540951019164e-08,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 16,
+      "layout": "compact",
+      "scale": 8.0,
+      "checkpoint_weight": "model.layers.8.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 4.837353334349998e-06,
+        "relative_rms": 9.255555318394324e-09,
+        "peak": 0.0001220703125,
+        "relative_peak": 9.487624987125293e-09,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 4.837353334349998e-06,
+        "relative_rms": 9.255555318394324e-09,
+        "peak": 0.0001220703125,
+        "relative_peak": 9.487624987125293e-09,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 16,
+      "layout": "compact",
+      "scale": "wide_beta",
+      "checkpoint_weight": "model.layers.8.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 1.0569332027884324e-06,
+        "relative_rms": 6.490243963219595e-10,
+        "peak": 2.6702880859375e-05,
+        "relative_peak": 6.489022051960303e-10,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 1.0569332027884324e-06,
+        "relative_rms": 6.490243963219595e-10,
+        "peak": 2.6702880859375e-05,
+        "relative_peak": 6.489022051960303e-10,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 16,
+      "layout": "projected_stride20656",
+      "scale": 0.125,
+      "checkpoint_weight": "model.layers.8.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 7.906923173662694e-08,
+        "relative_rms": 7.828305239301628e-08,
+        "peak": 5.960464477539062e-07,
+        "relative_peak": 1.6680524846709313e-07,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 7.906923173662694e-08,
+        "relative_rms": 7.828305239301628e-08,
+        "peak": 5.960464477539062e-07,
+        "relative_peak": 1.6680524846709313e-07,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 16,
+      "layout": "projected_stride20656",
+      "scale": 1.0,
+      "checkpoint_weight": "model.layers.8.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 3.373416239314911e-07,
+        "relative_rms": 1.1570668704444637e-08,
+        "peak": 7.62939453125e-06,
+        "relative_peak": 1.3411352355709406e-08,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 3.373416239314911e-07,
+        "relative_rms": 1.1570668704444637e-08,
+        "peak": 7.62939453125e-06,
+        "relative_peak": 1.3411352355709406e-08,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 16,
+      "layout": "projected_stride20656",
+      "scale": 8.0,
+      "checkpoint_weight": "model.layers.8.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 1.4997042160703286e-06,
+        "relative_rms": 2.0798474199809624e-08,
+        "peak": 3.0517578125e-05,
+        "relative_peak": 1.8526472550733634e-08,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 1.4997042160703286e-06,
+        "relative_rms": 2.0798474199809624e-08,
+        "peak": 3.0517578125e-05,
+        "relative_peak": 1.8526472550733634e-08,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 16,
+      "layout": "projected_stride20656",
+      "scale": "wide_beta",
+      "checkpoint_weight": "model.layers.8.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 3.6290523046128614e-08,
+        "relative_rms": 3.87611229849268e-12,
+        "peak": 5.960464477539062e-07,
+        "relative_peak": 2.5170154613923518e-12,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 3.6290523046128614e-08,
+        "relative_rms": 3.87611229849268e-12,
+        "peak": 5.960464477539062e-07,
+        "relative_peak": 2.5170154613923518e-12,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    }
+  ],
+  "timings": [
+    {
+      "rows": 16,
+      "baseline_us": 19.82538604736328,
+      "fused_us": 5.48933219909668,
+      "speedup": 3.611620745165638,
+      "operator_only": true
+    }
+  ],
+  "cache_updates": 0,
+  "precision": "BF16 inputs/weights and delta seam; FP32 ratio",
+  "scope": "Real write-projection weights, synthetic activations; not model TPS or quality"
+}

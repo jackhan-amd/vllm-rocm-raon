@@ -1,0 +1,792 @@
+{
+  "status": "PASS",
+  "records": [
+    {
+      "file": "gsm8k-step-003.pt",
+      "layer": "model.layers.17.self_attn.in_proj_qkvgfab",
+      "label": "gsm8k",
+      "step": 3,
+      "backend": "hip_rda_auto_sd",
+      "accepted": 2,
+      "indices_stable": true,
+      "checks": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 2.450033662171336e-06,
+          "reference_rms": 0.7583953142166138,
+          "relative_rms": 3.2305495778307966e-06,
+          "max_abs": 0.00048828125,
+          "reference_peak": 9.9375,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 2.231626883286708e-09,
+          "reference_rms": 0.11114940792322159,
+          "relative_rms": 2.0077721734948366e-08,
+          "max_abs": 4.76837158203125e-07,
+          "reference_peak": 19.246082305908203,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "conv_exact": true
+      },
+      "no_intermediate_value_rounding_variant": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 0.0015515070408582687,
+          "reference_rms": 0.7584529519081116,
+          "relative_rms": 0.0020456206768725686,
+          "max_abs": 0.0625,
+          "reference_peak": 9.9375,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 2.7982028768747114e-05,
+          "reference_rms": 0.11114941537380219,
+          "relative_rms": 0.0002517514705285841,
+          "max_abs": 0.005215883255004883,
+          "reference_peak": 19.245830535888672,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        }
+      },
+      "input_ranges": [
+        {
+          "min": -26.125,
+          "max": 26.125,
+          "rms": 2.9830403327941895
+        },
+        {
+          "min": -12.0625,
+          "max": 7.8125,
+          "rms": 1.7884284257888794
+        },
+        {
+          "min": -19.875,
+          "max": 14.625,
+          "rms": 2.764070749282837
+        },
+        {
+          "min": -2.359375,
+          "max": 7.375,
+          "rms": 2.5046463012695312
+        },
+        {
+          "min": 0.41073334217071533,
+          "max": 4.889050006866455,
+          "rms": 1.3036959171295166
+        }
+      ],
+      "pass": true
+    },
+    {
+      "file": "gsm8k-step-015.pt",
+      "layer": "model.layers.17.self_attn.in_proj_qkvgfab",
+      "label": "gsm8k",
+      "step": 15,
+      "backend": "hip_rda_auto_sd",
+      "accepted": 1,
+      "indices_stable": true,
+      "checks": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 3.0173470122463186e-07,
+          "reference_rms": 0.7657928466796875,
+          "relative_rms": 3.9401608742219047e-07,
+          "max_abs": 6.103515625e-05,
+          "reference_peak": 12.875,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 1.1067047012147668e-07,
+          "reference_rms": 0.11550547927618027,
+          "relative_rms": 9.581404346789229e-07,
+          "max_abs": 0.00015610363334417343,
+          "reference_peak": 19.780561447143555,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "conv_exact": true
+      },
+      "no_intermediate_value_rounding_variant": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 0.0016595545457676053,
+          "reference_rms": 0.765744149684906,
+          "relative_rms": 0.002167244172156576,
+          "max_abs": 0.03125,
+          "reference_peak": 12.875,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 2.602822678454686e-05,
+          "reference_rms": 0.11550522595643997,
+          "relative_rms": 0.00022534241692547124,
+          "max_abs": 0.006369948387145996,
+          "reference_peak": 19.780153274536133,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        }
+      },
+      "input_ranges": [
+        {
+          "min": -25.875,
+          "max": 31.625,
+          "rms": 2.9481425285339355
+        },
+        {
+          "min": -12.4375,
+          "max": 8.75,
+          "rms": 1.8206127882003784
+        },
+        {
+          "min": -18.5,
+          "max": 16.875,
+          "rms": 2.7610785961151123
+        },
+        {
+          "min": -2.640625,
+          "max": 7.75,
+          "rms": 2.4357266426086426
+        },
+        {
+          "min": 0.37861353158950806,
+          "max": 10.478760719299316,
+          "rms": 1.5420728921890259
+        }
+      ],
+      "pass": true
+    },
+    {
+      "file": "humaneval-step-003.pt",
+      "layer": "model.layers.17.self_attn.in_proj_qkvgfab",
+      "label": "humaneval",
+      "step": 3,
+      "backend": "hip_rda_auto_sd",
+      "accepted": 2,
+      "indices_stable": true,
+      "checks": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 4.431052730069496e-05,
+          "reference_rms": 0.8011497259140015,
+          "relative_rms": 5.5308671859236736e-05,
+          "max_abs": 0.0078125,
+          "reference_peak": 18.75,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 2.67115662921924e-09,
+          "reference_rms": 0.11561663448810577,
+          "relative_rms": 2.310356672329914e-08,
+          "max_abs": 9.5367431640625e-07,
+          "reference_peak": 20.26302719116211,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "conv_exact": true
+      },
+      "no_intermediate_value_rounding_variant": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 0.001630199607461691,
+          "reference_rms": 0.801167368888855,
+          "relative_rms": 0.0020347803352533276,
+          "max_abs": 0.03125,
+          "reference_peak": 18.75,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 3.164199006278068e-05,
+          "reference_rms": 0.11561601608991623,
+          "relative_rms": 0.00027368171930584645,
+          "max_abs": 0.008473515510559082,
+          "reference_peak": 20.2635440826416,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        }
+      },
+      "input_ranges": [
+        {
+          "min": -24.875,
+          "max": 35.75,
+          "rms": 3.1698899269104004
+        },
+        {
+          "min": -12.375,
+          "max": 8.875,
+          "rms": 1.7274773120880127
+        },
+        {
+          "min": -20.75,
+          "max": 21.125,
+          "rms": 3.1440343856811523
+        },
+        {
+          "min": -1.8671875,
+          "max": 7.21875,
+          "rms": 2.6920669078826904
+        },
+        {
+          "min": 0.39404430985450745,
+          "max": 7.062202453613281,
+          "rms": 1.649884819984436
+        }
+      ],
+      "pass": true
+    },
+    {
+      "file": "humaneval-step-015.pt",
+      "layer": "model.layers.17.self_attn.in_proj_qkvgfab",
+      "label": "humaneval",
+      "step": 15,
+      "backend": "hip_rda_auto_sd",
+      "accepted": 4,
+      "indices_stable": true,
+      "checks": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 9.725626114232e-06,
+          "reference_rms": 0.8277310729026794,
+          "relative_rms": 1.1749741471135386e-05,
+          "max_abs": 0.001953125,
+          "reference_peak": 11.375,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 2.5707844741873487e-09,
+          "reference_rms": 0.11991570144891739,
+          "relative_rms": 2.1438264073220398e-08,
+          "max_abs": 9.5367431640625e-07,
+          "reference_peak": 21.393795013427734,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "conv_exact": true
+      },
+      "no_intermediate_value_rounding_variant": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 0.0016362693859264255,
+          "reference_rms": 0.8277400732040405,
+          "relative_rms": 0.0019767913127519683,
+          "max_abs": 0.03125,
+          "reference_peak": 11.375,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 2.8580931029864587e-05,
+          "reference_rms": 0.11991444230079651,
+          "relative_rms": 0.00023834436020785083,
+          "max_abs": 0.005367159843444824,
+          "reference_peak": 21.39115333557129,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        }
+      },
+      "input_ranges": [
+        {
+          "min": -26.0,
+          "max": 28.625,
+          "rms": 3.0321877002716064
+        },
+        {
+          "min": -12.75,
+          "max": 7.875,
+          "rms": 1.683620810508728
+        },
+        {
+          "min": -18.375,
+          "max": 18.875,
+          "rms": 3.0214650630950928
+        },
+        {
+          "min": -2.1875,
+          "max": 7.21875,
+          "rms": 2.3290748596191406
+        },
+        {
+          "min": 0.38742971420288086,
+          "max": 9.58492660522461,
+          "rms": 1.6298316717147827
+        }
+      ],
+      "pass": true
+    },
+    {
+      "file": "humaneval-step-063.pt",
+      "layer": "model.layers.17.self_attn.in_proj_qkvgfab",
+      "label": "humaneval",
+      "step": 63,
+      "backend": "hip_rda_auto_sd",
+      "accepted": 8,
+      "indices_stable": true,
+      "checks": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 1.99315654754173e-05,
+          "reference_rms": 0.6193407773971558,
+          "relative_rms": 3.2181904054794814e-05,
+          "max_abs": 0.00390625,
+          "reference_peak": 15.4375,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 2.2326127613325752e-09,
+          "reference_rms": 0.12516425549983978,
+          "relative_rms": 1.7837462879611288e-08,
+          "max_abs": 9.5367431640625e-07,
+          "reference_peak": 25.198104858398438,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "conv_exact": true
+      },
+      "no_intermediate_value_rounding_variant": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 0.0011188855860382318,
+          "reference_rms": 0.6193376779556274,
+          "relative_rms": 0.00180658407499373,
+          "max_abs": 0.03125,
+          "reference_peak": 15.4375,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 2.2115542378742248e-05,
+          "reference_rms": 0.12516464293003082,
+          "relative_rms": 0.00017669161083378167,
+          "max_abs": 0.006290167570114136,
+          "reference_peak": 25.19972801208496,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        }
+      },
+      "input_ranges": [
+        {
+          "min": -26.25,
+          "max": 31.0,
+          "rms": 3.14101505279541
+        },
+        {
+          "min": -13.625,
+          "max": 9.625,
+          "rms": 2.1848297119140625
+        },
+        {
+          "min": -20.125,
+          "max": 16.5,
+          "rms": 2.994727849960327
+        },
+        {
+          "min": -2.453125,
+          "max": 7.625,
+          "rms": 2.6308414936065674
+        },
+        {
+          "min": 0.30075642466545105,
+          "max": 4.117968559265137,
+          "rms": 1.0824428796768188
+        }
+      ],
+      "pass": true
+    },
+    {
+      "file": "mt-bench-step-003.pt",
+      "layer": "model.layers.17.self_attn.in_proj_qkvgfab",
+      "label": "mt-bench",
+      "step": 3,
+      "backend": "hip_rda_auto_sd",
+      "accepted": 6,
+      "indices_stable": true,
+      "checks": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 5.2765836144885725e-09,
+          "reference_rms": 0.7911369800567627,
+          "relative_rms": 6.669620745208987e-09,
+          "max_abs": 9.5367431640625e-07,
+          "reference_peak": 19.625,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 3.0280618013023286e-09,
+          "reference_rms": 0.10195997357368469,
+          "relative_rms": 2.969853458341671e-08,
+          "max_abs": 1.9073486328125e-06,
+          "reference_peak": 15.364346504211426,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "conv_exact": true
+      },
+      "no_intermediate_value_rounding_variant": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 0.0018732137978076935,
+          "reference_rms": 0.7911296486854553,
+          "relative_rms": 0.0023677709474297093,
+          "max_abs": 0.0625,
+          "reference_peak": 19.625,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 3.376473978278227e-05,
+          "reference_rms": 0.10195989906787872,
+          "relative_rms": 0.0003311570538168516,
+          "max_abs": 0.004876375198364258,
+          "reference_peak": 15.366715431213379,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        }
+      },
+      "input_ranges": [
+        {
+          "min": -25.5,
+          "max": 33.25,
+          "rms": 3.164113998413086
+        },
+        {
+          "min": -11.125,
+          "max": 8.5625,
+          "rms": 1.915502667427063
+        },
+        {
+          "min": -21.375,
+          "max": 20.375,
+          "rms": 3.1868197917938232
+        },
+        {
+          "min": -1.953125,
+          "max": 7.71875,
+          "rms": 2.919506788253784
+        },
+        {
+          "min": 0.33310559391975403,
+          "max": 7.696306228637695,
+          "rms": 1.8059760332107544
+        }
+      ],
+      "pass": true
+    },
+    {
+      "file": "mt-bench-step-015.pt",
+      "layer": "model.layers.17.self_attn.in_proj_qkvgfab",
+      "label": "mt-bench",
+      "step": 15,
+      "backend": "hip_rda_auto_sd",
+      "accepted": 1,
+      "indices_stable": true,
+      "checks": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 1.4725502761603337e-10,
+          "reference_rms": 0.8103430271148682,
+          "relative_rms": 1.81719374004263e-10,
+          "max_abs": 2.9802322387695312e-08,
+          "reference_peak": 10.375,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 2.545329280678743e-09,
+          "reference_rms": 0.11023112386465073,
+          "relative_rms": 2.309084033112165e-08,
+          "max_abs": 4.76837158203125e-07,
+          "reference_peak": 16.73927116394043,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "conv_exact": true
+      },
+      "no_intermediate_value_rounding_variant": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 0.0017062610713765025,
+          "reference_rms": 0.8103032112121582,
+          "relative_rms": 0.0021057069104095647,
+          "max_abs": 0.0625,
+          "reference_peak": 10.375,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 3.0390134270419367e-05,
+          "reference_rms": 0.11023072153329849,
+          "relative_rms": 0.00027569568490249893,
+          "max_abs": 0.0075924694538116455,
+          "reference_peak": 16.74226188659668,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        }
+      },
+      "input_ranges": [
+        {
+          "min": -25.625,
+          "max": 28.125,
+          "rms": 3.0049500465393066
+        },
+        {
+          "min": -11.5625,
+          "max": 8.375,
+          "rms": 1.723806619644165
+        },
+        {
+          "min": -19.25,
+          "max": 20.375,
+          "rms": 2.9537711143493652
+        },
+        {
+          "min": -1.734375,
+          "max": 7.3125,
+          "rms": 2.501941680908203
+        },
+        {
+          "min": 0.4081737697124481,
+          "max": 6.44675350189209,
+          "rms": 1.5295053720474243
+        }
+      ],
+      "pass": true
+    },
+    {
+      "file": "mt-bench-step-063.pt",
+      "layer": "model.layers.17.self_attn.in_proj_qkvgfab",
+      "label": "mt-bench",
+      "step": 63,
+      "backend": "hip_rda_auto_sd",
+      "accepted": 3,
+      "indices_stable": true,
+      "checks": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 7.725115574430674e-05,
+          "reference_rms": 0.7630717754364014,
+          "relative_rms": 0.0001012370765517133,
+          "max_abs": 0.015625,
+          "reference_peak": 8.875,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 4.7438885530937114e-07,
+          "reference_rms": 0.11901723593473434,
+          "relative_rms": 3.985883654444071e-06,
+          "max_abs": 0.00032842159271240234,
+          "reference_peak": 20.0031795501709,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "conv_exact": true
+      },
+      "no_intermediate_value_rounding_variant": {
+        "output": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 0.0016369215445593,
+          "reference_rms": 0.7630316615104675,
+          "relative_rms": 0.0021452865288956874,
+          "max_abs": 0.0625,
+          "reference_peak": 8.875,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        },
+        "state": {
+          "pass": true,
+          "finite": true,
+          "rms_error": 2.71455919573782e-05,
+          "reference_rms": 0.11901675164699554,
+          "relative_rms": 0.0002280821109778916,
+          "max_abs": 0.0074002742767333984,
+          "reference_peak": 20.00350570678711,
+          "limits": {
+            "relative_rms": 0.01,
+            "relative_peak": 0.02,
+            "atol": 1e-05
+          }
+        }
+      },
+      "input_ranges": [
+        {
+          "min": -25.625,
+          "max": 26.375,
+          "rms": 3.0652527809143066
+        },
+        {
+          "min": -12.75,
+          "max": 8.375,
+          "rms": 1.7728791236877441
+        },
+        {
+          "min": -20.75,
+          "max": 17.625,
+          "rms": 2.8781840801239014
+        },
+        {
+          "min": -2.078125,
+          "max": 7.5625,
+          "rms": 2.417642593383789
+        },
+        {
+          "min": 0.3254186511039734,
+          "max": 8.047165870666504,
+          "rms": 1.4281224012374878
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "scope": "Actual RDA sublayer output and all eight state writes against independent Torch FP32 equations; not full target hidden-state or NVIDIA parity",
+  "rounding_variant": "Reported for sensitivity only; removing the intermediate BF16 value seam is not assumed to be the trained-model gold",
+  "extra_live_updates": 0
+}

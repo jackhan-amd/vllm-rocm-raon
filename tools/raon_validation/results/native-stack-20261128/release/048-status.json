@@ -1,0 +1,13 @@
+{
+  "rank": 6,
+  "sd": "off",
+  "c": 1,
+  "policy": "control",
+  "status": "TRACE_COLLECTED_PENDING_GPU_EVENT_AUDIT",
+  "performance_measurement": false,
+  "files": [
+    "traces/control-off-c1/profiles/raon-control-off-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795859402961385124.pt.trace.json.gz",
+    "traces/control-off-c1/profiles/raon-control-off-c1_TheraC93_5878.async_llm.1795859413923511025.pt.trace.json.gz"
+  ],
+  "owned_api_stopped": true
+}

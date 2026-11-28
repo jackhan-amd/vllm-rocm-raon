@@ -1,0 +1,303 @@
+{
+  "status": "REVIEW_REQUIRED",
+  "cases": [
+    {
+      "status": "COMPLETE",
+      "rank": 0,
+      "pair": "final",
+      "rng": "rda_fused",
+      "completed": 592,
+      "total": 592,
+      "scope": "AL_ONLY_COUNTERFACTUAL_NOT_TPS_OR_QUALITY",
+      "gold_receipt": "selector-cache-gold.json and native SD backend gold 48/192",
+      "dataset": "math500",
+      "ordinal": 127,
+      "conditions": {
+        "humaneval": {
+          "n": 128,
+          "mean_request_al": 3.2715973909213205,
+          "cycle_weighted_al": 2.8593388235983705,
+          "mean_output_tokens": 1524.3125
+        },
+        "gsm8k": {
+          "n": 128,
+          "mean_request_al": 4.929794624904089,
+          "cycle_weighted_al": 4.042224510813594,
+          "mean_output_tokens": 551.78125
+        },
+        "mbpp": {
+          "n": 128,
+          "mean_request_al": 3.7380061552093093,
+          "cycle_weighted_al": 3.323805060918463,
+          "mean_output_tokens": 775.9765625
+        },
+        "mt-bench": {
+          "n": 80,
+          "mean_request_al": 2.8505240140710475,
+          "cycle_weighted_al": 2.4912659404888418,
+          "mean_output_tokens": 938.0125
+        },
+        "math500": {
+          "n": 128,
+          "mean_request_al": 4.477727341954786,
+          "cycle_weighted_al": 3.8373569321533925,
+          "mean_output_tokens": 1270.140625
+        }
+      },
+      "owned_server_stopped": true
+    },
+    {
+      "status": "COMPLETE",
+      "rank": 1,
+      "pair": "final",
+      "rng": "rda_unfused",
+      "completed": 592,
+      "total": 592,
+      "scope": "AL_ONLY_COUNTERFACTUAL_NOT_TPS_OR_QUALITY",
+      "gold_receipt": "selector-cache-gold.json and native SD backend gold 48/192",
+      "dataset": "math500",
+      "ordinal": 127,
+      "conditions": {
+        "humaneval": {
+          "n": 128,
+          "mean_request_al": 3.195946504859749,
+          "cycle_weighted_al": 2.849169072741062,
+          "mean_output_tokens": 1672.6328125
+        },
+        "gsm8k": {
+          "n": 128,
+          "mean_request_al": 4.867402776888164,
+          "cycle_weighted_al": 4.023538961038961,
+          "mean_output_tokens": 542.0703125
+        },
+        "mbpp": {
+          "n": 128,
+          "mean_request_al": 3.7461611193639306,
+          "cycle_weighted_al": 3.274009003376266,
+          "mean_output_tokens": 818.265625
+        },
+        "mt-bench": {
+          "n": 80,
+          "mean_request_al": 2.83232432976919,
+          "cycle_weighted_al": 2.5024832792530294,
+          "mean_output_tokens": 944.85
+        },
+        "math500": {
+          "n": 128,
+          "mean_request_al": 4.456890325630575,
+          "cycle_weighted_al": 3.9110611469102037,
+          "mean_output_tokens": 1317.9375
+        }
+      },
+      "owned_server_stopped": true
+    },
+    {
+      "status": "FAILED_RETAINED",
+      "rank": 2,
+      "pair": "final",
+      "rng": "kv_bf16",
+      "completed": 0,
+      "total": 592,
+      "scope": "AL_ONLY_COUNTERFACTUAL_NOT_TPS_OR_QUALITY",
+      "gold_receipt": "selector-cache-gold.json and native SD backend gold 48/192",
+      "error": "AssertionError('Owned diagnostic server exited before ready')",
+      "traceback": "Traceback (most recent call last):\n  File \"/work/rng-al-driver.py\", line 43, in worker\n    assert owner.poll() is None,'Owned diagnostic server exited before ready'\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError: Owned diagnostic server exited before ready\n",
+      "owned_server_stopped": true
+    },
+    {
+      "status": "COMPLETE",
+      "rank": 3,
+      "pair": "final",
+      "rng": "selector32",
+      "completed": 592,
+      "total": 592,
+      "scope": "AL_ONLY_COUNTERFACTUAL_NOT_TPS_OR_QUALITY",
+      "gold_receipt": "selector-cache-gold.json and native SD backend gold 48/192",
+      "dataset": "math500",
+      "ordinal": 127,
+      "conditions": {
+        "humaneval": {
+          "n": 128,
+          "mean_request_al": 3.250611411934182,
+          "cycle_weighted_al": 2.8802052315726785,
+          "mean_output_tokens": 1473.375
+        },
+        "gsm8k": {
+          "n": 128,
+          "mean_request_al": 4.823728806781496,
+          "cycle_weighted_al": 3.9438410208952317,
+          "mean_output_tokens": 632.4140625
+        },
+        "mbpp": {
+          "n": 128,
+          "mean_request_al": 3.7637085171437907,
+          "cycle_weighted_al": 3.3106884374672214,
+          "mean_output_tokens": 739.9296875
+        },
+        "mt-bench": {
+          "n": 80,
+          "mean_request_al": 2.856882336101849,
+          "cycle_weighted_al": 2.4459366503979822,
+          "mean_output_tokens": 933.7375
+        },
+        "math500": {
+          "n": 128,
+          "mean_request_al": 4.461629338087746,
+          "cycle_weighted_al": 3.84506119868118,
+          "mean_output_tokens": 1329.8359375
+        }
+      },
+      "owned_server_stopped": true
+    },
+    {
+      "status": "COMPLETE",
+      "rank": 4,
+      "pair": "preview",
+      "rng": "rda_fused",
+      "completed": 592,
+      "total": 592,
+      "scope": "AL_ONLY_COUNTERFACTUAL_NOT_TPS_OR_QUALITY",
+      "gold_receipt": "selector-cache-gold.json and native SD backend gold 48/192",
+      "dataset": "math500",
+      "ordinal": 127,
+      "conditions": {
+        "humaneval": {
+          "n": 128,
+          "mean_request_al": 3.6025547895461973,
+          "cycle_weighted_al": 3.1017303883096012,
+          "mean_output_tokens": 1296.90625
+        },
+        "gsm8k": {
+          "n": 128,
+          "mean_request_al": 4.979606356065166,
+          "cycle_weighted_al": 4.278714760556445,
+          "mean_output_tokens": 543.2734375
+        },
+        "mbpp": {
+          "n": 128,
+          "mean_request_al": 4.136887220729978,
+          "cycle_weighted_al": 3.5584088620342396,
+          "mean_output_tokens": 883.734375
+        },
+        "mt-bench": {
+          "n": 80,
+          "mean_request_al": 3.0478652998447853,
+          "cycle_weighted_al": 2.600174094707521,
+          "mean_output_tokens": 934
+        },
+        "math500": {
+          "n": 128,
+          "mean_request_al": 4.6703390930998285,
+          "cycle_weighted_al": 4.083391944483519,
+          "mean_output_tokens": 1360.7734375
+        }
+      },
+      "owned_server_stopped": true
+    },
+    {
+      "status": "COMPLETE",
+      "rank": 5,
+      "pair": "preview",
+      "rng": "rda_unfused",
+      "completed": 592,
+      "total": 592,
+      "scope": "AL_ONLY_COUNTERFACTUAL_NOT_TPS_OR_QUALITY",
+      "gold_receipt": "selector-cache-gold.json and native SD backend gold 48/192",
+      "dataset": "math500",
+      "ordinal": 127,
+      "conditions": {
+        "humaneval": {
+          "n": 128,
+          "mean_request_al": 3.5475591016914145,
+          "cycle_weighted_al": 3.092226538695917,
+          "mean_output_tokens": 1268.5546875
+        },
+        "gsm8k": {
+          "n": 128,
+          "mean_request_al": 5.10104207132635,
+          "cycle_weighted_al": 4.185099087580635,
+          "mean_output_tokens": 562.765625
+        },
+        "mbpp": {
+          "n": 128,
+          "mean_request_al": 4.207196934452955,
+          "cycle_weighted_al": 3.5793333533708034,
+          "mean_output_tokens": 930.6875
+        },
+        "mt-bench": {
+          "n": 80,
+          "mean_request_al": 3.042179046785345,
+          "cycle_weighted_al": 2.5668360947917357,
+          "mean_output_tokens": 972.7625
+        },
+        "math500": {
+          "n": 128,
+          "mean_request_al": 4.708635074867857,
+          "cycle_weighted_al": 4.081657010716861,
+          "mean_output_tokens": 1282.3515625
+        }
+      },
+      "owned_server_stopped": true
+    },
+    {
+      "status": "FAILED_RETAINED",
+      "rank": 6,
+      "pair": "preview",
+      "rng": "kv_bf16",
+      "completed": 0,
+      "total": 592,
+      "scope": "AL_ONLY_COUNTERFACTUAL_NOT_TPS_OR_QUALITY",
+      "gold_receipt": "selector-cache-gold.json and native SD backend gold 48/192",
+      "error": "AssertionError('Owned diagnostic server exited before ready')",
+      "traceback": "Traceback (most recent call last):\n  File \"/work/rng-al-driver.py\", line 43, in worker\n    assert owner.poll() is None,'Owned diagnostic server exited before ready'\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError: Owned diagnostic server exited before ready\n",
+      "owned_server_stopped": true
+    },
+    {
+      "status": "COMPLETE",
+      "rank": 7,
+      "pair": "preview",
+      "rng": "selector32",
+      "completed": 592,
+      "total": 592,
+      "scope": "AL_ONLY_COUNTERFACTUAL_NOT_TPS_OR_QUALITY",
+      "gold_receipt": "selector-cache-gold.json and native SD backend gold 48/192",
+      "dataset": "math500",
+      "ordinal": 127,
+      "conditions": {
+        "humaneval": {
+          "n": 128,
+          "mean_request_al": 3.562640722534977,
+          "cycle_weighted_al": 3.0781827390219654,
+          "mean_output_tokens": 1282.0859375
+        },
+        "gsm8k": {
+          "n": 128,
+          "mean_request_al": 4.997944934911338,
+          "cycle_weighted_al": 4.033187194127243,
+          "mean_output_tokens": 618.2265625
+        },
+        "mbpp": {
+          "n": 128,
+          "mean_request_al": 4.136877753932361,
+          "cycle_weighted_al": 3.5487635024296638,
+          "mean_output_tokens": 896.015625
+        },
+        "mt-bench": {
+          "n": 80,
+          "mean_request_al": 2.9722689546140484,
+          "cycle_weighted_al": 2.53781512605042,
+          "mean_output_tokens": 974.5
+        },
+        "math500": {
+          "n": 128,
+          "mean_request_al": 4.621948165981104,
+          "cycle_weighted_al": 3.977875172850212,
+          "mean_output_tokens": 1326.0078125
+        }
+      },
+      "owned_server_stopped": true
+    }
+  ],
+  "no_performance_measurement": true,
+  "production_modified": false
+}

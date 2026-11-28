@@ -1,0 +1,13 @@
+{
+  "rank": 1,
+  "sd": "on",
+  "c": 1,
+  "policy": "fusion",
+  "status": "TRACE_COLLECTED_PENDING_GPU_EVENT_AUDIT",
+  "performance_measurement": false,
+  "files": [
+    "traces/fusion-on-c1/profiles/raon-fusion-on-c1_dp0_pp0_tp0_dcp0_ep0_rank0.1795859423949834871.pt.trace.json.gz",
+    "traces/fusion-on-c1/profiles/raon-fusion-on-c1_TheraC93_5875.async_llm.1795859433209119830.pt.trace.json.gz"
+  ],
+  "owned_api_stopped": true
+}

@@ -1,0 +1,897 @@
+{
+  "status": "COMPLETE",
+  "rank": 4,
+  "n": 1152,
+  "k": 2560,
+  "checkpoint": "target",
+  "weight_key": "model.layers.3.self_attn.fused_qkv_a_proj.weight",
+  "weight_dtype": "BF16",
+  "copies": 64,
+  "rotating_weight_bytes": 377487360,
+  "records": [
+    {
+      "rows": 1,
+      "name": "baseline",
+      "config": null,
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 8.095908679874534e-06,
+        "relative_peak": 7.301401869158878e-05,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 3.5822680592536926,
+      "speedup_vs_original": 1.0
+    },
+    {
+      "rows": 1,
+      "name": "baseline_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 8,
+        "block_k": 128,
+        "stages": 2,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 4,
+        "split_k": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "UNSUPPORTED_OR_FAILED_RETAINED",
+      "error": "ValueError('AITER BF16 shuffle requires block_n % 16 == K % 32 == 0')",
+      "traceback": "Traceback (most recent call last):\n  File \"/work/dense-layout-worker.py\", line 95, in <module>\n    output=call(packed[0] if pre else weights[0]);torch.cuda.synchronize()\n  File \"/work/dense-layout-worker.py\", line 94, in call\n    def call(w,config=config):return flydsl_hgemm(x,w,**config) if config is not None else original(w)\n                                     ~~~~~~~~~~~~^^^^^^^^^^^^^^\n  File \"/opt/raon/.venv/lib/python3.14/site-packages/aiter/ops/flydsl/gemm_kernels.py\", line 364, in flydsl_hgemm\n    return gemm_a16w16_skinny(\n        a,\n    ...<8 lines>...\n        bpreshuffle=bpreshuffle,\n    )\n  File \"/opt/raon/.venv/lib/python3.14/site-packages/aiter/ops/flydsl/kernels/gemm_a16w16_skinny_gfx950.py\", line 506, in gemm_a16w16_skinny\n    exe = compile_gemm_a16w16_skinny_gfx950(\n        int(n),\n    ...<6 lines>...\n        bpreshuffle=bpreshuffle,\n    )\n  File \"/opt/raon/.venv/lib/python3.14/site-packages/aiter/ops/flydsl/aot_launch.py\", line 277, in wrapper\n    exe = factory(*args, **kwargs)\n  File \"/opt/raon/.venv/lib/python3.14/site-packages/aiter/ops/flydsl/kernels/gemm_a16w16_skinny_gfx950.py\", line 147, in compile_gemm_a16w16_skinny_gfx950\n    raise ValueError(\"AITER BF16 shuffle requires block_n % 16 == K % 32 == 0\")\nValueError: AITER BF16 shuffle requires block_n % 16 == K % 32 == 0\n"
+    },
+    {
+      "rows": 1,
+      "name": "sk8n16",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 8.095908679874534e-06,
+        "relative_peak": 7.301401869158878e-05,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 7.18674898147583,
+      "speedup_vs_original": 0.4984545958801609
+    },
+    {
+      "rows": 1,
+      "name": "sk8n16_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 8.095908679874534e-06,
+        "relative_peak": 7.301401869158878e-05,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 7.323075532913208,
+      "speedup_vs_original": 0.4891753530539679
+    },
+    {
+      "rows": 1,
+      "name": "sk8n32",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 32,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 4
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 8.095908679874534e-06,
+        "relative_peak": 7.301401869158878e-05,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 5.404221415519714,
+      "speedup_vs_original": 0.6628647836238205
+    },
+    {
+      "rows": 1,
+      "name": "sk8n32_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 32,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 4,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 8.095908679874534e-06,
+        "relative_peak": 7.301401869158878e-05,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 6.517818570137024,
+      "speedup_vs_original": 0.5496115027912449
+    },
+    {
+      "rows": 8,
+      "name": "baseline",
+      "config": null,
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.8324210905143343e-06,
+        "relative_peak": 3.925879396984925e-05,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 3.670669198036194,
+      "speedup_vs_original": 1.0
+    },
+    {
+      "rows": 8,
+      "name": "baseline_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 8,
+        "block_k": 128,
+        "stages": 2,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 4,
+        "split_k": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "UNSUPPORTED_OR_FAILED_RETAINED",
+      "error": "ValueError('AITER BF16 shuffle requires block_n % 16 == K % 32 == 0')",
+      "traceback": "Traceback (most recent call last):\n  File \"/work/dense-layout-worker.py\", line 95, in <module>\n    output=call(packed[0] if pre else weights[0]);torch.cuda.synchronize()\n  File \"/work/dense-layout-worker.py\", line 94, in call\n    def call(w,config=config):return flydsl_hgemm(x,w,**config) if config is not None else original(w)\n                                     ~~~~~~~~~~~~^^^^^^^^^^^^^^\n  File \"/opt/raon/.venv/lib/python3.14/site-packages/aiter/ops/flydsl/gemm_kernels.py\", line 364, in flydsl_hgemm\n    return gemm_a16w16_skinny(\n        a,\n    ...<8 lines>...\n        bpreshuffle=bpreshuffle,\n    )\n  File \"/opt/raon/.venv/lib/python3.14/site-packages/aiter/ops/flydsl/kernels/gemm_a16w16_skinny_gfx950.py\", line 506, in gemm_a16w16_skinny\n    exe = compile_gemm_a16w16_skinny_gfx950(\n        int(n),\n    ...<6 lines>...\n        bpreshuffle=bpreshuffle,\n    )\n  File \"/opt/raon/.venv/lib/python3.14/site-packages/aiter/ops/flydsl/aot_launch.py\", line 277, in wrapper\n    exe = factory(*args, **kwargs)\n  File \"/opt/raon/.venv/lib/python3.14/site-packages/aiter/ops/flydsl/kernels/gemm_a16w16_skinny_gfx950.py\", line 147, in compile_gemm_a16w16_skinny_gfx950\n    raise ValueError(\"AITER BF16 shuffle requires block_n % 16 == K % 32 == 0\")\nValueError: AITER BF16 shuffle requires block_n % 16 == K % 32 == 0\n"
+    },
+    {
+      "rows": 8,
+      "name": "sk8n16",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.8324210905143343e-06,
+        "relative_peak": 3.925879396984925e-05,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 7.280150055885315,
+      "speedup_vs_original": 0.5042024092716061
+    },
+    {
+      "rows": 8,
+      "name": "sk8n16_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.8324210905143343e-06,
+        "relative_peak": 3.925879396984925e-05,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 7.433326244354248,
+      "speedup_vs_original": 0.4938124706720812
+    },
+    {
+      "rows": 8,
+      "name": "sk8n32",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 32,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 4
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.8324210905143343e-06,
+        "relative_peak": 3.925879396984925e-05,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 6.0422152280807495,
+      "speedup_vs_original": 0.607503880526637
+    },
+    {
+      "rows": 8,
+      "name": "sk8n32_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 32,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 4,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.8324210905143343e-06,
+        "relative_peak": 3.925879396984925e-05,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 6.659557223320007,
+      "speedup_vs_original": 0.5511881758718855
+    },
+    {
+      "rows": 32,
+      "name": "baseline",
+      "config": null,
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.5896530537299575e-05,
+        "relative_peak": 0.0005458515283842794,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 5.1938700675964355,
+      "speedup_vs_original": 1.0
+    },
+    {
+      "rows": 32,
+      "name": "baseline_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 32,
+        "block_n": 8,
+        "block_k": 128,
+        "stages": 2,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 4,
+        "split_k": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "UNSUPPORTED_OR_FAILED_RETAINED",
+      "error": "ValueError('AITER BF16 shuffle requires block_n % 16 == K % 32 == 0')",
+      "traceback": "Traceback (most recent call last):\n  File \"/work/dense-layout-worker.py\", line 95, in <module>\n    output=call(packed[0] if pre else weights[0]);torch.cuda.synchronize()\n  File \"/work/dense-layout-worker.py\", line 94, in call\n    def call(w,config=config):return flydsl_hgemm(x,w,**config) if config is not None else original(w)\n                                     ~~~~~~~~~~~~^^^^^^^^^^^^^^\n  File \"/opt/raon/.venv/lib/python3.14/site-packages/aiter/ops/flydsl/gemm_kernels.py\", line 364, in flydsl_hgemm\n    return gemm_a16w16_skinny(\n        a,\n    ...<8 lines>...\n        bpreshuffle=bpreshuffle,\n    )\n  File \"/opt/raon/.venv/lib/python3.14/site-packages/aiter/ops/flydsl/kernels/gemm_a16w16_skinny_gfx950.py\", line 506, in gemm_a16w16_skinny\n    exe = compile_gemm_a16w16_skinny_gfx950(\n        int(n),\n    ...<6 lines>...\n        bpreshuffle=bpreshuffle,\n    )\n  File \"/opt/raon/.venv/lib/python3.14/site-packages/aiter/ops/flydsl/aot_launch.py\", line 277, in wrapper\n    exe = factory(*args, **kwargs)\n  File \"/opt/raon/.venv/lib/python3.14/site-packages/aiter/ops/flydsl/kernels/gemm_a16w16_skinny_gfx950.py\", line 147, in compile_gemm_a16w16_skinny_gfx950\n    raise ValueError(\"AITER BF16 shuffle requires block_n % 16 == K % 32 == 0\")\nValueError: AITER BF16 shuffle requires block_n % 16 == K % 32 == 0\n"
+    },
+    {
+      "rows": 32,
+      "name": "sk32n16",
+      "config": {
+        "policy": "sk",
+        "block_m": 32,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.403066608701653e-05,
+        "relative_peak": 0.0005458515283842794,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 7.740217447280884,
+      "speedup_vs_original": 0.6710237926740711
+    },
+    {
+      "rows": 32,
+      "name": "sk32n16_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 32,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.403066608701653e-05,
+        "relative_peak": 0.0005458515283842794,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 7.8500813245773315,
+      "speedup_vs_original": 0.6616326446625809
+    },
+    {
+      "rows": 32,
+      "name": "sk32n32",
+      "config": {
+        "policy": "sk",
+        "block_m": 32,
+        "block_n": 32,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 4
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.5896530537299575e-05,
+        "relative_peak": 0.0005458515283842794,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 8.152446150779724,
+      "speedup_vs_original": 0.6370934528772911
+    },
+    {
+      "rows": 32,
+      "name": "sk32n32_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 32,
+        "block_n": 32,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 4,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.5896530537299575e-05,
+        "relative_peak": 0.0005458515283842794,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 8.949002623558044,
+      "speedup_vs_original": 0.5803853553382241
+    },
+    {
+      "rows": 32,
+      "name": "ft64n64",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 64,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 1.7075159661514128e-05,
+        "relative_peak": 0.0002729257641921397,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 28.675575256347656,
+      "speedup_vs_original": 0.18112522664900035
+    },
+    {
+      "rows": 32,
+      "name": "ft64n64_preshuffle",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 64,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 1.7075159661514128e-05,
+        "relative_peak": 0.0002729257641921397,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 29.040939807891846,
+      "speedup_vs_original": 0.1788464871300414
+    },
+    {
+      "rows": 32,
+      "name": "ft64n128",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 128,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 1.7075159661514128e-05,
+        "relative_peak": 0.0002729257641921397,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 33.47707986831665,
+      "speedup_vs_original": 0.1551470465173999
+    },
+    {
+      "rows": 32,
+      "name": "ft64n128_preshuffle",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 128,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 1.7075159661514128e-05,
+        "relative_peak": 0.0002729257641921397,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 33.0572772026062,
+      "speedup_vs_original": 0.157117297827147
+    },
+    {
+      "rows": 64,
+      "name": "baseline",
+      "config": null,
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 1.6698751167216172e-05,
+        "relative_peak": 0.0004464285714285714,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 7.971832752227783,
+      "speedup_vs_original": 1.0
+    },
+    {
+      "rows": 64,
+      "name": "sk64n16",
+      "config": {
+        "policy": "sk",
+        "block_m": 64,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.226181568212567e-05,
+        "relative_peak": 0.0008928571428571428,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 9.6680349111557,
+      "speedup_vs_original": 0.824555643984
+    },
+    {
+      "rows": 64,
+      "name": "sk64n16_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 64,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.226181568212567e-05,
+        "relative_peak": 0.0008928571428571428,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 9.482808113098145,
+      "speedup_vs_original": 0.8406616117452251
+    },
+    {
+      "rows": 64,
+      "name": "sk64n32",
+      "config": {
+        "policy": "sk",
+        "block_m": 64,
+        "block_n": 32,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 4
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 4.641016492938436e-06,
+        "relative_peak": 0.00011160714285714285,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 10.658318996429443,
+      "speedup_vs_original": 0.7479446575860942
+    },
+    {
+      "rows": 64,
+      "name": "sk64n32_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 64,
+        "block_n": 32,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 4,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 4.641016492938436e-06,
+        "relative_peak": 0.00011160714285714285,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 11.662102937698364,
+      "speedup_vs_original": 0.6835673458565018
+    },
+    {
+      "rows": 64,
+      "name": "ft64n64",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 64,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 5.078720864837549e-05,
+        "relative_peak": 0.0008928571428571428,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 28.734776973724365,
+      "speedup_vs_original": 0.27742803640053937
+    },
+    {
+      "rows": 64,
+      "name": "ft64n64_preshuffle",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 64,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 5.078720864837549e-05,
+        "relative_peak": 0.0008928571428571428,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 29.020166397094727,
+      "speedup_vs_original": 0.2746997602682892
+    },
+    {
+      "rows": 64,
+      "name": "ft64n128",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 128,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 5.078720864837549e-05,
+        "relative_peak": 0.0008928571428571428,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 33.65809440612793,
+      "speedup_vs_original": 0.23684741792085529
+    },
+    {
+      "rows": 64,
+      "name": "ft64n128_preshuffle",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 128,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 5.078720864837549e-05,
+        "relative_peak": 0.0008928571428571428,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 33.0885648727417,
+      "speedup_vs_original": 0.24092410120799662
+    },
+    {
+      "rows": 256,
+      "name": "baseline",
+      "config": null,
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.7464692110025578e-05,
+        "relative_peak": 0.0006983240223463687,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 11.549201011657715,
+      "speedup_vs_original": 1.0
+    },
+    {
+      "rows": 256,
+      "name": "ft64n64",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 64,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.9797868531828142e-05,
+        "relative_peak": 0.0006983240223463687,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 28.139047622680664,
+      "speedup_vs_original": 0.4104332586703758
+    },
+    {
+      "rows": 256,
+      "name": "ft64n64_preshuffle",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 64,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.9797868531828142e-05,
+        "relative_peak": 0.0006983240223463687,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 28.289859294891357,
+      "speedup_vs_original": 0.40824526171267644
+    },
+    {
+      "rows": 256,
+      "name": "ft64n128",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 128,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.9797868531828142e-05,
+        "relative_peak": 0.0006983240223463687,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 33.036015033721924,
+      "speedup_vs_original": 0.34959425341914646
+    },
+    {
+      "rows": 256,
+      "name": "ft64n128_preshuffle",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 128,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.9797868531828142e-05,
+        "relative_peak": 0.0006983240223463687,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 32.87750005722046,
+      "speedup_vs_original": 0.35127978074845484
+    }
+  ],
+  "scope": "Operator-only native AITER/FlyDSL layout/geometry; not model speed or quality",
+  "allocation_outside_measurement": true
+}

@@ -30,6 +30,7 @@ from vllm.v1.attention.backends.gdn_attn import GDNAttentionMetadata as RaonRDAM
 
 from . import kda_vsplit as _kda_vsplit
 from .rda_base import RaonRDABase, _flashkda_prefill
+from .rocm_projection_mhc import DeferredProjection
 
 _FLASHKDA_DEDICATED: dict = {}
 
@@ -84,8 +85,12 @@ class RaonKDAAttention(RaonRDABase):
         self.rda_fused = False
 
     def forward(
-        self, hidden_states: torch.Tensor, positions: torch.Tensor
-    ) -> torch.Tensor:
+        self,
+        hidden_states: torch.Tensor,
+        positions: torch.Tensor,
+        *,
+        defer_projection: bool = False,
+    ) -> torch.Tensor | DeferredProjection:
         num_tokens = hidden_states.size(0)
         projected_qkvgfab = self.in_proj_qkvgfab(hidden_states)[0]
         split_sizes = [
@@ -100,8 +105,12 @@ class RaonKDAAttention(RaonRDABase):
         mixed_qkv, g_proj_states, f_a, beta = projected[:4]
         g1 = self.f_b_proj(f_a)[0]
         beta = beta.unsqueeze(0)
-        delta = self.rda_w_proj(hidden_states)[0].unsqueeze(0)
-        ratio = compute_rda_value_ratio(beta, delta)
+        from .rocm_rda_project_ratio import try_forward as project_ratio
+
+        ratio = project_ratio(self.rda_w_proj, hidden_states, beta)
+        if ratio is None:
+            delta = self.rda_w_proj(hidden_states)[0].unsqueeze(0)
+            ratio = compute_rda_value_ratio(beta, delta)
         g1 = rearrange(g1, "n (h d) -> 1 n h d", d=self.head_dim)
         g2 = rearrange(g_proj_states, "... (h d) -> ... h d", d=self.head_dim)
         core_attn_out = torch.empty(
@@ -118,6 +127,8 @@ class RaonKDAAttention(RaonRDABase):
             core_attn_out=core_attn_out,
         )
         core_attn_out = rearrange(core_attn_out, "1 n h d -> n (h d)")
+        if defer_projection:
+            return DeferredProjection(core_attn_out, self.o_proj)
         return self.o_proj(core_attn_out)[0]
 
     def _scale_packed_v(

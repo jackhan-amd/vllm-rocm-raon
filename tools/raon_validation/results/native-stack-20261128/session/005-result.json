@@ -1,0 +1,679 @@
+{
+  "status": "COMPLETE",
+  "rank": 1,
+  "n": 20656,
+  "k": 2560,
+  "checkpoint": "target",
+  "weight_key": "model.layers.0.self_attn.in_proj_qkvgfab.weight",
+  "weight_dtype": "BF16",
+  "copies": 6,
+  "rotating_weight_bytes": 634552320,
+  "records": [
+    {
+      "rows": 1,
+      "name": "baseline",
+      "config": null,
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 1.9686064205791997e-05,
+        "relative_peak": 0.0001240079365079365,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 17.92281945546468,
+      "speedup_vs_original": 1.0
+    },
+    {
+      "rows": 1,
+      "name": "baseline_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 16,
+        "block_k": 128,
+        "stages": 2,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 4,
+        "split_k": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 1.9686064205791997e-05,
+        "relative_peak": 0.0001240079365079365,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 22.968862851460774,
+      "speedup_vs_original": 0.7803093941294018
+    },
+    {
+      "rows": 1,
+      "name": "sk8n16",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.017074720714158e-05,
+        "relative_peak": 0.0001240079365079365,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 19.923240343729656,
+      "speedup_vs_original": 0.8995935975397417
+    },
+    {
+      "rows": 1,
+      "name": "sk8n16_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.017074720714158e-05,
+        "relative_peak": 0.0001240079365079365,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 20.264439582824707,
+      "speedup_vs_original": 0.8844468351671226
+    },
+    {
+      "rows": 8,
+      "name": "baseline",
+      "config": null,
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.050572871744058e-05,
+        "relative_peak": 0.000251004016064257,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 19.244434038798016,
+      "speedup_vs_original": 1.0
+    },
+    {
+      "rows": 8,
+      "name": "baseline_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 16,
+        "block_k": 128,
+        "stages": 2,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 4,
+        "split_k": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.050572871744058e-05,
+        "relative_peak": 0.000251004016064257,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 25.815823872884113,
+      "speedup_vs_original": 0.7454510897485469
+    },
+    {
+      "rows": 8,
+      "name": "sk8n16",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.0836211210673698e-05,
+        "relative_peak": 0.000251004016064257,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 21.75485610961914,
+      "speedup_vs_original": 0.8846040599776196
+    },
+    {
+      "rows": 8,
+      "name": "sk8n16_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 8,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 2.0836211210673698e-05,
+        "relative_peak": 0.000251004016064257,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 21.985522905985516,
+      "speedup_vs_original": 0.875323007830701
+    },
+    {
+      "rows": 32,
+      "name": "baseline",
+      "config": null,
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 4.0943056723983615e-05,
+        "relative_peak": 0.0003720238095238095,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 22.051526705423992,
+      "speedup_vs_original": 1.0
+    },
+    {
+      "rows": 32,
+      "name": "sk32n16",
+      "config": {
+        "policy": "sk",
+        "block_m": 32,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.3428558804517354e-05,
+        "relative_peak": 0.0003720238095238095,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 30.63520113627116,
+      "speedup_vs_original": 0.7198100840707602
+    },
+    {
+      "rows": 32,
+      "name": "sk32n16_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 32,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.3428558804517354e-05,
+        "relative_peak": 0.0003720238095238095,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 30.70947011311849,
+      "speedup_vs_original": 0.7180692673692214
+    },
+    {
+      "rows": 32,
+      "name": "ft64n64",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 64,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.95509381614536e-05,
+        "relative_peak": 0.000744047619047619,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 35.37777582804362,
+      "speedup_vs_original": 0.6233158017792617
+    },
+    {
+      "rows": 32,
+      "name": "ft64n64_preshuffle",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 64,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.95509381614536e-05,
+        "relative_peak": 0.000744047619047619,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 36.012983322143555,
+      "speedup_vs_original": 0.6123215760318589
+    },
+    {
+      "rows": 32,
+      "name": "ft64n128",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 128,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.95509381614536e-05,
+        "relative_peak": 0.000744047619047619,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 38.53447278340658,
+      "speedup_vs_original": 0.572254532438281
+    },
+    {
+      "rows": 32,
+      "name": "ft64n128_preshuffle",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 128,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.95509381614536e-05,
+        "relative_peak": 0.000744047619047619,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 37.691663106282554,
+      "speedup_vs_original": 0.5850505095315993
+    },
+    {
+      "rows": 64,
+      "name": "baseline",
+      "config": null,
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 4.156030453262518e-05,
+        "relative_peak": 0.0007575757575757576,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 24.87421989440918,
+      "speedup_vs_original": 1.0
+    },
+    {
+      "rows": 64,
+      "name": "sk64n16",
+      "config": {
+        "policy": "sk",
+        "block_m": 64,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.1281015775209665e-05,
+        "relative_peak": 0.0003787878787878788,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 45.32426516215006,
+      "speedup_vs_original": 0.5488058064575406
+    },
+    {
+      "rows": 64,
+      "name": "sk64n16_preshuffle",
+      "config": {
+        "policy": "sk",
+        "block_m": 64,
+        "block_n": 16,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 1,
+        "n_waves": 1,
+        "k_waves": 2,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.1281015775209665e-05,
+        "relative_peak": 0.0003787878787878788,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 46.09320640563965,
+      "speedup_vs_original": 0.5396504568483598
+    },
+    {
+      "rows": 64,
+      "name": "ft64n64",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 64,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.553763101626853e-05,
+        "relative_peak": 0.0007575757575757576,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 37.91873296101888,
+      "speedup_vs_original": 0.6559876333415547
+    },
+    {
+      "rows": 64,
+      "name": "ft64n64_preshuffle",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 64,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.553763101626853e-05,
+        "relative_peak": 0.0007575757575757576,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 37.29566256205241,
+      "speedup_vs_original": 0.6669467221026985
+    },
+    {
+      "rows": 64,
+      "name": "ft64n128",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 128,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.553763101626853e-05,
+        "relative_peak": 0.0007575757575757576,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 39.127279917399086,
+      "speedup_vs_original": 0.6357257633784078
+    },
+    {
+      "rows": 64,
+      "name": "ft64n128_preshuffle",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 128,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 3.553763101626853e-05,
+        "relative_peak": 0.0007575757575757576,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 38.430074055989586,
+      "speedup_vs_original": 0.6472592235489686
+    },
+    {
+      "rows": 256,
+      "name": "baseline",
+      "config": null,
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 4.54627454749387e-05,
+        "relative_peak": 0.0006906077348066298,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 46.950413386027016,
+      "speedup_vs_original": 1.0
+    },
+    {
+      "rows": 256,
+      "name": "ft64n64",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 64,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 4.299893350289728e-05,
+        "relative_peak": 0.0006906077348066298,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 75.00466664632161,
+      "speedup_vs_original": 0.6259665629529142
+    },
+    {
+      "rows": 256,
+      "name": "ft64n64_preshuffle",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 64,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 4.299893350289728e-05,
+        "relative_peak": 0.0006906077348066298,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 72.66611099243164,
+      "speedup_vs_original": 0.6461115469756875
+    },
+    {
+      "rows": 256,
+      "name": "ft64n128",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 128,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1
+      },
+      "preshuffle": false,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 4.299893350289728e-05,
+        "relative_peak": 0.0006906077348066298,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 67.92486826578777,
+      "speedup_vs_original": 0.6912109597667764
+    },
+    {
+      "rows": 256,
+      "name": "ft64n128_preshuffle",
+      "config": {
+        "policy": "ft",
+        "block_m": 64,
+        "block_n": 128,
+        "block_k": 64,
+        "stages": 2,
+        "split_k": 1,
+        "m_waves": 2,
+        "n_waves": 2,
+        "k_waves": 1,
+        "bpreshuffle": true
+      },
+      "preshuffle": true,
+      "status": "VALID_SINGLE_OPERATOR_WINDOW",
+      "torch_fp32_gold": {
+        "relative_rms": 4.299893350289728e-05,
+        "relative_peak": 0.0006906077348066298,
+        "finite": true,
+        "pass_": true
+      },
+      "graph_replays": 3,
+      "rotating_us_per_call": 65.85778554280598,
+      "speedup_vs_original": 0.71290604442675
+    }
+  ],
+  "scope": "Operator-only native AITER/FlyDSL layout/geometry; not model speed or quality",
+  "allocation_outside_measurement": true
+}

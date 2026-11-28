@@ -1,0 +1,177 @@
+[
+  {
+    "file": "000-path-factor-analysis.json",
+    "original": "session-evidence/al-paths/path-factor-analysis.json",
+    "sha256": "6ddcb226b356f6097bfb62332446432d85b8ee26307df805c2833b85c0a902ab"
+  },
+  {
+    "file": "001-status.json",
+    "original": "session-evidence/al-paths/results/status.json",
+    "sha256": "1ef7475df289a0dcc26278ff55cc5ddd3583029e66651aee83a427987623d4fc"
+  },
+  {
+    "file": "002-selector-cache-gold.json",
+    "original": "session-evidence/al-paths/selector-cache-gold.json",
+    "sha256": "b6c47b576a460fdc2fce89812dea7a32f24d423e5ea474520ea7b95ad4356c82"
+  },
+  {
+    "file": "003-selector-cache-gold.json",
+    "original": "session-evidence/al-paths/selector64/selector-cache-gold.json",
+    "sha256": "97baebb5e27067a961f61f3963fcad266b7e2b102cb9aa6a352d99c5db3da605"
+  },
+  {
+    "file": "004-result.json",
+    "original": "session-evidence/dense-layout/layout-results/gpu-0/result.json",
+    "sha256": "159fa35addd790235a909bad4357d8dfb50ec4fecf77b190246b54e662d0f058"
+  },
+  {
+    "file": "005-result.json",
+    "original": "session-evidence/dense-layout/layout-results/gpu-1/result.json",
+    "sha256": "2f9825af4cf207757d29bc38190558457e7c8de08533f9c8e8c96675abe7000b"
+  },
+  {
+    "file": "006-result.json",
+    "original": "session-evidence/dense-layout/layout-results/gpu-2/result.json",
+    "sha256": "8d8d8e51c38f063041ed810631713e57ffabbf8ece701caf3562756cfaf60d59"
+  },
+  {
+    "file": "007-result.json",
+    "original": "session-evidence/dense-layout/layout-results/gpu-3/result.json",
+    "sha256": "75e5e62b885bfd562ecce0e665ee56c7747d0fa74d20d61bf7946ba12b09f749"
+  },
+  {
+    "file": "008-result.json",
+    "original": "session-evidence/dense-layout/layout-results/gpu-4/result.json",
+    "sha256": "8be70e63fbc4ecf1effe7e66e7f91c50b2983d1068c5881147afd706277e1a2e"
+  },
+  {
+    "file": "009-result.json",
+    "original": "session-evidence/dense-layout/layout-results/gpu-5/result.json",
+    "sha256": "1d851c43c1ee1e2ae3b75bf205a0a5704db54fe337836e44ec223152df9d8a65"
+  },
+  {
+    "file": "010-result.json",
+    "original": "session-evidence/dense-layout/layout-results/gpu-7/result.json",
+    "sha256": "bd9d4c320904a78fa0b3408f481aaebeff013db7264e4b65fa92cbee9aa2fbf9"
+  },
+  {
+    "file": "011-result.json",
+    "original": "session-evidence/dense-layout/layout-results/gpu-parent-0/result.json",
+    "sha256": "6359d6c5d809c51c86ce6eb7fce954bcebcc1982f0837477cde96cabf7a187c7"
+  },
+  {
+    "file": "012-result.json",
+    "original": "session-evidence/dense-layout/layout-results/gpu-parent-3/result.json",
+    "sha256": "baab4922cd49d5b4122b1a0231cac3f69d74477a0aa8df144da8047802ab0ea4"
+  },
+  {
+    "file": "013-result.json",
+    "original": "session-evidence/dense-layout/layout-results/gpu-parent-5/result.json",
+    "sha256": "1c74e754f5904e8ee5194fcdca72accd488be468a593454ffd3f0eb4b7bf7ef7"
+  },
+  {
+    "file": "014-result.json",
+    "original": "session-evidence/dense-layout/layout-results/gpu-parent-6/result.json",
+    "sha256": "579f219eff25ff2a33fe4638ca822352ea5f259a60470e208f70f529bf4782f2"
+  },
+  {
+    "file": "015-live-gold-status.json",
+    "original": "session-evidence/dense-layout/live-gold-status.json",
+    "sha256": "ffab923d50d3b5fc2fe8d94670d6106b68771aac9034857e7f7f3c6478184ee0"
+  },
+  {
+    "file": "016-operator-status.json",
+    "original": "session-evidence/dense-layout/operator-status.json",
+    "sha256": "a6350ba8a159898cfad3651205e8baf39b182d4d794bd49831d6a602796f5e6a"
+  },
+  {
+    "file": "017-status.json",
+    "original": "session-evidence/dense-layout/results/status.json",
+    "sha256": "af2dbbdfe359d2d855c906bd1ac817bd1800725ca36c94bee56512a955106258"
+  },
+  {
+    "file": "018-retained-parent-sha256.json",
+    "original": "session-evidence/dense-layout/retained-parent-sha256.json",
+    "sha256": "24b47d1b443b30b6a9b557b7987259005d7baa2de260478065067b4eb719045c"
+  },
+  {
+    "file": "019-run-contract.json",
+    "original": "session-evidence/dense-layout/run-contract.json",
+    "sha256": "037eb0a91a52f3afeddb2ac31178ac628090224404bd52c6525a8b99b808dfd4"
+  },
+  {
+    "file": "020-manifest.json",
+    "original": "session-evidence/dense-layout/runtime-weights/manifest.json",
+    "sha256": "81a022b729302a522ad2b40147f6f478d675618fc8acebaae29a26d8fdab0d02"
+  },
+  {
+    "file": "021-image-receipt.json",
+    "original": "session-evidence/image/image-receipt.json",
+    "sha256": "1ddf4062342b2c388bf105b9decfb478b99ab0f13280537d62ef936d39682eb3"
+  },
+  {
+    "file": "022-status.json",
+    "original": "session-evidence/quality/jobs/90045/status.json",
+    "sha256": "84ff1b2b5492831a1cee29131332ef52e9b8456970146f6b8311a4c4b01f9830"
+  },
+  {
+    "file": "023-mmlu-final-summary.json",
+    "original": "session-evidence/quality/mmlu-final-summary.json",
+    "sha256": "a20f2ed1311113cb0986b8095eb6480abe6681d80f08f322f9cc078be8a3482f"
+  },
+  {
+    "file": "024-paired-quality-analysis.json",
+    "original": "session-evidence/quality/paired-quality-analysis.json",
+    "sha256": "7a247432e76a3f0d084707d2e1ee218ff3f8a456c71f5c1bac670783589344ef"
+  },
+  {
+    "file": "025-run-contract.json",
+    "original": "session-evidence/quality/run-contract.json",
+    "sha256": "f2c55352d16175676ea724ec10607bce24d189d663417e9fcc75c81d61aaf2df"
+  },
+  {
+    "file": "026-workflow-ledger.json",
+    "original": "session-evidence/quality/workflow-ledger.json",
+    "sha256": "039884c534a48ef9f134cf9f28ba494a0ba1e1dbbaa843a1560dc612a77ed0a9"
+  },
+  {
+    "file": "027-gpu-0.json",
+    "original": "session-evidence/real-input-rda/gpu-0.json",
+    "sha256": "793a0375266af0f30549212ab515a1175afbbdb75f74eb076d94af972fd26d85"
+  },
+  {
+    "file": "028-gpu-1.json",
+    "original": "session-evidence/real-input-rda/gpu-1.json",
+    "sha256": "dfdbce93803b59a6c40db70ef1a0d9e6a2da378e6d996ab8de756964422d4163"
+  },
+  {
+    "file": "029-gpu-2.json",
+    "original": "session-evidence/real-input-rda/gpu-2.json",
+    "sha256": "026024ec3e0c0717faafabf61b6f695ea3cd5ab1b5ebdf3b247881d30f1be102"
+  },
+  {
+    "file": "030-gpu-3.json",
+    "original": "session-evidence/real-input-rda/gpu-3.json",
+    "sha256": "a153eb2955ace7964e4264bc3de2ea30646be9d95f8e03ae9d33c0b4f03ed3c1"
+  },
+  {
+    "file": "031-gpu-4.json",
+    "original": "session-evidence/real-input-rda/gpu-4.json",
+    "sha256": "146a50335e9a220ec90de0a4ab4ebc2e00070dd157e316c3ff0695b1eca9230e"
+  },
+  {
+    "file": "032-gpu-5.json",
+    "original": "session-evidence/real-input-rda/gpu-5.json",
+    "sha256": "59213e5bdbfb13d7232fd24e46c0c94759de5c08ab2ec91b4ae93b3acd7e4321"
+  },
+  {
+    "file": "033-gpu-6.json",
+    "original": "session-evidence/real-input-rda/gpu-6.json",
+    "sha256": "e7af2e68ba232757383aaa1bb21b0d6d6ac474a4ef3b06feea5c8bc1651edb73"
+  },
+  {
+    "file": "034-gpu-7.json",
+    "original": "session-evidence/real-input-rda/gpu-7.json",
+    "sha256": "dec87ff69543b34b243d274f3f1810d2863cbdd114d4c40be91e19b705c1a8c1"
+  }
+]

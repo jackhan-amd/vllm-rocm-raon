@@ -1,0 +1,32 @@
+{
+  "status": "PUSHED",
+  "tag": "docker.io/hanjack/vllm-rocm:raon-mini-mxfp8-native-fusion-20261128-rc1",
+  "source_revision_label": "77f28c0949-native-164e2fa16bce",
+  "source_archives": {
+    "frozen-77f28c0949.tar": "e664b57567370dceb3886fcbb4853f7b3f5c3ec4cb7e892932a26b853389b246",
+    "sd-padded-guard-overlay.tar": "3a5543b0ec1a677dd8f1a6331bdb14f506f559f6b17ddec1298474d8b4aebd40",
+    "candidate.tar.gz": "164e2fa16bce434b981353d48082ee5875cc4150c041f87c0944db8ab083ab96"
+  },
+  "build_argv": [
+    "podman",
+    "build",
+    "--network=none",
+    "--pull=never",
+    "--build-arg",
+    "SOURCE_REVISION=77f28c0949-native-164e2fa16bce",
+    "-f",
+    "/mnt/hammerspace/jackhan/raon-native-image-20261128/context/docker/raon/Dockerfile.native-stack",
+    "-t",
+    "docker.io/hanjack/vllm-rocm:raon-mini-mxfp8-native-fusion-20261128-rc1",
+    "/mnt/hammerspace/jackhan/raon-native-image-20261128/context"
+  ],
+  "started_epoch": 1795862952.498396,
+  "accepted_baseline_unchanged": true,
+  "default_opt_in": true,
+  "excluded": "New large-M/preshuffle layout candidate is not included",
+  "build_exit": 0,
+  "image_id": "aec90df15210131ba1d2deafe19e881a6421aa6ea5e35ba643af158322961c9e",
+  "push_exit": 0,
+  "finished_epoch": 1795863067.3166313,
+  "registry_digest": "sha256:acb0ae5d9c477c237b726e3949e8b74aa6465a94afb28d62af9bb05cd32d56a8"
+}

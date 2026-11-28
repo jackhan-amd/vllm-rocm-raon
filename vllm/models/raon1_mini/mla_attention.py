@@ -33,7 +33,7 @@ class MultiHeadLatentAttention(KimiMLAAttention):
         self.kv_a_layernorm.variance_epsilon = 1e-6
         self.rotary_emb = None
 
-    def forward(self, positions, hidden_states):
+    def forward(self, positions, hidden_states, *, defer_projection=False):
         RUNTIME_WITNESS["calls"] += 1
         RUNTIME_WITNESS["max_tokens"] = max(
             RUNTIME_WITNESS["max_tokens"], hidden_states.shape[0]
@@ -43,7 +43,14 @@ class MultiHeadLatentAttention(KimiMLAAttention):
                 raise RuntimeError("Split MLA requires live attention metadata")
             from .rocm_mla_split import forward
 
-            return forward(self.mla_attn, positions, hidden_states)
+            return forward(
+                self.mla_attn,
+                positions,
+                hidden_states,
+                defer_projection=defer_projection,
+            )
+        if defer_projection:
+            raise RuntimeError("Deferred MLA projection requires split MLA graphs")
         if os.environ.get("RAON_ROCM_MLA_LIVE_METADATA", "0") == "1":
             out = torch.empty_like(hidden_states)
             self._forward_live_metadata(positions, hidden_states, out)

@@ -206,9 +206,20 @@ void forward_sd(torch::Tensor x, torch::Tensor weight, torch::Tensor conv,
                   conv.size(1) == 3 * P &&
                   (conv.stride(1) == 1 || conv.stride(2) == 1),
               "Invalid SD conv");
-  TORCH_CHECK(state.scalar_type() == at::kFloat && state.is_contiguous() &&
+  TORCH_CHECK(state.scalar_type() == at::kFloat,
+              "Invalid SD state dtype: expected FP32, got ", state.scalar_type());
+  TORCH_CHECK(state.dim() == 4 &&
                   state.sizes() == at::IntArrayRef({conv.size(0), H, D, D}),
-              "Invalid SD state");
+              "Invalid SD state shape: expected [", conv.size(0), ", ", H,
+              ", ", D, ", ", D, "], got ", state.sizes());
+  TORCH_CHECK(state.stride(1) == D * D && state.stride(2) == D &&
+                  state.stride(3) == 1 && state.stride(0) >= H * D * D,
+              "Invalid SD state stride: expected dense inner dimensions and "
+              "outer stride >= ", H * D * D, ", got ", state.strides());
+  TORCH_CHECK(state.stride(0) % 4 == 0 &&
+                  reinterpret_cast<uintptr_t>(state.data_ptr<float>()) % 16 == 0,
+              "Invalid SD state alignment: base and outer stride must be "
+              "16-byte aligned; outer stride (elements)=", state.stride(0));
   TORCH_CHECK(a_log.scalar_type() == at::kFloat && a_log.is_contiguous() &&
                   a_log.numel() == H && bias.scalar_type() == at::kFloat &&
                   bias.is_contiguous() && bias.numel() == P,

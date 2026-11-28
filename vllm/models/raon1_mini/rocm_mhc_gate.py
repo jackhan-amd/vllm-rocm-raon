@@ -229,6 +229,17 @@ def forward(site, s, branch):
 
     aggregate, coeff, launch_mix = prepare_branch(site, s)
     y = branch(aggregate)
+    from .rocm_moe_mhc import DeferredMoE, finish as finish_moe_mhc
+
+    if isinstance(y, DeferredMoE):
+        return finish_moe_mhc(y, s, coeff)
+    from .rocm_projection_mhc import DeferredProjection, try_finish
+
+    if isinstance(y, DeferredProjection):
+        fused = try_finish(y, s, coeff)
+        if fused is not None:
+            return fused
+        y = y.projection(y.inputs)[0]
     if y.shape != aggregate.shape or y.dtype != s.dtype or y.device != s.device:
         raise ValueError("FlyDSL mHC branch must return BF16 [T,2560] on its GPU")
     y = y.contiguous()

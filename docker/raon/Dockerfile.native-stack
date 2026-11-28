@@ -1,0 +1,20 @@
+ARG BASE_IMAGE=docker.io/hanjack/vllm-rocm@sha256:c41349b2bca3335d3a7eacceb6e4d9d21c4fa4602f7d24e454a8ccb9f739c281
+FROM ${BASE_IMAGE}
+
+ARG SOURCE_REVISION=experimental-native-stack-20261128
+LABEL org.opencontainers.image.source="https://github.com/jackhan-amd/vllm-rocm-raon" \
+      org.opencontainers.image.revision="${SOURCE_REVISION}" \
+      ai.raon.profile="native-stack-20261128-opt-in"
+
+# Use the full frozen model package, then its validated SD/source overlays.
+# Copying only new files onto an older image is not a reproducible runtime.
+COPY vllm/models/raon1_mini/ /usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini/
+COPY tools/raon_validation/ /opt/raon/native-fusion/tools/raon_validation/
+COPY tools/raon_validation/native_stack_20261128/geometry_speed_extension.py \
+     tools/raon_validation/native_stack_20261128/raon_compile_warmup.py \
+     tools/raon_validation/native_stack_20261128/image_manifest.py \
+     /opt/raon/native-fusion/
+COPY docker/raon/runtime-native-fusion-env.sh docker/raon/run-native-fusion.sh /opt/raon/
+RUN find /usr/local/lib/python3.14/dist-packages/vllm/models/raon1_mini -type d -name __pycache__ -prune -exec rm -rf '{}' + \
+    && chmod +x /opt/raon/run-native-fusion.sh \
+    && /usr/local/bin/uv run --no-project --python /opt/raon/.venv/bin/python python /opt/raon/native-fusion/image_manifest.py

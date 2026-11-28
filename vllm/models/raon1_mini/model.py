@@ -401,6 +401,26 @@ def _raon_fp32_combine_moe_impl_eager(
     # inapplicable and is bypassed (announced once). The dispatch, combine
     # tail and shared expert stay the certified realizations.
     if moe_expert_mxfp8_realized():
+        from .rocm_moe_mhc import DeferredMoE, enabled as defer_moe_mhc
+
+        if defer_moe_mhc(num_tokens):
+            if (not mxfp8_flydsl.enabled() or not getattr(self, "_raon_local_graph_world", False)
+                or os.environ.get("RAON_ROCM_MOE_DIRECT_GRAPH") != "1"
+                or os.environ.get("RAON_ROCM_MHC_GATE") != "flydsl"
+                or os.environ.get("RAON_MOE_COMBINE_UNW_FUSED") != "flydsl"
+                or moe_combine_ep_size() or raon_phase.PREFILL_ALIGNED
+                or self.shared_experts is None):
+                raise RuntimeError("Deferred MoE/mHC requires native local direct graph and ordered combine")
+            expert_out = mxfp8_flydsl.expert_rows(
+                x, topk_weights, topk_ids, w13, w2, beta, linear_beta, layer_idx
+            )
+            if _shared_side is not None:
+                shared_output, shared_event = _shared_side
+                torch.cuda.current_stream().wait_event(shared_event)
+                shared_output.record_stream(torch.cuda.current_stream())
+            else:
+                shared_output = self.shared_experts(x)
+            return DeferredMoE(expert_out, topk_ids, shared_output)
         combined = _moe_expert_chain_mxfp8(
             x, topk_weights, topk_ids, w13, w2, beta, linear_beta, layer_idx
         )
@@ -1845,6 +1865,10 @@ class RaonDecoderLayer(nn.Module):
 
         out = self.mlp(x)
         c = getattr(self.mlp, "raon_effort_c", None)
+        from .rocm_moe_mhc import DeferredMoE, attach_steering
+
+        if isinstance(out, DeferredMoE):
+            return attach_steering(out, c)
         return out if c is None else effort_steering.steer(out, c)
 
     def forward(self, positions: torch.Tensor, s: torch.Tensor) -> torch.Tensor:
@@ -1880,10 +1904,15 @@ class RaonDecoderLayer(nn.Module):
                 branch_norm_weight=self.post_attention_layernorm.weight,
                 branch_norm_eps=self.post_attention_layernorm.variance_epsilon,
             )
+        from . import rocm_mhc_gate, rocm_projection_mhc
+
+        defer_projection = rocm_projection_mhc.enabled() and rocm_mhc_gate.enabled()
         s = self.self_attn_raon_mhc(
             s,
             lambda a: self.self_attn(
-                hidden_states=self.input_layernorm(a), positions=positions
+                hidden_states=self.input_layernorm(a),
+                positions=positions,
+                **({"defer_projection": True} if defer_projection else {}),
             ),
         )
         return self.mlp_raon_mhc(

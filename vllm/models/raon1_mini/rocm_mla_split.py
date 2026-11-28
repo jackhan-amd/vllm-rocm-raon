@@ -37,7 +37,7 @@ def _attention(wrapper, positions, q, kv, k_pe, out):
     out.copy_(value)
 
 
-def forward(wrapper, positions, hidden):
+def forward(wrapper, positions, hidden, *, defer_projection=False):
     if (
         wrapper.q_lora_rank is None
         or wrapper.fused_qkv_a_proj is None
@@ -63,7 +63,12 @@ def forward(wrapper, positions, hidden):
     _attention(wrapper, positions, q, kv, k_pe.unsqueeze(1), out)
     if wrapper.g_proj is not None:
         out = out * wrapper.g_proj(hidden)[0].sigmoid()
-    output = wrapper.o_proj(out)[0]
+    if defer_projection:
+        from .rocm_projection_mhc import DeferredProjection
+
+        output = DeferredProjection(out, wrapper.o_proj)
+    else:
+        output = wrapper.o_proj(out)[0]
     capturing = torch.cuda.is_current_stream_capturing()
     if capturing not in _ANNOUNCED:
         _ANNOUNCED.add(capturing)

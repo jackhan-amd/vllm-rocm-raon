@@ -1,0 +1,154 @@
+{
+  "status": "FULL_SET_VALIDATED",
+  "model": "KRAFTON/Raon-1-mini",
+  "precision": "original MXFP8",
+  "sd": "on",
+  "replicas": 8,
+  "tp": 1,
+  "dp": 1,
+  "state_fingerprint": "8b0ddcc3d960bdc30c91d5f64d3386c14f8de330253d50f3302dc91d59fbc7cc",
+  "jobs": [
+    "90045"
+  ],
+  "completed": 12032,
+  "correct": 9989,
+  "accuracy_percent": 83.02027925531915,
+  "unparsed": 0,
+  "finish_reasons": {
+    "stop": 12032
+  },
+  "prefix_resumed_questions": 0,
+  "output_tokens": {
+    "total": 41963468,
+    "mean": 3487.6552526595747,
+    "median": 467.0,
+    "max": 214897
+  },
+  "categories": {
+    "biology": {
+      "total": 717,
+      "correct": 653,
+      "accuracy_percent": 91.07391910739192
+    },
+    "business": {
+      "total": 789,
+      "correct": 701,
+      "accuracy_percent": 88.84664131812421
+    },
+    "chemistry": {
+      "total": 1132,
+      "correct": 1027,
+      "accuracy_percent": 90.7243816254417
+    },
+    "computer science": {
+      "total": 410,
+      "correct": 351,
+      "accuracy_percent": 85.60975609756098
+    },
+    "economics": {
+      "total": 844,
+      "correct": 723,
+      "accuracy_percent": 85.66350710900474
+    },
+    "engineering": {
+      "total": 969,
+      "correct": 802,
+      "accuracy_percent": 82.76573787409701
+    },
+    "health": {
+      "total": 818,
+      "correct": 624,
+      "accuracy_percent": 76.28361858190709
+    },
+    "history": {
+      "total": 381,
+      "correct": 274,
+      "accuracy_percent": 71.91601049868767
+    },
+    "law": {
+      "total": 1101,
+      "correct": 663,
+      "accuracy_percent": 60.217983651226156
+    },
+    "math": {
+      "total": 1351,
+      "correct": 1282,
+      "accuracy_percent": 94.89267209474464
+    },
+    "other": {
+      "total": 924,
+      "correct": 694,
+      "accuracy_percent": 75.10822510822511
+    },
+    "philosophy": {
+      "total": 499,
+      "correct": 372,
+      "accuracy_percent": 74.54909819639279
+    },
+    "physics": {
+      "total": 1299,
+      "correct": 1164,
+      "accuracy_percent": 89.60739030023095
+    },
+    "psychology": {
+      "total": 798,
+      "correct": 659,
+      "accuracy_percent": 82.58145363408521
+    }
+  },
+  "workers": [
+    {
+      "rank": 0,
+      "completed": 1504,
+      "correct": 1262
+    },
+    {
+      "rank": 1,
+      "completed": 1504,
+      "correct": 1252
+    },
+    {
+      "rank": 2,
+      "completed": 1504,
+      "correct": 1224
+    },
+    {
+      "rank": 3,
+      "completed": 1504,
+      "correct": 1300
+    },
+    {
+      "rank": 4,
+      "completed": 1504,
+      "correct": 1238
+    },
+    {
+      "rank": 5,
+      "completed": 1504,
+      "correct": 1253
+    },
+    {
+      "rank": 6,
+      "completed": 1504,
+      "correct": 1229
+    },
+    {
+      "rank": 7,
+      "completed": 1504,
+      "correct": 1231
+    }
+  ],
+  "row_integrity": "PASS",
+  "ordered_record_hash_sha256": "65237030544c18acfb975d7073cfe07b0ebf36555f2ad9050dd9a0573c0bc9e5",
+  "baseline_reference": {
+    "completed": 12032,
+    "correct": 10029,
+    "accuracy_percent": 83.35272606382979
+  },
+  "delta_vs_frozen_baseline_pp": -0.3324468085106389,
+  "published_final_model_card_reference": 82.7,
+  "published_preview_reference": 76.5,
+  "comparison_limit": "Descriptive; thinking budget, parser and sampling are not an exact official-protocol reproduction.",
+  "quality_acceptance": "NOT_AUTOMATICALLY_DECIDED",
+  "warmed_tps": "NOT_MEASURED"
+}

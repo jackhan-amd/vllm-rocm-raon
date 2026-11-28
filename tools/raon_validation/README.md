@@ -835,3 +835,12 @@ Each case records whether the native skinny kernel was selected; larger shapes
 retain existing AITER dispatch. Direct-call and graph timings are distinct and
 exclude initial kernel compilation. MXFP4 retains separate numeric and bitwise
 statuses because native atomic repeats can differ without graph execution.
+
+### Native fusion stack and AL diagnosis (2026-11-28)
+
+The opt-in attention/mHC, MoE/mHC, RDA projection/ratio and SD logical-boundary
+fixtures are registered under [`native_stack_20261128`](native_stack_20261128/README.md).
+They include independent Torch checks, changed graph replays, actual-kernel
+trace analysis, and processed-probability AL controls. See the
+[source, image and validation contract](../../docker/raon/NATIVE-STACK-20261128.md)
+for the exact tested scope and per-cell performance comparison.

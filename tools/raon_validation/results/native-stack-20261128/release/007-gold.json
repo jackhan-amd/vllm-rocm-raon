@@ -1,0 +1,424 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "rows": 1,
+      "layout": "compact",
+      "scale": 0.125,
+      "checkpoint_weight": "model.layers.1.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 1.0950072449966572e-07,
+        "relative_rms": 9.61319999711564e-08,
+        "peak": 4.76837158203125e-07,
+        "relative_peak": 1.807618588139618e-07,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 1.0950072449966572e-07,
+        "relative_rms": 9.61319999711564e-08,
+        "peak": 4.76837158203125e-07,
+        "relative_peak": 1.807618588139618e-07,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 1,
+      "layout": "compact",
+      "scale": 1.0,
+      "checkpoint_weight": "model.layers.1.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 1.2959279166605088e-07,
+        "relative_rms": 4.5848305650809e-08,
+        "peak": 7.152557373046875e-07,
+        "relative_peak": 5.3438123355708946e-08,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 1.2959279166605088e-07,
+        "relative_rms": 4.5848305650809e-08,
+        "peak": 7.152557373046875e-07,
+        "relative_peak": 5.3438123355708946e-08,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 1,
+      "layout": "compact",
+      "scale": 8.0,
+      "checkpoint_weight": "model.layers.1.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 8.637687396535376e-08,
+        "relative_rms": 1.58203241388233e-09,
+        "peak": 4.76837158203125e-07,
+        "relative_peak": 1.5179785984933492e-09,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 8.637687396535376e-08,
+        "relative_rms": 1.58203241388233e-09,
+        "peak": 4.76837158203125e-07,
+        "relative_peak": 1.5179785984933492e-09,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 1,
+      "layout": "compact",
+      "scale": "wide_beta",
+      "checkpoint_weight": "model.layers.1.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 2.6660989578265078e-08,
+        "relative_rms": 5.915169129549378e-10,
+        "peak": 1.1920928955078125e-07,
+        "relative_peak": 4.891422320425634e-10,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 2.6660989578265078e-08,
+        "relative_rms": 5.915169129549378e-10,
+        "peak": 1.1920928955078125e-07,
+        "relative_peak": 4.891422320425634e-10,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 1,
+      "layout": "projected_stride20656",
+      "scale": 0.125,
+      "checkpoint_weight": "model.layers.1.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 6.034510353599962e-08,
+        "relative_rms": 6.850281615437497e-08,
+        "peak": 1.7881393432617188e-07,
+        "relative_peak": 1.25052886950106e-07,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 6.034510353599962e-08,
+        "relative_rms": 6.850281615437497e-08,
+        "peak": 1.7881393432617188e-07,
+        "relative_peak": 1.25052886950106e-07,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 1,
+      "layout": "projected_stride20656",
+      "scale": 1.0,
+      "checkpoint_weight": "model.layers.1.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 1.5806824212721907e-07,
+        "relative_rms": 1.2833507648119905e-07,
+        "peak": 9.5367431640625e-07,
+        "relative_peak": 2.782204187356412e-07,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 1.5806824212721907e-07,
+        "relative_rms": 1.2833507648119905e-07,
+        "peak": 9.5367431640625e-07,
+        "relative_peak": 2.782204187356412e-07,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 1,
+      "layout": "projected_stride20656",
+      "scale": 8.0,
+      "checkpoint_weight": "model.layers.1.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 6.037499271718834e-07,
+        "relative_rms": 9.035743473153448e-08,
+        "peak": 3.814697265625e-06,
+        "relative_peak": 1.28133800389578e-07,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 6.037499271718834e-07,
+        "relative_rms": 9.035743473153448e-08,
+        "peak": 3.814697265625e-06,
+        "relative_peak": 1.28133800389578e-07,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 1,
+      "layout": "projected_stride20656",
+      "scale": "wide_beta",
+      "checkpoint_weight": "model.layers.1.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 0.0,
+        "relative_rms": 0.0,
+        "peak": 0.0,
+        "relative_peak": 0.0,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 0.0,
+        "relative_rms": 0.0,
+        "peak": 0.0,
+        "relative_peak": 0.0,
+        "finite": true
+      },
+      "baseline_projection": "original native skinny",
+      "chunks": 1,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 33,
+      "layout": "compact",
+      "scale": 0.125,
+      "checkpoint_weight": "model.layers.6.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 9.011535262264496e-08,
+        "relative_rms": 8.622766047153758e-08,
+        "peak": 9.5367431640625e-07,
+        "relative_peak": 3.232418049919363e-07,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 9.011535262264496e-08,
+        "relative_rms": 8.622766047153758e-08,
+        "peak": 9.5367431640625e-07,
+        "relative_peak": 3.232418049919363e-07,
+        "finite": true
+      },
+      "baseline_projection": "original wider-row torch BF16 linear",
+      "chunks": 2,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 33,
+      "layout": "compact",
+      "scale": 1.0,
+      "checkpoint_weight": "model.layers.6.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 1.6897271758333986e-06,
+        "relative_rms": 6.619411336985124e-08,
+        "peak": 4.57763671875e-05,
+        "relative_peak": 7.131663826679649e-08,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 1.6897271758333986e-06,
+        "relative_rms": 6.619411336985124e-08,
+        "peak": 4.57763671875e-05,
+        "relative_peak": 7.131663826679649e-08,
+        "finite": true
+      },
+      "baseline_projection": "original wider-row torch BF16 linear",
+      "chunks": 2,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 33,
+      "layout": "compact",
+      "scale": 8.0,
+      "checkpoint_weight": "model.layers.6.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 9.928255041985515e-06,
+        "relative_rms": 1.2884018974074853e-07,
+        "peak": 0.00030517578125,
+        "relative_peak": 1.972055500267884e-07,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 9.89125225556477e-06,
+        "relative_rms": 1.2836000001978218e-07,
+        "peak": 0.00030517578125,
+        "relative_peak": 1.972055500267884e-07,
+        "finite": true
+      },
+      "baseline_projection": "original wider-row torch BF16 linear",
+      "chunks": 2,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 33,
+      "layout": "compact",
+      "scale": "wide_beta",
+      "checkpoint_weight": "model.layers.6.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 2.1581146593725127e-05,
+        "relative_rms": 2.6926132145793003e-08,
+        "peak": 0.0007840320467948914,
+        "relative_peak": 2.772141464805953e-08,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 2.1581146593725127e-05,
+        "relative_rms": 2.6926132145793003e-08,
+        "peak": 0.0007840320467948914,
+        "relative_peak": 2.772141464805953e-08,
+        "finite": true
+      },
+      "baseline_projection": "original wider-row torch BF16 linear",
+      "chunks": 2,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 33,
+      "layout": "projected_stride20656",
+      "scale": 0.125,
+      "checkpoint_weight": "model.layers.6.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 9.899616874639079e-08,
+        "relative_rms": 9.339876731779612e-08,
+        "peak": 1.0728836059570312e-06,
+        "relative_peak": 2.3050739800687937e-07,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 9.450345578369303e-08,
+        "relative_rms": 8.916007945772996e-08,
+        "peak": 7.152557373046875e-07,
+        "relative_peak": 1.536715986712529e-07,
+        "finite": true
+      },
+      "baseline_projection": "original wider-row torch BF16 linear",
+      "chunks": 2,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 33,
+      "layout": "projected_stride20656",
+      "scale": 1.0,
+      "checkpoint_weight": "model.layers.6.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 6.4341385362379375e-06,
+        "relative_rms": 5.484335618999349e-07,
+        "peak": 0.00023287534713745117,
+        "relative_peak": 8.056945286621265e-07,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 6.4341385362379375e-06,
+        "relative_rms": 5.484335618999349e-07,
+        "peak": 0.00023287534713745117,
+        "relative_peak": 8.056945286621265e-07,
+        "finite": true
+      },
+      "baseline_projection": "original wider-row torch BF16 linear",
+      "chunks": 2,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 33,
+      "layout": "projected_stride20656",
+      "scale": 8.0,
+      "checkpoint_weight": "model.layers.6.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 1.160635532804378e-05,
+        "relative_rms": 1.8664842868786504e-07,
+        "peak": 0.0003662109375,
+        "relative_peak": 3.1344012447334224e-07,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 1.160635532804378e-05,
+        "relative_rms": 1.8664842868786504e-07,
+        "peak": 0.0003662109375,
+        "relative_peak": 3.1344012447334224e-07,
+        "finite": true
+      },
+      "baseline_projection": "original wider-row torch BF16 linear",
+      "chunks": 2,
+      "changed_graph_replays": 3
+    },
+    {
+      "rows": 33,
+      "layout": "projected_stride20656",
+      "scale": "wide_beta",
+      "checkpoint_weight": "model.layers.6.self_attn.rda_w_proj.weight",
+      "native": {
+        "pass_": true,
+        "rms": 1.395068159799066e-06,
+        "relative_rms": 3.6536908942853974e-09,
+        "peak": 4.9591064453125e-05,
+        "relative_peak": 4.4775048832081564e-09,
+        "finite": true
+      },
+      "torch_fp32": {
+        "pass_": true,
+        "rms": 1.395068159799066e-06,
+        "relative_rms": 3.6536908942853974e-09,
+        "peak": 4.9591064453125e-05,
+        "relative_peak": 4.4775048832081564e-09,
+        "finite": true
+      },
+      "baseline_projection": "original wider-row torch BF16 linear",
+      "chunks": 2,
+      "changed_graph_replays": 3
+    }
+  ],
+  "timings": [
+    {
+      "rows": 1,
+      "baseline_us": 17.495685577392578,
+      "fused_us": 5.07260799407959,
+      "speedup": 3.4490513751136254,
+      "operator_only": true
+    },
+    {
+      "rows": 33,
+      "baseline_us": 23.719985961914062,
+      "fused_us": 8.28039836883545,
+      "speedup": 2.8645947822012854,
+      "operator_only": true
+    }
+  ],
+  "cache_updates": 0,
+  "precision": "BF16 inputs/weights and delta seam; FP32 ratio",
+  "scope": "Real write-projection weights, synthetic activations; not model TPS or quality"
+}

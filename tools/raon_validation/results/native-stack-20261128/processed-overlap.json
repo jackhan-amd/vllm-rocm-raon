@@ -1,0 +1,2019 @@
+{
+  "status": "ORACLE_VALIDATED",
+  "n": 189,
+  "oracle_max_abs": 1.1920928955078125e-07,
+  "groups": [
+    {
+      "rank": 0,
+      "pair": "final",
+      "dataset": "humaneval",
+      "ordinal": 0,
+      "rows": [
+        {
+          "step": 3,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.4846239387989044,
+          "ar_overlap": 0.4846239387989044,
+          "fresh_overlap": 0.4914162755012512,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.033085960894823074
+        },
+        {
+          "step": 3,
+          "row": 1,
+          "oracle_max_abs": 1.4901161193847656e-08,
+          "sd_overlap": 0.07189261168241501,
+          "ar_overlap": 0.07189261168241501,
+          "fresh_overlap": 0.06362997740507126,
+          "sd_ar_processed_tv": 0.2083548605442047,
+          "ar_fresh_processed_tv": 0.2166006863117218
+        },
+        {
+          "step": 3,
+          "row": 2,
+          "oracle_max_abs": 2.9802322387695312e-08,
+          "sd_overlap": 0.3125893473625183,
+          "ar_overlap": 0.2615281045436859,
+          "fresh_overlap": 0.5551937222480774,
+          "sd_ar_processed_tv": 0.05106128007173538,
+          "ar_fresh_processed_tv": 0.2936655879020691
+        },
+        {
+          "step": 3,
+          "row": 3,
+          "oracle_max_abs": 1.1175870895385742e-08,
+          "sd_overlap": 0.9455541372299194,
+          "ar_overlap": 0.94842928647995,
+          "fresh_overlap": 0.9417396783828735,
+          "sd_ar_processed_tv": 0.031374476850032806,
+          "ar_fresh_processed_tv": 0.035404086112976074
+        },
+        {
+          "step": 3,
+          "row": 4,
+          "oracle_max_abs": 2.9802322387695312e-08,
+          "sd_overlap": 0.26083508133888245,
+          "ar_overlap": 0.26830825209617615,
+          "fresh_overlap": 0.263901948928833,
+          "sd_ar_processed_tv": 0.07339136302471161,
+          "ar_fresh_processed_tv": 0.15926548838615417
+        },
+        {
+          "step": 3,
+          "row": 5,
+          "oracle_max_abs": 1.862645149230957e-09,
+          "sd_overlap": 0.39172255992889404,
+          "ar_overlap": 0.4048997163772583,
+          "fresh_overlap": 0.438668429851532,
+          "sd_ar_processed_tv": 0.05352191999554634,
+          "ar_fresh_processed_tv": 0.08289223164319992
+        },
+        {
+          "step": 3,
+          "row": 6,
+          "oracle_max_abs": 1.862645149230957e-09,
+          "sd_overlap": 0.050839439034461975,
+          "ar_overlap": 0.060565847903490067,
+          "fresh_overlap": 0.07838782668113708,
+          "sd_ar_processed_tv": 0.055246502161026,
+          "ar_fresh_processed_tv": 0.1982378363609314
+        },
+        {
+          "step": 15,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.24431943893432617,
+          "ar_overlap": 0.24431943893432617,
+          "fresh_overlap": 0.24431943893432617,
+          "sd_ar_processed_tv": 0.029326971620321274,
+          "ar_fresh_processed_tv": 0.004150219261646271
+        },
+        {
+          "step": 15,
+          "row": 1,
+          "oracle_max_abs": 5.960464477539063e-08,
+          "sd_overlap": 0.19036151468753815,
+          "ar_overlap": 0.2922031283378601,
+          "fresh_overlap": 0.20767296850681305,
+          "sd_ar_processed_tv": 0.23180478811264038,
+          "ar_fresh_processed_tv": 0.1042793020606041
+        },
+        {
+          "step": 15,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.05951874703168869,
+          "ar_fresh_processed_tv": 0.07176907360553741
+        },
+        {
+          "step": 15,
+          "row": 3,
+          "oracle_max_abs": 1.862645149230957e-09,
+          "sd_overlap": 0.6852818131446838,
+          "ar_overlap": 0.6983951330184937,
+          "fresh_overlap": 0.6974742412567139,
+          "sd_ar_processed_tv": 0.09264209866523743,
+          "ar_fresh_processed_tv": 0.050412096083164215
+        },
+        {
+          "step": 15,
+          "row": 4,
+          "oracle_max_abs": 9.313225746154785e-10,
+          "sd_overlap": 0.06124725192785263,
+          "ar_overlap": 0.02779407799243927,
+          "fresh_overlap": 0.051354847848415375,
+          "sd_ar_processed_tv": 0.1653282642364502,
+          "ar_fresh_processed_tv": 0.1866319179534912
+        },
+        {
+          "step": 15,
+          "row": 5,
+          "oracle_max_abs": 1.862645149230957e-09,
+          "sd_overlap": 0.10016582161188126,
+          "ar_overlap": 0.16050556302070618,
+          "fresh_overlap": 0.11719028651714325,
+          "sd_ar_processed_tv": 0.08263227343559265,
+          "ar_fresh_processed_tv": 0.13027425110340118
+        },
+        {
+          "step": 15,
+          "row": 6,
+          "oracle_max_abs": 1.4901161193847656e-08,
+          "sd_overlap": 0.4145680069923401,
+          "ar_overlap": 0.43183407187461853,
+          "fresh_overlap": 0.4366570711135864,
+          "sd_ar_processed_tv": 0.10604782402515411,
+          "ar_fresh_processed_tv": 0.09506609290838242
+        },
+        {
+          "step": 63,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.999994158744812,
+          "ar_overlap": 0.999994158744812,
+          "fresh_overlap": 0.999994158744812,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 63,
+          "row": 1,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.1652933806180954,
+          "ar_overlap": 0.1639387607574463,
+          "fresh_overlap": 0.1601041853427887,
+          "sd_ar_processed_tv": 0.07119838893413544,
+          "ar_fresh_processed_tv": 0.07768437266349792
+        },
+        {
+          "step": 63,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.005832212511450052,
+          "ar_overlap": 0.005832212511450052,
+          "fresh_overlap": 0.005832212511450052,
+          "sd_ar_processed_tv": 0.044745102524757385,
+          "ar_fresh_processed_tv": 0.1924651563167572
+        },
+        {
+          "step": 63,
+          "row": 3,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.43024009466171265,
+          "ar_overlap": 0.39351141452789307,
+          "fresh_overlap": 0.4626612067222595,
+          "sd_ar_processed_tv": 0.052414461970329285,
+          "ar_fresh_processed_tv": 0.12003099173307419
+        },
+        {
+          "step": 63,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0009236029000021517,
+          "ar_overlap": 0.0009236029000021517,
+          "fresh_overlap": 0.0009236029000021517,
+          "sd_ar_processed_tv": 0.07779007405042648,
+          "ar_fresh_processed_tv": 0.061372071504592896
+        },
+        {
+          "step": 63,
+          "row": 5,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.15003977715969086,
+          "ar_overlap": 0.13453452289104462,
+          "fresh_overlap": 0.1632532924413681,
+          "sd_ar_processed_tv": 0.05150522664189339,
+          "ar_fresh_processed_tv": 0.04632750526070595
+        },
+        {
+          "step": 63,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9898983836174011,
+          "ar_overlap": 0.9898983836174011,
+          "fresh_overlap": 0.9898983836174011,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        }
+      ],
+      "n": 21,
+      "oracle_max_abs": 5.960464477539063e-08,
+      "sd_overlap_mean": 0.33124869394703726,
+      "ar_overlap_mean": 0.3354253441433511,
+      "fixed_prefix_ar_minus_sd_overlap_mean": 0.004176650196313858,
+      "first_position_ar_minus_sd_overlap_mean": 0.0,
+      "processed_tv_sd_ar_mean": 0.0732335535188516
+    },
+    {
+      "rank": 1,
+      "pair": "final",
+      "dataset": "humaneval",
+      "ordinal": 1,
+      "rows": [
+        {
+          "step": 3,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9782633185386658,
+          "ar_overlap": 0.9782633185386658,
+          "fresh_overlap": 0.9782633185386658,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 1,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.987598717212677,
+          "ar_overlap": 0.987598717212677,
+          "fresh_overlap": 0.987598717212677,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.8096132278442383,
+          "ar_overlap": 0.8498877882957458,
+          "fresh_overlap": 0.8842660784721375,
+          "sd_ar_processed_tv": 0.04027459770441055,
+          "ar_fresh_processed_tv": 0.034378305077552795
+        },
+        {
+          "step": 3,
+          "row": 3,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.5492148995399475,
+          "ar_overlap": 0.5277917981147766,
+          "fresh_overlap": 0.5277917981147766,
+          "sd_ar_processed_tv": 0.06028284132480621,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 4,
+          "oracle_max_abs": 5.960464477539063e-08,
+          "sd_overlap": 0.7906568646430969,
+          "ar_overlap": 0.7062990069389343,
+          "fresh_overlap": 0.528252124786377,
+          "sd_ar_processed_tv": 0.08435790240764618,
+          "ar_fresh_processed_tv": 0.17804688215255737
+        },
+        {
+          "step": 3,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.6547560691833496,
+          "ar_overlap": 0.6547560691833496,
+          "fresh_overlap": 0.6547560691833496,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.3602328896522522,
+          "ar_overlap": 0.3602328896522522,
+          "fresh_overlap": 0.3602328896522522,
+          "sd_ar_processed_tv": 0.06238570809364319,
+          "ar_fresh_processed_tv": 0.0773654580116272
+        },
+        {
+          "step": 15,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9592193365097046,
+          "ar_overlap": 0.9592193365097046,
+          "fresh_overlap": 0.9592193365097046,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 1,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9212139248847961,
+          "ar_overlap": 0.9212139248847961,
+          "fresh_overlap": 0.9212139248847961,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9943769574165344,
+          "ar_overlap": 0.9943769574165344,
+          "fresh_overlap": 0.9943769574165344,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 3,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9869976043701172,
+          "ar_overlap": 0.9869976043701172,
+          "fresh_overlap": 0.9869976043701172,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9910818338394165,
+          "ar_overlap": 0.9910818338394165,
+          "fresh_overlap": 0.9910818338394165,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.990443766117096,
+          "ar_overlap": 0.990443766117096,
+          "fresh_overlap": 0.990443766117096,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9727137088775635,
+          "ar_overlap": 0.9727137088775635,
+          "fresh_overlap": 0.9727137088775635,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 63,
+          "row": 0,
+          "oracle_max_abs": 1.4901161193847656e-08,
+          "sd_overlap": 0.8006337881088257,
+          "ar_overlap": 0.7304712533950806,
+          "fresh_overlap": 0.6807745695114136,
+          "sd_ar_processed_tv": 0.1102171391248703,
+          "ar_fresh_processed_tv": 0.0963224396109581
+        },
+        {
+          "step": 63,
+          "row": 1,
+          "oracle_max_abs": 5.960464477539063e-08,
+          "sd_overlap": 0.46859467029571533,
+          "ar_overlap": 0.452618271112442,
+          "fresh_overlap": 0.43665504455566406,
+          "sd_ar_processed_tv": 0.07442829012870789,
+          "ar_fresh_processed_tv": 0.1569880098104477
+        },
+        {
+          "step": 63,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9077845215797424,
+          "ar_overlap": 0.9077845215797424,
+          "fresh_overlap": 0.9077845215797424,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 63,
+          "row": 3,
+          "oracle_max_abs": 2.9802322387695312e-08,
+          "sd_overlap": 0.3406892418861389,
+          "ar_overlap": 0.34820741415023804,
+          "fresh_overlap": 0.28695395588874817,
+          "sd_ar_processed_tv": 0.01991353929042816,
+          "ar_fresh_processed_tv": 0.06125345081090927
+        },
+        {
+          "step": 63,
+          "row": 4,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.2503140866756439,
+          "ar_overlap": 0.26557207107543945,
+          "fresh_overlap": 0.23073115944862366,
+          "sd_ar_processed_tv": 0.13636435568332672,
+          "ar_fresh_processed_tv": 0.13507957756519318
+        },
+        {
+          "step": 63,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.11095497757196426,
+          "ar_overlap": 0.06505149602890015,
+          "fresh_overlap": 0.05390056595206261,
+          "sd_ar_processed_tv": 0.20210367441177368,
+          "ar_fresh_processed_tv": 0.06341046839952469
+        },
+        {
+          "step": 63,
+          "row": 6,
+          "oracle_max_abs": 1.4901161193847656e-08,
+          "sd_overlap": 0.2601507604122162,
+          "ar_overlap": 0.2601507604122162,
+          "fresh_overlap": 0.2601507604122162,
+          "sd_ar_processed_tv": 0.024297326803207397,
+          "ar_fresh_processed_tv": 0.021716099232435226
+        },
+        {
+          "step": 127,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9999960660934448,
+          "ar_overlap": 0.9999960660934448,
+          "fresh_overlap": 0.9999960660934448,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 127,
+          "row": 1,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9997313618659973,
+          "ar_overlap": 0.9997313618659973,
+          "fresh_overlap": 0.9997313618659973,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 127,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9999929666519165,
+          "ar_overlap": 0.9999929666519165,
+          "fresh_overlap": 0.9999929666519165,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 127,
+          "row": 3,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9997673630714417,
+          "ar_overlap": 0.9997673630714417,
+          "fresh_overlap": 0.9997673630714417,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 127,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9999897480010986,
+          "ar_overlap": 0.9999897480010986,
+          "fresh_overlap": 0.9999897480010986,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 127,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9992928504943848,
+          "ar_overlap": 0.9992928504943848,
+          "fresh_overlap": 0.9992928504943848,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 127,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9761372208595276,
+          "ar_overlap": 0.9761372208595276,
+          "fresh_overlap": 0.9761372208595276,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        }
+      ],
+      "n": 28,
+      "oracle_max_abs": 5.960464477539063e-08,
+      "sd_overlap_mean": 0.7878718836499112,
+      "ar_overlap_mean": 0.7816300030265536,
+      "fixed_prefix_ar_minus_sd_overlap_mean": -0.006241880623357636,
+      "first_position_ar_minus_sd_overlap_mean": -0.01754063367843628,
+      "processed_tv_sd_ar_mean": 0.029093763391886438
+    },
+    {
+      "rank": 2,
+      "pair": "preview",
+      "dataset": "humaneval",
+      "ordinal": 0,
+      "rows": [
+        {
+          "step": 3,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9824627637863159,
+          "ar_overlap": 0.9417732357978821,
+          "fresh_overlap": 0.9687739610671997,
+          "sd_ar_processed_tv": 0.06008666008710861,
+          "ar_fresh_processed_tv": 0.02700069732964039
+        },
+        {
+          "step": 3,
+          "row": 1,
+          "oracle_max_abs": 2.9802322387695312e-08,
+          "sd_overlap": 0.2849193811416626,
+          "ar_overlap": 0.3071453869342804,
+          "fresh_overlap": 0.26577675342559814,
+          "sd_ar_processed_tv": 0.12308453023433685,
+          "ar_fresh_processed_tv": 0.11553725600242615
+        },
+        {
+          "step": 3,
+          "row": 2,
+          "oracle_max_abs": 9.313225746154785e-10,
+          "sd_overlap": 0.10060647875070572,
+          "ar_overlap": 0.1023249477148056,
+          "fresh_overlap": 0.08862404525279999,
+          "sd_ar_processed_tv": 0.011982446536421776,
+          "ar_fresh_processed_tv": 0.028625257313251495
+        },
+        {
+          "step": 3,
+          "row": 3,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9910105466842651,
+          "ar_overlap": 0.9910105466842651,
+          "fresh_overlap": 0.9910105466842651,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9964622855186462,
+          "ar_overlap": 0.9964622855186462,
+          "fresh_overlap": 0.9964622855186462,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 5,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.4269762933254242,
+          "ar_overlap": 0.4272196590900421,
+          "fresh_overlap": 0.4294545650482178,
+          "sd_ar_processed_tv": 0.01971188187599182,
+          "ar_fresh_processed_tv": 0.04415071755647659
+        },
+        {
+          "step": 3,
+          "row": 6,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.10508405417203903,
+          "ar_overlap": 0.1381809264421463,
+          "fresh_overlap": 0.12613996863365173,
+          "sd_ar_processed_tv": 0.07349473983049393,
+          "ar_fresh_processed_tv": 0.1211477592587471
+        },
+        {
+          "step": 15,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9675174951553345,
+          "ar_overlap": 0.9675174951553345,
+          "fresh_overlap": 0.9675174951553345,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 1,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.16338759660720825,
+          "ar_overlap": 0.14904770255088806,
+          "fresh_overlap": 0.1159617155790329,
+          "sd_ar_processed_tv": 0.04742588847875595,
+          "ar_fresh_processed_tv": 0.033085960894823074
+        },
+        {
+          "step": 15,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 3,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.2647309899330139,
+          "ar_overlap": 0.25991690158843994,
+          "fresh_overlap": 0.3061984181404114,
+          "sd_ar_processed_tv": 0.13670796155929565,
+          "ar_fresh_processed_tv": 0.10291315615177155
+        },
+        {
+          "step": 15,
+          "row": 4,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.9596410989761353,
+          "ar_overlap": 0.8956357836723328,
+          "fresh_overlap": 0.9532580375671387,
+          "sd_ar_processed_tv": 0.0640053004026413,
+          "ar_fresh_processed_tv": 0.10249410569667816
+        },
+        {
+          "step": 15,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.455597460269928,
+          "ar_overlap": 0.43919068574905396,
+          "fresh_overlap": 0.5491842031478882,
+          "sd_ar_processed_tv": 0.088422030210495,
+          "ar_fresh_processed_tv": 0.21302223205566406
+        },
+        {
+          "step": 15,
+          "row": 6,
+          "oracle_max_abs": 2.9802322387695312e-08,
+          "sd_overlap": 0.2518573999404907,
+          "ar_overlap": 0.24045716226100922,
+          "fresh_overlap": 0.25307613611221313,
+          "sd_ar_processed_tv": 0.08741161972284317,
+          "ar_fresh_processed_tv": 0.14906272292137146
+        },
+        {
+          "step": 63,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.6958814263343811,
+          "ar_overlap": 0.6958814263343811,
+          "fresh_overlap": 0.6958814263343811,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 63,
+          "row": 1,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.33906909823417664,
+          "ar_overlap": 0.33851948380470276,
+          "fresh_overlap": 0.3263206481933594,
+          "sd_ar_processed_tv": 0.04478179290890694,
+          "ar_fresh_processed_tv": 0.10904941707849503
+        },
+        {
+          "step": 63,
+          "row": 2,
+          "oracle_max_abs": 1.4901161193847656e-08,
+          "sd_overlap": 0.9690535664558411,
+          "ar_overlap": 0.9690535664558411,
+          "fresh_overlap": 0.9741654396057129,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.023856408894062042
+        },
+        {
+          "step": 63,
+          "row": 3,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9914363026618958,
+          "ar_overlap": 0.9914363026618958,
+          "fresh_overlap": 0.9914363026618958,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 63,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.3030838966369629,
+          "ar_overlap": 0.3030838966369629,
+          "fresh_overlap": 0.3030838966369629,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 63,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.38795197010040283,
+          "ar_overlap": 0.38795197010040283,
+          "fresh_overlap": 0.38795197010040283,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 63,
+          "row": 6,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.03953728824853897,
+          "ar_overlap": 0.05216351896524429,
+          "fresh_overlap": 0.03341936692595482,
+          "sd_ar_processed_tv": 0.05627821385860443,
+          "ar_fresh_processed_tv": 0.0832212045788765
+        }
+      ],
+      "n": 21,
+      "oracle_max_abs": 2.9802322387695312e-08,
+      "sd_overlap_mean": 0.5083936853777795,
+      "ar_overlap_mean": 0.5044748992437408,
+      "fixed_prefix_ar_minus_sd_overlap_mean": -0.003918786134038653,
+      "first_position_ar_minus_sd_overlap_mean": -0.013563175996144613,
+      "processed_tv_sd_ar_mean": 0.03873300312885216
+    },
+    {
+      "rank": 3,
+      "pair": "preview",
+      "dataset": "humaneval",
+      "ordinal": 1,
+      "rows": [
+        {
+          "step": 3,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9347960352897644,
+          "ar_overlap": 0.9347960352897644,
+          "fresh_overlap": 0.9347960352897644,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 1,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9489677548408508,
+          "ar_overlap": 0.9774000644683838,
+          "fresh_overlap": 0.9647392630577087,
+          "sd_ar_processed_tv": 0.02843230962753296,
+          "ar_fresh_processed_tv": 0.012660788372159004
+        },
+        {
+          "step": 3,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.39303141832351685,
+          "ar_overlap": 0.38471993803977966,
+          "fresh_overlap": 0.41252270340919495,
+          "sd_ar_processed_tv": 0.008311472833156586,
+          "ar_fresh_processed_tv": 0.02780276909470558
+        },
+        {
+          "step": 3,
+          "row": 3,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.8320920467376709,
+          "ar_overlap": 0.8361057639122009,
+          "fresh_overlap": 0.738243043422699,
+          "sd_ar_processed_tv": 0.023173263296484947,
+          "ar_fresh_processed_tv": 0.11388745903968811
+        },
+        {
+          "step": 3,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.6806508302688599,
+          "ar_overlap": 0.6806508302688599,
+          "fresh_overlap": 0.6806508302688599,
+          "sd_ar_processed_tv": 0.05668632686138153,
+          "ar_fresh_processed_tv": 0.079229436814785
+        },
+        {
+          "step": 3,
+          "row": 5,
+          "oracle_max_abs": 2.9802322387695312e-08,
+          "sd_overlap": 0.59358811378479,
+          "ar_overlap": 0.642358124256134,
+          "fresh_overlap": 0.5942714810371399,
+          "sd_ar_processed_tv": 0.09242391586303711,
+          "ar_fresh_processed_tv": 0.07739400863647461
+        },
+        {
+          "step": 3,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.010514657013118267,
+          "ar_overlap": 0.010514657013118267,
+          "fresh_overlap": 0.010514657013118267,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 0,
+          "oracle_max_abs": 1.1920928955078125e-07,
+          "sd_overlap": 0.40344977378845215,
+          "ar_overlap": 0.4378281235694885,
+          "fresh_overlap": 0.40344977378845215,
+          "sd_ar_processed_tv": 0.034378305077552795,
+          "ar_fresh_processed_tv": 0.034378305077552795
+        },
+        {
+          "step": 15,
+          "row": 1,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.44972944259643555,
+          "ar_overlap": 0.44972944259643555,
+          "fresh_overlap": 0.44972944259643555,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.38609275221824646,
+          "ar_overlap": 0.4205598831176758,
+          "fresh_overlap": 0.354123592376709,
+          "sd_ar_processed_tv": 0.05494839325547218,
+          "ar_fresh_processed_tv": 0.1115359216928482
+        },
+        {
+          "step": 15,
+          "row": 3,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.08547572046518326,
+          "ar_overlap": 0.08547572046518326,
+          "fresh_overlap": 0.08547572046518326,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.053403325378894806
+        },
+        {
+          "step": 15,
+          "row": 4,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.3817055821418762,
+          "ar_overlap": 0.3594907820224762,
+          "fresh_overlap": 0.3479622006416321,
+          "sd_ar_processed_tv": 0.0594530925154686,
+          "ar_fresh_processed_tv": 0.06522802263498306
+        },
+        {
+          "step": 15,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.5317729711532593,
+          "ar_overlap": 0.5317729711532593,
+          "fresh_overlap": 0.5317729711532593,
+          "sd_ar_processed_tv": 0.03278631716966629,
+          "ar_fresh_processed_tv": 0.07245215028524399
+        },
+        {
+          "step": 15,
+          "row": 6,
+          "oracle_max_abs": 5.960464477539063e-08,
+          "sd_overlap": 0.4644204378128052,
+          "ar_overlap": 0.39448845386505127,
+          "fresh_overlap": 0.3573921322822571,
+          "sd_ar_processed_tv": 0.11451129615306854,
+          "ar_fresh_processed_tv": 0.07913194596767426
+        },
+        {
+          "step": 63,
+          "row": 0,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.6189422607421875,
+          "ar_overlap": 0.6521455645561218,
+          "fresh_overlap": 0.45333558320999146,
+          "sd_ar_processed_tv": 0.03398027643561363,
+          "ar_fresh_processed_tv": 0.19958700239658356
+        },
+        {
+          "step": 63,
+          "row": 1,
+          "oracle_max_abs": 1.4901161193847656e-08,
+          "sd_overlap": 0.40308240056037903,
+          "ar_overlap": 0.45686453580856323,
+          "fresh_overlap": 0.2911045253276825,
+          "sd_ar_processed_tv": 0.11000292748212814,
+          "ar_fresh_processed_tv": 0.20315612852573395
+        },
+        {
+          "step": 63,
+          "row": 2,
+          "oracle_max_abs": 2.9802322387695312e-08,
+          "sd_overlap": 0.254422664642334,
+          "ar_overlap": 0.24689991772174835,
+          "fresh_overlap": 0.26166653633117676,
+          "sd_ar_processed_tv": 0.06974761188030243,
+          "ar_fresh_processed_tv": 0.10906080156564713
+        },
+        {
+          "step": 63,
+          "row": 3,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.26439180970191956,
+          "ar_overlap": 0.24141177535057068,
+          "fresh_overlap": 0.26474422216415405,
+          "sd_ar_processed_tv": 0.05641576647758484,
+          "ar_fresh_processed_tv": 0.15978378057479858
+        },
+        {
+          "step": 63,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.09707915037870407,
+          "ar_overlap": 0.09707915037870407,
+          "fresh_overlap": 0.09707915037870407,
+          "sd_ar_processed_tv": 0.075734943151474,
+          "ar_fresh_processed_tv": 0.18752437829971313
+        },
+        {
+          "step": 63,
+          "row": 5,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.064699687063694,
+          "ar_overlap": 0.04041862487792969,
+          "fresh_overlap": 0.05499380826950073,
+          "sd_ar_processed_tv": 0.07238245755434036,
+          "ar_fresh_processed_tv": 0.08763446658849716
+        },
+        {
+          "step": 63,
+          "row": 6,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.02706882730126381,
+          "ar_overlap": 0.02498137764632702,
+          "fresh_overlap": 0.034130580723285675,
+          "sd_ar_processed_tv": 0.06744315475225449,
+          "ar_fresh_processed_tv": 0.09818427264690399
+        },
+        {
+          "step": 127,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.4714714288711548,
+          "ar_overlap": 0.48102790117263794,
+          "fresh_overlap": 0.4737997055053711,
+          "sd_ar_processed_tv": 0.011238064616918564,
+          "ar_fresh_processed_tv": 0.034334100782871246
+        },
+        {
+          "step": 127,
+          "row": 1,
+          "oracle_max_abs": 5.960464477539063e-08,
+          "sd_overlap": 0.5511385202407837,
+          "ar_overlap": 0.6102750301361084,
+          "fresh_overlap": 0.5469769835472107,
+          "sd_ar_processed_tv": 0.061362236738204956,
+          "ar_fresh_processed_tv": 0.07629823684692383
+        },
+        {
+          "step": 127,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.547299861907959,
+          "ar_overlap": 0.5761953592300415,
+          "fresh_overlap": 0.547299861907959,
+          "sd_ar_processed_tv": 0.028895527124404907,
+          "ar_fresh_processed_tv": 0.028895527124404907
+        },
+        {
+          "step": 127,
+          "row": 3,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.3487864136695862,
+          "ar_overlap": 0.3407028913497925,
+          "fresh_overlap": 0.37166351079940796,
+          "sd_ar_processed_tv": 0.07762302458286285,
+          "ar_fresh_processed_tv": 0.1241801306605339
+        },
+        {
+          "step": 127,
+          "row": 4,
+          "oracle_max_abs": 1.4901161193847656e-08,
+          "sd_overlap": 0.15532413125038147,
+          "ar_overlap": 0.1596740186214447,
+          "fresh_overlap": 0.18335682153701782,
+          "sd_ar_processed_tv": 0.04765726998448372,
+          "ar_fresh_processed_tv": 0.07482962310314178
+        },
+        {
+          "step": 127,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.1506870985031128,
+          "ar_overlap": 0.14002326130867004,
+          "fresh_overlap": 0.1169167086482048,
+          "sd_ar_processed_tv": 0.053298793733119965,
+          "ar_fresh_processed_tv": 0.09533663839101791
+        },
+        {
+          "step": 127,
+          "row": 6,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.32300037145614624,
+          "ar_overlap": 0.3280235826969147,
+          "fresh_overlap": 0.31840449571609497,
+          "sd_ar_processed_tv": 0.06040167063474655,
+          "ar_fresh_processed_tv": 0.07992479205131531
+        }
+      ],
+      "n": 28,
+      "oracle_max_abs": 1.1920928955078125e-07,
+      "sd_overlap_mean": 0.4062029343830155,
+      "ar_overlap_mean": 0.4122004921747638,
+      "fixed_prefix_ar_minus_sd_overlap_mean": 0.005997557791748217,
+      "first_position_ar_minus_sd_overlap_mean": 0.019284531474113464,
+      "processed_tv_sd_ar_mean": 0.0475460149214736
+    },
+    {
+      "rank": 4,
+      "pair": "final",
+      "dataset": "mt-bench",
+      "ordinal": 0,
+      "rows": [
+        {
+          "step": 3,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9971342086791992,
+          "ar_overlap": 0.9971342086791992,
+          "fresh_overlap": 0.9971342086791992,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 1,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9990441203117371,
+          "ar_overlap": 0.9990441203117371,
+          "fresh_overlap": 0.9990441203117371,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9651936292648315,
+          "ar_overlap": 0.9651936292648315,
+          "fresh_overlap": 0.9651936292648315,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 3,
+          "oracle_max_abs": 1.862645149230957e-09,
+          "sd_overlap": 0.9348446130752563,
+          "ar_overlap": 0.9123315811157227,
+          "fresh_overlap": 0.8989067673683167,
+          "sd_ar_processed_tv": 0.025650911033153534,
+          "ar_fresh_processed_tv": 0.020868103951215744
+        },
+        {
+          "step": 3,
+          "row": 4,
+          "oracle_max_abs": 5.960464477539063e-08,
+          "sd_overlap": 0.767090916633606,
+          "ar_overlap": 0.7035717964172363,
+          "fresh_overlap": 0.6353687047958374,
+          "sd_ar_processed_tv": 0.06351904571056366,
+          "ar_fresh_processed_tv": 0.09305685758590698
+        },
+        {
+          "step": 3,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.7262786030769348,
+          "ar_overlap": 0.9054572582244873,
+          "fresh_overlap": 0.6743987202644348,
+          "sd_ar_processed_tv": 0.17917869985103607,
+          "ar_fresh_processed_tv": 0.23105858266353607
+        },
+        {
+          "step": 3,
+          "row": 6,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.6352581977844238,
+          "ar_overlap": 0.6352581977844238,
+          "fresh_overlap": 0.6352581977844238,
+          "sd_ar_processed_tv": 0.010098962113261223,
+          "ar_fresh_processed_tv": 0.022759750485420227
+        },
+        {
+          "step": 15,
+          "row": 0,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.4751048982143402,
+          "ar_overlap": 0.3712657690048218,
+          "fresh_overlap": 0.32396331429481506,
+          "sd_ar_processed_tv": 0.1065310388803482,
+          "ar_fresh_processed_tv": 0.1691543608903885
+        },
+        {
+          "step": 15,
+          "row": 1,
+          "oracle_max_abs": 5.587935447692871e-09,
+          "sd_overlap": 0.4435388445854187,
+          "ar_overlap": 0.49433016777038574,
+          "fresh_overlap": 0.4545329213142395,
+          "sd_ar_processed_tv": 0.16258320212364197,
+          "ar_fresh_processed_tv": 0.1371103972196579
+        },
+        {
+          "step": 15,
+          "row": 2,
+          "oracle_max_abs": 5.960464477539063e-08,
+          "sd_overlap": 0.23795312643051147,
+          "ar_overlap": 0.20609566569328308,
+          "fresh_overlap": 0.27146798372268677,
+          "sd_ar_processed_tv": 0.05086047202348709,
+          "ar_fresh_processed_tv": 0.07988797128200531
+        },
+        {
+          "step": 15,
+          "row": 3,
+          "oracle_max_abs": 5.587935447692871e-09,
+          "sd_overlap": 0.14814776182174683,
+          "ar_overlap": 0.1520763635635376,
+          "fresh_overlap": 0.16515953838825226,
+          "sd_ar_processed_tv": 0.061517588794231415,
+          "ar_fresh_processed_tv": 0.08122868835926056
+        },
+        {
+          "step": 15,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.2839740812778473,
+          "ar_overlap": 0.299466073513031,
+          "fresh_overlap": 0.29124927520751953,
+          "sd_ar_processed_tv": 0.1128002405166626,
+          "ar_fresh_processed_tv": 0.05483376979827881
+        },
+        {
+          "step": 15,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.02606125734746456,
+          "ar_fresh_processed_tv": 0.022273626178503036
+        },
+        {
+          "step": 15,
+          "row": 6,
+          "oracle_max_abs": 1.862645149230957e-09,
+          "sd_overlap": 0.027309782803058624,
+          "ar_overlap": 0.03188848868012428,
+          "fresh_overlap": 0.019638899713754654,
+          "sd_ar_processed_tv": 0.08701829612255096,
+          "ar_fresh_processed_tv": 0.11599396169185638
+        },
+        {
+          "step": 63,
+          "row": 0,
+          "oracle_max_abs": 1.862645149230957e-09,
+          "sd_overlap": 0.3476034700870514,
+          "ar_overlap": 0.32996347546577454,
+          "fresh_overlap": 0.3089328408241272,
+          "sd_ar_processed_tv": 0.11654152721166611,
+          "ar_fresh_processed_tv": 0.13161605596542358
+        },
+        {
+          "step": 63,
+          "row": 1,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.06586757302284241,
+          "ar_overlap": 0.07405367493629456,
+          "fresh_overlap": 0.06521832197904587,
+          "sd_ar_processed_tv": 0.029172951355576515,
+          "ar_fresh_processed_tv": 0.04737517982721329
+        },
+        {
+          "step": 63,
+          "row": 2,
+          "oracle_max_abs": 9.313225746154785e-10,
+          "sd_overlap": 0.008320007473230362,
+          "ar_overlap": 0.023707592859864235,
+          "fresh_overlap": 0.012027313932776451,
+          "sd_ar_processed_tv": 0.05987042933702469,
+          "ar_fresh_processed_tv": 0.07568483799695969
+        },
+        {
+          "step": 63,
+          "row": 3,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.1399744302034378,
+          "ar_overlap": 0.14150002598762512,
+          "fresh_overlap": 0.13514547049999237,
+          "sd_ar_processed_tv": 0.11559602618217468,
+          "ar_fresh_processed_tv": 0.2581694424152374
+        },
+        {
+          "step": 63,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.27292895317077637,
+          "ar_overlap": 0.22455811500549316,
+          "fresh_overlap": 0.3806174397468567,
+          "sd_ar_processed_tv": 0.07088849693536758,
+          "ar_fresh_processed_tv": 0.19554537534713745
+        },
+        {
+          "step": 63,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.06579746305942535,
+          "ar_fresh_processed_tv": 0.1092376634478569
+        },
+        {
+          "step": 63,
+          "row": 6,
+          "oracle_max_abs": 5.587935447692871e-09,
+          "sd_overlap": 0.030271941795945168,
+          "ar_overlap": 0.026130329817533493,
+          "fresh_overlap": 0.035474006086587906,
+          "sd_ar_processed_tv": 0.11899716407060623,
+          "ar_fresh_processed_tv": 0.05365332216024399
+        },
+        {
+          "step": 127,
+          "row": 0,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.38700827956199646,
+          "ar_overlap": 0.40731650590896606,
+          "fresh_overlap": 0.3836992383003235,
+          "sd_ar_processed_tv": 0.05463646352291107,
+          "ar_fresh_processed_tv": 0.05533960461616516
+        },
+        {
+          "step": 127,
+          "row": 1,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.243632972240448,
+          "ar_overlap": 0.2586131691932678,
+          "fresh_overlap": 0.2089320868253708,
+          "sd_ar_processed_tv": 0.16489894688129425,
+          "ar_fresh_processed_tv": 0.20349061489105225
+        },
+        {
+          "step": 127,
+          "row": 2,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.4875001609325409,
+          "ar_overlap": 0.5278505682945251,
+          "fresh_overlap": 0.5022859573364258,
+          "sd_ar_processed_tv": 0.09515496343374252,
+          "ar_fresh_processed_tv": 0.1371147334575653
+        },
+        {
+          "step": 127,
+          "row": 3,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.04419766739010811,
+          "ar_overlap": 0.05116701498627663,
+          "fresh_overlap": 0.028316518291831017,
+          "sd_ar_processed_tv": 0.14382538199424744,
+          "ar_fresh_processed_tv": 0.14997874200344086
+        },
+        {
+          "step": 127,
+          "row": 4,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.2157314419746399,
+          "ar_overlap": 0.2051769196987152,
+          "fresh_overlap": 0.2083658128976822,
+          "sd_ar_processed_tv": 0.06589112430810928,
+          "ar_fresh_processed_tv": 0.06819765269756317
+        },
+        {
+          "step": 127,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.050989244133234024,
+          "ar_overlap": 0.054080601781606674,
+          "fresh_overlap": 0.05172870680689812,
+          "sd_ar_processed_tv": 0.11900591850280762,
+          "ar_fresh_processed_tv": 0.11964784562587738
+        },
+        {
+          "step": 127,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.09085648506879807,
+          "ar_fresh_processed_tv": 0.08392320573329926
+        }
+      ],
+      "n": 28,
+      "oracle_max_abs": 5.960464477539063e-08,
+      "sd_overlap_mean": 0.3548178187837558,
+      "ar_overlap_mean": 0.3570439754985273,
+      "fixed_prefix_ar_minus_sd_overlap_mean": 0.002226156714771475,
+      "first_position_ar_minus_sd_overlap_mean": -0.02529272437095642,
+      "processed_tv_sd_ar_mean": 0.07846260915643402
+    },
+    {
+      "rank": 5,
+      "pair": "final",
+      "dataset": "mt-bench",
+      "ordinal": 1,
+      "rows": [
+        {
+          "step": 3,
+          "row": 0,
+          "oracle_max_abs": 1.4901161193847656e-08,
+          "sd_overlap": 0.4509614109992981,
+          "ar_overlap": 0.4509614109992981,
+          "fresh_overlap": 0.43147012591362,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.019491296261548996
+        },
+        {
+          "step": 3,
+          "row": 1,
+          "oracle_max_abs": 5.960464477539063e-08,
+          "sd_overlap": 0.6114863157272339,
+          "ar_overlap": 0.7119849324226379,
+          "fresh_overlap": 0.6729938387870789,
+          "sd_ar_processed_tv": 0.10049861669540405,
+          "ar_fresh_processed_tv": 0.08064106106758118
+        },
+        {
+          "step": 3,
+          "row": 2,
+          "oracle_max_abs": 5.960464477539063e-08,
+          "sd_overlap": 0.33434683084487915,
+          "ar_overlap": 0.33786994218826294,
+          "fresh_overlap": 0.3266627788543701,
+          "sd_ar_processed_tv": 0.02326595038175583,
+          "ar_fresh_processed_tv": 0.0909191146492958
+        },
+        {
+          "step": 3,
+          "row": 3,
+          "oracle_max_abs": 1.4901161193847656e-08,
+          "sd_overlap": 0.8031007647514343,
+          "ar_overlap": 0.8032448291778564,
+          "fresh_overlap": 0.8048079609870911,
+          "sd_ar_processed_tv": 0.012972868978977203,
+          "ar_fresh_processed_tv": 0.055602483451366425
+        },
+        {
+          "step": 3,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.5967786908149719,
+          "ar_overlap": 0.5967786908149719,
+          "fresh_overlap": 0.5967786908149719,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.019912775605916977,
+          "ar_fresh_processed_tv": 0.018332354724407196
+        },
+        {
+          "step": 15,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9716819524765015,
+          "ar_overlap": 0.9716819524765015,
+          "fresh_overlap": 0.9716819524765015,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 1,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9847618341445923,
+          "ar_overlap": 0.9847618341445923,
+          "fresh_overlap": 0.9847618341445923,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.014068369753658772,
+          "ar_overlap": 0.014068369753658772,
+          "fresh_overlap": 0.014068369753658772,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 3,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.12869411706924438,
+          "ar_overlap": 0.12869411706924438,
+          "fresh_overlap": 0.12869411706924438,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 4,
+          "oracle_max_abs": 1.4901161193847656e-08,
+          "sd_overlap": 0.13357582688331604,
+          "ar_overlap": 0.1360676884651184,
+          "fresh_overlap": 0.1286652386188507,
+          "sd_ar_processed_tv": 0.10753841698169708,
+          "ar_fresh_processed_tv": 0.08161431550979614
+        },
+        {
+          "step": 15,
+          "row": 5,
+          "oracle_max_abs": 2.9802322387695312e-08,
+          "sd_overlap": 0.515403151512146,
+          "ar_overlap": 0.44703513383865356,
+          "fresh_overlap": 0.517219066619873,
+          "sd_ar_processed_tv": 0.1318342089653015,
+          "ar_fresh_processed_tv": 0.10957664996385574
+        },
+        {
+          "step": 15,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 63,
+          "row": 0,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.21580415964126587,
+          "ar_overlap": 0.20701222121715546,
+          "fresh_overlap": 0.1858666092157364,
+          "sd_ar_processed_tv": 0.11786969751119614,
+          "ar_fresh_processed_tv": 0.1307472139596939
+        },
+        {
+          "step": 63,
+          "row": 1,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.5872188806533813,
+          "ar_overlap": 0.5304995179176331,
+          "fresh_overlap": 0.5304995179176331,
+          "sd_ar_processed_tv": 0.05671936273574829,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 63,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 63,
+          "row": 3,
+          "oracle_max_abs": 2.9802322387695312e-08,
+          "sd_overlap": 0.2747058868408203,
+          "ar_overlap": 0.2747058868408203,
+          "fresh_overlap": 0.2747058868408203,
+          "sd_ar_processed_tv": 0.005913961678743362,
+          "ar_fresh_processed_tv": 0.02905602939426899
+        },
+        {
+          "step": 63,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.5700849294662476,
+          "ar_overlap": 0.5979087948799133,
+          "fresh_overlap": 0.5700849294662476,
+          "sd_ar_processed_tv": 0.027823835611343384,
+          "ar_fresh_processed_tv": 0.027823835611343384
+        },
+        {
+          "step": 63,
+          "row": 5,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.4201483726501465,
+          "ar_overlap": 0.4150911867618561,
+          "fresh_overlap": 0.4174630641937256,
+          "sd_ar_processed_tv": 0.03793039172887802,
+          "ar_fresh_processed_tv": 0.06566820293664932
+        },
+        {
+          "step": 63,
+          "row": 6,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.038214266300201416,
+          "ar_overlap": 0.047171737998723984,
+          "fresh_overlap": 0.037968866527080536,
+          "sd_ar_processed_tv": 0.03273271769285202,
+          "ar_fresh_processed_tv": 0.03145322576165199
+        }
+      ],
+      "n": 21,
+      "oracle_max_abs": 5.960464477539063e-08,
+      "sd_overlap_mean": 0.3643350362156828,
+      "ar_overlap_mean": 0.36454944033175707,
+      "fixed_prefix_ar_minus_sd_overlap_mean": 0.00021440411607424417,
+      "first_position_ar_minus_sd_overlap_mean": -0.0029306461413701377,
+      "processed_tv_sd_ar_mean": 0.03214346688418161
+    },
+    {
+      "rank": 6,
+      "pair": "preview",
+      "dataset": "mt-bench",
+      "ordinal": 0,
+      "rows": [
+        {
+          "step": 3,
+          "row": 0,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.6918503046035767,
+          "ar_overlap": 0.7517387866973877,
+          "fresh_overlap": 0.5746505260467529,
+          "sd_ar_processed_tv": 0.06015042960643768,
+          "ar_fresh_processed_tv": 0.18097884953022003
+        },
+        {
+          "step": 3,
+          "row": 1,
+          "oracle_max_abs": 1.4901161193847656e-08,
+          "sd_overlap": 0.8435693383216858,
+          "ar_overlap": 0.8236421942710876,
+          "fresh_overlap": 0.8728607296943665,
+          "sd_ar_processed_tv": 0.02202741801738739,
+          "ar_fresh_processed_tv": 0.049218520522117615
+        },
+        {
+          "step": 3,
+          "row": 2,
+          "oracle_max_abs": 5.587935447692871e-09,
+          "sd_overlap": 0.8904229402542114,
+          "ar_overlap": 0.8632305264472961,
+          "fresh_overlap": 0.9184272885322571,
+          "sd_ar_processed_tv": 0.02791702002286911,
+          "ar_fresh_processed_tv": 0.06320712715387344
+        },
+        {
+          "step": 3,
+          "row": 3,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.6636536121368408,
+          "ar_overlap": 0.6636536121368408,
+          "fresh_overlap": 0.725830078125,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.06217649579048157
+        },
+        {
+          "step": 3,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.47975876927375793,
+          "ar_overlap": 0.47975876927375793,
+          "fresh_overlap": 0.47975876927375793,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.8355110883712769,
+          "ar_overlap": 0.7953526377677917,
+          "fresh_overlap": 0.9046780467033386,
+          "sd_ar_processed_tv": 0.04015897214412689,
+          "ar_fresh_processed_tv": 0.10932595282793045
+        },
+        {
+          "step": 15,
+          "row": 0,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.6307556629180908,
+          "ar_overlap": 0.6593802571296692,
+          "fresh_overlap": 0.6514247059822083,
+          "sd_ar_processed_tv": 0.09839899837970734,
+          "ar_fresh_processed_tv": 0.13964436948299408
+        },
+        {
+          "step": 15,
+          "row": 1,
+          "oracle_max_abs": 5.960464477539063e-08,
+          "sd_overlap": 0.20022563636302948,
+          "ar_overlap": 0.14033499360084534,
+          "fresh_overlap": 0.17572957277297974,
+          "sd_ar_processed_tv": 0.2270497977733612,
+          "ar_fresh_processed_tv": 0.12852856516838074
+        },
+        {
+          "step": 15,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.13296423852443695,
+          "ar_overlap": 0.13296423852443695,
+          "fresh_overlap": 0.13296423852443695,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 15,
+          "row": 3,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.4023585617542267,
+          "ar_overlap": 0.4101489186286926,
+          "fresh_overlap": 0.42261362075805664,
+          "sd_ar_processed_tv": 0.04162269085645676,
+          "ar_fresh_processed_tv": 0.0702265277504921
+        },
+        {
+          "step": 15,
+          "row": 4,
+          "oracle_max_abs": 1.4901161193847656e-08,
+          "sd_overlap": 0.15420113503932953,
+          "ar_overlap": 0.10111482441425323,
+          "fresh_overlap": 0.20044684410095215,
+          "sd_ar_processed_tv": 0.16271351277828217,
+          "ar_fresh_processed_tv": 0.15752965211868286
+        },
+        {
+          "step": 15,
+          "row": 5,
+          "oracle_max_abs": 1.862645149230957e-09,
+          "sd_overlap": 0.11476078629493713,
+          "ar_overlap": 0.12270291894674301,
+          "fresh_overlap": 0.11915917694568634,
+          "sd_ar_processed_tv": 0.11286613345146179,
+          "ar_fresh_processed_tv": 0.08863052725791931
+        },
+        {
+          "step": 15,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.12005215883255005,
+          "ar_fresh_processed_tv": 0.18451768159866333
+        },
+        {
+          "step": 63,
+          "row": 0,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.43062981963157654,
+          "ar_overlap": 0.36393094062805176,
+          "fresh_overlap": 0.18293966352939606,
+          "sd_ar_processed_tv": 0.14943921566009521,
+          "ar_fresh_processed_tv": 0.34611159563064575
+        },
+        {
+          "step": 63,
+          "row": 1,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.4233682155609131,
+          "ar_overlap": 0.4487163722515106,
+          "fresh_overlap": 0.527169942855835,
+          "sd_ar_processed_tv": 0.08391991257667542,
+          "ar_fresh_processed_tv": 0.11958208680152893
+        },
+        {
+          "step": 63,
+          "row": 2,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.6269843578338623,
+          "ar_overlap": 0.5907224416732788,
+          "fresh_overlap": 0.6076074838638306,
+          "sd_ar_processed_tv": 0.049549542367458344,
+          "ar_fresh_processed_tv": 0.07620109617710114
+        },
+        {
+          "step": 63,
+          "row": 3,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.02081882581114769,
+          "ar_overlap": 0.02335752174258232,
+          "fresh_overlap": 0.017689630389213562,
+          "sd_ar_processed_tv": 0.053756363689899445,
+          "ar_fresh_processed_tv": 0.09182430803775787
+        },
+        {
+          "step": 63,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.057090505957603455,
+          "ar_fresh_processed_tv": 0.060396842658519745
+        },
+        {
+          "step": 63,
+          "row": 5,
+          "oracle_max_abs": 2.9802322387695312e-08,
+          "sd_overlap": 0.23901334404945374,
+          "ar_overlap": 0.27576130628585815,
+          "fresh_overlap": 0.2863248586654663,
+          "sd_ar_processed_tv": 0.14688479900360107,
+          "ar_fresh_processed_tv": 0.19644849002361298
+        },
+        {
+          "step": 63,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.05984106659889221,
+          "ar_overlap": 0.06378427147865295,
+          "fresh_overlap": 0.08200851082801819,
+          "sd_ar_processed_tv": 0.12060626596212387,
+          "ar_fresh_processed_tv": 0.19330978393554688
+        },
+        {
+          "step": 127,
+          "row": 0,
+          "oracle_max_abs": 1.1175870895385742e-08,
+          "sd_overlap": 0.27969732880592346,
+          "ar_overlap": 0.2778492569923401,
+          "fresh_overlap": 0.27233555912971497,
+          "sd_ar_processed_tv": 0.04264606535434723,
+          "ar_fresh_processed_tv": 0.03884061798453331
+        },
+        {
+          "step": 127,
+          "row": 1,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9787490963935852,
+          "ar_overlap": 0.9787490963935852,
+          "fresh_overlap": 0.9787490963935852,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 127,
+          "row": 2,
+          "oracle_max_abs": 3.725290298461914e-09,
+          "sd_overlap": 0.06008664891123772,
+          "ar_overlap": 0.09534946084022522,
+          "fresh_overlap": 0.15201935172080994,
+          "sd_ar_processed_tv": 0.0352628156542778,
+          "ar_fresh_processed_tv": 0.056669920682907104
+        },
+        {
+          "step": 127,
+          "row": 3,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9217033386230469,
+          "ar_overlap": 0.9217033386230469,
+          "fresh_overlap": 0.9217033386230469,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 127,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9827092885971069,
+          "ar_overlap": 0.9827092885971069,
+          "fresh_overlap": 0.9827092885971069,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 127,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9531874060630798,
+          "ar_overlap": 0.9531874060630798,
+          "fresh_overlap": 0.9531874060630798,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 127,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9037380814552307,
+          "ar_overlap": 0.9037380814552307,
+          "fresh_overlap": 0.9037380814552307,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        }
+      ],
+      "n": 28,
+      "oracle_max_abs": 5.960464477539063e-08,
+      "sd_overlap_mean": 0.46144853186394486,
+      "ar_overlap_mean": 0.4579850521736911,
+      "fixed_prefix_ar_minus_sd_overlap_mean": -0.0034634796902537346,
+      "first_position_ar_minus_sd_overlap_mean": 0.0049915313720703125,
+      "processed_tv_sd_ar_mean": 0.05900402207459722
+    },
+    {
+      "rank": 7,
+      "pair": "final",
+      "dataset": "gsm8k",
+      "ordinal": 0,
+      "rows": [
+        {
+          "step": 3,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.999988317489624,
+          "ar_overlap": 0.999988317489624,
+          "fresh_overlap": 0.999988317489624,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 1,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9997915625572205,
+          "ar_overlap": 0.9997915625572205,
+          "fresh_overlap": 0.9997915625572205,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 2,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9974835515022278,
+          "ar_overlap": 0.9974835515022278,
+          "fresh_overlap": 0.9974835515022278,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 3,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9998036026954651,
+          "ar_overlap": 0.9998036026954651,
+          "fresh_overlap": 0.9998036026954651,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.9968166947364807,
+          "ar_overlap": 0.9968166947364807,
+          "fresh_overlap": 0.9968166947364807,
+          "sd_ar_processed_tv": 0.0,
+          "ar_fresh_processed_tv": 0.0
+        },
+        {
+          "step": 3,
+          "row": 5,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.6007496118545532,
+          "ar_overlap": 0.6132137775421143,
+          "fresh_overlap": 0.5935168862342834,
+          "sd_ar_processed_tv": 0.05931366980075836,
+          "ar_fresh_processed_tv": 0.09239155054092407
+        },
+        {
+          "step": 3,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.02791304886341095,
+          "ar_fresh_processed_tv": 0.026637017726898193
+        },
+        {
+          "step": 15,
+          "row": 0,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.2214398980140686,
+          "ar_overlap": 0.20776592195034027,
+          "fresh_overlap": 0.17440351843833923,
+          "sd_ar_processed_tv": 0.013673968613147736,
+          "ar_fresh_processed_tv": 0.08003388345241547
+        },
+        {
+          "step": 15,
+          "row": 1,
+          "oracle_max_abs": 7.450580596923828e-09,
+          "sd_overlap": 0.9264888763427734,
+          "ar_overlap": 0.9398626685142517,
+          "fresh_overlap": 0.9030643105506897,
+          "sd_ar_processed_tv": 0.013777616433799267,
+          "ar_fresh_processed_tv": 0.03679834306240082
+        },
+        {
+          "step": 15,
+          "row": 2,
+          "oracle_max_abs": 1.1920928955078125e-07,
+          "sd_overlap": 0.6477470397949219,
+          "ar_overlap": 0.6477470397949219,
+          "fresh_overlap": 0.6477470397949219,
+          "sd_ar_processed_tv": 0.05376598984003067,
+          "ar_fresh_processed_tv": 0.03729676455259323
+        },
+        {
+          "step": 15,
+          "row": 3,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.531209409236908,
+          "ar_overlap": 0.531615138053894,
+          "fresh_overlap": 0.531615138053894,
+          "sd_ar_processed_tv": 0.09124995768070221,
+          "ar_fresh_processed_tv": 0.06028284132480621
+        },
+        {
+          "step": 15,
+          "row": 4,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.023139413446187973,
+          "ar_overlap": 0.022195344790816307,
+          "fresh_overlap": 0.03281349688768387,
+          "sd_ar_processed_tv": 0.09618755429983139,
+          "ar_fresh_processed_tv": 0.11924343556165695
+        },
+        {
+          "step": 15,
+          "row": 5,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.3564714789390564,
+          "ar_overlap": 0.3564714789390564,
+          "fresh_overlap": 0.3564714789390564,
+          "sd_ar_processed_tv": 0.04029819369316101,
+          "ar_fresh_processed_tv": 0.042928487062454224
+        },
+        {
+          "step": 15,
+          "row": 6,
+          "oracle_max_abs": 0.0,
+          "sd_overlap": 0.0,
+          "ar_overlap": 0.0,
+          "fresh_overlap": 0.0,
+          "sd_ar_processed_tv": 0.018745802342891693,
+          "ar_fresh_processed_tv": 0.03411193937063217
+        }
+      ],
+      "n": 14,
+      "oracle_max_abs": 1.1920928955078125e-07,
+      "sd_overlap_mean": 0.5929378183292491,
+      "ar_overlap_mean": 0.5937682213261724,
+      "fixed_prefix_ar_minus_sd_overlap_mean": 0.0008304029969232423,
+      "first_position_ar_minus_sd_overlap_mean": -0.006836988031864166,
+      "processed_tv_sd_ar_mean": 0.029637557254838093
+    }
+  ],
+  "fixed_prefix_ar_minus_sd_overlap_mean": -0.0001055175073878475,
+  "limitation": "Fixed realized draft prefixes and the same cached q. This is scorer overlap, not a counterfactual AL prediction or a new accuracy evaluation."
+}

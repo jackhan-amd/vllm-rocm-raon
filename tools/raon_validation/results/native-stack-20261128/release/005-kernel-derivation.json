@@ -1,0 +1,11 @@
+{
+  "aiter_input_sha256": "e78495001d414c1e9eab5ba50d725f76982b6cd1bf0a15d53926f7728aa49450",
+  "kernel_sha256": "eea295a19d4df3438d9696f51d90f0ceba90b689386a4b8c29b52146a4f39e65",
+  "mfma_and_dma_body_changed": false,
+  "delta_rounding": "FP32 accumulator ->BF16 ->FP32",
+  "ratio_output": "FP32",
+  "compiler_changes": false,
+  "upstream_aiter_modified": false,
+  "cache_updates": 0,
+  "changed_boundary": "BF16 RDA write projection and stable ratio become one native FlyDSL launch"
+}

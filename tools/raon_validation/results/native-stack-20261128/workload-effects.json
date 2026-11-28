@@ -1,0 +1,3362 @@
+{
+  "status": "SAVED_ARTIFACT_DIAGNOSIS",
+  "new_gpu_work": 0,
+  "rows": [
+    {
+      "case": "gsm8k-off-c1",
+      "dataset": "gsm8k",
+      "sd": "off",
+      "c": 1,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/gsm8k-off-c1/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 63.734375,
+        "p50": 60.0,
+        "p90": 87.0,
+        "p99": 117.0,
+        "min": 36,
+        "max": 124,
+        "cv": 0.28367570931976066
+      },
+      "output_tokens": {
+        "mean": 564.578125,
+        "p50": 320.0,
+        "p90": 994.5999999999998,
+        "p99": 4096.0,
+        "min": 134,
+        "max": 4096,
+        "cv": 1.315635112637266
+      },
+      "finish_reasons": {
+        "stop": 124,
+        "length": 4
+      },
+      "capped_4096": 4,
+      "reasoning_token_fraction": 0.8102012011180915,
+      "reasoning_tokens": {
+        "mean": 457.421875,
+        "p50": 205.0,
+        "p90": 872.0999999999999,
+        "p99": 4096.0,
+        "min": 73,
+        "max": 4096,
+        "cv": 1.636690517631022
+      },
+      "output_tps": 272.07042428207825,
+      "wall_seconds": 265.6150523920078,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 0.9999771483121283,
+      "mean_engine_running_requests": 0.9977348988944518,
+      "prefill_share_request_running": 0.007842506325925999,
+      "decode_share_request_running": 0.992157493674074,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 3.638433538854455,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 72266.0,
+      "response_completion_sum": 72266,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 69,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 52,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 71,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 61,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 53,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "gsm8k-on-c1",
+      "dataset": "gsm8k",
+      "sd": "on",
+      "c": 1,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/gsm8k-on-c1/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 63.734375,
+        "p50": 60.0,
+        "p90": 87.0,
+        "p99": 117.0,
+        "min": 36,
+        "max": 124,
+        "cv": 0.28367570931976066
+      },
+      "output_tokens": {
+        "mean": 601.859375,
+        "p50": 315.0,
+        "p90": 1111.3999999999999,
+        "p99": 3911.860000000003,
+        "min": 129,
+        "max": 4096,
+        "cv": 1.3256462495106258
+      },
+      "finish_reasons": {
+        "stop": 126,
+        "length": 2
+      },
+      "capped_4096": 2,
+      "reasoning_token_fraction": 0.812845608660661,
+      "reasoning_tokens": {
+        "mean": 489.21875,
+        "p50": 216.0,
+        "p90": 958.5999999999997,
+        "p99": 3860.0200000000036,
+        "min": 73,
+        "max": 4096,
+        "cv": 1.588056011095554
+      },
+      "output_tps": 578.2045356388102,
+      "wall_seconds": 133.2365888740169,
+      "mean_request_al": 4.861249612607107,
+      "token_cycle_weighted_al": 3.9653113741636643,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 91,
+          "mean_request_al": 5.206481280970317,
+          "output_token_share": 0.3222954905371375
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 29,
+          "mean_request_al": 4.161585243943524,
+          "output_token_share": 0.32162049897453204
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 8,
+          "mean_request_al": 3.470522721381084,
+          "output_token_share": 0.35608401048833044
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 19430.0,
+      "accepted_draft_tokens": 57616.0,
+      "mean_client_inflight": 0.9999557749342405,
+      "mean_engine_running_requests": 0.9937109589843224,
+      "prefill_share_request_running": 0.027008764969220417,
+      "decode_share_request_running": 0.9729912350307796,
+      "mean_decode_ms_per_sequence_cycle": 6.630094403092333,
+      "mean_decode_ms_per_output_token": 1.6721972825369824,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 77038.0,
+      "response_completion_sum": 77038,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 37,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 40,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 52,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 56,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 39,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "gsm8k-off-c8",
+      "dataset": "gsm8k",
+      "sd": "off",
+      "c": 8,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/gsm8k-off-c8/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 63.734375,
+        "p50": 60.0,
+        "p90": 87.0,
+        "p99": 117.0,
+        "min": 36,
+        "max": 124,
+        "cv": 0.28367570931976066
+      },
+      "output_tokens": {
+        "mean": 570.265625,
+        "p50": 345.0,
+        "p90": 919.7999999999997,
+        "p99": 4096.0,
+        "min": 125,
+        "max": 4096,
+        "cv": 1.2976732160629658
+      },
+      "finish_reasons": {
+        "stop": 125,
+        "length": 3
+      },
+      "capped_4096": 3,
+      "reasoning_token_fraction": 0.8007918459051429,
+      "reasoning_tokens": {
+        "mean": 456.6640625,
+        "p50": 222.5,
+        "p90": 755.4999999999999,
+        "p99": 4096.0,
+        "min": 68,
+        "max": 4096,
+        "cv": 1.6159468374834791
+      },
+      "output_tps": 1341.8029156894165,
+      "wall_seconds": 54.39994141203351,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 7.210675464894617,
+      "mean_engine_running_requests": 7.195325040557226,
+      "prefill_share_request_running": 0.008439488149446993,
+      "decode_share_request_running": 0.991560511850553,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 5.3171744499305085,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 72994.0,
+      "response_completion_sum": 72994,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 69,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 406,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 406,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 406,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 406,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "gsm8k-on-c8",
+      "dataset": "gsm8k",
+      "sd": "on",
+      "c": 8,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/gsm8k-on-c8/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 63.734375,
+        "p50": 60.0,
+        "p90": 87.0,
+        "p99": 117.0,
+        "min": 36,
+        "max": 124,
+        "cv": 0.28367570931976066
+      },
+      "output_tokens": {
+        "mean": 611.046875,
+        "p50": 318.5,
+        "p90": 1313.2999999999997,
+        "p99": 4096.0,
+        "min": 124,
+        "max": 4096,
+        "cv": 1.293637878898047
+      },
+      "finish_reasons": {
+        "stop": 124,
+        "length": 4
+      },
+      "capped_4096": 4,
+      "reasoning_token_fraction": 0.8207098473419081,
+      "reasoning_tokens": {
+        "mean": 501.4921875,
+        "p50": 217.0,
+        "p90": 1163.3,
+        "p99": 4096.0,
+        "min": 74,
+        "max": 4096,
+        "cv": 1.5785396575067183
+      },
+      "output_tps": 2273.7397994290923,
+      "wall_seconds": 34.39883491490036,
+      "mean_request_al": 4.855355776654836,
+      "token_cycle_weighted_al": 3.9064902646030952,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 89,
+          "mean_request_al": 5.224867431337366,
+          "output_token_share": 0.3138952105761117
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 32,
+          "mean_request_al": 4.19337052439031,
+          "output_token_share": 0.37642877234254735
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 7,
+          "mean_request_al": 3.183497320329071,
+          "output_token_share": 0.30967601708134096
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 20030.0,
+      "accepted_draft_tokens": 58217.0,
+      "mean_client_inflight": 7.447248578342729,
+      "mean_engine_running_requests": 7.3978866332751245,
+      "prefill_share_request_running": 0.02608156904773945,
+      "decode_share_request_running": 0.9739184309522605,
+      "mean_decode_ms_per_sequence_cycle": 12.373513615928697,
+      "mean_decode_ms_per_output_token": 3.1687610623040867,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 78214.0,
+      "response_completion_sum": 78214,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 403,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 416,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 39,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 57,
+          "n": 259840,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 96,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "gsm8k-off-c32",
+      "dataset": "gsm8k",
+      "sd": "off",
+      "c": 32,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/gsm8k-off-c32/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 63.734375,
+        "p50": 60.0,
+        "p90": 87.0,
+        "p99": 117.0,
+        "min": 36,
+        "max": 124,
+        "cv": 0.28367570931976066
+      },
+      "output_tokens": {
+        "mean": 560.25,
+        "p50": 328.0,
+        "p90": 1049.9999999999998,
+        "p99": 4096.0,
+        "min": 141,
+        "max": 4096,
+        "cv": 1.2906231054529231
+      },
+      "finish_reasons": {
+        "stop": 125,
+        "length": 3
+      },
+      "capped_4096": 3,
+      "reasoning_token_fraction": 0.8020833333333334,
+      "reasoning_tokens": {
+        "mean": 449.3671875,
+        "p50": 224.0,
+        "p90": 908.6999999999998,
+        "p99": 4073.59,
+        "min": 85,
+        "max": 4096,
+        "cv": 1.596843159587389
+      },
+      "output_tps": 2369.192641088828,
+      "wall_seconds": 30.26853906107135,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 18.342231398966916,
+      "mean_engine_running_requests": 18.27891608405258,
+      "prefill_share_request_running": 0.010879376206021496,
+      "decode_share_request_running": 0.9891206237939785,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 7.631313961462704,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 71712.0,
+      "response_completion_sum": 71712,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 69,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1214,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1214,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1214,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1214,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "gsm8k-on-c32",
+      "dataset": "gsm8k",
+      "sd": "on",
+      "c": 32,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/gsm8k-on-c32/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 63.734375,
+        "p50": 60.0,
+        "p90": 87.0,
+        "p99": 117.0,
+        "min": 36,
+        "max": 124,
+        "cv": 0.28367570931976066
+      },
+      "output_tokens": {
+        "mean": 564.2421875,
+        "p50": 338.0,
+        "p90": 1178.7,
+        "p99": 3831.400000000004,
+        "min": 139,
+        "max": 4096,
+        "cv": 1.2015788922721604
+      },
+      "finish_reasons": {
+        "stop": 126,
+        "length": 2
+      },
+      "capped_4096": 2,
+      "reasoning_token_fraction": 0.8013929080763745,
+      "reasoning_tokens": {
+        "mean": 452.1796875,
+        "p50": 221.5,
+        "p90": 1003.5999999999998,
+        "p99": 3787.9300000000044,
+        "min": 84,
+        "max": 4096,
+        "cv": 1.4767228421323173
+      },
+      "output_tps": 3483.7453719683876,
+      "wall_seconds": 20.731423306977376,
+      "mean_request_al": 4.885359659286603,
+      "token_cycle_weighted_al": 3.9437772925764194,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 93,
+          "mean_request_al": 5.203713004565051,
+          "output_token_share": 0.3674452736662836
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 29,
+          "mean_request_al": 4.224828438143105,
+          "output_token_share": 0.3713498470016477
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 6,
+          "mean_request_al": 3.1434503763309105,
+          "output_token_share": 0.2612048793320687
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 18320.0,
+      "accepted_draft_tokens": 53930.0,
+      "mean_client_inflight": 16.34151460506917,
+      "mean_engine_running_requests": 16.221975784199753,
+      "prefill_share_request_running": 0.03260496951224133,
+      "decode_share_request_running": 0.9673950304877587,
+      "mean_decode_ms_per_sequence_cycle": 17.758703280576327,
+      "mean_decode_ms_per_output_token": 4.504651483601599,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 72223.0,
+      "response_completion_sum": 72223,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 52,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1431,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1431,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1431,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1431,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "math500-off-c1",
+      "dataset": "math500",
+      "sd": "off",
+      "c": 1,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/math500-off-c1/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 77.578125,
+        "p50": 57.0,
+        "p90": 146.19999999999996,
+        "p99": 328.8500000000002,
+        "min": 24,
+        "max": 360,
+        "cv": 0.7688006243061148
+      },
+      "output_tokens": {
+        "mean": 1315.71875,
+        "p50": 775.5,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 164,
+        "max": 4096,
+        "cv": 0.9749813086331387
+      },
+      "finish_reasons": {
+        "stop": 113,
+        "length": 15
+      },
+      "capped_4096": 15,
+      "reasoning_token_fraction": 0.8430990665748284,
+      "reasoning_tokens": {
+        "mean": 1109.28125,
+        "p50": 537.0,
+        "p90": 3921.6999999999994,
+        "p99": 4096.0,
+        "min": 71,
+        "max": 4096,
+        "cv": 1.1595842150922713
+      },
+      "output_tps": 270.3209720147265,
+      "wall_seconds": 623.0075259970035,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 0.9999899864524449,
+      "mean_engine_running_requests": 0.9988600470632586,
+      "prefill_share_request_running": 0.0038539174448239386,
+      "decode_share_request_running": 0.9961460825551761,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 3.680848420627674,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 168412.0,
+      "response_completion_sum": 168412,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 36,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 46,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 47,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 195,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 39,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "math500-on-c1",
+      "dataset": "math500",
+      "sd": "on",
+      "c": 1,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/math500-on-c1/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 77.578125,
+        "p50": 57.0,
+        "p90": 146.19999999999996,
+        "p99": 328.8500000000002,
+        "min": 24,
+        "max": 360,
+        "cv": 0.7688006243061148
+      },
+      "output_tokens": {
+        "mean": 1312.90625,
+        "p50": 725.5,
+        "p90": 4056.9,
+        "p99": 4096.0,
+        "min": 143,
+        "max": 4096,
+        "cv": 0.9639511452475099
+      },
+      "finish_reasons": {
+        "length": 12,
+        "stop": 116
+      },
+      "capped_4096": 12,
+      "reasoning_token_fraction": 0.8320995882226929,
+      "reasoning_tokens": {
+        "mean": 1092.46875,
+        "p50": 502.5,
+        "p90": 3694.7999999999997,
+        "p99": 4096.0,
+        "min": 71,
+        "max": 4096,
+        "cv": 1.143688349994485
+      },
+      "output_tps": 571.6213944326512,
+      "wall_seconds": 293.99179533298593,
+      "mean_request_al": 4.529144906195104,
+      "token_cycle_weighted_al": 3.919410502751609,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 47,
+          "mean_request_al": 4.953673947846433,
+          "output_token_share": 0.093554376026468
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 55,
+          "mean_request_al": 4.552499939171883,
+          "output_token_share": 0.35167091138457146
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 26,
+          "mean_request_al": 3.7123221457591344,
+          "output_token_share": 0.5547747125889606
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 42884.0,
+      "accepted_draft_tokens": 125196.0,
+      "mean_client_inflight": 0.9999821711223364,
+      "mean_engine_running_requests": 0.9970033818769114,
+      "prefill_share_request_running": 0.012384007520605955,
+      "decode_share_request_running": 0.987615992479394,
+      "mean_decode_ms_per_sequence_cycle": 6.750324775294722,
+      "mean_decode_ms_per_output_token": 1.7225675842223767,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 168052.0,
+      "response_completion_sum": 168052,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 36,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 40,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 46,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 48,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 47,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "math500-off-c8",
+      "dataset": "math500",
+      "sd": "off",
+      "c": 8,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/math500-off-c8/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 77.578125,
+        "p50": 57.0,
+        "p90": 146.19999999999996,
+        "p99": 328.8500000000002,
+        "min": 24,
+        "max": 360,
+        "cv": 0.7688006243061148
+      },
+      "output_tokens": {
+        "mean": 1318.90625,
+        "p50": 760.0,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 165,
+        "max": 4096,
+        "cv": 0.9598720756034463
+      },
+      "finish_reasons": {
+        "stop": 113,
+        "length": 15
+      },
+      "capped_4096": 15,
+      "reasoning_token_fraction": 0.8361390830470323,
+      "reasoning_tokens": {
+        "mean": 1102.7890625,
+        "p50": 496.5,
+        "p90": 4038.6,
+        "p99": 4096.0,
+        "min": 94,
+        "max": 4096,
+        "cv": 1.1486571178916074
+      },
+      "output_tps": 1395.6499403035064,
+      "wall_seconds": 120.96156430407427,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 7.475881624149335,
+      "mean_engine_running_requests": 7.467758614837946,
+      "prefill_share_request_running": 0.0038458405128123825,
+      "decode_share_request_running": 0.9961541594871877,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 5.330160946088932,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 168820.0,
+      "response_completion_sum": 168820,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 36,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 469,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 469,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 469,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 469,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "math500-on-c8",
+      "dataset": "math500",
+      "sd": "on",
+      "c": 8,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/math500-on-c8/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 77.578125,
+        "p50": 57.0,
+        "p90": 146.19999999999996,
+        "p99": 328.8500000000002,
+        "min": 24,
+        "max": 360,
+        "cv": 0.7688006243061148
+      },
+      "output_tokens": {
+        "mean": 1380.890625,
+        "p50": 743.5,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 161,
+        "max": 4096,
+        "cv": 0.9447177397574014
+      },
+      "finish_reasons": {
+        "stop": 111,
+        "length": 17
+      },
+      "capped_4096": 17,
+      "reasoning_token_fraction": 0.8420120619618227,
+      "reasoning_tokens": {
+        "mean": 1162.7265625,
+        "p50": 502.0,
+        "p90": 4029.8999999999996,
+        "p99": 4096.0,
+        "min": 89,
+        "max": 4096,
+        "cv": 1.1248317454230161
+      },
+      "output_tps": 2340.6692829000617,
+      "wall_seconds": 75.5142989619635,
+      "mean_request_al": 4.488854473565058,
+      "token_cycle_weighted_al": 3.8553423462712604,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 45,
+          "mean_request_al": 4.967975691510683,
+          "output_token_share": 0.0832795863177071
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 52,
+          "mean_request_al": 4.55681447383246,
+          "output_token_share": 0.3093338764610702
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 31,
+          "mean_request_al": 3.6793585115825405,
+          "output_token_share": 0.6073865372212227
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 45860.0,
+      "accepted_draft_tokens": 130946.0,
+      "mean_client_inflight": 7.5361381918561365,
+      "mean_engine_running_requests": 7.514461369357383,
+      "prefill_share_request_running": 0.012035198930198282,
+      "decode_share_request_running": 0.9879648010698017,
+      "mean_decode_ms_per_sequence_cycle": 12.224594796936154,
+      "mean_decode_ms_per_output_token": 3.1717523642321646,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 176754.0,
+      "response_completion_sum": 176754,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 36,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 433,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 448,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 35,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 57,
+          "n": 259840,
+          "k": 2560,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "math500-off-c32",
+      "dataset": "math500",
+      "sd": "off",
+      "c": 32,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/math500-off-c32/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 77.578125,
+        "p50": 57.0,
+        "p90": 146.19999999999996,
+        "p99": 328.8500000000002,
+        "min": 24,
+        "max": 360,
+        "cv": 0.7688006243061148
+      },
+      "output_tokens": {
+        "mean": 1323.84375,
+        "p50": 751.0,
+        "p90": 3897.1999999999994,
+        "p99": 4096.0,
+        "min": 111,
+        "max": 4096,
+        "cv": 0.962737281860243
+      },
+      "finish_reasons": {
+        "stop": 115,
+        "length": 13
+      },
+      "capped_4096": 13,
+      "reasoning_token_fraction": 0.8316337369874655,
+      "reasoning_tokens": {
+        "mean": 1100.953125,
+        "p50": 548.5,
+        "p90": 3511.899999999999,
+        "p99": 4096.0,
+        "min": 62,
+        "max": 4096,
+        "cv": 1.1442680207954594
+      },
+      "output_tps": 2981.596860054031,
+      "wall_seconds": 56.83263296599034,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 23.85969177745777,
+      "mean_engine_running_requests": 23.835399357615966,
+      "prefill_share_request_running": 0.003703377191571827,
+      "decode_share_request_running": 0.9962966228084281,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 7.964566974642116,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 169452.0,
+      "response_completion_sum": 169452,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 36,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 2285,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 2285,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 2285,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 2285,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "math500-on-c32",
+      "dataset": "math500",
+      "sd": "on",
+      "c": 32,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/math500-on-c32/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 77.578125,
+        "p50": 57.0,
+        "p90": 146.19999999999996,
+        "p99": 328.8500000000002,
+        "min": 24,
+        "max": 360,
+        "cv": 0.7688006243061148
+      },
+      "output_tokens": {
+        "mean": 1374.1875,
+        "p50": 730.0,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 142,
+        "max": 4096,
+        "cv": 0.9746426060356334
+      },
+      "finish_reasons": {
+        "length": 17,
+        "stop": 111
+      },
+      "capped_4096": 17,
+      "reasoning_token_fraction": 0.8421510437986083,
+      "reasoning_tokens": {
+        "mean": 1157.2734375,
+        "p50": 496.5,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 90,
+        "max": 4096,
+        "cv": 1.1586248735449565
+      },
+      "output_tps": 4790.698192916656,
+      "wall_seconds": 36.71615136601031,
+      "mean_request_al": 4.52814413670077,
+      "token_cycle_weighted_al": 3.864692703070773,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 46,
+          "mean_request_al": 5.003123628388635,
+          "output_token_share": 0.08823964160640378
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 52,
+          "mean_request_al": 4.535552626206978,
+          "output_token_share": 0.2975963069086278
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 30,
+          "mean_request_al": 3.7870008676352818,
+          "output_token_share": 0.6141640514849684
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 45526.0,
+      "accepted_draft_tokens": 130418.0,
+      "mean_client_inflight": 23.214015608975128,
+      "mean_engine_running_requests": 23.140178627371082,
+      "prefill_share_request_running": 0.013107871899908839,
+      "decode_share_request_running": 0.9868921281000912,
+      "mean_decode_ms_per_sequence_cycle": 18.417642957083565,
+      "mean_decode_ms_per_output_token": 4.766916889890539,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 175896.0,
+      "response_completion_sum": 175896,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 36,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1789,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1789,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1789,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1789,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "humaneval-off-c1",
+      "dataset": "humaneval",
+      "sd": "off",
+      "c": 1,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/humaneval-off-c1/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 143.53125,
+        "p50": 129.5,
+        "p90": 234.5,
+        "p99": 282.84000000000003,
+        "min": 56,
+        "max": 311,
+        "cv": 0.37949540062519715
+      },
+      "output_tokens": {
+        "mean": 1523.3984375,
+        "p50": 720.0,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 93,
+        "max": 4096,
+        "cv": 0.9893704610817212
+      },
+      "finish_reasons": {
+        "stop": 102,
+        "length": 26
+      },
+      "capped_4096": 26,
+      "reasoning_token_fraction": 0.9177517372240314,
+      "reasoning_tokens": {
+        "mean": 1398.1015625,
+        "p50": 560.0,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 49,
+        "max": 4096,
+        "cv": 1.100065493786892
+      },
+      "output_tps": 270.4999084904958,
+      "wall_seconds": 720.8690054209437,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 0.9999914890791387,
+      "mean_engine_running_requests": 0.9988502457226083,
+      "prefill_share_request_running": 0.0036487589098828134,
+      "decode_share_request_running": 0.9963512410901172,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 3.6791350043057647,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 194995.0,
+      "response_completion_sum": 194995,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 106,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 277,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 277,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 277,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 277,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "humaneval-on-c1",
+      "dataset": "humaneval",
+      "sd": "on",
+      "c": 1,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/humaneval-on-c1/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 143.53125,
+        "p50": 129.5,
+        "p90": 234.5,
+        "p99": 282.84000000000003,
+        "min": 56,
+        "max": 311,
+        "cv": 0.37949540062519715
+      },
+      "output_tokens": {
+        "mean": 1517.1171875,
+        "p50": 792.5,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 130,
+        "max": 4096,
+        "cv": 0.9723674120932788
+      },
+      "finish_reasons": {
+        "stop": 105,
+        "length": 23
+      },
+      "capped_4096": 23,
+      "reasoning_token_fraction": 0.9095014702020175,
+      "reasoning_tokens": {
+        "mean": 1379.8203125,
+        "p50": 593.0,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 37,
+        "max": 4096,
+        "cv": 1.08845294528349
+      },
+      "output_tps": 418.590766594768,
+      "wall_seconds": 463.9161097119795,
+      "mean_request_al": 3.211599876850115,
+      "token_cycle_weighted_al": 2.867455114575951,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 49,
+          "mean_request_al": 3.5480025075992345,
+          "output_token_share": 0.07759885885545674
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 41,
+          "mean_request_al": 3.189800296526625,
+          "output_token_share": 0.21120443274920053
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 38,
+          "mean_request_al": 2.801338137022647,
+          "output_token_share": 0.7111967083953428
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 67728.0,
+      "accepted_draft_tokens": 126479.0,
+      "mean_client_inflight": 0.9999873425915697,
+      "mean_engine_running_requests": 0.9980179046477714,
+      "prefill_share_request_running": 0.010222927310607272,
+      "decode_share_request_running": 0.9897770726893927,
+      "mean_decode_ms_per_sequence_cycle": 6.766232626482243,
+      "mean_decode_ms_per_output_token": 2.359859124915106,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 194191.0,
+      "response_completion_sum": 194191,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 42,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 48,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 224,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 53,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 56,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "humaneval-off-c8",
+      "dataset": "humaneval",
+      "sd": "off",
+      "c": 8,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/humaneval-off-c8/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 143.53125,
+        "p50": 129.5,
+        "p90": 234.5,
+        "p99": 282.84000000000003,
+        "min": 56,
+        "max": 311,
+        "cv": 0.37949540062519715
+      },
+      "output_tokens": {
+        "mean": 1509.8046875,
+        "p50": 873.5,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 96,
+        "max": 4096,
+        "cv": 0.9424111387221525
+      },
+      "finish_reasons": {
+        "stop": 106,
+        "length": 22
+      },
+      "capped_4096": 22,
+      "reasoning_token_fraction": 0.9106103334971928,
+      "reasoning_tokens": {
+        "mean": 1374.84375,
+        "p50": 721.5,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 40,
+        "max": 4096,
+        "cv": 1.0559548939917005
+      },
+      "output_tps": 1413.7880457696115,
+      "wall_seconds": 136.6930499789305,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 7.657557083795032,
+      "mean_engine_running_requests": 7.648625867652452,
+      "prefill_share_request_running": 0.0040170030295585794,
+      "decode_share_request_running": 0.9959829969704415,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 5.388290937361294,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 193255.0,
+      "response_completion_sum": 193255,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 106,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1171,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1171,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1171,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1171,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "humaneval-on-c8",
+      "dataset": "humaneval",
+      "sd": "on",
+      "c": 8,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/humaneval-on-c8/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 143.53125,
+        "p50": 129.5,
+        "p90": 234.5,
+        "p99": 282.84000000000003,
+        "min": 56,
+        "max": 311,
+        "cv": 0.37949540062519715
+      },
+      "output_tokens": {
+        "mean": 1522.6015625,
+        "p50": 799.5,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 84,
+        "max": 4096,
+        "cv": 0.9749128632440458
+      },
+      "finish_reasons": {
+        "stop": 103,
+        "length": 25
+      },
+      "capped_4096": 25,
+      "reasoning_token_fraction": 0.9182987588061141,
+      "reasoning_tokens": {
+        "mean": 1398.203125,
+        "p50": 601.5,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 28,
+        "max": 4096,
+        "cv": 1.090253195532095
+      },
+      "output_tps": 1739.2882868612626,
+      "wall_seconds": 112.05330448795576,
+      "mean_request_al": 3.214089286796549,
+      "token_cycle_weighted_al": 2.8198469306558254,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 49,
+          "mean_request_al": 3.6136695378434625,
+          "output_token_share": 0.07559532666642722
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 43,
+          "mean_request_al": 3.1430700468962565,
+          "output_token_share": 0.2344568558131898
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 36,
+          "mean_request_al": 2.7550447038636006,
+          "output_token_share": 0.689947817520383
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 69119.0,
+      "accepted_draft_tokens": 125786.0,
+      "mean_client_inflight": 7.571492803193792,
+      "mean_engine_running_requests": 7.555768325468019,
+      "prefill_share_request_running": 0.010483493748922622,
+      "decode_share_request_running": 0.9895165062510773,
+      "mean_decode_ms_per_sequence_cycle": 12.120733391967244,
+      "mean_decode_ms_per_output_token": 4.2986303834380095,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 194893.0,
+      "response_completion_sum": 194893,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 874,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 874,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 874,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 874,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        },
+        {
+          "m": 874,
+          "n": 24064,
+          "k": 2560,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "humaneval-off-c32",
+      "dataset": "humaneval",
+      "sd": "off",
+      "c": 32,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/humaneval-off-c32/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 143.53125,
+        "p50": 129.5,
+        "p90": 234.5,
+        "p99": 282.84000000000003,
+        "min": 56,
+        "max": 311,
+        "cv": 0.37949540062519715
+      },
+      "output_tokens": {
+        "mean": 1512.671875,
+        "p50": 773.0,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 109,
+        "max": 4096,
+        "cv": 0.9652391638863661
+      },
+      "finish_reasons": {
+        "stop": 105,
+        "length": 23
+      },
+      "capped_4096": 23,
+      "reasoning_token_fraction": 0.9120502835421594,
+      "reasoning_tokens": {
+        "mean": 1379.6328125,
+        "p50": 565.0,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 52,
+        "max": 4096,
+        "cv": 1.082177753285666
+      },
+      "output_tps": 3092.624376609781,
+      "wall_seconds": 62.60766792902723,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 24.880253102806172,
+      "mean_engine_running_requests": 24.830946471422088,
+      "prefill_share_request_running": 0.0040907813700641,
+      "decode_share_request_running": 0.9959092186299359,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 7.996240566823942,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 193622.0,
+      "response_completion_sum": 193622,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 2185,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 2185,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 2185,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 2185,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        },
+        {
+          "m": 2185,
+          "n": 24064,
+          "k": 2560,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "humaneval-on-c32",
+      "dataset": "humaneval",
+      "sd": "on",
+      "c": 32,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/humaneval-on-c32/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 143.53125,
+        "p50": 129.5,
+        "p90": 234.5,
+        "p99": 282.84000000000003,
+        "min": 56,
+        "max": 311,
+        "cv": 0.37949540062519715
+      },
+      "output_tokens": {
+        "mean": 1515.0703125,
+        "p50": 782.5,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 112,
+        "max": 4096,
+        "cv": 0.9786062872711937
+      },
+      "finish_reasons": {
+        "stop": 103,
+        "length": 25
+      },
+      "capped_4096": 25,
+      "reasoning_token_fraction": 0.9142469666733701,
+      "reasoning_tokens": {
+        "mean": 1385.1484375,
+        "p50": 542.0,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 48,
+        "max": 4096,
+        "cv": 1.100559604483192
+      },
+      "output_tps": 3674.2603503153464,
+      "wall_seconds": 52.78041878098156,
+      "mean_request_al": 3.2293148502723015,
+      "token_cycle_weighted_al": 2.837661862608823,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 46,
+          "mean_request_al": 3.6351309290255465,
+          "output_token_share": 0.06773613023322969
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 47,
+          "mean_request_al": 3.2130309171538864,
+          "output_token_share": 0.2477762480082917
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 35,
+          "mean_request_al": 2.717823571241336,
+          "output_token_share": 0.6844876217584787
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 68345.0,
+      "accepted_draft_tokens": 125595.0,
+      "mean_client_inflight": 24.216761545435933,
+      "mean_engine_running_requests": 24.16511737847819,
+      "prefill_share_request_running": 0.009519465568599362,
+      "decode_share_request_running": 0.9904805344314006,
+      "mean_decode_ms_per_sequence_cycle": 18.484211869507714,
+      "mean_decode_ms_per_output_token": 6.514257590259862,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 193929.0,
+      "response_completion_sum": 193929,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 3658,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 3658,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 3658,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 3658,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        },
+        {
+          "m": 3658,
+          "n": 24064,
+          "k": 2560,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "mbpp-off-c1",
+      "dataset": "mbpp",
+      "sd": "off",
+      "c": 1,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/mbpp-off-c1/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 20.15625,
+        "p50": 20.0,
+        "p90": 26.0,
+        "p99": 31.65000000000002,
+        "min": 14,
+        "max": 33,
+        "cv": 0.18222826068985798
+      },
+      "output_tokens": {
+        "mean": 957.9375,
+        "p50": 321.5,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 70,
+        "max": 4096,
+        "cv": 1.382759813305786
+      },
+      "finish_reasons": {
+        "stop": 112,
+        "length": 16
+      },
+      "capped_4096": 16,
+      "reasoning_token_fraction": 0.7979056566842826,
+      "reasoning_tokens": {
+        "mean": 764.34375,
+        "p50": 98.5,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 16,
+        "max": 4096,
+        "cv": 1.7694255653408544
+      },
+      "output_tps": 270.80674760031053,
+      "wall_seconds": 452.78044615406543,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 0.9999876373680964,
+      "mean_engine_running_requests": 0.998584747175022,
+      "prefill_share_request_running": 0.004380694055223513,
+      "decode_share_request_running": 0.9956193059447764,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 3.6712905484054317,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 122616.0,
+      "response_completion_sum": 122616,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 33,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "mbpp-on-c1",
+      "dataset": "mbpp",
+      "sd": "on",
+      "c": 1,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/mbpp-on-c1/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 20.15625,
+        "p50": 20.0,
+        "p90": 26.0,
+        "p99": 31.65000000000002,
+        "min": 14,
+        "max": 33,
+        "cv": 0.18222826068985798
+      },
+      "output_tokens": {
+        "mean": 915.421875,
+        "p50": 305.5,
+        "p90": 3862.0999999999995,
+        "p99": 4096.0,
+        "min": 81,
+        "max": 4096,
+        "cv": 1.417233764424517
+      },
+      "finish_reasons": {
+        "stop": 116,
+        "length": 12
+      },
+      "capped_4096": 12,
+      "reasoning_token_fraction": 0.7914298393841637,
+      "reasoning_tokens": {
+        "mean": 724.4921875,
+        "p50": 98.0,
+        "p90": 3356.6,
+        "p99": 4096.0,
+        "min": 14,
+        "max": 4096,
+        "cv": 1.789519780532734
+      },
+      "output_tps": 480.51320513367506,
+      "wall_seconds": 243.85177919804119,
+      "mean_request_al": 3.7604524256655867,
+      "token_cycle_weighted_al": 3.2676743732046742,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 90,
+          "mean_request_al": 3.969761118028642,
+          "output_token_share": 0.1902384488026354
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 16,
+          "mean_request_al": 3.3467644523956563,
+          "output_token_share": 0.13109563555054876
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 22,
+          "mean_request_al": 3.20505357383122,
+          "output_token_share": 0.6786659156468159
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 35857.0,
+      "accepted_draft_tokens": 81312.0,
+      "mean_client_inflight": 0.9999750711476161,
+      "mean_engine_running_requests": 0.9963509798208264,
+      "prefill_share_request_running": 0.01142282106504733,
+      "decode_share_request_running": 0.9885771789349527,
+      "mean_decode_ms_per_sequence_cycle": 6.698459105619753,
+      "mean_decode_ms_per_output_token": 2.049828871167729,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 117174.0,
+      "response_completion_sum": 117174,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 33,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 40,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "mbpp-off-c8",
+      "dataset": "mbpp",
+      "sd": "off",
+      "c": 8,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/mbpp-off-c8/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 20.15625,
+        "p50": 20.0,
+        "p90": 26.0,
+        "p99": 31.65000000000002,
+        "min": 14,
+        "max": 33,
+        "cv": 0.18222826068985798
+      },
+      "output_tokens": {
+        "mean": 770.3046875,
+        "p50": 301.5,
+        "p90": 2407.4999999999986,
+        "p99": 4096.0,
+        "min": 78,
+        "max": 4096,
+        "cv": 1.5070358250227756
+      },
+      "finish_reasons": {
+        "stop": 116,
+        "length": 12
+      },
+      "capped_4096": 12,
+      "reasoning_token_fraction": 0.7437702207933143,
+      "reasoning_tokens": {
+        "mean": 572.9296875,
+        "p50": 77.0,
+        "p90": 1999.599999999999,
+        "p99": 4096.0,
+        "min": 18,
+        "max": 4096,
+        "cv": 2.0861938199456063
+      },
+      "output_tps": 1283.2682850961567,
+      "wall_seconds": 76.83428410498891,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 6.844626331039839,
+      "mean_engine_running_requests": 6.8330102134465625,
+      "prefill_share_request_running": 0.005720818430348958,
+      "decode_share_request_running": 0.994279181569651,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 5.2942318310108005,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 98599.0,
+      "response_completion_sum": 98599,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 141,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 49,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 33,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "mbpp-on-c8",
+      "dataset": "mbpp",
+      "sd": "on",
+      "c": 8,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/mbpp-on-c8/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 20.15625,
+        "p50": 20.0,
+        "p90": 26.0,
+        "p99": 31.65000000000002,
+        "min": 14,
+        "max": 33,
+        "cv": 0.18222826068985798
+      },
+      "output_tokens": {
+        "mean": 809.703125,
+        "p50": 283.5,
+        "p90": 3680.4999999999995,
+        "p99": 4096.0,
+        "min": 65,
+        "max": 4096,
+        "cv": 1.5192249290567241
+      },
+      "finish_reasons": {
+        "stop": 116,
+        "length": 12
+      },
+      "capped_4096": 12,
+      "reasoning_token_fraction": 0.7683371606105632,
+      "reasoning_tokens": {
+        "mean": 622.125,
+        "p50": 83.0,
+        "p90": 3252.999999999999,
+        "p99": 4096.0,
+        "min": 15,
+        "max": 4096,
+        "cv": 2.009533653811668
+      },
+      "output_tps": 1783.8332336560436,
+      "wall_seconds": 58.100722671020776,
+      "mean_request_al": 3.7362815586297815,
+      "token_cycle_weighted_al": 3.200457058151385,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 91,
+          "mean_request_al": 3.924732542811267,
+          "output_token_share": 0.21225950869338686
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 19,
+          "mean_request_al": 3.470502070100758,
+          "output_token_share": 0.13899770363366204
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 18,
+          "mean_request_al": 3.064102154270686,
+          "output_token_share": 0.6487427876729511
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 32381.0,
+      "accepted_draft_tokens": 71253.0,
+      "mean_client_inflight": 6.812548374151767,
+      "mean_engine_running_requests": 6.781820366007633,
+      "prefill_share_request_running": 0.013818710350605527,
+      "decode_share_request_running": 0.9861812896493944,
+      "mean_decode_ms_per_sequence_cycle": 12.000361208993834,
+      "mean_decode_ms_per_output_token": 3.7492878978447863,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 103642.0,
+      "response_completion_sum": 103642,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 141,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 57,
+          "n": 259840,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 80,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 72,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 88,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "mbpp-off-c32",
+      "dataset": "mbpp",
+      "sd": "off",
+      "c": 32,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/mbpp-off-c32/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 20.15625,
+        "p50": 20.0,
+        "p90": 26.0,
+        "p99": 31.65000000000002,
+        "min": 14,
+        "max": 33,
+        "cv": 0.18222826068985798
+      },
+      "output_tokens": {
+        "mean": 924.078125,
+        "p50": 326.5,
+        "p90": 4027.3999999999996,
+        "p99": 4096.0,
+        "min": 72,
+        "max": 4096,
+        "cv": 1.404985895977594
+      },
+      "finish_reasons": {
+        "stop": 115,
+        "length": 13
+      },
+      "capped_4096": 13,
+      "reasoning_token_fraction": 0.7847939669603152,
+      "reasoning_tokens": {
+        "mean": 725.2109375,
+        "p50": 97.5,
+        "p90": 3767.499999999999,
+        "p99": 4096.0,
+        "min": 20,
+        "max": 4096,
+        "cv": 1.8050499086304719
+      },
+      "output_tps": 2742.587885679497,
+      "wall_seconds": 43.12787955405656,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 21.79528667609361,
+      "mean_engine_running_requests": 21.760169360736118,
+      "prefill_share_request_running": 0.004892257352568544,
+      "decode_share_request_running": 0.9951077426474314,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 7.8953579300971235,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 118282.0,
+      "response_completion_sum": 118282,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 643,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 643,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 643,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 643,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        },
+        {
+          "m": 643,
+          "n": 24064,
+          "k": 2560,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "mbpp-on-c32",
+      "dataset": "mbpp",
+      "sd": "on",
+      "c": 32,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/mbpp-on-c32/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 128,
+      "unique_prompts": 128,
+      "input_tokens": {
+        "mean": 20.15625,
+        "p50": 20.0,
+        "p90": 26.0,
+        "p99": 31.65000000000002,
+        "min": 14,
+        "max": 33,
+        "cv": 0.18222826068985798
+      },
+      "output_tokens": {
+        "mean": 855.6875,
+        "p50": 307.5,
+        "p90": 4096.0,
+        "p99": 4096.0,
+        "min": 59,
+        "max": 4096,
+        "cv": 1.4627285948047464
+      },
+      "finish_reasons": {
+        "stop": 114,
+        "length": 14
+      },
+      "capped_4096": 14,
+      "reasoning_token_fraction": 0.779526696369878,
+      "reasoning_tokens": {
+        "mean": 667.03125,
+        "p50": 100.5,
+        "p90": 3654.999999999998,
+        "p99": 4096.0,
+        "min": 18,
+        "max": 4096,
+        "cv": 1.9146918691488357
+      },
+      "output_tps": 3692.8350943739583,
+      "wall_seconds": 29.659596814075485,
+      "mean_request_al": 3.732210327967242,
+      "token_cycle_weighted_al": 3.2693949434345244,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 91,
+          "mean_request_al": 3.917264429628301,
+          "output_token_share": 0.2110510554378789
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 19,
+          "mean_request_al": 3.3628407418752566,
+          "output_token_share": 0.16122817909575635
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 18,
+          "mean_request_al": 3.1865491548889846,
+          "output_token_share": 0.6277207654663648
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 33501.0,
+      "accepted_draft_tokens": 76027.0,
+      "mean_client_inflight": 19.771636051299613,
+      "mean_engine_running_requests": 19.68682482731899,
+      "prefill_share_request_running": 0.012547850918931968,
+      "decode_share_request_running": 0.987452149081068,
+      "mean_decode_ms_per_sequence_cycle": 17.210726710610743,
+      "mean_decode_ms_per_output_token": 5.264193224857301,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 109528.0,
+      "response_completion_sum": 109528,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 648,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 648,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 648,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 648,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        },
+        {
+          "m": 648,
+          "n": 24064,
+          "k": 2560,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "mt-bench-off-c1",
+      "dataset": "mt-bench",
+      "sd": "off",
+      "c": 1,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/mt-bench-off-c1/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 80,
+      "unique_prompts": 80,
+      "input_tokens": {
+        "mean": 60.7,
+        "p50": 37.0,
+        "p90": 157.10000000000002,
+        "p99": 271.9899999999999,
+        "min": 18,
+        "max": 287,
+        "cv": 0.9673099406819754
+      },
+      "output_tokens": {
+        "mean": 1073.625,
+        "p50": 710.5,
+        "p90": 3916.000000000002,
+        "p99": 4096.0,
+        "min": 75,
+        "max": 4096,
+        "cv": 1.1361428040161192
+      },
+      "finish_reasons": {
+        "length": 8,
+        "stop": 72
+      },
+      "capped_4096": 8,
+      "reasoning_token_fraction": 0.7094772383280941,
+      "reasoning_tokens": {
+        "mean": 761.7125,
+        "p50": 224.5,
+        "p90": 3865.600000000002,
+        "p99": 4096.0,
+        "min": 13,
+        "max": 4096,
+        "cv": 1.660878123208084
+      },
+      "output_tps": 270.67377223680563,
+      "wall_seconds": 317.31925590801984,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 0.9999872534829204,
+      "mean_engine_running_requests": 0.9982787357722847,
+      "prefill_share_request_running": 0.004455615495142191,
+      "decode_share_request_running": 0.9955443845048578,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 3.6716922417559883,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 85890.0,
+      "response_completion_sum": 85890,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 142,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 37,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 220,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 46,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 268,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "mt-bench-on-c1",
+      "dataset": "mt-bench",
+      "sd": "on",
+      "c": 1,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/mt-bench-on-c1/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 80,
+      "unique_prompts": 80,
+      "input_tokens": {
+        "mean": 60.7,
+        "p50": 37.0,
+        "p90": 157.10000000000002,
+        "p99": 271.9899999999999,
+        "min": 18,
+        "max": 287,
+        "cv": 0.9673099406819754
+      },
+      "output_tokens": {
+        "mean": 1015.325,
+        "p50": 586.0,
+        "p90": 3445.300000000006,
+        "p99": 4096.0,
+        "min": 65,
+        "max": 4096,
+        "cv": 1.1673941627042894
+      },
+      "finish_reasons": {
+        "length": 8,
+        "stop": 72
+      },
+      "capped_4096": 8,
+      "reasoning_token_fraction": 0.7196094846477729,
+      "reasoning_tokens": {
+        "mean": 730.6375,
+        "p50": 234.5,
+        "p90": 3203.2000000000085,
+        "p99": 4096.0,
+        "min": 15,
+        "max": 4096,
+        "cv": 1.6930410566133123
+      },
+      "output_tps": 363.77258759192244,
+      "wall_seconds": 223.28785282501485,
+      "mean_request_al": 2.8376475923299873,
+      "token_cycle_weighted_al": 2.447588908981314,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 38,
+          "mean_request_al": 3.292311999987876,
+          "output_token_share": 0.11800408736118977
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 31,
+          "mean_request_al": 2.421805786636807,
+          "output_token_share": 0.37554477630315414
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 11,
+          "mean_request_al": 2.438906545556245,
+          "output_token_share": 0.5064511363356561
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 33180.0,
+      "accepted_draft_tokens": 48031.0,
+      "mean_client_inflight": 0.9999900746853048,
+      "mean_engine_running_requests": 0.9975729623116397,
+      "prefill_share_request_running": 0.009411426800594824,
+      "decode_share_request_running": 0.9905885731994052,
+      "mean_decode_ms_per_sequence_cycle": 6.650077390734044,
+      "mean_decode_ms_per_output_token": 2.716489397785876,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 81226.0,
+      "response_completion_sum": 81226,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 96,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 46,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 48,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 37,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 40,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "mt-bench-off-c8",
+      "dataset": "mt-bench",
+      "sd": "off",
+      "c": 8,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/mt-bench-off-c8/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 80,
+      "unique_prompts": 80,
+      "input_tokens": {
+        "mean": 60.7,
+        "p50": 37.0,
+        "p90": 157.10000000000002,
+        "p99": 271.9899999999999,
+        "min": 18,
+        "max": 287,
+        "cv": 0.9673099406819754
+      },
+      "output_tokens": {
+        "mean": 1050.925,
+        "p50": 626.5,
+        "p90": 3651.400000000004,
+        "p99": 4096.0,
+        "min": 52,
+        "max": 4096,
+        "cv": 1.1524500545368588
+      },
+      "finish_reasons": {
+        "length": 8,
+        "stop": 72
+      },
+      "capped_4096": 8,
+      "reasoning_token_fraction": 0.6756309917453672,
+      "reasoning_tokens": {
+        "mean": 710.0375,
+        "p50": 226.5,
+        "p90": 2832.400000000012,
+        "p99": 4096.0,
+        "min": 14,
+        "max": 4096,
+        "cv": 1.738768027608901
+      },
+      "output_tps": 1350.93555241116,
+      "wall_seconds": 62.23390882706735,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 7.48896475759381,
+      "mean_engine_running_requests": 7.477837139667451,
+      "prefill_share_request_running": 0.005016995016651435,
+      "decode_share_request_running": 0.9949830049833486,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 5.507532061557539,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 84074.0,
+      "response_completion_sum": 84074,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 516,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 516,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 516,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 516,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        },
+        {
+          "m": 516,
+          "n": 24064,
+          "k": 2560,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "mt-bench-on-c8",
+      "dataset": "mt-bench",
+      "sd": "on",
+      "c": 8,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/mt-bench-on-c8/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 80,
+      "unique_prompts": 80,
+      "input_tokens": {
+        "mean": 60.7,
+        "p50": 37.0,
+        "p90": 157.10000000000002,
+        "p99": 271.9899999999999,
+        "min": 18,
+        "max": 287,
+        "cv": 0.9673099406819754
+      },
+      "output_tokens": {
+        "mean": 997.95,
+        "p50": 468.5,
+        "p90": 3142.000000000009,
+        "p99": 4096.0,
+        "min": 28,
+        "max": 4096,
+        "cv": 1.1958570005959086
+      },
+      "finish_reasons": {
+        "length": 8,
+        "stop": 72
+      },
+      "capped_4096": 8,
+      "reasoning_token_fraction": 0.6672929505486247,
+      "reasoning_tokens": {
+        "mean": 665.925,
+        "p50": 195.5,
+        "p90": 2658.7000000000135,
+        "p99": 4096.0,
+        "min": 10,
+        "max": 4096,
+        "cv": 1.8186729078525798
+      },
+      "output_tps": 1470.513968656249,
+      "wall_seconds": 54.29122177802492,
+      "mean_request_al": 2.9094263538567926,
+      "token_cycle_weighted_al": 2.462760705911391,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 41,
+          "mean_request_al": 3.334966790148943,
+          "output_token_share": 0.1132070745027306
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 28,
+          "mean_request_al": 2.463757166273842,
+          "output_token_share": 0.3820331679943885
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 11,
+          "mean_request_al": 2.457751750615379,
+          "output_token_share": 0.5047597575028809
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 32412.0,
+      "accepted_draft_tokens": 47411.0,
+      "mean_client_inflight": 7.313886214558781,
+      "mean_engine_running_requests": 7.292341265094692,
+      "prefill_share_request_running": 0.009845555168727543,
+      "decode_share_request_running": 0.9901544448312725,
+      "mean_decode_ms_per_sequence_cycle": 12.0946612984839,
+      "mean_decode_ms_per_output_token": 4.910217971923194,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 79836.0,
+      "response_completion_sum": 79836,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 412,
+          "n": 10240,
+          "k": 512,
+          "log_occurrences": 1
+        },
+        {
+          "m": 432,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 56,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        },
+        {
+          "m": 57,
+          "n": 259840,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 288,
+          "n": 2560,
+          "k": 51200,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "mt-bench-off-c32",
+      "dataset": "mt-bench",
+      "sd": "off",
+      "c": 32,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/mt-bench-off-c32/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 80,
+      "unique_prompts": 80,
+      "input_tokens": {
+        "mean": 60.7,
+        "p50": 37.0,
+        "p90": 157.10000000000002,
+        "p99": 271.9899999999999,
+        "min": 18,
+        "max": 287,
+        "cv": 0.9673099406819754
+      },
+      "output_tokens": {
+        "mean": 1003.8875,
+        "p50": 534.0,
+        "p90": 2893.400000000003,
+        "p99": 4096.0,
+        "min": 63,
+        "max": 4096,
+        "cv": 1.1747144978856658
+      },
+      "finish_reasons": {
+        "length": 7,
+        "stop": 73
+      },
+      "capped_4096": 7,
+      "reasoning_token_fraction": 0.6759223518571553,
+      "reasoning_tokens": {
+        "mean": 678.55,
+        "p50": 203.0,
+        "p90": 2762.100000000003,
+        "p99": 4096.0,
+        "min": 14,
+        "max": 4096,
+        "cv": 1.7947542679645667
+      },
+      "output_tps": 2397.7601666142,
+      "wall_seconds": 33.49417557194829,
+      "mean_request_al": null,
+      "token_cycle_weighted_al": null,
+      "acceptance_by_output_length": [],
+      "response_spec_metric_schema": [],
+      "draft_cycles": 0.0,
+      "accepted_draft_tokens": 0.0,
+      "mean_client_inflight": 18.984980712850465,
+      "mean_engine_running_requests": 18.940662331017407,
+      "prefill_share_request_running": 0.007751872949719521,
+      "decode_share_request_running": 0.9922481270502804,
+      "mean_decode_ms_per_sequence_cycle": null,
+      "mean_decode_ms_per_output_token": 7.838080298740634,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 80311.0,
+      "response_completion_sum": 80311,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 1801,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1801,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1801,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1801,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1801,
+          "n": 24064,
+          "k": 2560,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    },
+    {
+      "case": "mt-bench-on-c32",
+      "dataset": "mt-bench",
+      "sd": "on",
+      "c": 32,
+      "path": "/mnt/hammerspace/jackhan/raon-rda-fusion-speed-20261128/results/mt-bench-on-c32/measurement",
+      "status": "VALID_SINGLE_MEASUREMENT",
+      "timing_valid": true,
+      "requests": 80,
+      "unique_prompts": 80,
+      "input_tokens": {
+        "mean": 60.7,
+        "p50": 37.0,
+        "p90": 157.10000000000002,
+        "p99": 271.9899999999999,
+        "min": 18,
+        "max": 287,
+        "cv": 0.9673099406819754
+      },
+      "output_tokens": {
+        "mean": 919.6125,
+        "p50": 499.0,
+        "p90": 2707.2000000000035,
+        "p99": 4096.0,
+        "min": 65,
+        "max": 4096,
+        "cv": 1.1918350356663843
+      },
+      "finish_reasons": {
+        "length": 6,
+        "stop": 74
+      },
+      "capped_4096": 6,
+      "reasoning_token_fraction": 0.6666666666666666,
+      "reasoning_tokens": {
+        "mean": 613.075,
+        "p50": 183.5,
+        "p90": 2538.800000000001,
+        "p99": 4096.0,
+        "min": 14,
+        "max": 4096,
+        "cv": 1.8503178006645848
+      },
+      "output_tps": 2569.350950648499,
+      "wall_seconds": 28.63330133294221,
+      "mean_request_al": 2.8869958550525614,
+      "token_cycle_weighted_al": 2.5005269778669295,
+      "acceptance_by_output_length": [
+        {
+          "group": "short_0_512",
+          "count": 41,
+          "mean_request_al": 3.262894365481409,
+          "output_token_share": 0.13667441449523576
+        },
+        {
+          "group": "medium_513_2048",
+          "count": 30,
+          "mean_request_al": 2.506360902594661,
+          "output_token_share": 0.4085960119071892
+        },
+        {
+          "group": "long_2049_4096",
+          "count": 9,
+          "mean_request_al": 2.4433524824030344,
+          "output_token_share": 0.45472957359757504
+        }
+      ],
+      "response_spec_metric_schema": [
+        "mean_acceptance_length",
+        "draft_acceptance_rate",
+        "acceptance_histogram",
+        "num_spec_steps",
+        "num_accepted_draft_tokens",
+        "num_draft_tokens",
+        "num_spec_tokens",
+        "per_step_accepted",
+        "per_step_drafted"
+      ],
+      "draft_cycles": 29413.0,
+      "accepted_draft_tokens": 44135.0,
+      "mean_client_inflight": 17.762972696809936,
+      "mean_engine_running_requests": 17.69566964180725,
+      "prefill_share_request_running": 0.014304568398933811,
+      "decode_share_request_running": 0.9856954316010662,
+      "mean_decode_ms_per_sequence_cycle": 16.98016266931302,
+      "mean_decode_ms_per_output_token": 6.788695300908044,
+      "cache_hit_fraction": 0.0,
+      "preemptions": 0.0,
+      "generation_counter_delta": 73569.0,
+      "response_completion_sum": 73569,
+      "top_untuned_gemm_log_shapes": [
+        {
+          "m": 1518,
+          "n": 20656,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1518,
+          "n": 5120,
+          "k": 128,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1518,
+          "n": 40,
+          "k": 2560,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1518,
+          "n": 2560,
+          "k": 5120,
+          "log_occurrences": 1
+        },
+        {
+          "m": 1518,
+          "n": 24064,
+          "k": 2560,
+          "log_occurrences": 1
+        }
+      ],
+      "caveats": [
+        "Untuned-shape logs are not invocation counts or GPU time",
+        "Running/prefill/decode metrics are request elapsed-time sums, not kernel-time shares",
+        "mean_engine_running_requests is an elapsed-time proxy; no scheduler timeline reconstructed"
+      ]
+    }
+  ],
+  "limitations": [
+    "Current target final Raon-mini; public reference preview on B300",
+    "Exact public sample selection, output length distribution, and per-concurrency AL aggregation unavailable",
+    "Timing-invalid originals have token/finish statistics only; timing interpretation excluded"
+  ]
+}

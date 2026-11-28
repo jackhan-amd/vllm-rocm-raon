@@ -1,0 +1,76 @@
+{
+  "cases": [
+    {
+      "rank": 0,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 1,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 2,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 3,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 5,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 6,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 7,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    },
+    {
+      "rank": 4,
+      "status": "PASS",
+      "extra_live_updates": 0,
+      "no_performance_measurement": true,
+      "snapshots": 8,
+      "owned_api_stopped": true,
+      "gold_exit": 0
+    }
+  ]
+}

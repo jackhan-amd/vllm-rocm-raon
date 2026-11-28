@@ -1,0 +1,168 @@
+{
+  "status": "FULL_SET_VALIDATED",
+  "model": "KRAFTON/Raon-1-mini",
+  "precision": "original MXFP8",
+  "sd": "on",
+  "replicas": 8,
+  "tp": 1,
+  "dp": 1,
+  "state_fingerprint": "daceb6ca6bcbd833138e4ea5df965d9a2686f8596adf5acefed79ce7336e5221",
+  "jobs": [
+    "90028"
+  ],
+  "completed": 12032,
+  "correct": 10029,
+  "accuracy_percent": 83.35272606382979,
+  "unparsed": 2,
+  "finish_reasons": {
+    "stop": 12030,
+    "length": 2
+  },
+  "prefix_resumed_questions": 32,
+  "output_tokens": {
+    "total": 41836555,
+    "mean": 3477.1072972074467,
+    "median": 461.0,
+    "max": 261378
+  },
+  "categories": {
+    "biology": {
+      "total": 717,
+      "correct": 656,
+      "accuracy_percent": 91.49232914923292
+    },
+    "business": {
+      "total": 789,
+      "correct": 697,
+      "accuracy_percent": 88.33967046894803
+    },
+    "chemistry": {
+      "total": 1132,
+      "correct": 1030,
+      "accuracy_percent": 90.98939929328623
+    },
+    "computer science": {
+      "total": 410,
+      "correct": 357,
+      "accuracy_percent": 87.07317073170732
+    },
+    "economics": {
+      "total": 844,
+      "correct": 726,
+      "accuracy_percent": 86.01895734597156
+    },
+    "engineering": {
+      "total": 969,
+      "correct": 812,
+      "accuracy_percent": 83.79772961816306
+    },
+    "health": {
+      "total": 818,
+      "correct": 637,
+      "accuracy_percent": 77.87286063569682
+    },
+    "history": {
+      "total": 381,
+      "correct": 269,
+      "accuracy_percent": 70.60367454068242
+    },
+    "law": {
+      "total": 1101,
+      "correct": 671,
+      "accuracy_percent": 60.944595821980016
+    },
+    "math": {
+      "total": 1351,
+      "correct": 1287,
+      "accuracy_percent": 95.26276831976314
+    },
+    "other": {
+      "total": 924,
+      "correct": 687,
+      "accuracy_percent": 74.35064935064935
+    },
+    "philosophy": {
+      "total": 499,
+      "correct": 372,
+      "accuracy_percent": 74.54909819639279
+    },
+    "physics": {
+      "total": 1299,
+      "correct": 1177,
+      "accuracy_percent": 90.60816012317167
+    },
+    "psychology": {
+      "total": 798,
+      "correct": 651,
+      "accuracy_percent": 81.57894736842105
+    }
+  },
+  "workers": [
+    {
+      "rank": 0,
+      "completed": 1504,
+      "correct": 1253
+    },
+    {
+      "rank": 1,
+      "completed": 1504,
+      "correct": 1258
+    },
+    {
+      "rank": 2,
+      "completed": 1504,
+      "correct": 1226
+    },
+    {
+      "rank": 3,
+      "completed": 1504,
+      "correct": 1301
+    },
+    {
+      "rank": 4,
+      "completed": 1504,
+      "correct": 1250
+    },
+    {
+      "rank": 5,
+      "completed": 1504,
+      "correct": 1269
+    },
+    {
+      "rank": 6,
+      "completed": 1504,
+      "correct": 1242
+    },
+    {
+      "rank": 7,
+      "completed": 1504,
+      "correct": 1230
+    }
+  ],
+  "row_integrity": "PASS",
+  "ordered_record_hash_sha256": "ed025892f9873b12a3272f82f4019519c974a073ab4ce1f8a1e5543548732c5c",
+  "lineage": {
+    "parent_fingerprint": "c928ba25a26274812a527826a4229118f78069f97a4a123f67bf15f55dfd66ad",
+    "retained_completed": 10681,
+    "amendment": {
+      "original_sha256": "959c6952382f98e1904cb30e5d2bc8bd0d76062b547739e86da9177e77b4acff",
+      "candidate_sha256": "0ce9cf52017411d4d7c6fe66e968367be465dc9cc97c48f33c321d993ede4539",
+      "hypothesis": "16 queries, one span2 and fifteen span8:122 live rows in128 graph rows",
+      "arithmetic_kernel_changes": 0,
+      "checkpoint_updates_per_live_forward": 1,
+      "changed_behavior": "Slice native operands to the packed live prefix and zero output-only graph padding"
+    },
+    "original_completed_records_unchanged": true
+  },
+  "baseline_reference": {
+    "completed": 12032,
+    "correct": 10021,
+    "accuracy_percent": 83.28623670212765
+  },
+  "delta_vs_frozen_baseline_pp": 0.06648936170213915,
+  "published_final_model_card_reference": 82.7,
+  "published_preview_reference": 76.5,
+  "comparison_limit": "Descriptive; thinking budget, parser and sampling are not an exact official-protocol reproduction.",
+  "quality_acceptance": "NOT_AUTOMATICALLY_DECIDED",
+  "warmed_tps": "NOT_MEASURED"
+}

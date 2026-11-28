@@ -1,0 +1,197 @@
+{
+  "status": "PAIRED_FULL_SET_ANALYSIS",
+  "old_correct": 10029,
+  "new_correct": 9989,
+  "old_accuracy_percent": 83.35272606382979,
+  "new_accuracy_percent": 83.02027925531915,
+  "all": {
+    "n": 12032,
+    "gained": 344,
+    "lost": 384,
+    "delta_accuracy_pp": -0.3324468085106383,
+    "paired_normal95_pp": [
+      -0.7719320235894387,
+      0.10703840656816217
+    ],
+    "mcnemar_exact_two_sided_p": 0.14828484709674186
+  },
+  "uninterrupted_questions": {
+    "n": 12000,
+    "gained": 340,
+    "lost": 383,
+    "delta_accuracy_pp": -0.35833333333333334,
+    "paired_normal95_pp": [
+      -0.7974679679547375,
+      0.08080130128807075
+    ],
+    "mcnemar_exact_two_sided_p": 0.11822767793693922
+  },
+  "original_frozen_baseline": {
+    "correct": 10021,
+    "total": 12032,
+    "accuracy_percent": 83.28623670212765
+  },
+  "delta_vs_original_frozen_pp": -0.26595744680851063,
+  "categories": {
+    "biology": {
+      "n": 717,
+      "gained": 13,
+      "lost": 16,
+      "delta_accuracy_pp": -0.41841004184100417,
+      "paired_normal95_pp": [
+        -1.890186679079324,
+        1.053366595397316
+      ],
+      "mcnemar_exact_two_sided_p": 0.7110711038112582
+    },
+    "business": {
+      "n": 789,
+      "gained": 17,
+      "lost": 13,
+      "delta_accuracy_pp": 0.5069708491761723,
+      "paired_normal95_pp": [
+        -0.8531981204017616,
+        1.8671398187541064
+      ],
+      "mcnemar_exact_two_sided_p": 0.5846647117286977
+    },
+    "chemistry": {
+      "n": 1132,
+      "gained": 13,
+      "lost": 16,
+      "delta_accuracy_pp": -0.26501766784452296,
+      "paired_normal95_pp": [
+        -1.1973035401031853,
+        0.6672682044141395
+      ],
+      "mcnemar_exact_two_sided_p": 0.7110711038112582
+    },
+    "computer science": {
+      "n": 410,
+      "gained": 10,
+      "lost": 16,
+      "delta_accuracy_pp": -1.4634146341463417,
+      "paired_normal95_pp": [
+        -3.8968752245406573,
+        0.970045956247974
+      ],
+      "mcnemar_exact_two_sided_p": 0.32693958282471036
+    },
+    "economics": {
+      "n": 844,
+      "gained": 23,
+      "lost": 26,
+      "delta_accuracy_pp": -0.35545023696682465,
+      "paired_normal95_pp": [
+        -1.9808657615846204,
+        1.2699652876509713
+      ],
+      "mcnemar_exact_two_sided_p": 0.7754496546815774
+    },
+    "engineering": {
+      "n": 969,
+      "gained": 29,
+      "lost": 39,
+      "delta_accuracy_pp": -1.0319917440660475,
+      "paired_normal95_pp": [
+        -2.6986898815561147,
+        0.6347063934240199
+      ],
+      "mcnemar_exact_two_sided_p": 0.2749903961710095
+    },
+    "health": {
+      "n": 818,
+      "gained": 20,
+      "lost": 33,
+      "delta_accuracy_pp": -1.5892420537897312,
+      "paired_normal95_pp": [
+        -3.330217226257872,
+        0.15173311867840988
+      ],
+      "mcnemar_exact_two_sided_p": 0.09837064844049144
+    },
+    "history": {
+      "n": 381,
+      "gained": 13,
+      "lost": 8,
+      "delta_accuracy_pp": 1.3123359580052494,
+      "paired_normal95_pp": [
+        -1.04141863504126,
+        3.6660905510517585
+      ],
+      "mcnemar_exact_two_sided_p": 0.3833103179931644
+    },
+    "law": {
+      "n": 1101,
+      "gained": 76,
+      "lost": 84,
+      "delta_accuracy_pp": -0.7266121707538601,
+      "paired_normal95_pp": [
+        -2.977997534759991,
+        1.5247731932522708
+      ],
+      "mcnemar_exact_two_sided_p": 0.580129206304703
+    },
+    "math": {
+      "n": 1351,
+      "gained": 14,
+      "lost": 19,
+      "delta_accuracy_pp": -0.3700962250185048,
+      "paired_normal95_pp": [
+        -1.2032705770433079,
+        0.46307812700629813
+      ],
+      "mcnemar_exact_two_sided_p": 0.48685024166479707
+    },
+    "other": {
+      "n": 924,
+      "gained": 47,
+      "lost": 40,
+      "delta_accuracy_pp": 0.7575757575757576,
+      "paired_normal95_pp": [
+        -1.2203560993923919,
+        2.735507614543907
+      ],
+      "mcnemar_exact_two_sided_p": 0.520291593575054
+    },
+    "philosophy": {
+      "n": 499,
+      "gained": 18,
+      "lost": 18,
+      "delta_accuracy_pp": 0.0,
+      "paired_normal95_pp": [
+        -2.3567134268537075,
+        2.3567134268537075
+      ],
+      "mcnemar_exact_two_sided_p": 1.0
+    },
+    "physics": {
+      "n": 1299,
+      "gained": 27,
+      "lost": 40,
+      "delta_accuracy_pp": -1.0007698229407236,
+      "paired_normal95_pp": [
+        -2.2346195146241996,
+        0.2330798687427525
+      ],
+      "mcnemar_exact_two_sided_p": 0.14207137942637127
+    },
+    "psychology": {
+      "n": 798,
+      "gained": 24,
+      "lost": 16,
+      "delta_accuracy_pp": 1.0025062656641603,
+      "paired_normal95_pp": [
+        -0.5493352125335065,
+        2.554347743861827
+      ],
+      "mcnemar_exact_two_sided_p": 0.26818725105476465
+    }
+  },
+  "limitations": [
+    "Same questions and prompt hashes; stochastic generated trajectories and batch composition differ.",
+    "Paired confidence interval is across questions, not repeated-run variance or a proof of numerical equivalence.",
+    "No predeclared quality noninferiority margin; no automatic accuracy acceptance.",
+    "New raw audit field delta_vs_frozen_baseline_pp names the prior optimized10029 answer reference, not the original10021 frozen baseline. Raw artifacts remain unchanged."
+  ]
+}

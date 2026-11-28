@@ -1,0 +1,2752 @@
+{
+  "status": "GPU_EVENTS_PRESENT",
+  "rows": [
+    {
+      "case": "control-off-c1",
+      "raw_sha256": "55d1e523446a10102413d2a4d6ad2f2617ef22cb8c953a5af17698942b9f4ef5",
+      "gpu_kernel_events": 50816,
+      "summed_kernel_us": 326019.294,
+      "gpu_activity_union_us": 305738.4306640625,
+      "gpu_kernel_span_us": 325756.826171875,
+      "gap_us_within_kernel_span": 20018.3955078125,
+      "largest_gaps_us": [
+        16.361328125,
+        15.921875,
+        14.80078125,
+        14.560546875,
+        13.880859375,
+        13.8017578125,
+        13.6806640625,
+        13.3203125,
+        12.44140625,
+        12.1611328125,
+        12.041015625,
+        12.0009765625
+      ],
+      "categories": {
+        "native_bf16_other": {
+          "count": 8000,
+          "gpu_us": 58567.594000000965,
+          "summed_kernel_time_share": 0.17964456422631528
+        },
+        "unclassified": {
+          "count": 5824,
+          "gpu_us": 30809.643999999756,
+          "summed_kernel_time_share": 0.09450251738781987
+        },
+        "routing_or_quantization": {
+          "count": 5760,
+          "gpu_us": 27926.66899999984,
+          "summed_kernel_time_share": 0.08565955915480218
+        },
+        "torch_other_elementwise": {
+          "count": 5440,
+          "gpu_us": 27694.212000000156,
+          "summed_kernel_time_share": 0.0849465430717734
+        },
+        "torch_copy_or_cast": {
+          "count": 4928,
+          "gpu_us": 24040.471999999947,
+          "summed_kernel_time_share": 0.07373941494395098
+        },
+        "native_moe_gemm1": {
+          "count": 1536,
+          "gpu_us": 19277.380000000026,
+          "summed_kernel_time_share": 0.0591295679574106
+        },
+        "native_mhc_projection_or_gate": {
+          "count": 3200,
+          "gpu_us": 16527.93600000012,
+          "summed_kernel_time_share": 0.05069618977826546
+        },
+        "native_mhc_chart_aggregate": {
+          "count": 3200,
+          "gpu_us": 16428.514000000134,
+          "summed_kernel_time_share": 0.05039123236675721
+        },
+        "other_gemm": {
+          "count": 1536,
+          "gpu_us": 15730.474000000047,
+          "summed_kernel_time_share": 0.04825013209187567
+        },
+        "native_bf16_lm_heads_combined": {
+          "count": 64,
+          "gpu_us": 12188.399000000001,
+          "summed_kernel_time_share": 0.03738551436774782
+        },
+        "native_moe_gemm2": {
+          "count": 1536,
+          "gpu_us": 11744.158000000023,
+          "summed_kernel_time_share": 0.03602289255923615
+        },
+        "native_attention_projection_mhc": {
+          "count": 1600,
+          "gpu_us": 11259.019999999988,
+          "summed_kernel_time_share": 0.034534827254732926
+        },
+        "rda_logsigmoid": {
+          "count": 2304,
+          "gpu_us": 10711.52600000001,
+          "summed_kernel_time_share": 0.03285549719643283
+        },
+        "sampling_mask": {
+          "count": 64,
+          "gpu_us": 9977.052000000001,
+          "summed_kernel_time_share": 0.030602642799416657
+        },
+        "mla_attention": {
+          "count": 1408,
+          "gpu_us": 9201.189999999997,
+          "summed_kernel_time_share": 0.028222838860573685
+        },
+        "native_route_prepare": {
+          "count": 1536,
+          "gpu_us": 7850.090999999867,
+          "summed_kernel_time_share": 0.024078608672773418
+        },
+        "native_rda_core": {
+          "count": 1152,
+          "gpu_us": 7626.327000000091,
+          "summed_kernel_time_share": 0.023392256655828753
+        },
+        "native_moe_mhc_finish": {
+          "count": 1536,
+          "gpu_us": 7410.339999999996,
+          "summed_kernel_time_share": 0.022729759055303014
+        },
+        "sampling_gumbel": {
+          "count": 64,
+          "gpu_us": 419.58000000000004,
+          "summed_kernel_time_share": 0.0012869790460928979
+        },
+        "native_mhc_mix": {
+          "count": 64,
+          "gpu_us": 321.7780000000001,
+          "summed_kernel_time_share": 0.0009869906656506044
+        },
+        "draft_control": {
+          "count": 64,
+          "gpu_us": 306.93800000000005,
+          "summed_kernel_time_share": 0.0009414718872435815
+        }
+      },
+      "top_kernels": [
+        {
+          "name": "hgemm_bf16_skinny_t8x16x128x2_w1x1x4_0.kd",
+          "count": 2752,
+          "gpu_us": 27374.070000000196,
+          "grids": {
+            "[]": 2752
+          }
+        },
+        {
+          "name": "mfma_moe1_silu_mul_afp8_wfp8_fp8_t32x128x256_pm1_fp8q_sort_async_gui_situv2_v33.kd",
+          "count": 1536,
+          "gpu_us": 19277.380000000026,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int) [clone .kd]",
+          "count": 3200,
+          "gpu_us": 16527.93600000012,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "head_0.kd",
+          "count": 3200,
+          "gpu_us": 16428.514000000134,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BSS_BH_Bias_S_HA_S_SAV_UserArgs_MT16x16x256_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA512_LBSPPB512_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT1_1_MXLIBL_MXSFNS_MO40_MGRIPM3_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG16_4_4_WGMXCCn1_WQS0.kd",
+          "count": 1536,
+          "gpu_us": 15730.474000000047,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void aiter::add_rmsnorm_quant_kernel<std::bfloat16_t, std::bfloat16_t, 256, 16, false, false, true, 1, false>(std::bfloat16_t*, std::bfloat16_t*, float*, std::bfloat16_t*, std::bfloat16_t*, std::bfloat16_t*, double, bool, int, int, int, int, int, int, int, bool, bool) [clone .kd]",
+          "count": 3264,
+          "gpu_us": 15608.165000000005,
+          "grids": {
+            "[]": 3264
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x64x128x2_w1x1x4_0.kd",
+          "count": 64,
+          "gpu_us": 12188.399000000001,
+          "grids": {
+            "[4060, 1, 1]": 64
+          }
+        },
+        {
+          "name": "mfma_moe2_afp8_wfp8_bf16_cshuffle_t32x128x256_vscale_fix3_fp4opt_v1_pm1_async_acc0_abuffer.kd",
+          "count": 1536,
+          "gpu_us": 11744.158000000023,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul> >(int, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul>) [clone .kd]",
+          "count": 2368,
+          "gpu_us": 11519.661000000031,
+          "grids": {
+            "[]": 2304,
+            "[127, 1, 1]": 64
+          }
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>) [clone .kd]",
+          "count": 2304,
+          "gpu_us": 11390.941000000046,
+          "grids": {
+            "[]": 2304
+          }
+        },
+        {
+          "name": "raon_projection_mhc_t8x16x128x2_w1x1x4_0.kd",
+          "count": 1600,
+          "gpu_us": 11259.019999999988,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>) [clone .kd]",
+          "count": 2304,
+          "gpu_us": 10711.52600000001,
+          "grids": {
+            "[]": 2304
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x8x128x2_w1x1x4_0.kd",
+          "count": 2048,
+          "gpu_us": 10705.51699999999,
+          "grids": {
+            "[]": 2048
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x16x64x2_w1x1x1_0.kd",
+          "count": 1536,
+          "gpu_us": 9999.349000000007,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "_topk_topp_kernel.kd",
+          "count": 64,
+          "gpu_us": 9977.052000000001,
+          "grids": {
+            "[1, 1, 1]": 64
+          }
+        },
+        {
+          "name": "void aiter::topk_reg_kernel<float, 2, true, false, true, false, float>(float*, float const*, float*, int*, unsigned long, unsigned long, int, int, int, float, bool, int const*) [clone .kd]",
+          "count": 1536,
+          "gpu_us": 8694.263000000068,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void vllm::situ_and_mul_kernel<c10::BFloat16>(c10::BFloat16*, c10::BFloat16 const*, int, float, float) [clone .kd]",
+          "count": 1600,
+          "gpu_us": 8684.595999999974,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "raon_mxfp8_route_prepare_0.kd",
+          "count": 1536,
+          "gpu_us": 7850.090999999867,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void (anonymous namespace)::raon_rda_ar_fusion_kernel<true, 1, 15360, 40, true, true, true>(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, float const*, float const*, float const*, __hip_bfloat16*, __hip_bfloat16*, __hip_bfloat16*, float const*, __hip_bfloat16 const*, float const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, int const*, float*, __hip_bfloat16*, float, float, float, (anonymous namespace)::KdaDecodeStrides) [clone .kd]",
+          "count": 1152,
+          "gpu_us": 7626.327000000091,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "__amd_rocclr_copyBuffer.kd",
+          "count": 1536,
+          "gpu_us": 7552.357000000005,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "raon_moe_mhc_finish_0.kd",
+          "count": 1536,
+          "gpu_us": 7410.339999999996,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "_ZN5aiter30fused_mx_quant_moe_sort_kernelIDF16bDB8_Li256ELi16EEEvPT0_PhPKT_PKiS9_PKfiiiiiiiiib.kd",
+          "count": 1536,
+          "gpu_us": 7222.761000000109,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x32x128x1_w1x1x1_0.kd",
+          "count": 1152,
+          "gpu_us": 5930.599999999963,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::exp_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::exp_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>) [clone .kd]",
+          "count": 1152,
+          "gpu_us": 5610.194999999975,
+          "grids": {
+            "[]": 1152
+          }
+        }
+      ],
+      "profile_steps": [],
+      "sample_gpu_event": {
+        "ph": "X",
+        "cat": "kernel",
+        "name": "__amd_rocclr_copyBuffer.kd",
+        "pid": 6,
+        "tid": 1,
+        "ts": 5002376471555.806,
+        "dur": 2.559,
+        "args": {
+          "External id": 43,
+          "device": 6,
+          "stream": 1,
+          "hsa_queue": 8,
+          "correlation": 10,
+          "kind": "Dispatch Kernel",
+          "bytes": 8,
+          "memory bandwidth (GB/s)": 0.003125
+        }
+      }
+    },
+    {
+      "case": "control-on-c1",
+      "raw_sha256": "13fc23b245999ba0c87340ff72ff39449043bef087632e5b39713513c2865808",
+      "gpu_kernel_events": 67868,
+      "summed_kernel_us": 522537.368,
+      "gpu_activity_union_us": 502781.671875,
+      "gpu_kernel_span_us": 525680.1240234375,
+      "gap_us_within_kernel_span": 22898.4521484375,
+      "largest_gaps_us": [
+        13.0400390625,
+        12.201171875,
+        11.560546875,
+        11.1611328125,
+        11.041015625,
+        10.80078125,
+        10.5615234375,
+        10.2021484375,
+        10.0810546875,
+        10.0810546875,
+        10.041015625,
+        10.0009765625
+      ],
+      "categories": {
+        "native_bf16_other": {
+          "count": 10048,
+          "gpu_us": 95713.88299999987,
+          "summed_kernel_time_share": 0.18317136507642046
+        },
+        "native_moe_gemm1": {
+          "count": 1536,
+          "gpu_us": 58279.06699999998,
+          "summed_kernel_time_share": 0.11153090777614967
+        },
+        "unclassified": {
+          "count": 9934,
+          "gpu_us": 52744.16499999954,
+          "summed_kernel_time_share": 0.10093855144154885
+        },
+        "torch_copy_or_cast": {
+          "count": 10382,
+          "gpu_us": 48676.14599999974,
+          "summed_kernel_time_share": 0.09315342591919615
+        },
+        "routing_or_quantization": {
+          "count": 6848,
+          "gpu_us": 35119.41900000036,
+          "summed_kernel_time_share": 0.06720939238167625
+        },
+        "native_moe_gemm2": {
+          "count": 1536,
+          "gpu_us": 31648.366999999962,
+          "summed_kernel_time_share": 0.060566705728880926
+        },
+        "torch_other_elementwise": {
+          "count": 5696,
+          "gpu_us": 28906.950999999393,
+          "summed_kernel_time_share": 0.055320351749464536
+        },
+        "native_rda_core": {
+          "count": 3456,
+          "gpu_us": 26659.666000000012,
+          "summed_kernel_time_share": 0.05101963540337657
+        },
+        "mla_attention": {
+          "count": 1472,
+          "gpu_us": 19152.497000000094,
+          "summed_kernel_time_share": 0.03665287532125376
+        },
+        "native_mhc_projection_or_gate": {
+          "count": 3200,
+          "gpu_us": 17111.669999999976,
+          "summed_kernel_time_share": 0.03274726564627235
+        },
+        "native_mhc_chart_aggregate": {
+          "count": 3200,
+          "gpu_us": 16071.550000000167,
+          "summed_kernel_time_share": 0.030756747716462196
+        },
+        "other_gemm": {
+          "count": 1664,
+          "gpu_us": 14858.57600000004,
+          "summed_kernel_time_share": 0.028435432391889795
+        },
+        "native_attention_projection_mhc": {
+          "count": 1600,
+          "gpu_us": 12852.177000000047,
+          "summed_kernel_time_share": 0.024595708913970046
+        },
+        "native_bf16_lm_heads_combined": {
+          "count": 64,
+          "gpu_us": 12461.886999999999,
+          "summed_kernel_time_share": 0.023848795824301695
+        },
+        "sampling_mask": {
+          "count": 64,
+          "gpu_us": 11880.871999999998,
+          "summed_kernel_time_share": 0.022736884914994246
+        },
+        "rda_logsigmoid": {
+          "count": 2304,
+          "gpu_us": 10393.70900000009,
+          "summed_kernel_time_share": 0.019890843481264846
+        },
+        "draft_control": {
+          "count": 1600,
+          "gpu_us": 10304.543999999947,
+          "summed_kernel_time_share": 0.01972020496723585
+        },
+        "native_route_prepare": {
+          "count": 1536,
+          "gpu_us": 7701.284999999904,
+          "summed_kernel_time_share": 0.014738247389801803
+        },
+        "native_moe_mhc_finish": {
+          "count": 1536,
+          "gpu_us": 7483.91800000003,
+          "summed_kernel_time_share": 0.014322263742867916
+        },
+        "native_bf16_n2560_ambiguous_K": {
+          "count": 64,
+          "gpu_us": 3604.253999999999,
+          "summed_kernel_time_share": 0.0068976004793594
+        },
+        "speculative_rejection": {
+          "count": 64,
+          "gpu_us": 584.343,
+          "summed_kernel_time_share": 0.0011182798318071674
+        },
+        "native_mhc_mix": {
+          "count": 64,
+          "gpu_us": 328.42200000000014,
+          "summed_kernel_time_share": 0.0006285139018038613
+        }
+      },
+      "top_kernels": [
+        {
+          "name": "mfma_moe1_silu_mul_afp8_wfp8_fp8_t32x128x256_pm1_fp8q_sort_async_gui_situv2_v33.kd",
+          "count": 1536,
+          "gpu_us": 58279.06699999998,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x64x128x2_w1x1x4_0.kd",
+          "count": 2112,
+          "gpu_us": 48448.301000000036,
+          "grids": {
+            "[4060, 1, 1]": 64,
+            "[]": 2048
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x16x128x2_w1x1x4_0.kd",
+          "count": 2752,
+          "gpu_us": 31834.052999999913,
+          "grids": {
+            "[]": 2688,
+            "[160, 1, 1]": 64
+          }
+        },
+        {
+          "name": "mfma_moe2_afp8_wfp8_bf16_cshuffle_t32x128x256_vscale_fix3_fp4opt_v1_pm1_async_acc0_abuffer.kd",
+          "count": 1536,
+          "gpu_us": 31648.366999999962,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int) [clone .kd]",
+          "count": 3200,
+          "gpu_us": 17111.669999999976,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "__amd_rocclr_copyBuffer.kd",
+          "count": 3470,
+          "gpu_us": 16098.949000000108,
+          "grids": {
+            "[]": 3470
+          }
+        },
+        {
+          "name": "head_0.kd",
+          "count": 3200,
+          "gpu_us": 16071.550000000167,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "void aiter::add_rmsnorm_quant_kernel<std::bfloat16_t, std::bfloat16_t, 256, 16, false, false, true, 1, false>(std::bfloat16_t*, std::bfloat16_t*, float*, std::bfloat16_t*, std::bfloat16_t*, std::bfloat16_t*, double, bool, int, int, int, int, int, int, int, bool, bool) [clone .kd]",
+          "count": 3328,
+          "gpu_us": 15192.78600000013,
+          "grids": {
+            "[]": 3328
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BSS_BH_Bias_S_HA_S_SAV_UserArgs_MT16x16x512_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA1024_LBSPPB1024_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT1_1_MXLIBL_MXSFNS_MO40_MGRIPM3_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG16_4_4_WGMXCCn1_WQS0.kd",
+          "count": 1536,
+          "gpu_us": 13653.171000000037,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "raon_projection_mhc_t8x16x128x2_w1x1x4_0.kd",
+          "count": 1600,
+          "gpu_us": 12852.177000000047,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "(anonymous namespace)::sd_vsplit_recurrence(float const*, __hip_bfloat16 const*, int const*, int const*, int const*, float*, __hip_bfloat16*, int, int, long, long) [clone .kd]",
+          "count": 1152,
+          "gpu_us": 11941.390000000025,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "_topk_topp_kernel.kd",
+          "count": 64,
+          "gpu_us": 11880.871999999998,
+          "grids": {
+            "[8, 1, 1]": 64
+          }
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>) [clone .kd]",
+          "count": 2304,
+          "gpu_us": 10794.428999999996,
+          "grids": {
+            "[]": 2304
+          }
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::launch_log_sigmoid_forward_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>) [clone .kd]",
+          "count": 2304,
+          "gpu_us": 10393.70900000009,
+          "grids": {
+            "[]": 2304
+          }
+        },
+        {
+          "name": "void at::native::elementwise_kernel_manual_unroll<128, 8, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+          "count": 1920,
+          "gpu_us": 9534.160999999976,
+          "grids": {
+            "[]": 1920
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x8x64x2_w1x1x1_0.kd",
+          "count": 1536,
+          "gpu_us": 9212.47799999996,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void (anonymous namespace)::sd_common_prologue<8>(__hip_bfloat16 const*, float const*, __hip_bfloat16*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16*, int, long, long, long, long, long, float) [clone .kd]",
+          "count": 1152,
+          "gpu_us": 8772.562000000058,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "void vllm::situ_and_mul_kernel<c10::BFloat16>(c10::BFloat16*, c10::BFloat16 const*, int, float, float) [clone .kd]",
+          "count": 1600,
+          "gpu_us": 8362.57499999985,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "void aiter::topk_reg_kernel<float, 2, true, false, true, false, float>(float*, float const*, float*, int*, unsigned long, unsigned long, int, int, int, float, bool, int const*) [clone .kd]",
+          "count": 1536,
+          "gpu_us": 8206.200999999963,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "raon_mxfp8_route_prepare_0.kd",
+          "count": 1536,
+          "gpu_us": 7701.284999999904,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x8x128x2_w1x1x4_0.kd",
+          "count": 1600,
+          "gpu_us": 7660.525000000072,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "_ZN5aiter36mla_a8w8_qh32_qseqlen4_gqaratio32_psE.kd",
+          "count": 448,
+          "gpu_us": 7505.154999999991,
+          "grids": {
+            "[]": 448
+          }
+        },
+        {
+          "name": "raon_moe_mhc_finish_0.kd",
+          "count": 1536,
+          "gpu_us": 7483.91800000003,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "_ZN5aiter30fused_mx_quant_moe_sort_kernelIDF16bDB8_Li256ELi16EEEvPT0_PhPKT_PKiS9_PKfiiiiiiiiib.kd",
+          "count": 1536,
+          "gpu_us": 7483.718999999931,
+          "grids": {
+            "[]": 1536
+          }
+        }
+      ],
+      "profile_steps": [],
+      "sample_gpu_event": {
+        "ph": "X",
+        "cat": "kernel",
+        "name": "__amd_rocclr_copyBuffer.kd",
+        "pid": 7,
+        "tid": 1,
+        "ts": 5002397196934.699,
+        "dur": 2.759,
+        "args": {
+          "External id": 43,
+          "device": 7,
+          "stream": 1,
+          "hsa_queue": 4,
+          "correlation": 15,
+          "kind": "Dispatch Kernel",
+          "bytes": 8,
+          "memory bandwidth (GB/s)": 0.002898550724637681
+        }
+      }
+    },
+    {
+      "case": "fusion-off-c1",
+      "raw_sha256": "41790aad3585205e5f88ff422e4830ef28d550373367530883b7bcf63c0093cc",
+      "gpu_kernel_events": 42752,
+      "summed_kernel_us": 282458.26,
+      "gpu_activity_union_us": 262615.00390625,
+      "gpu_kernel_span_us": 281943.4755859375,
+      "gap_us_within_kernel_span": 19328.4716796875,
+      "largest_gaps_us": [
+        16.4404296875,
+        13.4423828125,
+        13.1611328125,
+        13.12109375,
+        12.9609375,
+        12.8408203125,
+        12.80078125,
+        12.6806640625,
+        12.5224609375,
+        12.48046875,
+        12.162109375,
+        11.9619140625
+      ],
+      "categories": {
+        "native_bf16_other": {
+          "count": 6848,
+          "gpu_us": 52179.73900000071,
+          "summed_kernel_time_share": 0.18473433561475847
+        },
+        "unclassified": {
+          "count": 5824,
+          "gpu_us": 29525.51200000009,
+          "summed_kernel_time_share": 0.10453053134293219
+        },
+        "routing_or_quantization": {
+          "count": 5760,
+          "gpu_us": 26748.89500000014,
+          "summed_kernel_time_share": 0.09470034616796173
+        },
+        "native_moe_gemm1": {
+          "count": 1536,
+          "gpu_us": 19164.108000000004,
+          "summed_kernel_time_share": 0.0678475750718
+        },
+        "native_mhc_projection_or_gate": {
+          "count": 3200,
+          "gpu_us": 16541.20300000011,
+          "summed_kernel_time_share": 0.058561583576986244
+        },
+        "native_mhc_chart_aggregate": {
+          "count": 3200,
+          "gpu_us": 15907.648000000254,
+          "summed_kernel_time_share": 0.05631857960181534
+        },
+        "other_gemm": {
+          "count": 1536,
+          "gpu_us": 15888.558999999988,
+          "summed_kernel_time_share": 0.05625099793505769
+        },
+        "torch_copy_or_cast": {
+          "count": 2624,
+          "gpu_us": 12377.142999999995,
+          "summed_kernel_time_share": 0.043819369984081875
+        },
+        "native_bf16_lm_heads_combined": {
+          "count": 64,
+          "gpu_us": 12161.678999999998,
+          "summed_kernel_time_share": 0.04305655285138412
+        },
+        "native_moe_gemm2": {
+          "count": 1536,
+          "gpu_us": 11754.664000000026,
+          "summed_kernel_time_share": 0.0416155788823454
+        },
+        "native_attention_projection_mhc": {
+          "count": 1600,
+          "gpu_us": 11401.167000000003,
+          "summed_kernel_time_share": 0.040364077156037154
+        },
+        "torch_other_elementwise": {
+          "count": 1984,
+          "gpu_us": 10458.86400000001,
+          "summed_kernel_time_share": 0.03702799840231265
+        },
+        "sampling_mask": {
+          "count": 64,
+          "gpu_us": 10169.330999999998,
+          "summed_kernel_time_share": 0.036002951374125146
+        },
+        "mla_attention": {
+          "count": 1408,
+          "gpu_us": 9102.264000000045,
+          "summed_kernel_time_share": 0.032225164879228684
+        },
+        "native_rda_core": {
+          "count": 1152,
+          "gpu_us": 7821.345999999984,
+          "summed_kernel_time_share": 0.027690271829897924
+        },
+        "native_route_prepare": {
+          "count": 1536,
+          "gpu_us": 7464.231999999962,
+          "summed_kernel_time_share": 0.026425964671735788
+        },
+        "native_moe_mhc_finish": {
+          "count": 1536,
+          "gpu_us": 7453.628999999984,
+          "summed_kernel_time_share": 0.02638842638200768
+        },
+        "native_rda_projection_ratio": {
+          "count": 1152,
+          "gpu_us": 5341.824000000066,
+          "summed_kernel_time_share": 0.018911905780344556
+        },
+        "sampling_gumbel": {
+          "count": 64,
+          "gpu_us": 380.6169999999999,
+          "summed_kernel_time_share": 0.0013475159126166106
+        },
+        "native_mhc_mix": {
+          "count": 64,
+          "gpu_us": 311.05800000000005,
+          "summed_kernel_time_share": 0.0011012529780506332
+        },
+        "draft_control": {
+          "count": 64,
+          "gpu_us": 304.7779999999999,
+          "summed_kernel_time_share": 0.0010790196045249302
+        }
+      },
+      "top_kernels": [
+        {
+          "name": "hgemm_bf16_skinny_t8x16x128x2_w1x1x4_0.kd",
+          "count": 2752,
+          "gpu_us": 27421.96600000014,
+          "grids": {
+            "[]": 2752
+          }
+        },
+        {
+          "name": "mfma_moe1_silu_mul_afp8_wfp8_fp8_t32x128x256_pm1_fp8q_sort_async_gui_situv2_v33.kd",
+          "count": 1536,
+          "gpu_us": 19164.108000000004,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int) [clone .kd]",
+          "count": 3200,
+          "gpu_us": 16541.20300000011,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "head_0.kd",
+          "count": 3200,
+          "gpu_us": 15907.648000000254,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BSS_BH_Bias_S_HA_S_SAV_UserArgs_MT16x16x256_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA512_LBSPPB512_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT1_1_MXLIBL_MXSFNS_MO40_MGRIPM3_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG16_4_4_WGMXCCn1_WQS0.kd",
+          "count": 1536,
+          "gpu_us": 15888.558999999988,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void aiter::add_rmsnorm_quant_kernel<std::bfloat16_t, std::bfloat16_t, 256, 16, false, false, true, 1, false>(std::bfloat16_t*, std::bfloat16_t*, float*, std::bfloat16_t*, std::bfloat16_t*, std::bfloat16_t*, double, bool, int, int, int, int, int, int, int, bool, bool) [clone .kd]",
+          "count": 3264,
+          "gpu_us": 14950.34400000014,
+          "grids": {
+            "[]": 3264
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x64x128x2_w1x1x4_0.kd",
+          "count": 64,
+          "gpu_us": 12161.678999999998,
+          "grids": {
+            "[4060, 1, 1]": 64
+          }
+        },
+        {
+          "name": "mfma_moe2_afp8_wfp8_bf16_cshuffle_t32x128x256_vscale_fix3_fp4opt_v1_pm1_async_acc0_abuffer.kd",
+          "count": 1536,
+          "gpu_us": 11754.664000000026,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "raon_projection_mhc_t8x16x128x2_w1x1x4_0.kd",
+          "count": 1600,
+          "gpu_us": 11401.167000000003,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "_topk_topp_kernel.kd",
+          "count": 64,
+          "gpu_us": 10169.330999999998,
+          "grids": {
+            "[1, 1, 1]": 64
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x16x64x2_w1x1x1_0.kd",
+          "count": 1536,
+          "gpu_us": 9719.856000000018,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void vllm::situ_and_mul_kernel<c10::BFloat16>(c10::BFloat16*, c10::BFloat16 const*, int, float, float) [clone .kd]",
+          "count": 1600,
+          "gpu_us": 8360.73099999988,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "void aiter::topk_reg_kernel<float, 2, true, false, true, false, float>(float*, float const*, float*, int*, unsigned long, unsigned long, int, int, int, float, bool, int const*) [clone .kd]",
+          "count": 1536,
+          "gpu_us": 8067.333000000008,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void (anonymous namespace)::raon_rda_ar_fusion_kernel<true, 1, 15360, 40, true, true, true>(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, float const*, float const*, float const*, __hip_bfloat16*, __hip_bfloat16*, __hip_bfloat16*, float const*, __hip_bfloat16 const*, float const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, int const*, float*, __hip_bfloat16*, float, float, float, (anonymous namespace)::KdaDecodeStrides) [clone .kd]",
+          "count": 1152,
+          "gpu_us": 7821.345999999984,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "raon_mxfp8_route_prepare_0.kd",
+          "count": 1536,
+          "gpu_us": 7464.231999999962,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "raon_moe_mhc_finish_0.kd",
+          "count": 1536,
+          "gpu_us": 7453.628999999984,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "__amd_rocclr_copyBuffer.kd",
+          "count": 1536,
+          "gpu_us": 7237.757999999984,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "_ZN5aiter30fused_mx_quant_moe_sort_kernelIDF16bDB8_Li256ELi16EEEvPT0_PhPKT_PKiS9_PKfiiiiiiiiib.kd",
+          "count": 1536,
+          "gpu_us": 6973.496000000112,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x32x128x1_w1x1x1_0.kd",
+          "count": 1152,
+          "gpu_us": 5642.713999999966,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "raon_rda_projection_ratio_t8x8x128x2_w1x1x4_0.kd",
+          "count": 1152,
+          "gpu_us": 5341.824000000066,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x8x128x2_w1x1x4_0.kd",
+          "count": 896,
+          "gpu_us": 4945.231999999975,
+          "grids": {
+            "[]": 896
+          }
+        },
+        {
+          "name": "_ZN5aiter39mla_a8w8_qh16_qseqlen4_gqaratio16_v3_psE.kd",
+          "count": 448,
+          "gpu_us": 4171.831999999997,
+          "grids": {
+            "[]": 448
+          }
+        },
+        {
+          "name": "void kn_mla_reduce_v1_ps<MlaReduceKernelV1Traits<512, 64, 1>, float, std::bfloat16_t>(MlaReduceKernelV1Params, MlaReduceKernelV1Configs) [clone .kd]",
+          "count": 448,
+          "gpu_us": 2463.8329999999996,
+          "grids": {
+            "[]": 448
+          }
+        },
+        {
+          "name": "void aiter::fused_qk_rmsnorm_kernel<std::bfloat16_t, 128, 8, true, 1>(std::bfloat16_t*, std::bfloat16_t*, std::bfloat16_t const*, std::bfloat16_t const*, std::bfloat16_t const*, std::bfloat16_t const*, float, float, int, int, int, int, int, int, int) [clone .kd]",
+          "count": 448,
+          "gpu_us": 2293.5739999999987,
+          "grids": {
+            "[]": 448
+          }
+        }
+      ],
+      "profile_steps": [],
+      "sample_gpu_event": {
+        "ph": "X",
+        "cat": "kernel",
+        "name": "__amd_rocclr_copyBuffer.kd",
+        "pid": 0,
+        "tid": 1,
+        "ts": 5002376052812.922,
+        "dur": 2.679,
+        "args": {
+          "External id": 43,
+          "device": 0,
+          "stream": 1,
+          "hsa_queue": 8,
+          "correlation": 10,
+          "kind": "Dispatch Kernel",
+          "bytes": 8,
+          "memory bandwidth (GB/s)": 0.0029850746268656717
+        }
+      }
+    },
+    {
+      "case": "fusion-off-c32",
+      "raw_sha256": "ebbfdf74b88812300c6602e6a272a4f1585b223df4e4a4c833c0b1d4d2da9776",
+      "gpu_kernel_events": 44352,
+      "summed_kernel_us": 549242.469,
+      "gpu_activity_union_us": 524806.0791015625,
+      "gpu_kernel_span_us": 544613.900390625,
+      "gap_us_within_kernel_span": 19807.8212890625,
+      "largest_gaps_us": [
+        16.0400390625,
+        13.5625,
+        13.2001953125,
+        13.0009765625,
+        12.48046875,
+        12.2802734375,
+        12.0810546875,
+        11.921875,
+        11.3203125,
+        11.1611328125,
+        11.0009765625,
+        10.9619140625
+      ],
+      "categories": {
+        "native_moe_gemm1": {
+          "count": 1536,
+          "gpu_us": 140297.94400000008,
+          "summed_kernel_time_share": 0.25543899446712315
+        },
+        "native_moe_gemm2": {
+          "count": 1536,
+          "gpu_us": 72977.65499999988,
+          "summed_kernel_time_share": 0.13286965068973913
+        },
+        "other_gemm": {
+          "count": 2688,
+          "gpu_us": 44152.74900000005,
+          "summed_kernel_time_share": 0.0803884468008974
+        },
+        "native_rda_core": {
+          "count": 1152,
+          "gpu_us": 40576.71699999995,
+          "summed_kernel_time_share": 0.07387760286249814
+        },
+        "native_bf16_other": {
+          "count": 5696,
+          "gpu_us": 38489.12000000012,
+          "summed_kernel_time_share": 0.07007673691016074
+        },
+        "unclassified": {
+          "count": 5824,
+          "gpu_us": 30766.98299999997,
+          "summed_kernel_time_share": 0.05601712310414941
+        },
+        "routing_or_quantization": {
+          "count": 5760,
+          "gpu_us": 29224.90400000002,
+          "summed_kernel_time_share": 0.05320947605018508
+        },
+        "torch_copy_or_cast": {
+          "count": 4416,
+          "gpu_us": 22962.06899999999,
+          "summed_kernel_time_share": 0.041806798082833586
+        },
+        "native_attention_projection_mhc": {
+          "count": 1600,
+          "gpu_us": 19378.02800000002,
+          "summed_kernel_time_share": 0.035281372242174557
+        },
+        "native_mhc_projection_or_gate": {
+          "count": 3200,
+          "gpu_us": 18230.921999999893,
+          "summed_kernel_time_share": 0.033192848384781204
+        },
+        "native_mhc_chart_aggregate": {
+          "count": 3200,
+          "gpu_us": 16726.83000000007,
+          "summed_kernel_time_share": 0.030454363863112104
+        },
+        "native_bf16_lm_heads_combined": {
+          "count": 64,
+          "gpu_us": 15629.322,
+          "summed_kernel_time_share": 0.028456142563877372
+        },
+        "sampling_mask": {
+          "count": 64,
+          "gpu_us": 13134.170999999998,
+          "summed_kernel_time_share": 0.023913247320283236
+        },
+        "mla_attention": {
+          "count": 1408,
+          "gpu_us": 11102.262000000035,
+          "summed_kernel_time_share": 0.02021377192520055
+        },
+        "torch_other_elementwise": {
+          "count": 1792,
+          "gpu_us": 9814.514999999992,
+          "summed_kernel_time_share": 0.017869184474880787
+        },
+        "native_moe_mhc_finish": {
+          "count": 1536,
+          "gpu_us": 8580.705000000067,
+          "summed_kernel_time_share": 0.01562279955448978
+        },
+        "native_rda_projection_ratio": {
+          "count": 1152,
+          "gpu_us": 7612.618000000073,
+          "summed_kernel_time_share": 0.013860213711915407
+        },
+        "native_route_prepare": {
+          "count": 1536,
+          "gpu_us": 7575.198999999939,
+          "summed_kernel_time_share": 0.013792085331260024
+        },
+        "sampling_gumbel": {
+          "count": 64,
+          "gpu_us": 1365.9969999999998,
+          "summed_kernel_time_share": 0.0024870564042271826
+        },
+        "native_mhc_mix": {
+          "count": 64,
+          "gpu_us": 328.38200000000006,
+          "summed_kernel_time_share": 0.0005978816616236572
+        },
+        "draft_control": {
+          "count": 64,
+          "gpu_us": 315.37699999999984,
+          "summed_kernel_time_share": 0.0005742035945876571
+        }
+      },
+      "top_kernels": [
+        {
+          "name": "mfma_moe1_silu_mul_afp8_wfp8_fp8_t32x128x256_pm1_fp8q_sort_async_gui_situv2_v33.kd",
+          "count": 1536,
+          "gpu_us": 140297.94400000008,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "mfma_moe2_afp8_wfp8_bf16_cshuffle_t32x128x256_vscale_fix3_fp4opt_v1_pm1_async_acc0_abuffer.kd",
+          "count": 1536,
+          "gpu_us": 72977.65499999988,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void (anonymous namespace)::raon_rda_ar_fusion_kernel<true, 1, 15360, 40, true, true, true>(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, float const*, float const*, float const*, __hip_bfloat16*, __hip_bfloat16*, __hip_bfloat16*, float const*, __hip_bfloat16 const*, float const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, int const*, float*, __hip_bfloat16*, float, float, float, (anonymous namespace)::KdaDecodeStrides) [clone .kd]",
+          "count": 1152,
+          "gpu_us": 40576.71699999995,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT96x32x256_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA512_LBSPPB512_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT3_1_MXLIBL_MXSFNS_MO40_MGRIPM2_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG32_8_1_WGMXCCn1_WQS0.kd",
+          "count": 1152,
+          "gpu_us": 25099.579999999987,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t32x32x128x2_w1x1x4_0.kd",
+          "count": 576,
+          "gpu_us": 21045.48099999999,
+          "grids": {
+            "[]": 512,
+            "[8120, 1, 1]": 64
+          }
+        },
+        {
+          "name": "raon_projection_mhc_t32x16x128x2_w1x1x4_0.kd",
+          "count": 1600,
+          "gpu_us": 19378.02800000002,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BSS_BH_Bias_S_HA_S_SAV_UserArgs_MT16x16x128_MI16x16x1_SN_LDSB0_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR0_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA256_LBSPPB256_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT1_1_MXLIBL_MXSFNS_MO40_MGRIPM3_NTn1_NTA0_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR0_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG16_4_4_WGMXCCn1_WQS0.kd",
+          "count": 1536,
+          "gpu_us": 19053.168999999994,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int) [clone .kd]",
+          "count": 3200,
+          "gpu_us": 18230.921999999893,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "head_0.kd",
+          "count": 3200,
+          "gpu_us": 16726.83000000007,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "void aiter::add_rmsnorm_quant_kernel<std::bfloat16_t, std::bfloat16_t, 256, 16, false, false, true, 1, false>(std::bfloat16_t*, std::bfloat16_t*, float*, std::bfloat16_t*, std::bfloat16_t*, std::bfloat16_t*, double, bool, int, int, int, int, int, int, int, bool, bool) [clone .kd]",
+          "count": 3264,
+          "gpu_us": 15545.45500000009,
+          "grids": {
+            "[]": 3264
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t32x16x64x2_w1x1x1_0.kd",
+          "count": 1984,
+          "gpu_us": 13180.539999999997,
+          "grids": {
+            "[]": 1984
+          }
+        },
+        {
+          "name": "_topk_topp_kernel.kd",
+          "count": 64,
+          "gpu_us": 13134.170999999998,
+          "grids": {
+            "[32, 1, 1]": 64
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t32x16x128x2_w1x1x4_0.kd",
+          "count": 1536,
+          "gpu_us": 9476.367999999939,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void vllm::situ_and_mul_kernel<c10::BFloat16>(c10::BFloat16*, c10::BFloat16 const*, int, float, float) [clone .kd]",
+          "count": 1600,
+          "gpu_us": 8674.102999999943,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "void aiter::topk_reg_kernel<float, 2, true, false, true, false, float>(float*, float const*, float*, int*, unsigned long, unsigned long, int, int, int, float, bool, int const*) [clone .kd]",
+          "count": 1536,
+          "gpu_us": 8632.575000000023,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "raon_moe_mhc_finish_0.kd",
+          "count": 1536,
+          "gpu_us": 8580.705000000067,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "raon_rda_projection_ratio_t32x8x128x2_w1x1x4_0.kd",
+          "count": 1152,
+          "gpu_us": 7612.618000000073,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "raon_mxfp8_route_prepare_0.kd",
+          "count": 1536,
+          "gpu_us": 7575.198999999939,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "__amd_rocclr_copyBuffer.kd",
+          "count": 1536,
+          "gpu_us": 7532.256999999975,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "_ZN5aiter30fused_mx_quant_moe_sort_kernelIDF16bDB8_Li256ELi16EEEvPT0_PhPKT_PKiS9_PKfiiiiiiiiib.kd",
+          "count": 1536,
+          "gpu_us": 7444.300999999977,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void at::native::elementwise_kernel_manual_unroll<128, 8, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+          "count": 1216,
+          "gpu_us": 6156.366999999953,
+          "grids": {
+            "[]": 1216
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t32x16x128x1_w1x1x1_0.kd",
+          "count": 1152,
+          "gpu_us": 5880.15999999993,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "void at::native::elementwise_kernel_manual_unroll<128, 8, at::native::gpu_kernel_impl_nocast<at::native::float8_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::Float8_e4m3fn)#1}>(at::TensorIteratorBase&, at::native::float8_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::Float8_e4m3fn)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::float8_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::Float8_e4m3fn)#1}>(at::TensorIteratorBase&, at::native::float8_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::Float8_e4m3fn)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+          "count": 896,
+          "gpu_us": 5207.597999999986,
+          "grids": {
+            "[]": 896
+          }
+        },
+        {
+          "name": "_ZN5aiter39mla_a8w8_qh16_qseqlen4_gqaratio16_v3_psE.kd",
+          "count": 448,
+          "gpu_us": 5038.734999999993,
+          "grids": {
+            "[]": 448
+          }
+        }
+      ],
+      "profile_steps": [],
+      "sample_gpu_event": {
+        "ph": "X",
+        "cat": "kernel",
+        "name": "__amd_rocclr_copyBuffer.kd",
+        "pid": 4,
+        "tid": 1,
+        "ts": 5002377803221.624,
+        "dur": 1.879,
+        "args": {
+          "External id": 43,
+          "device": 4,
+          "stream": 1,
+          "hsa_queue": 8,
+          "correlation": 10,
+          "kind": "Dispatch Kernel",
+          "bytes": 256,
+          "memory bandwidth (GB/s)": 0.13617021276595745
+        }
+      }
+    },
+    {
+      "case": "fusion-off-c8",
+      "raw_sha256": "9765071c438ed2bb8853577c3f26cc8cfb19f0445285d936cb82e2116ae9dcd2",
+      "gpu_kernel_events": 44352,
+      "summed_kernel_us": 372598.715,
+      "gpu_activity_union_us": 353603.2412109375,
+      "gpu_kernel_span_us": 374137.7509765625,
+      "gap_us_within_kernel_span": 20534.509765625,
+      "largest_gaps_us": [
+        16.9208984375,
+        16.2412109375,
+        15.681640625,
+        15.642578125,
+        15.44140625,
+        15.3623046875,
+        15.322265625,
+        15.3212890625,
+        15.3212890625,
+        15.3212890625,
+        15.28125,
+        15.201171875
+      ],
+      "categories": {
+        "native_moe_gemm1": {
+          "count": 1536,
+          "gpu_us": 65352.74399999995,
+          "summed_kernel_time_share": 0.17539712663797014
+        },
+        "native_bf16_other": {
+          "count": 6848,
+          "gpu_us": 53841.05800000029,
+          "summed_kernel_time_share": 0.14450145916364818
+        },
+        "native_moe_gemm2": {
+          "count": 1536,
+          "gpu_us": 35780.202999999965,
+          "summed_kernel_time_share": 0.09602878796831052
+        },
+        "unclassified": {
+          "count": 5824,
+          "gpu_us": 28823.747000000025,
+          "summed_kernel_time_share": 0.07735868600620381
+        },
+        "routing_or_quantization": {
+          "count": 5760,
+          "gpu_us": 26995.008000000114,
+          "summed_kernel_time_share": 0.07245062023362081
+        },
+        "torch_copy_or_cast": {
+          "count": 4416,
+          "gpu_us": 21175.419999999805,
+          "summed_kernel_time_share": 0.05683170431760561
+        },
+        "native_mhc_projection_or_gate": {
+          "count": 3200,
+          "gpu_us": 17148.735000000022,
+          "summed_kernel_time_share": 0.04602467563528774
+        },
+        "native_mhc_chart_aggregate": {
+          "count": 3200,
+          "gpu_us": 15883.944000000234,
+          "summed_kernel_time_share": 0.042630163123349024
+        },
+        "native_rda_core": {
+          "count": 1152,
+          "gpu_us": 14034.48100000003,
+          "summed_kernel_time_share": 0.03766647719115196
+        },
+        "other_gemm": {
+          "count": 1536,
+          "gpu_us": 13750.468000000017,
+          "summed_kernel_time_share": 0.036904228185542766
+        },
+        "native_attention_projection_mhc": {
+          "count": 1600,
+          "gpu_us": 13532.240000000014,
+          "summed_kernel_time_share": 0.03631853641792622
+        },
+        "native_bf16_lm_heads_combined": {
+          "count": 64,
+          "gpu_us": 12620.487999999996,
+          "summed_kernel_time_share": 0.03387152851560423
+        },
+        "sampling_mask": {
+          "count": 64,
+          "gpu_us": 11278.267000000003,
+          "summed_kernel_time_share": 0.030269205303083246
+        },
+        "mla_attention": {
+          "count": 1408,
+          "gpu_us": 10916.161999999988,
+          "summed_kernel_time_share": 0.029297368886524438
+        },
+        "torch_other_elementwise": {
+          "count": 1792,
+          "gpu_us": 9477.833000000022,
+          "summed_kernel_time_share": 0.025437105976063343
+        },
+        "native_moe_mhc_finish": {
+          "count": 1536,
+          "gpu_us": 7861.736999999982,
+          "summed_kernel_time_share": 0.021099742654775343
+        },
+        "native_route_prepare": {
+          "count": 1536,
+          "gpu_us": 7448.715000000006,
+          "summed_kernel_time_share": 0.01999125251948334
+        },
+        "native_rda_projection_ratio": {
+          "count": 1152,
+          "gpu_us": 5512.406000000015,
+          "summed_kernel_time_share": 0.014794484731381898
+        },
+        "sampling_gumbel": {
+          "count": 64,
+          "gpu_us": 550.46,
+          "summed_kernel_time_share": 0.001477353457861496
+        },
+        "native_mhc_mix": {
+          "count": 64,
+          "gpu_us": 316.9799999999999,
+          "summed_kernel_time_share": 0.0008507275716181681
+        },
+        "draft_control": {
+          "count": 64,
+          "gpu_us": 297.6189999999999,
+          "summed_kernel_time_share": 0.0007987655029889191
+        }
+      },
+      "top_kernels": [
+        {
+          "name": "mfma_moe1_silu_mul_afp8_wfp8_fp8_t32x128x256_pm1_fp8q_sort_async_gui_situv2_v33.kd",
+          "count": 1536,
+          "gpu_us": 65352.74399999995,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "mfma_moe2_afp8_wfp8_bf16_cshuffle_t32x128x256_vscale_fix3_fp4opt_v1_pm1_async_acc0_abuffer.kd",
+          "count": 1536,
+          "gpu_us": 35780.202999999965,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x16x128x2_w1x1x4_0.kd",
+          "count": 2688,
+          "gpu_us": 28018.60000000003,
+          "grids": {
+            "[]": 2688
+          }
+        },
+        {
+          "name": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int) [clone .kd]",
+          "count": 3200,
+          "gpu_us": 17148.735000000022,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "head_0.kd",
+          "count": 3200,
+          "gpu_us": 15883.944000000234,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "void aiter::add_rmsnorm_quant_kernel<std::bfloat16_t, std::bfloat16_t, 256, 16, false, false, true, 1, false>(std::bfloat16_t*, std::bfloat16_t*, float*, std::bfloat16_t*, std::bfloat16_t*, std::bfloat16_t*, double, bool, int, int, int, int, int, int, int, bool, bool) [clone .kd]",
+          "count": 3264,
+          "gpu_us": 14790.467000000122,
+          "grids": {
+            "[]": 3264
+          }
+        },
+        {
+          "name": "void (anonymous namespace)::raon_rda_ar_fusion_kernel<true, 1, 15360, 40, true, true, true>(__hip_bfloat16 const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, float const*, float const*, float const*, __hip_bfloat16*, __hip_bfloat16*, __hip_bfloat16*, float const*, __hip_bfloat16 const*, float const*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, int const*, float*, __hip_bfloat16*, float, float, float, (anonymous namespace)::KdaDecodeStrides) [clone .kd]",
+          "count": 1152,
+          "gpu_us": 14034.48100000003,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BSS_BH_Bias_S_HA_S_SAV_UserArgs_MT16x16x512_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA1024_LBSPPB1024_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT1_1_MXLIBL_MXSFNS_MO40_MGRIPM3_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG16_4_4_WGMXCCn1_WQS0.kd",
+          "count": 1536,
+          "gpu_us": 13750.468000000017,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "raon_projection_mhc_t8x16x128x2_w1x1x4_0.kd",
+          "count": 1600,
+          "gpu_us": 13532.240000000014,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x64x128x2_w1x1x4_0.kd",
+          "count": 64,
+          "gpu_us": 12620.487999999996,
+          "grids": {
+            "[4060, 1, 1]": 64
+          }
+        },
+        {
+          "name": "_topk_topp_kernel.kd",
+          "count": 64,
+          "gpu_us": 11278.267000000003,
+          "grids": {
+            "[8, 1, 1]": 64
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x8x64x2_w1x1x1_0.kd",
+          "count": 1536,
+          "gpu_us": 9224.930999999973,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void vllm::situ_and_mul_kernel<c10::BFloat16>(c10::BFloat16*, c10::BFloat16 const*, int, float, float) [clone .kd]",
+          "count": 1600,
+          "gpu_us": 8211.175999999894,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "raon_moe_mhc_finish_0.kd",
+          "count": 1536,
+          "gpu_us": 7861.736999999982,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void aiter::topk_reg_kernel<float, 2, true, false, true, false, float>(float*, float const*, float*, int*, unsigned long, unsigned long, int, int, int, float, bool, int const*) [clone .kd]",
+          "count": 1536,
+          "gpu_us": 7813.026999999993,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "raon_mxfp8_route_prepare_0.kd",
+          "count": 1536,
+          "gpu_us": 7448.715000000006,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "_ZN5aiter30fused_mx_quant_moe_sort_kernelIDF16bDB8_Li256ELi16EEEvPT0_PhPKT_PKiS9_PKfiiiiiiiiib.kd",
+          "count": 1536,
+          "gpu_us": 7288.0790000000525,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "__amd_rocclr_copyBuffer.kd",
+          "count": 1536,
+          "gpu_us": 6813.500000000029,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void at::native::elementwise_kernel_manual_unroll<128, 8, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+          "count": 1216,
+          "gpu_us": 6400.138000000001,
+          "grids": {
+            "[]": 1216
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x32x128x1_w1x1x1_0.kd",
+          "count": 1152,
+          "gpu_us": 5681.277999999955,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "raon_rda_projection_ratio_t8x8x128x2_w1x1x4_0.kd",
+          "count": 1152,
+          "gpu_us": 5512.406000000015,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "_ZN5aiter39mla_a8w8_qh16_qseqlen4_gqaratio16_v3_psE.kd",
+          "count": 448,
+          "gpu_us": 4908.525999999995,
+          "grids": {
+            "[]": 448
+          }
+        },
+        {
+          "name": "void at::native::elementwise_kernel_manual_unroll<128, 8, at::native::gpu_kernel_impl_nocast<at::native::float8_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::Float8_e4m3fn)#1}>(at::TensorIteratorBase&, at::native::float8_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::Float8_e4m3fn)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::float8_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::Float8_e4m3fn)#1}>(at::TensorIteratorBase&, at::native::float8_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::Float8_e4m3fn)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+          "count": 896,
+          "gpu_us": 4440.792000000018,
+          "grids": {
+            "[]": 896
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x32x128x2_w1x1x4_0.kd",
+          "count": 512,
+          "gpu_us": 4196.495999999996,
+          "grids": {
+            "[]": 512
+          }
+        }
+      ],
+      "profile_steps": [],
+      "sample_gpu_event": {
+        "ph": "X",
+        "cat": "kernel",
+        "name": "__amd_rocclr_copyBuffer.kd",
+        "pid": 2,
+        "tid": 1,
+        "ts": 5002376913147.327,
+        "dur": 1.799,
+        "args": {
+          "External id": 43,
+          "device": 2,
+          "stream": 1,
+          "hsa_queue": 4,
+          "correlation": 10,
+          "kind": "Dispatch Kernel",
+          "bytes": 64,
+          "memory bandwidth (GB/s)": 0.035555555555555556
+        }
+      }
+    },
+    {
+      "case": "fusion-on-c1",
+      "raw_sha256": "7c7aed7e141abbfc8f30612f2c4ae674a3d4b0f0ae2d1346e7609c641e6f564d",
+      "gpu_kernel_events": 59804,
+      "summed_kernel_us": 477401.662,
+      "gpu_activity_union_us": 457732.7578125,
+      "gpu_kernel_span_us": 480504.11328125,
+      "gap_us_within_kernel_span": 22771.35546875,
+      "largest_gaps_us": [
+        17.9609375,
+        17.921875,
+        17.8017578125,
+        12.48046875,
+        12.4404296875,
+        12.3603515625,
+        12.201171875,
+        11.1611328125,
+        11.0009765625,
+        10.7216796875,
+        10.482421875,
+        10.4404296875
+      ],
+      "categories": {
+        "native_bf16_other": {
+          "count": 8896,
+          "gpu_us": 90251.4590000005,
+          "summed_kernel_time_share": 0.18904722413806865
+        },
+        "native_moe_gemm1": {
+          "count": 1536,
+          "gpu_us": 56247.70499999995,
+          "summed_kernel_time_share": 0.1178205051996655
+        },
+        "unclassified": {
+          "count": 9934,
+          "gpu_us": 51639.719999999776,
+          "summed_kernel_time_share": 0.10816828702200826
+        },
+        "torch_copy_or_cast": {
+          "count": 8078,
+          "gpu_us": 37591.72699999934,
+          "summed_kernel_time_share": 0.07874234631382439
+        },
+        "routing_or_quantization": {
+          "count": 6848,
+          "gpu_us": 33905.68900000028,
+          "summed_kernel_time_share": 0.07102130490697849
+        },
+        "native_moe_gemm2": {
+          "count": 1536,
+          "gpu_us": 30498.59499999999,
+          "summed_kernel_time_share": 0.06388455974834874
+        },
+        "native_rda_core": {
+          "count": 3456,
+          "gpu_us": 26433.427000000076,
+          "summed_kernel_time_share": 0.05536936526207585
+        },
+        "mla_attention": {
+          "count": 1472,
+          "gpu_us": 18440.343999999997,
+          "summed_kernel_time_share": 0.0386264763359789
+        },
+        "native_mhc_projection_or_gate": {
+          "count": 3200,
+          "gpu_us": 17232.998999999993,
+          "summed_kernel_time_share": 0.03609748430243209
+        },
+        "native_mhc_chart_aggregate": {
+          "count": 3200,
+          "gpu_us": 16135.186000000129,
+          "summed_kernel_time_share": 0.03379792590667631
+        },
+        "other_gemm": {
+          "count": 1664,
+          "gpu_us": 14860.562999999996,
+          "summed_kernel_time_share": 0.031128008515395565
+        },
+        "native_attention_projection_mhc": {
+          "count": 1600,
+          "gpu_us": 12947.519000000028,
+          "summed_kernel_time_share": 0.027120808389644917
+        },
+        "torch_other_elementwise": {
+          "count": 2240,
+          "gpu_us": 12443.687000000045,
+          "summed_kernel_time_share": 0.02606544549482537
+        },
+        "native_bf16_lm_heads_combined": {
+          "count": 64,
+          "gpu_us": 12415.319000000003,
+          "summed_kernel_time_share": 0.026006023833239196
+        },
+        "sampling_mask": {
+          "count": 64,
+          "gpu_us": 11533.626,
+          "summed_kernel_time_share": 0.024159165998043804
+        },
+        "draft_control": {
+          "count": 1600,
+          "gpu_us": 10151.439999999984,
+          "summed_kernel_time_share": 0.021263939378577162
+        },
+        "native_moe_mhc_finish": {
+          "count": 1536,
+          "gpu_us": 7505.354000000041,
+          "summed_kernel_time_share": 0.015721256538063836
+        },
+        "native_route_prepare": {
+          "count": 1536,
+          "gpu_us": 7450.9659999999785,
+          "summed_kernel_time_share": 0.015607331505268154
+        },
+        "native_rda_projection_ratio": {
+          "count": 1152,
+          "gpu_us": 5468.197000000026,
+          "summed_kernel_time_share": 0.011454080358857288
+        },
+        "native_bf16_n2560_ambiguous_K": {
+          "count": 64,
+          "gpu_us": 3361.657,
+          "summed_kernel_time_share": 0.0070415695368903014
+        },
+        "speculative_rejection": {
+          "count": 64,
+          "gpu_us": 573.8650000000001,
+          "summed_kernel_time_share": 0.001202059074524127
+        },
+        "native_mhc_mix": {
+          "count": 64,
+          "gpu_us": 312.61799999999994,
+          "summed_kernel_time_share": 0.0006548322406133558
+        }
+      },
+      "top_kernels": [
+        {
+          "name": "mfma_moe1_silu_mul_afp8_wfp8_fp8_t32x128x256_pm1_fp8q_sort_async_gui_situv2_v33.kd",
+          "count": 1536,
+          "gpu_us": 56247.70499999995,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x64x128x2_w1x1x4_0.kd",
+          "count": 2112,
+          "gpu_us": 48539.68399999991,
+          "grids": {
+            "[4060, 1, 1]": 64,
+            "[]": 2048
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x16x128x2_w1x1x4_0.kd",
+          "count": 2752,
+          "gpu_us": 31635.185999999965,
+          "grids": {
+            "[]": 2688,
+            "[160, 1, 1]": 64
+          }
+        },
+        {
+          "name": "mfma_moe2_afp8_wfp8_bf16_cshuffle_t32x128x256_vscale_fix3_fp4opt_v1_pm1_async_acc0_abuffer.kd",
+          "count": 1536,
+          "gpu_us": 30498.59499999999,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int) [clone .kd]",
+          "count": 3200,
+          "gpu_us": 17232.998999999993,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "head_0.kd",
+          "count": 3200,
+          "gpu_us": 16135.186000000129,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "__amd_rocclr_copyBuffer.kd",
+          "count": 3470,
+          "gpu_us": 15777.707000000073,
+          "grids": {
+            "[]": 3470
+          }
+        },
+        {
+          "name": "void aiter::add_rmsnorm_quant_kernel<std::bfloat16_t, std::bfloat16_t, 256, 16, false, false, true, 1, false>(std::bfloat16_t*, std::bfloat16_t*, float*, std::bfloat16_t*, std::bfloat16_t*, std::bfloat16_t*, double, bool, int, int, int, int, int, int, int, bool, bool) [clone .kd]",
+          "count": 3328,
+          "gpu_us": 15015.611000000192,
+          "grids": {
+            "[]": 3328
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BSS_BH_Bias_S_HA_S_SAV_UserArgs_MT16x16x512_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA1024_LBSPPB1024_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT1_1_MXLIBL_MXSFNS_MO40_MGRIPM3_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG16_4_4_WGMXCCn1_WQS0.kd",
+          "count": 1536,
+          "gpu_us": 13654.909,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "raon_projection_mhc_t8x16x128x2_w1x1x4_0.kd",
+          "count": 1600,
+          "gpu_us": 12947.519000000028,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "(anonymous namespace)::sd_vsplit_recurrence(float const*, __hip_bfloat16 const*, int const*, int const*, int const*, float*, __hip_bfloat16*, int, int, long, long) [clone .kd]",
+          "count": 1152,
+          "gpu_us": 11851.017000000002,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "_topk_topp_kernel.kd",
+          "count": 64,
+          "gpu_us": 11533.626,
+          "grids": {
+            "[8, 1, 1]": 64
+          }
+        },
+        {
+          "name": "void at::native::elementwise_kernel_manual_unroll<128, 8, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+          "count": 1920,
+          "gpu_us": 9576.920000000038,
+          "grids": {
+            "[]": 1920
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x8x64x2_w1x1x1_0.kd",
+          "count": 1536,
+          "gpu_us": 9147.844999999974,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void (anonymous namespace)::sd_common_prologue<8>(__hip_bfloat16 const*, float const*, __hip_bfloat16*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16*, int, long, long, long, long, long, float) [clone .kd]",
+          "count": 1152,
+          "gpu_us": 8921.798999999985,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "void vllm::situ_and_mul_kernel<c10::BFloat16>(c10::BFloat16*, c10::BFloat16 const*, int, float, float) [clone .kd]",
+          "count": 1600,
+          "gpu_us": 8230.259999999878,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "void aiter::topk_reg_kernel<float, 2, true, false, true, false, float>(float*, float const*, float*, int*, unsigned long, unsigned long, int, int, int, float, bool, int const*) [clone .kd]",
+          "count": 1536,
+          "gpu_us": 7745.790999999977,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "raon_moe_mhc_finish_0.kd",
+          "count": 1536,
+          "gpu_us": 7505.354000000041,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "raon_mxfp8_route_prepare_0.kd",
+          "count": 1536,
+          "gpu_us": 7450.9659999999785,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "_ZN5aiter36mla_a8w8_qh32_qseqlen4_gqaratio32_psE.kd",
+          "count": 448,
+          "gpu_us": 7399.2089999999935,
+          "grids": {
+            "[]": 448
+          }
+        },
+        {
+          "name": "_ZN5aiter30fused_mx_quant_moe_sort_kernelIDF16bDB8_Li256ELi16EEEvPT0_PhPKT_PKiS9_PKfiiiiiiiiib.kd",
+          "count": 1536,
+          "gpu_us": 7038.427000000133,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "_dflash2_grouped_conv_kernel.kd",
+          "count": 1280,
+          "gpu_us": 6291.402999999937,
+          "grids": {
+            "[]": 1280
+          }
+        },
+        {
+          "name": "hgemm_bf16_skinny_t8x32x128x1_w1x1x1_0.kd",
+          "count": 1152,
+          "gpu_us": 5728.38299999994,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "(anonymous namespace)::sd_vsplit_norm(__hip_bfloat16 const*, __hip_bfloat16 const*, float const*, __hip_bfloat16*, long, float) [clone .kd]",
+          "count": 1152,
+          "gpu_us": 5660.610999999953,
+          "grids": {
+            "[]": 1152
+          }
+        }
+      ],
+      "profile_steps": [],
+      "sample_gpu_event": {
+        "ph": "X",
+        "cat": "kernel",
+        "name": "__amd_rocclr_copyBuffer.kd",
+        "pid": 1,
+        "tid": 1,
+        "ts": 5002397195656.45,
+        "dur": 2.399,
+        "args": {
+          "External id": 43,
+          "device": 1,
+          "stream": 1,
+          "hsa_queue": 8,
+          "correlation": 14,
+          "kind": "Dispatch Kernel",
+          "bytes": 8,
+          "memory bandwidth (GB/s)": 0.0033333333333333335
+        }
+      }
+    },
+    {
+      "case": "fusion-on-c32",
+      "raw_sha256": "93d62bd13fc790c385ba11b223e4c8a5a843235bd3bb63fa0b1079e48efb91f6",
+      "gpu_kernel_events": 81344,
+      "summed_kernel_us": 1219740.927,
+      "gpu_activity_union_us": 1172592.787109375,
+      "gpu_kernel_span_us": 1196615.150390625,
+      "gap_us_within_kernel_span": 24022.36328125,
+      "largest_gaps_us": [
+        11.12109375,
+        10.8408203125,
+        10.8017578125,
+        10.640625,
+        10.6005859375,
+        10.48046875,
+        10.3603515625,
+        10.28125,
+        10.2802734375,
+        10.12109375,
+        10.0810546875,
+        10.080078125
+      ],
+      "categories": {
+        "other_gemm": {
+          "count": 15168,
+          "gpu_us": 272935.4520000027,
+          "summed_kernel_time_share": 0.22376510122628915
+        },
+        "native_moe_gemm1": {
+          "count": 1536,
+          "gpu_us": 221725.82699999987,
+          "summed_kernel_time_share": 0.18178108325457534
+        },
+        "native_rda_core": {
+          "count": 1152,
+          "gpu_us": 176461.26199999987,
+          "summed_kernel_time_share": 0.14467110030817215
+        },
+        "native_moe_gemm2": {
+          "count": 1536,
+          "gpu_us": 110808.85200000007,
+          "summed_kernel_time_share": 0.09084621951035024
+        },
+        "torch_copy_or_cast": {
+          "count": 17920,
+          "gpu_us": 110346.55100000298,
+          "summed_kernel_time_share": 0.09046720377859632
+        },
+        "unclassified": {
+          "count": 14208,
+          "gpu_us": 109821.18200000178,
+          "summed_kernel_time_share": 0.09003648198483528
+        },
+        "routing_or_quantization": {
+          "count": 6848,
+          "gpu_us": 50785.272000000456,
+          "summed_kernel_time_share": 0.04163611376467362
+        },
+        "torch_other_elementwise": {
+          "count": 7872,
+          "gpu_us": 37380.83599999936,
+          "summed_kernel_time_share": 0.030646537451144627
+        },
+        "mla_attention": {
+          "count": 1472,
+          "gpu_us": 31080.758999999958,
+          "summed_kernel_time_share": 0.02548144307696905
+        },
+        "native_mhc_chart_aggregate": {
+          "count": 3200,
+          "gpu_us": 19757.036000000153,
+          "summed_kernel_time_share": 0.016197731471217704
+        },
+        "native_mhc_mix": {
+          "count": 3200,
+          "gpu_us": 19742.521999999914,
+          "summed_kernel_time_share": 0.01618583222304216
+        },
+        "native_mhc_projection_or_gate": {
+          "count": 3200,
+          "gpu_us": 19508.247999999843,
+          "summed_kernel_time_share": 0.01599376356746603
+        },
+        "sampling_mask": {
+          "count": 64,
+          "gpu_us": 17220.414000000008,
+          "summed_kernel_time_share": 0.014118091488783839
+        },
+        "rda_logsigmoid": {
+          "count": 2304,
+          "gpu_us": 10769.967999999983,
+          "summed_kernel_time_share": 0.008829717656920094
+        },
+        "draft_control": {
+          "count": 1600,
+          "gpu_us": 10572.078,
+          "summed_kernel_time_share": 0.008667478286559126
+        },
+        "speculative_rejection": {
+          "count": 64,
+          "gpu_us": 824.6680000000001,
+          "summed_kernel_time_share": 0.0006761009504110869
+        }
+      },
+      "top_kernels": [
+        {
+          "name": "mfma_moe1_silu_mul_afp8_wfp8_fp8_t32x128x256_pm1_fp8q_sort_async_gui_situv2_v33.kd",
+          "count": 1536,
+          "gpu_us": 221725.82699999987,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "(anonymous namespace)::sd_conv_recurrence_norm(__hip_bfloat16 const*, float const*, __hip_bfloat16*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16 const*, float const*, __hip_bfloat16*, int, int, long, long, long, long, long, long, long, long, float, float) [clone .kd]",
+          "count": 1152,
+          "gpu_us": 176461.26199999987,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "mfma_moe2_afp8_wfp8_bf16_cshuffle_t32x128x256_vscale_fix3_fp4opt_v1_pm1_async_acc0_abuffer.kd",
+          "count": 1536,
+          "gpu_us": 110808.85200000007,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT96x256x64_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA128_LBSPPB1024_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT3_8_MXLIBL_MXSFNS_MO40_MGRIPM1_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB8_WSGRA0_WSGRB0_WS64_WAH_WG32_8_1_WGMXCCn1_WQS0.kd",
+          "count": 1159,
+          "gpu_us": 51844.65299999996,
+          "grids": {
+            "[]": 1159
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT80x256x64_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA4_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA128_LBSPPB512_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT5_4_MXLIBL_MXSFNS_MO40_MGRIPM1_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB4_WSGRA0_WSGRB0_WS64_WAH_WG16_16_1_WGMXCCn1_WQS0.kd",
+          "count": 1600,
+          "gpu_us": 28231.573999999968,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT96x64x128_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA256_LBSPPB512_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT3_2_MXLIBL_MXSFNS_MO40_MGRIPM2_NTn1_NTA0_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB2_WSGRA0_WSGRB0_WS64_WAH_WG32_8_1_WGMXCCn1_WQS0.kd",
+          "count": 1464,
+          "gpu_us": 25945.508000000023,
+          "grids": {
+            "[]": 1464
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT64x48x64_MI16x16x1_SN_LDSB0_AFC0_AG1_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA1_DTLB1_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB1_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA1024_LBSPPB1024_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT2_3_MXLIBL_MXSFNS_MO40_MGRIPM1_NTn1_NTA0_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR4_PLR1_PKA1_RAP0_SGROB0_SIA3_SS0_SPO1_SRVW0_SSO0_SVW8_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN1_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS2_TLDSMn1_ULSGRO1_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA2_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG32_4_1_WGMXCCn1_WQS0.kd",
+          "count": 1963,
+          "gpu_us": 20803.286999999975,
+          "grids": {
+            "[]": 1963
+          }
+        },
+        {
+          "name": "head_0.kd",
+          "count": 3200,
+          "gpu_us": 19757.036000000153,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "mix_0.kd",
+          "count": 3200,
+          "gpu_us": 19742.521999999914,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int) [clone .kd]",
+          "count": 3200,
+          "gpu_us": 19508.247999999843,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul> >(int, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul>) [clone .kd]",
+          "count": 3136,
+          "gpu_us": 19074.46700000001,
+          "grids": {
+            "[]": 3072,
+            "[32480, 1, 1]": 36,
+            "[31465, 1, 1]": 8,
+            "[30450, 1, 1]": 11,
+            "[29435, 1, 1]": 6,
+            "[27405, 1, 1]": 3
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT256x224x64_MI16x16x1_CMS_SN_LDSB0_AFC0_AG1_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA1_DTLB1_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA1024_LBSPPB1024_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT8_7_MXLIBL_MXSFNS_MO40_MGRIPM1_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO1_SVW8_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA8_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG32_8_1_WGMXCCn1_WQS0.kd",
+          "count": 64,
+          "gpu_us": 18759.033999999992,
+          "grids": {
+            "[]": 61,
+            "[259840, 1, 1]": 3
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BSS_BH_Bias_S_HA_S_SAV_UserArgs_MT16x16x512_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA1024_LBSPPB1024_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT1_1_MXLIBL_MXSFNS_MO40_MGRIPM3_NTn1_NTA0_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG16_4_4_WGMXCCn1_WQS0.kd",
+          "count": 1536,
+          "gpu_us": 18623.551000000003,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT256x256x64_MI16x16x1_CMS_SN_LDSB0_AFC0_AG1_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR0_CLS0_CADS0_DTLA1_DTLB1_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA1024_LBSPPB1024_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT8_8_MXLIBL_MXSFNS_MO40_MGRIPM1_NTn1_NTA4_NTB0_NTC4_NTD4_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO4_SVW8_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA8_VWB8_WSGRA0_WSGRB0_WS64_WAH_WG32_8_1_WGMXCCn1_WQS0.kd",
+          "count": 61,
+          "gpu_us": 17227.054999999997,
+          "grids": {
+            "[259840, 1, 1]": 61
+          }
+        },
+        {
+          "name": "_topk_topp_kernel.kd",
+          "count": 64,
+          "gpu_us": 17220.414000000008,
+          "grids": {
+            "[256, 1, 1]": 36,
+            "[248, 1, 1]": 8,
+            "[240, 1, 1]": 11,
+            "[232, 1, 1]": 6,
+            "[216, 1, 1]": 3
+          }
+        },
+        {
+          "name": "__amd_rocclr_copyBuffer.kd",
+          "count": 3520,
+          "gpu_us": 16681.561000000103,
+          "grids": {
+            "[]": 3520
+          }
+        },
+        {
+          "name": "void aiter::add_rmsnorm_quant_kernel<std::bfloat16_t, std::bfloat16_t, 256, 16, false, false, true, 1, false>(std::bfloat16_t*, std::bfloat16_t*, float*, std::bfloat16_t*, std::bfloat16_t*, std::bfloat16_t*, double, bool, int, int, int, int, int, int, int, bool, bool) [clone .kd]",
+          "count": 3328,
+          "gpu_us": 15896.37999999997,
+          "grids": {
+            "[]": 3328
+          }
+        },
+        {
+          "name": "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+          "count": 1920,
+          "gpu_us": 14756.393999999997,
+          "grids": {
+            "[1, 1, 1]": 256,
+            "[]": 1664
+          }
+        },
+        {
+          "name": "void at::native::elementwise_kernel_manual_unroll<128, 8, at::native::gpu_kernel_impl_nocast<at::native::float8_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::Float8_e4m3fn)#1}>(at::TensorIteratorBase&, at::native::float8_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::Float8_e4m3fn)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::float8_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::Float8_e4m3fn)#1}>(at::TensorIteratorBase&, at::native::float8_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::Float8_e4m3fn)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+          "count": 896,
+          "gpu_us": 14281.479000000016,
+          "grids": {
+            "[]": 896
+          }
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>) [clone .kd]",
+          "count": 2624,
+          "gpu_us": 12765.824000000031,
+          "grids": {
+            "[]": 2624
+          }
+        },
+        {
+          "name": "_ZN5aiter36mla_a8w8_qh32_qseqlen4_gqaratio32_psE.kd",
+          "count": 448,
+          "gpu_us": 12753.325000000008,
+          "grids": {
+            "[]": 448
+          }
+        },
+        {
+          "name": "void at::native::mbtopk::computeBlockDigitCounts<c10::BFloat16, unsigned int, unsigned int, 2>(at::cuda::detail::TensorInfo<c10::BFloat16 const, unsigned int>, unsigned int, unsigned int*, unsigned int, unsigned int, int, int, unsigned int, unsigned int, unsigned int*, short*) [clone .kd]",
+          "count": 128,
+          "gpu_us": 12684.538999999999,
+          "grids": {
+            "[]": 128
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT16x16x128_MI16x16x1_SN_LDSB0_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA1_DTLB1_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB1_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA1024_LBSPPB1024_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV1_MIWT1_1_MXLIBL_MXSFNS_MO40_MGRIPM1_NTn1_NTA0_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR4_PLR1_PKA1_RAP0_SGROB0_SIA3_SS0_SPO0_SRVW0_SSO0_SVW4_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN1_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSMn1_ULSGRO1_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG16_4_1_WGMXCCn1_WQS0.kd",
+          "count": 1152,
+          "gpu_us": 11734.699000000011,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "void kn_get_mla_metadata_v1_2<MlaMetadataV12Traits<128, true, 0, true, false> >(MlaMetadataV1KernelParameter) [clone .kd]",
+          "count": 128,
+          "gpu_us": 11329.566999999997,
+          "grids": {
+            "[1, 1, 1]": 128
+          }
+        }
+      ],
+      "profile_steps": [],
+      "sample_gpu_event": {
+        "ph": "X",
+        "cat": "kernel",
+        "name": "__amd_rocclr_copyBuffer.kd",
+        "pid": 5,
+        "tid": 1,
+        "ts": 5002402313913.813,
+        "dur": 2.919,
+        "args": {
+          "External id": 39,
+          "device": 5,
+          "stream": 1,
+          "hsa_queue": 4,
+          "correlation": 15,
+          "kind": "Dispatch Kernel",
+          "bytes": 40,
+          "memory bandwidth (GB/s)": 0.0136986301369863
+        }
+      }
+    },
+    {
+      "case": "fusion-on-c8",
+      "raw_sha256": "1209e9d1be4c7df86964924dd4894e893015e9e151cec5e77bf4873944366236",
+      "gpu_kernel_events": 69737,
+      "summed_kernel_us": 788440.047,
+      "gpu_activity_union_us": 753071.16015625,
+      "gpu_kernel_span_us": 775901.4140625,
+      "gap_us_within_kernel_span": 22830.25390625,
+      "largest_gaps_us": [
+        12.7607421875,
+        11.521484375,
+        10.80078125,
+        10.80078125,
+        10.2412109375,
+        10.2412109375,
+        10.201171875,
+        10.201171875,
+        10.08203125,
+        9.9609375,
+        9.9208984375,
+        9.8427734375
+      ],
+      "categories": {
+        "other_gemm": {
+          "count": 13301,
+          "gpu_us": 174328.4190000019,
+          "summed_kernel_time_share": 0.2211054850185735
+        },
+        "native_moe_gemm1": {
+          "count": 1536,
+          "gpu_us": 161791.4180000001,
+          "summed_kernel_time_share": 0.20520446496295244
+        },
+        "native_moe_gemm2": {
+          "count": 1536,
+          "gpu_us": 83318.95900000012,
+          "summed_kernel_time_share": 0.10567570650048438
+        },
+        "unclassified": {
+          "count": 13722,
+          "gpu_us": 75598.55900000027,
+          "summed_kernel_time_share": 0.09588371276630532
+        },
+        "torch_copy_or_cast": {
+          "count": 14298,
+          "gpu_us": 74288.17999999961,
+          "summed_kernel_time_share": 0.09422172336712827
+        },
+        "native_rda_core": {
+          "count": 1152,
+          "gpu_us": 53646.095999999954,
+          "summed_kernel_time_share": 0.06804080564416073
+        },
+        "routing_or_quantization": {
+          "count": 6848,
+          "gpu_us": 38184.90799999967,
+          "summed_kernel_time_share": 0.04843095951974097
+        },
+        "mla_attention": {
+          "count": 1472,
+          "gpu_us": 22869.84600000003,
+          "summed_kernel_time_share": 0.029006448983685415
+        },
+        "native_mhc_projection_or_gate": {
+          "count": 3200,
+          "gpu_us": 19456.25400000004,
+          "summed_kernel_time_share": 0.02467689721498893
+        },
+        "native_mhc_chart_aggregate": {
+          "count": 3200,
+          "gpu_us": 15946.32800000018,
+          "summed_kernel_time_share": 0.020225162408575855
+        },
+        "sampling_mask": {
+          "count": 64,
+          "gpu_us": 14524.586,
+          "summed_kernel_time_share": 0.01842192828137762
+        },
+        "native_rda_projection_ratio": {
+          "count": 2304,
+          "gpu_us": 14112.533000000029,
+          "summed_kernel_time_share": 0.017899310231257227
+        },
+        "torch_other_elementwise": {
+          "count": 2240,
+          "gpu_us": 12381.576000000025,
+          "summed_kernel_time_share": 0.015703890292117575
+        },
+        "draft_control": {
+          "count": 1600,
+          "gpu_us": 10133.19699999999,
+          "summed_kernel_time_share": 0.012852209928398004
+        },
+        "native_moe_mhc_finish": {
+          "count": 1536,
+          "gpu_us": 8895.564000000022,
+          "summed_kernel_time_share": 0.011282486263663903
+        },
+        "native_mhc_mix": {
+          "count": 1664,
+          "gpu_us": 8260.038999999873,
+          "summed_kernel_time_share": 0.010476432585367994
+        },
+        "speculative_rejection": {
+          "count": 64,
+          "gpu_us": 703.585,
+          "summed_kernel_time_share": 0.0008923760312240964
+        }
+      },
+      "top_kernels": [
+        {
+          "name": "mfma_moe1_silu_mul_afp8_wfp8_fp8_t32x128x256_pm1_fp8q_sort_async_gui_situv2_v33.kd",
+          "count": 1536,
+          "gpu_us": 161791.4180000001,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "mfma_moe2_afp8_wfp8_bf16_cshuffle_t32x128x256_vscale_fix3_fp4opt_v1_pm1_async_acc0_abuffer.kd",
+          "count": 1536,
+          "gpu_us": 83318.95900000012,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "(anonymous namespace)::sd_conv_recurrence_norm(__hip_bfloat16 const*, float const*, __hip_bfloat16*, __hip_bfloat16 const*, __hip_bfloat16 const*, float const*, float const*, float const*, int const*, int const*, int const*, float*, __hip_bfloat16 const*, float const*, __hip_bfloat16*, int, int, long, long, long, long, long, long, long, long, float, float) [clone .kd]",
+          "count": 1152,
+          "gpu_us": 53646.095999999954,
+          "grids": {
+            "[]": 1152
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT96x64x128_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA256_LBSPPB512_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT3_2_MXLIBL_MXSFNS_MO40_MGRIPM2_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB2_WSGRA0_WSGRB0_WS64_WAH_WG32_8_1_WGMXCCn1_WQS0.kd",
+          "count": 1213,
+          "gpu_us": 30106.129999999965,
+          "grids": {
+            "[]": 1213
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT256x80x128_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA1024_LBSPPB256_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT4_5_MXLIBL_MXSFNS_MO40_MGRIPM1_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW4_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA4_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG64_4_1_WGMXCCn1_WQS0.kd",
+          "count": 122,
+          "gpu_us": 28969.018,
+          "grids": {
+            "[259840, 1, 1]": 61,
+            "[]": 61
+          }
+        },
+        {
+          "name": "void aiter::mhc_pre_gemm_sqrsum_kernel<std::bfloat16_t, 4, 64, 16, 128, true, false>(float*, float*, std::bfloat16_t*, float*, int, int, int, int, int, int, int) [clone .kd]",
+          "count": 3200,
+          "gpu_us": 19456.25400000004,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT64x64x64_MI16x16x1_SN_LDSB0_AFC0_AG1_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA1_DTLB1_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB1_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA1024_LBSPPB1024_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV1_MIWT4_1_MXLIBL_MXSFNS_MO40_MGRIPM1_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR4_PLR1_PKA1_RAP0_SGROB1_SIA3_SS1_SPO0_SRVW0_SSO0_SVW4_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN1_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSMn1_ULSGRO1_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA4_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG16_16_1_WGMXCCn1_WQS0.kd",
+          "count": 1525,
+          "gpu_us": 16133.458000000017,
+          "grids": {
+            "[]": 1525
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT32x32x512_MI16x16x1_SN_LDSB0_AFC0_AG1_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR0_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA1024_LBSPPB1024_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV1_MIWT1_1_MXLIBL_MXSFNS_MO40_MGRIPM1_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS14_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS0_SPO0_SRVW0_SSO0_SVW4_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN1_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSMn1_ULSGRO1_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO1_USI0_VSn1_VWA1_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG32_8_1_WGMXCCn1_WQS0.kd",
+          "count": 1464,
+          "gpu_us": 16019.837000000067,
+          "grids": {
+            "[]": 1464
+          }
+        },
+        {
+          "name": "head_0.kd",
+          "count": 3200,
+          "gpu_us": 15946.32800000018,
+          "grids": {
+            "[]": 3200
+          }
+        },
+        {
+          "name": "__amd_rocclr_copyBuffer.kd",
+          "count": 3482,
+          "gpu_us": 15477.57200000005,
+          "grids": {
+            "[]": 3482
+          }
+        },
+        {
+          "name": "void aiter::add_rmsnorm_quant_kernel<std::bfloat16_t, std::bfloat16_t, 256, 16, false, false, true, 1, false>(std::bfloat16_t*, std::bfloat16_t*, float*, std::bfloat16_t*, std::bfloat16_t*, std::bfloat16_t*, double, bool, int, int, int, int, int, int, int, bool, bool) [clone .kd]",
+          "count": 3328,
+          "gpu_us": 15031.948000000151,
+          "grids": {
+            "[]": 3328
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT16x64x128_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR0_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA256_LBSPPB256_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT1_4_MXLIBL_MXSFNS_MO40_MGRIPM3_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR0_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG16_4_4_WGMXCCn1_WQS0.kd",
+          "count": 1536,
+          "gpu_us": 14844.264999999998,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "_topk_topp_kernel.kd",
+          "count": 64,
+          "gpu_us": 14524.586,
+          "grids": {
+            "[64, 1, 1]": 59,
+            "[56, 1, 1]": 2,
+            "[48, 1, 1]": 3
+          }
+        },
+        {
+          "name": "raon_rda_projection_ratio_t32x8x128x2_w1x1x4_0.kd",
+          "count": 2304,
+          "gpu_us": 14112.533000000029,
+          "grids": {
+            "[]": 2304
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BSS_BH_Bias_S_HA_S_SAV_UserArgs_MT16x16x512_MI16x16x1_SN_LDSB1_AFC0_AG0_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR1_CLS0_CADS0_DTLA0_DTLB0_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB0_EPS0_ELFLR0_EMLLn1_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA1024_LBSPPB1024_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV0_MIWT1_1_MXLIBL_MXSFNS_MO40_MGRIPM3_NTn1_NTA0_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR2_PLR1_PKA1_RAP0_SGROB0_SIA3_SS1_SPO0_SRVW0_SSO0_SVW1_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN0_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSM1_ULSGRO0_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB1_WSGRA0_WSGRB0_WS64_WAH_WG16_4_4_WGMXCCn1_WQS0.kd",
+          "count": 1536,
+          "gpu_us": 13040.895000000035,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+          "count": 1920,
+          "gpu_us": 13014.475000000042,
+          "grids": {
+            "[1, 1, 1]": 256,
+            "[]": 1664
+          }
+        },
+        {
+          "name": "Cijk_Alik_Bljk_BBS_BH_Bias_HA_S_SAV_UserArgs_MT32x64x64_MI16x16x1_SN_LDSB0_AFC0_AG1_AGGSUA0_AGNTAB0_AFEM1_AFEM1_ASEM1_BL1_BS1_CD1_1_CLR0_CLS0_CADS0_DTLA1_DTLB1_DTLM0_DTVA0_DTVB0_DTVMXSA0_DTVMXSB0_DTVSM0_DPLB1_EPS0_ELFLR0_EMLL0_FDSI0_GRPM1_GRVWA8_GRVWB8_GSU0_GSUAMB_GLS0_HPLR0_ISA950_ICIW0_IU1_IA0_K1_LDSSI0_LDSTI0_LBSPPA1024_LBSPPB1024_LBSPPMXSA0_LBSPPMXSB0_LBSPPM0_LPA16_LPB16_LPMXSA0_LPMXSB0_LPM0_LRVW8_LWPMn1_MIAV1_MIWT1_2_MXLIBL_MXSFNS_MO40_MGRIPM1_NTn1_NTA4_NTB0_NTC0_NTD0_NTE0_NTG0_NTMXSA0_NTMXSB0_NTM0_NTWS0_NVn1_NVA0_NVB0_NVC0_NVD0_NVE0_NVG0_NVMXSA0_NVMXSB0_NVM0_NVWS0_NEPBS0_NLCA1_NLCB1_ONLL1_PXCCM0_PAP0_PGL0_PGR4_PLR1_PKA1_RAP0_SGROB0_SIA3_SS0_SPO0_SRVW0_SSO0_SVW4_SKFTR0_SNLL0_SIP1_SGRO0_TDMI0_TDMIM0_TDMLWS0_TDMPLB0_TDMS0_TIN1_THn1_THA0_THB0_THC0_THD0_THE0_THG0_THMXSA0_THMXSB0_THM0_THWS0_TPSSK_TLDS1_TLDSMn1_ULSGRO1_USL1_USLMX0_UDFMAC0_UIOFGRO0_UPLRP0_USFGRO0_USI0_VSn1_VWA1_VWB2_WSGRA0_WSGRB0_WS64_WAH_WG32_8_1_WGMXCCn1_WQS0.kd",
+          "count": 1600,
+          "gpu_us": 10658.329000000009,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "void at::native::elementwise_kernel_manual_unroll<128, 8, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#12}::operator()() const::{lambda(c10::BFloat16)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+          "count": 1920,
+          "gpu_us": 9640.261,
+          "grids": {
+            "[]": 1920
+          }
+        },
+        {
+          "name": "raon_moe_mhc_finish_0.kd",
+          "count": 1536,
+          "gpu_us": 8895.564000000022,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "_ZN5aiter36mla_a8w8_qh32_qseqlen4_gqaratio32_psE.kd",
+          "count": 448,
+          "gpu_us": 8819.688000000013,
+          "grids": {
+            "[]": 448
+          }
+        },
+        {
+          "name": "void at::native::elementwise_kernel_manual_unroll<128, 4, at::native::gpu_kernel_impl<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1} const&)::{lambda(int, bool)#1}>(int, at::native::gpu_kernel_impl<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1} const&)::{lambda(int, bool)#1}) [clone .kd]",
+          "count": 1536,
+          "gpu_us": 8416.197000000115,
+          "grids": {
+            "[]": 1536
+          }
+        },
+        {
+          "name": "void vllm::situ_and_mul_kernel<c10::BFloat16>(c10::BFloat16*, c10::BFloat16 const*, int, float, float) [clone .kd]",
+          "count": 1600,
+          "gpu_us": 8315.741999999918,
+          "grids": {
+            "[]": 1600
+          }
+        },
+        {
+          "name": "mix_0.kd",
+          "count": 1664,
+          "gpu_us": 8260.038999999873,
+          "grids": {
+            "[]": 1664
+          }
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul> >(int, at::native::bfloat16tofloat32_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul>) [clone .kd]",
+          "count": 1664,
+          "gpu_us": 8094.416000000184,
+          "grids": {
+            "[]": 1600,
+            "[8120, 1, 1]": 59,
+            "[7105, 1, 1]": 2,
+            "[6090, 1, 1]": 3
+          }
+        }
+      ],
+      "profile_steps": [],
+      "sample_gpu_event": {
+        "ph": "X",
+        "cat": "kernel",
+        "name": "__amd_rocclr_copyBuffer.kd",
+        "pid": 3,
+        "tid": 1,
+        "ts": 5002397253149.519,
+        "dur": 3.039,
+        "args": {
+          "External id": 39,
+          "device": 3,
+          "stream": 1,
+          "hsa_queue": 4,
+          "correlation": 14,
+          "kind": "Dispatch Kernel",
+          "bytes": 8,
+          "memory bandwidth (GB/s)": 0.002631578947368421
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Summed kernel durations can overlap streams; percentages are not wall time or GPU utilization.",
+    "N is inferred only for known skinny GEMM grids. K/target-vs-draft ownership is left ambiguous where not recorded.",
+    "Gaps inside the GPU event span can include host scheduling and dependencies; they are not attributed to a CPU cause here.",
+    "These separate traces were collected after all official speed windows and do not replace their TPS."
+  ]
+}

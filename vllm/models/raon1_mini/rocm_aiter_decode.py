@@ -86,6 +86,27 @@ def try_forward(layer, m, inputs, out):
     tokens = m.num_actual_tokens
     if batch < 1 or tokens < 1:
         return False
+    if spec and getattr(layer, "rocm_decode_backend", "") in (
+        "hip_rda", "hip_rda_ar", "hip_rda_fused_sd", "hip_rda_vsplit_sd", "hip_rda_auto_sd"
+    ):
+        # At a context/output bound one request can have fewer than eight
+        # query tokens, while the graph's projection buffers stay padded.
+        # Native SD's token count is derived from x, so every operand must
+        # describe the same packed live prefix as its output and cu offsets.
+        h, d = layer.local_num_heads, layer.head_dim
+        if x.shape[0] < tokens or out.numel() < tokens * h * d:
+            raise ValueError("Native SD logical rows exceed the input/output capacity")
+        if x.shape[0] > tokens:
+            x = x[:tokens]
+            gate = gate[:, :tokens]
+            out_gate = out_gate[:tokens]
+            beta = beta[:, :tokens]
+            ratio = ratio[:, :tokens]
+            inputs = (x, gate, out_gate, beta, ratio)
+        # Padding is never a live checkpoint update. Initialize it explicitly
+        # rather than letting a captured padded projection observe garbage.
+        if out.numel() > tokens * h * d:
+            out.view(-1, h * d)[tokens:].zero_()
     if not torch.version.hip or not x.is_cuda:
         raise RuntimeError("AITER-derived RDA decode requires ROCm")
     arch = torch.cuda.get_device_properties(x.device).gcnArchName.split(":")[0]

@@ -1,0 +1,45 @@
+{
+  "cases": [
+    {
+      "rank": 0,
+      "exit_code": 0,
+      "result": "/work/layout-results/gpu-0/result.json"
+    },
+    {
+      "rank": 1,
+      "exit_code": 0,
+      "result": "/work/layout-results/gpu-1/result.json"
+    },
+    {
+      "rank": 2,
+      "exit_code": 0,
+      "result": "/work/layout-results/gpu-2/result.json"
+    },
+    {
+      "rank": 3,
+      "exit_code": 0,
+      "result": "/work/layout-results/gpu-3/result.json"
+    },
+    {
+      "rank": 4,
+      "exit_code": 0,
+      "result": "/work/layout-results/gpu-4/result.json"
+    },
+    {
+      "rank": 5,
+      "exit_code": 0,
+      "result": "/work/layout-results/gpu-5/result.json"
+    },
+    {
+      "rank": 6,
+      "exit_code": -15,
+      "result": "/work/layout-results/gpu-6/result.json"
+    },
+    {
+      "rank": 7,
+      "exit_code": 0,
+      "result": "/work/layout-results/gpu-7/result.json"
+    }
+  ],
+  "completed_parent_operator_windows_reused": true
+}

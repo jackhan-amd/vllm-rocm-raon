@@ -1,0 +1,419 @@
+{
+  "dataset_revision": "Pinned individually in inputs/manifest.json",
+  "harness_source": "https://github.com/z-lab/dflash/blob/main/dflash/benchmark.py",
+  "benchmark_counts": {
+    "mt-bench": 80,
+    "mbpp": 128,
+    "gsm8k": 128,
+    "humaneval": 128,
+    "math500": 128
+  },
+  "top_p": 0.95,
+  "draft": "KRAFTON/Raon-1-mini-dflash2",
+  "truncate_history_thinking": false,
+  "target": "KRAFTON/Raon-1-mini",
+  "correction": "User reaffirmed public Raon-mini-preview performance workloads; synthetic fixed ISL grid excluded from public comparison",
+  "warmup": "Original held-out request warmup plus startup compile-only scalar specialization coverage",
+  "upstream_commit": "07ebd93db9f472af339b644bb70221ad8428328a",
+  "limitations": [
+    "KRAFTON exact sample IDs/harness commit/MT turn protocol not stated; public DFlash OpenAI protocol used with pinned revisions",
+    "Current target is final Raon-mini as previously agreed; public reference is preview on B300 and vLLM0.28, not a strict identical checkpoint/runtime comparison"
+  ],
+  "concurrency_per_gpu": [
+    1,
+    8,
+    32
+  ],
+  "status": "PREPARED",
+  "draft_revision": "74f2835bd683458f6124f48784b078b06770d824",
+  "target_revision": "3f85cd63ea420100a84378f72ae162af86a441fd",
+  "speculative_tokens": 7,
+  "draft_sampling": "probabilistic",
+  "precision": "Original MXFP8 model; BF16 RDA projection delta rounding and FP32 ratio preserved",
+  "ignore_eos": false,
+  "prefix_policy": "Keep public prompts unchanged; record actual cache hit. Do not apply synthetic 50-percent priming or fixed ISL padding",
+  "public_source": "https://huggingface.co/KRAFTON/Raon-1-mini-preview#speculative-decoding",
+  "parallelism": "One GPU per condition, TP1/DP1, no expert parallelism. Independent conditions distributed over available replicas; no 8x prompt multiplication",
+  "prefix_caching": true,
+  "top_k": 20,
+  "synthetic_history": {
+    "sd_on_job": "89728 failed APC preflight before synthetic measurement, cleanup exit0; native padded-state gold240+36 PASS",
+    "sd_off_job": "89715 complete, retained separately"
+  },
+  "temperature": 1,
+  "thinking": true,
+  "max_new_tokens": 4096,
+  "schema_version": "1.0",
+  "method": "dflash",
+  "repetitions": 1,
+  "source": "Same13-file RDA fusion candidate as90043/90045; process-local opt-in native layout extension only for speed phase",
+  "image_digest": "sha256:c41349b2bca3335d3a7eacceb6e4d9d21c4fa4602f7d24e454a8ccb9f739c281",
+  "immutable_input_manifest": {
+    "scope": "Current Raon mini MXFP8 compared with preview published workload; exact KRAFTON harness/sample identity unconfirmed.",
+    "upstream": {
+      "url": "https://github.com/z-lab/dflash",
+      "commit": "07ebd93db9f472af339b644bb70221ad8428328a",
+      "benchmark_sha256": "49f6b8d35d65e0eaa1f71123d5ab86eb6fe388dd131d9bcd8dfd41a5ab8d9586",
+      "license": "MIT, Copyright (c) 2026 Z Lab",
+      "license_sha256": "08a6dda4c9d088087c437a9e47233b643228f64097afa326b3beb9b5a2266584",
+      "tracked_changes": ""
+    },
+    "environment": {
+      "datasets": "5.2.0",
+      "huggingface-hub": "2.5.0",
+      "pyarrow": "26.0.1",
+      "requests": "2.34.2",
+      "tqdm": "4.70.1"
+    },
+    "selection": "Unmodified upstream DATASETS formatters and _select_dataset (Random(42), repeat=True); no inference RNG seed supplied by upstream OpenAI backend.",
+    "protocol": {
+      "concurrency": [
+        1,
+        8,
+        32
+      ],
+      "max_new_tokens": 4096,
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 20,
+      "thinking": true,
+      "mt_bench": "OpenAI backend uses first turn only",
+      "measurement": "N total requests per single-GPU condition, not N per replica multiplied by eight",
+      "warmup": "First C entries in warmup JSONL, cap min(64,max_new_tokens), outside measurement",
+      "prompt_hash": "UTF-8 user content SHA256; messages_sha256 hashes canonical JSON sort_keys=True,separators=(',',':'),ensure_ascii=False"
+    },
+    "datasets": {
+      "gsm8k": {
+        "repo_id": "openai/gsm8k",
+        "revision": "740312add88f781978c0658806c59bc2815b9866",
+        "config": "main",
+        "split": "test",
+        "rows": 1319,
+        "columns": [
+          "question",
+          "answer"
+        ],
+        "fingerprint": "59ec1b7f9357c7a2",
+        "warmup_measurement_overlap": 0,
+        "files": {
+          "formatted": {
+            "path": "gsm8k-formatted.json",
+            "count": 1319,
+            "sha256": "26a9b02f166edbf7d9356f25eae36d109f23acff6184c2e7ee8d4ca8d60fc992"
+          },
+          "measurement": {
+            "path": "gsm8k-measurement.jsonl",
+            "count": 128,
+            "sha256": "8040109e0ab825dfad89dfd322dc0078ddb6c4dd997a582b4ca02da8cde6ad50"
+          },
+          "warmup": {
+            "path": "gsm8k-warmup.jsonl",
+            "count": 32,
+            "sha256": "de478309441a67aa42680ae2d4709aca70d25d70006ac9e53fa310b6fedf6588"
+          }
+        }
+      },
+      "math500": {
+        "repo_id": "HuggingFaceH4/MATH-500",
+        "revision": "6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be",
+        "config": "default",
+        "split": "test",
+        "rows": 500,
+        "columns": [
+          "problem",
+          "solution",
+          "answer",
+          "subject",
+          "level",
+          "unique_id"
+        ],
+        "fingerprint": "f3124375297911ba",
+        "warmup_measurement_overlap": 0,
+        "files": {
+          "formatted": {
+            "path": "math500-formatted.json",
+            "count": 500,
+            "sha256": "59c34666ddb0645238fa6ef982b2ed60deb937b09c6b4a77ad95d2b29c30ea3a"
+          },
+          "measurement": {
+            "path": "math500-measurement.jsonl",
+            "count": 128,
+            "sha256": "c82ea343ea3040f03ba9763123384467760c7eace35058b87a512e9f5b0bd0cb"
+          },
+          "warmup": {
+            "path": "math500-warmup.jsonl",
+            "count": 32,
+            "sha256": "f42dd4987ef847f656774a99520837a752412fc5dbf8ee35e439986dd3851391"
+          }
+        }
+      },
+      "humaneval": {
+        "repo_id": "openai/openai_humaneval",
+        "revision": "7dce6050a7d6d172f3cc5c32aa97f52fa1a2e544",
+        "config": "openai_humaneval",
+        "split": "test",
+        "rows": 164,
+        "columns": [
+          "task_id",
+          "prompt",
+          "canonical_solution",
+          "test",
+          "entry_point"
+        ],
+        "fingerprint": "2e5aa734ef24e324",
+        "warmup_measurement_overlap": 0,
+        "files": {
+          "formatted": {
+            "path": "humaneval-formatted.json",
+            "count": 164,
+            "sha256": "f3efe860e22e57579fd227ab27593dcf4e217063e1fc2953d168c292480e12f3"
+          },
+          "measurement": {
+            "path": "humaneval-measurement.jsonl",
+            "count": 128,
+            "sha256": "c54e7a1cf2994899c3fcdb18e9fb59288a848805f835a03b8bc7ff2892dd9734"
+          },
+          "warmup": {
+            "path": "humaneval-warmup.jsonl",
+            "count": 32,
+            "sha256": "994bc275a397f40e18afc365b16d9fe2a393602e21bf32d28c770ffc9370440a"
+          }
+        }
+      },
+      "mbpp": {
+        "repo_id": "google-research-datasets/mbpp",
+        "revision": "4bb6404fdc6cacfda99d4ac4205087b89d32030c",
+        "config": "sanitized",
+        "split": "test",
+        "rows": 257,
+        "columns": [
+          "source_file",
+          "task_id",
+          "prompt",
+          "code",
+          "test_imports",
+          "test_list"
+        ],
+        "fingerprint": "2a3e2ac261e947c2",
+        "warmup_measurement_overlap": 0,
+        "files": {
+          "formatted": {
+            "path": "mbpp-formatted.json",
+            "count": 257,
+            "sha256": "28c49afde15e6e068880c8d93da79bcb552a3662df231a359ea1417c869132a8"
+          },
+          "measurement": {
+            "path": "mbpp-measurement.jsonl",
+            "count": 128,
+            "sha256": "40a1df711c2fbad60f79182576fd86a46b7fd363799ca51c0e07daf257ed33b9"
+          },
+          "warmup": {
+            "path": "mbpp-warmup.jsonl",
+            "count": 32,
+            "sha256": "9b5496e3b43bc1d581d2ad5a53c90e7de44a7f005698b8f62ce7a40d7e22054c"
+          }
+        }
+      },
+      "mt-bench": {
+        "repo_id": "HuggingFaceH4/mt_bench_prompts",
+        "revision": "e3a795c5e9a82ee40611c416b8a7786c73198991",
+        "config": "default",
+        "split": "train",
+        "rows": 80,
+        "columns": [
+          "category",
+          "prompt",
+          "reference",
+          "prompt_id"
+        ],
+        "fingerprint": "d12641a72a5060ef",
+        "warmup_measurement_overlap": 32,
+        "files": {
+          "formatted": {
+            "path": "mt-bench-formatted.json",
+            "count": 80,
+            "sha256": "d8c220eb22fb72b7261fe29b30db640d01079808df8e7b6f798bba61d0c65944"
+          },
+          "measurement": {
+            "path": "mt-bench-measurement.jsonl",
+            "count": 80,
+            "sha256": "79306606277c00b1e05a76d0c844cdc9892111094d4c61e6923578135016fae8"
+          },
+          "warmup": {
+            "path": "mt-bench-warmup.jsonl",
+            "count": 32,
+            "sha256": "f53b012863ddf2e249dc802c75206921604f6c389a1b436cb67cdb061a670670"
+          }
+        }
+      }
+    }
+  },
+  "server_settings": {
+    "gpu_memory_utilization": 0.85,
+    "max_model_len": 262144,
+    "max_num_seqs": 128,
+    "mla_prefill": "ROCM_AITER_FA",
+    "dtype": "auto",
+    "max_num_batched_tokens": 16384,
+    "mamba_cache_mode": "align",
+    "compile_mode": 0,
+    "decode": "hip_rda_auto_sd",
+    "cudagraph_mode": "FULL_AND_PIECEWISE",
+    "enable_auto_tool_choice": true,
+    "kv_cache_dtype": "fp8_e4m3",
+    "tool_call_parser": "raon_1",
+    "enable_prefix_caching": true,
+    "kda_prefill": "fused",
+    "reasoning_parser": "raon_1"
+  },
+  "sd": "mixed-by-owned-replica",
+  "frozen_archive_sha256": "e664b57567370dceb3886fcbb4853f7b3f5c3ec4cb7e892932a26b853389b246",
+  "patch_archive_sha256": "3a5543b0ec1a677dd8f1a6331bdb14f506f559f6b17ddec1298474d8b4aebd40",
+  "native_gold_evidence": {
+    "gold_and_graph_cases": 240,
+    "path": "evidence/native-sd-padded-gold.json",
+    "pass": true,
+    "source_job": 89728,
+    "guard_fixtures": 36
+  },
+  "allocation": {
+    "nodes": 1,
+    "memory": "all",
+    "walltime": "02:00:00",
+    "partition": "MI355x",
+    "gpus": 8,
+    "cpus": 128,
+    "max_simultaneous_jobs": 2
+  },
+  "public_assets_sha256": "cccd2cec848d127ab365bac85cbc0a14c9927b4f69f8768eb83db659e2850002",
+  "scripts": {
+    "client.py": "9169b98c75144dbc7db076c40d0f2eb399538bf384b4cd1de38e5bb5c8f435cf",
+    "snapshot-runtime.py": "3100635cdfefab59d4a193c52972a7baa6966ad0e1187751698837f4c3111cec",
+    "coordinator.py": "1d947c55d1db92249e643282402231cf8584b60e837f9527cee87844a044339d",
+    "host.py": "a7ea78e5c2d417be5cf6edbcf007cf67b01346f7e95268b7b702b3dc3ae6282a",
+    "probe-roof.sh": "dd77c9c5a534fb5295d79cb87de4d98e549380bd792fa92643a99fe98a55f966",
+    "api_server.py": "4ef522724c600d604554ff9ec912c12a87482e20a803cfb8edf7d0ad6bca2ee7",
+    "run-roof.sh": "f57918bf00be58b7896d23dc09899b3cab537fd62f3b0cc962401924a64e4bf5",
+    "job.sbatch": "0c3fb601d1b85f6b74b49d0b48b020f03ce306dc99d5bee993b7eb0b711c3436",
+    "install-frozen.py": "8acc417577f990f5a43dcbea9ae4a801f15a68a5c0cdb74dcca4dcea4ca1a342"
+  },
+  "jit_cache_policy": "Reuse same pinned-image/source compiler cache bind-mounted at /work/cache. GPU model/KV state remains process-local. No global timestamp inference; validate own server measured interval for compilation/capture/build-lock waits.",
+  "replicas": 8,
+  "objective": "Current accepted baseline C1/C8/C32 speed and separate low-event-overhead stage budget",
+  "diagnostic_scope": "C1/C8/C32 each plain/event diagnostic; not public TPS, natural EOS; actual geometry retained",
+  "baseline_id": "raon-mxfp8-20261128",
+  "new_runtime_changes": "None in official speed phase; external diagnostic hooks only afterward",
+  "cache_policy": "Reuse validated padded-state shared JIT cache; prefix cache enabled, actual public workload cache behavior recorded",
+  "allowed_max_simultaneous_jobs": 2,
+  "scope": "Reuse4 completed operators and7 live RDA gold fixtures; recover4 merged shapes, explore4 new projections, recover1 TCP rendezvous collision, then8 single new speed cases",
+  "recovery_of": "89974 additional trace only; pre-start TCP port reuse failure, original evidence retained",
+  "public_measurements": 0,
+  "profiler_recovery": "89986 had CPU-only traces; restore previously validated register-library flag0 and require spawned GPU-events probe PASS before model",
+  "candidate_archive_sha256": "164e2fa16bce434b981353d48082ee5875cc4150c041f87c0944db8ab083ab96",
+  "candidate_source_hashes": {
+    "tools/raon_validation/gemm_ownership.py": "c255409515dbf633ac5ca1b7b658afe7938a6ed9a380bec6d85255848e970049",
+    "tools/raon_validation/projection_mhc.py": "eb78ff407ad15b6982183b585566f50fed4075bcb5ec03ddeab47bb5ef7ea4ba",
+    "vllm/models/raon1_mini/kda.py": "404094cce1f54b8d16229ebf9a77e13743a20b86ad77896c303bb2d251fbe1b0",
+    "vllm/models/raon1_mini/mla_attention.py": "82c697caf53960d254d653a25b7a0bb7e7306816b8659f5806f0084453a41b54",
+    "vllm/models/raon1_mini/model.py": "3005481cc1a6b02333d97dc6fb060eac288decca05d620a9eb5eb83d19f97a1b",
+    "vllm/models/raon1_mini/rocm_aiter_decode.py": "0ce9cf52017411d4d7c6fe66e968367be465dc9cc97c48f33c321d993ede4539",
+    "vllm/models/raon1_mini/rocm_mhc_gate.py": "47c694b69c504419b5ba4cd3c985e5b3056d1662446742e09f39178136e21462",
+    "vllm/models/raon1_mini/rocm_mla_split.py": "5e068882c9e4233cdd1c8ddc15304985160aea72dd6443c1799e11be9f117cfd",
+    "vllm/models/raon1_mini/rocm_moe_mhc.py": "5a554edc7b8233f9a28eaca794139fd41f4594eb4d0eaa2af3168be6d54e8ffe",
+    "vllm/models/raon1_mini/rocm_projection_mhc.py": "9e5050da1b8d3b27cb69925401ea83b38017983f821f3ea1621cb0657694588f",
+    "vllm/models/raon1_mini/rocm_projection_mhc_kernel.py": "a5cca077f44f1c458aae3fa8a161f0cc138ccad0cb2bec0fd639fc35ec57cbfb",
+    "vllm/models/raon1_mini/rocm_rda_project_ratio.py": "97136462e5f3254bd488bd471acf106cd7b1a5dbd24d72f0bbacebe0accd2e65",
+    "vllm/models/raon1_mini/rocm_rda_project_ratio_kernel.py": "eea295a19d4df3438d9696f51d90f0ceba90b689386a4b8c29b52146a4f39e65"
+  },
+  "runtime_delta": {
+    "RAON_ROCM_MLA_SPLIT_GRAPH": "1",
+    "RAON_ROCM_ATTN_PROJECT_MHC": "flydsl"
+  },
+  "performance_target": "Each cell >= 90% of user-provided Raon-mini-preview B300 output TPS",
+  "datasets": [
+    "math500",
+    "humaneval",
+    "mbpp",
+    "mt-bench"
+  ],
+  "gsm8k": "Reuse six valid candidate points from job89996 with the archived compute-AST equivalence and exact-layer validation; do not rerun",
+  "protocol_caveat": "Target final Raon-mini; reference preview/B300; same previously reviewed public protocol adaptation",
+  "executor_files": {
+    "baseline.json": "31f73e857d0c901ceadf7b06ee52eba8bcaff7a4caa3f3460ce5b0a87a69f019",
+    "candidate.tar.gz": "164e2fa16bce434b981353d48082ee5875cc4150c041f87c0944db8ab083ab96",
+    "client.py": "9169b98c75144dbc7db076c40d0f2eb399538bf384b4cd1de38e5bb5c8f435cf",
+    "common-env.sh": "3a3da5c01a8b5652394195ade3fcf5c80359e9be6078b3386eed4a193d7d2fc0",
+    "composed-native-driver.py": "fa68b5e35adfe22ff622154709b03528458ce9832750bd3edd3785da4d875277",
+    "current-source-hashes.json": "9bb877fb44c815f43867d2a6171d893b4cda4ca214934687a4add39cf43709b1",
+    "dense-layout-driver.py": "ffe0fcb5b0762b778cd1e7269fa089e541c14566744b04918263836d9bcf80cf",
+    "dense-layout-worker.py": "431b32dbe2daefe58ac4c46561ff1d3aea921fd97bdf792bd260c044ee34719c",
+    "dense_layout_extension.py": "ef8ed08999aa6acd9d07b6cd977af1d55e668a5096fdb159f6bb5a78fb45de69",
+    "geometry_speed_extension.py": "aed17b6bd47cf6c4567e652f65f30c725bf6deb04a71c3e06932340d44874cc7",
+    "host.py": "a37f24b389c45b5b155b5e3f83ad73a843276d7860099a7954d908d35981c548",
+    "install-frozen.py": "8acc417577f990f5a43dcbea9ae4a801f15a68a5c0cdb74dcca4dcea4ca1a342",
+    "integration-entry.py": "1212ea688d9bf2140b982f201f8788a6f533c431f0e5d61eb7e42172fae30916",
+    "integration-owner.py": "b8ced8adad98dc2d1751aba2e024a49ec821398f63c0ce436b0df44c5738969d",
+    "job.sbatch": "3b684a62db1c08d5966a7aac35b9726b7b83d4f689b07d8c553b3f7f3f8cc4bf",
+    "kernel-derivation.json": "2b2006eba07dff9c143721907c735cf8a04b5d04a29ce6e9e83ec2f513457577",
+    "launch": "32a8cf1f68a2c8a52792e264c99ae9f29af87c7189c25b0684c5db2ad8dc345e",
+    "live-rda-gold.py": "62cb42f8ec77bbf4c807f7a8d5bb42da30cc02f5356c188545865f5616cb70b0",
+    "live_rda_extension.py": "7e22e9e4fb9ce2de162aef6738f91ef72380381f2d00282ec0b48cc848dfd540",
+    "moe-mhc-fixture.py": "f11520e47601ba65176bd53764b28360bd3ccbf64ea82eba9f788f466ee5713a",
+    "probe-roof.sh": "faa6ab22f9b698d48da47fa1c02818147a91da884c62609b9cdc0dd8878796c0",
+    "probe_baseline.py": "33bb2d6eab83e29b6c759b9cbbf9975e498ecaae6ed85daee1a3169db4510bf5",
+    "public-rest-driver.py": "2c22b78a57a7abe5f0df447a21e895c5b3c55881f17f889358f3593effe2e06c",
+    "raon_compile_warmup.py": "7aee73ffc3acb10c06f351707b59cf35f6e090994bcfd8a78b96fcaf37235889",
+    "rda-project-ratio-fixture.py": "98f3b8e0bcdbabe45b2acce198d20c1dc1b0543dcca2137c85b99f6989bde5df",
+    "run-roof.sh": "a6c69b39c41bcc689bf51fb1a1da360b5ad01aaef90093694ac798cdea1d8bcd",
+    "runtime_weight_export.py": "ab261074f05e9cdeb00367b54ba01925ca32e6f5082ccead3fed92d88a1f563c",
+    "snapshot-runtime.py": "3100635cdfefab59d4a193c52972a7baa6966ad0e1187751698837f4c3111cec",
+    "verify-current.py": "2f1a703fcb5d04cbcb99fe2db5a6bbbaf7fbc946447458d59de9f8ec4770c8f3"
+  },
+  "warmup_repair": {
+    "reason": "Measured runtime JIT in seven first-attempt cells",
+    "extra_model_forwards": 0,
+    "policy": "Only invalid original cells; preserve originals and all valid cells; one repair attempt per missing cell",
+    "implementation": "Temporary worker compile-only JIT specialization warmup, removed before monitor activation"
+  },
+  "settings": {
+    "dense_geometry": "geometry_speed_extension.py both policy",
+    "moe_geometry": {
+      "stage1_tile_n": 128,
+      "fused_route_prepare": 1,
+      "block_m": 32
+    },
+    "moe_mhc_finish": "flydsl",
+    "no_concurrency_specific_profile": true
+  },
+  "kernel_symbol_change": "Inner native finish renamed raon_moe_mhc_finish for unambiguous profiler attribution; arithmetic unchanged and full gold repeated before timing",
+  "profiler_policy": "Configured but not started during any performance window;8 diagnostic traces only after all30 points terminate",
+  "matched_controls": "Existing same-session and current30-cell measurements retained; no second baseline measurement",
+  "quality_limit": "Full MMLU83.353% certifies the prior source only; this new flag needs separate quality acceptance",
+  "files": {},
+  "new_flag": "RAON_ROCM_RDA_PROJECT_RATIO=flydsl",
+  "default": "legacy",
+  "maximum_actual_rows": 64,
+  "chunk_rows": 32,
+  "notes": [
+    "No arithmetic kernel or checkpoint ownership change in recurrent attention; new fusion is stateless",
+    "Previous M<=8 gold passed; original M32 abort from attempted32-byte FP32 raw-buffer store retained in90042",
+    "FP32 output8 elements now use legal scalar stores; no compiler or AITER source modification"
+  ],
+  "automatic_baseline_promotion": false,
+  "session_deadline_epoch": 1795866978,
+  "no_precision_change": true,
+  "operator_screen": {
+    "relative_rms": 0.01,
+    "relative_peak": 0.02,
+    "min_operator_speedup": 1.08
+  },
+  "gold_capture": "One natural real graph replay, private read-only snapshots. Reference runs only after live server stop.",
+  "layout_effect": "Exact BF16 weight permutation plus native GEMM geometry; cached original BF16 weights remain for prefill",
+  "timing_count": "Each new shape operator once after separate warmup; each new model condition once after separate warmup",
+  "parent_root": "/mnt/hammerspace/jackhan/raon-dense-layout-20261128",
+  "parent_job": "90046",
+  "new_operator_shapes": 8,
+  "no_completed_timing_repeated": true,
+  "port_policy": "Disjoint64-port VLLM_PORT ranges per replica/phase; API ports separate",
+  "gold_source_repair": "Merged runtime weights exported read-only after ordinary load, before graph capture; no new forward or weight transformation"
+}

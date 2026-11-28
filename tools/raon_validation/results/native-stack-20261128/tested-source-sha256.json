@@ -1,0 +1,21 @@
+{
+  "tools/raon_validation/gemm_ownership.py": "c255409515dbf633ac5ca1b7b658afe7938a6ed9a380bec6d85255848e970049",
+  "tools/raon_validation/projection_mhc.py": "eb78ff407ad15b6982183b585566f50fed4075bcb5ec03ddeab47bb5ef7ea4ba",
+  "vllm/models/raon1_mini/kda.py": "404094cce1f54b8d16229ebf9a77e13743a20b86ad77896c303bb2d251fbe1b0",
+  "vllm/models/raon1_mini/mla_attention.py": "82c697caf53960d254d653a25b7a0bb7e7306816b8659f5806f0084453a41b54",
+  "vllm/models/raon1_mini/model.py": "3005481cc1a6b02333d97dc6fb060eac288decca05d620a9eb5eb83d19f97a1b",
+  "vllm/models/raon1_mini/rocm_aiter_decode.py": "0ce9cf52017411d4d7c6fe66e968367be465dc9cc97c48f33c321d993ede4539",
+  "vllm/models/raon1_mini/rocm_mhc_gate.py": "47c694b69c504419b5ba4cd3c985e5b3056d1662446742e09f39178136e21462",
+  "vllm/models/raon1_mini/rocm_mla_split.py": "5e068882c9e4233cdd1c8ddc15304985160aea72dd6443c1799e11be9f117cfd",
+  "vllm/models/raon1_mini/rocm_moe_mhc.py": "5a554edc7b8233f9a28eaca794139fd41f4594eb4d0eaa2af3168be6d54e8ffe",
+  "vllm/models/raon1_mini/rocm_projection_mhc.py": "9e5050da1b8d3b27cb69925401ea83b38017983f821f3ea1621cb0657694588f",
+  "vllm/models/raon1_mini/rocm_projection_mhc_kernel.py": "a5cca077f44f1c458aae3fa8a161f0cc138ccad0cb2bec0fd639fc35ec57cbfb",
+  "vllm/models/raon1_mini/rocm_rda_project_ratio.py": "97136462e5f3254bd488bd471acf106cd7b1a5dbd24d72f0bbacebe0accd2e65",
+  "vllm/models/raon1_mini/rocm_rda_project_ratio_kernel.py": "eea295a19d4df3438d9696f51d90f0ceba90b689386a4b8c29b52146a4f39e65",
+  "vllm/models/raon1_mini/rocm_hip_rda_sd.hip": "63e06ff7313b877f6e7bc233c2f54d70ca44e0db9234196a9f5c0c98c1a688a0",
+  "vllm/models/raon1_mini/rocm_hip_rda_sd_fused.hip": "98d94cf1e4f366cf22d9cc41eebb654d7b73c29049dc824da2ae3fe8bc524f9f",
+  "vllm/models/raon1_mini/rocm_hip_rda_sd_vsplit.hip": "52ea752f3626028bd9406d199cd6add087f39c66e5aa20d3805c896adbd02671",
+  "tools/raon_validation/native_sd_padded_state.py": "1ac633da19070b544d3f9b97d4d6d3df99b82d29bb406f14b1be9fa7a2195fd1",
+  "tools/raon_validation/native_stack_20261128/geometry_speed_extension.py": "aed17b6bd47cf6c4567e652f65f30c725bf6deb04a71c3e06932340d44874cc7",
+  "tools/raon_validation/native_stack_20261128/raon_compile_warmup.py": "7aee73ffc3acb10c06f351707b59cf35f6e090994bcfd8a78b96fcaf37235889"
+}
